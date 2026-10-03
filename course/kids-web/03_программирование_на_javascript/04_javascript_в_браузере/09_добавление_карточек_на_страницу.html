@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Добавление карточек на страницу</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Добавление карточек на страницу</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/cf1a9ba6-4f3e-46ea-bf82-be9a986ecf77/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/cf1a9ba6-4f3e-46ea-bf82-be9a986ecf77/</a></p>
+  <h1>Добавление карточек на страницу</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_573_1702641678.png)</p>
+<p>В предыдущем уроке мы вышли на финишную прямую проекта — научились показывать заранее записанные карточки героев на сайте с помощью JavaScript. Это очень круто!</p>
+<p>Но чтобы сайт был ещё лучше, нужно предусмотреть возможность добавлять новые карточки на страницу с помощью текстовых полей.</p>
+<p>Чтобы это было возможно, тебе предстоит:</p>
+<p>- ознакомиться с элементами для ввода данных — `&lt;input&gt;` - узнать об элементе `&lt;button&gt;` — кнопке (на неё мы поставим обработчик события, который будет добавлять значение полей ввода на страницу при нажатии)</p>
+<p>`&lt;input&gt;` — тег для создания интерактивных элементов на странице. У него достаточно много типов: от полей ввода текста до чекбокса, от даты до выбора файла. Но сейчас для проекта нам понадобится именно текстовый `input`. Однако, если очень не терпится, вот тебе ссылка на [Доку](https://doka.guide/html/input/){target=&quot;_blank&quot;}, где ты можешь глянуть, какие ещё бывают `input`-элементы.</p>
+<p>Текстовое поле ввода в HTML создаётся вот так:</p>
+<pre><code>&lt;!-- Обрати внимание, что тегу input не нужен закрывающий тег &lt;/input&gt; --&gt;
+&lt;input type=&quot;text&quot; /&gt;</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/Screenshot_2023-12-11_at_09.42.51_1702641753.png) *Элемент инпут*</p>
+<p>В случае с нашим проектом нам понадобятся два текстовых поля: в одном мы будем вводить имя персонажа, в другом — его класс. Сейчас у тебя должна получиться такая вёрстка:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;КарП&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/Screenshot_2023-12-11_at_09.48.21_1702655562.png)</p>
+<p>Ответ прост: нам нужно найти элементы с помощью `document.querySelector()` или `document.getElementById()` и достать из них значения. Вот как это будет выглядеть:</p>
+<pre><code>// Находим поле ввода
+let nameInput = document.getElementById(&quot;heroName&quot;);
+// Значение поля ввода хранится в value — и его можно достать таким образом:
+console.log(nameInput.value);</code></pre>
+<p>Этих знаний достаточно, чтобы приступить к написанию функции `addHero`, которая будет добавлять героя на страницу.</p>
+<p>Сейчас опишем её пошагово.</p>
+<h3>Шаг 1. Ищем поля ввода</h3>
+<p>Здесь всё просто: мы находим нужные нам элементы на странице и сохраняем их в переменные.</p>
+<pre><code>function addHero() {
+	/* Ищем поля ввода */
+	let nameInput = document.getElementById(&quot;heroName&quot;);
+  let classInput = document.getElementById(&quot;heroClass&quot;);
+}</code></pre>
+<h3>Шаг 2. Дополняем массивы новыми данными из полей ввода</h3>
+<p>Теперь нам нужно обновить массив с данными о героях. Новое имя персонажа и его клаcс объединим в массив `newHero` и положим его в общий массив героев `heroes`. Для этого воспользуемся функцией для добавления элемента в массив — `push`. Чтобы получить значение полей ввода, нам нужно достать его из `value` (то есть значение поля `nameInput` можно достать так: `nameInput.value`).</p>
+<pre><code>function addHero() {
+	// Ищем поля ввода
+	let nameInput = document.getElementById(&quot;heroName&quot;);
+  let classInput = document.getElementById(&quot;heroClass&quot;);
+	
+	// Создаем массив с новым персонажем 
+	let newHero = [nameInput.value, classInput.value];
+	
+	// Кидаем нового персонажа в массив с героями на нашем сайте
+	heroes.push(newHero);
+}</code></pre>
+<p>Будь внимателен!🚨 Тут мы рассчитываем, что пользователь введёт какие-то данные в инпуты. А если пользователь нечаянно нажмет кнопку «Добавить героя», но не введёт данные? Возникнет проблема, для решения которой ты можешь использовать условия `if... else`. Напиши код, который будет проверять, что пользователь ввёл не пустое значение, и только потом выполнять остальные операции.</p>
+<h3>Шаг 3. Обновляем список на странице</h3>
+<p>Итак, чтобы отобразить обновлённые данные, надо вызвать подготовленную в прошлом уроке функцию `displayHeroes()`</p>
+<pre><code>function addHero() {
+	/* Ищем поля ввода */
+	let nameInput = document.getElementById(&quot;heroName&quot;);
+  let classInput = document.getElementById(&quot;heroClass&quot;);
+
+	// Создаем массив с новым персонажем
+	let newHero = [nameInput.value, classInput.value];
+	
+	// Кидаем нового персонажа в массив с героями на нашем сайте
+	heroes.push(newHero);
+	
+	// Используем функцию, которую мы подготовили в прошлом уроке, 
+	// чтобы обновить список героев на странице 
+	displayHeroes();
+}</code></pre>
+<h3>Шаг 4. Очищаем поля ввода после добавления героя — и функция готова!</h3>
+<pre><code>function addHero() {
+	/* Ищем поля ввода */
+	let nameInput = document.getElementById(&quot;heroName&quot;);
+  let classInput = document.getElementById(&quot;heroClass&quot;);
+
+	// Создаём массив с новым персонажем
+	let newHero = [nameInput.value, classInput.value];
+	
+	// Кидаем нового персонажа в массив с героями на нашем сайте
+	heroes.push(newHero);
+	
+	// Используем функцию, которую мы подготовили в прошлом уроке, 
+	// чтобы обновить список героев на странице 
+	displayHeroes();
+
+	// Очищаем поля ввода, чтобы пользователю было удобнее 
+	// сразу иметь возможность вводить данные нового персонажа 
+	nameInput.value = &quot;&quot;;
+	classInput.value = &quot;&quot;;
+}</code></pre>
+<p>Теперь проект практически готов. Но нам нужно сделать так, чтобы функция `addHero` вызывалась нажатием на кнопку. Поэтому сейчас мы поговорим о `&lt;button&gt;` — элементе, нужном для того, чтобы создать кнопку.</p>
+<p>Добавим кнопку в нашу вёрстку:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;КарП&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+    &lt;button id=&quot;addButton&quot;&gt;Добавить героя&lt;/button&gt;
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>На эту кнопку мы добавим обработчик события, который будет вызывать функцию `addHero`, чтобы добавлять героя и класс на страницу. Если подзабылось, что такое обработчики события, перечитай уроки предыдущей недели.</p>
+<pre><code>document.getElementById(&quot;addButton&quot;).addEventListener(&quot;click&quot;, addHero);</code></pre>
+<p>Теперь при нажатии на кнопку будет запускаться функция `addHero` — и, соответственно, персонаж будет добавляться на страницу.</p>
+<p>Проект готов, ещё разок чекай всё в своём редакторе кода и переходи к следующему уроку, чтобы сдать код на проверку наставнику.</p>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Свайпнем Pindie</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Свайпнем Pindie</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/400cce86-70c5-4448-b47d-5bba20048e1c/lessons/9b25f954-c5af-4547-b359-1151d74835e5/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/400cce86-70c5-4448-b47d-5bba20048e1c/lessons/9b25f954-c5af-4547-b359-1151d74835e5/</a></p>
+  <h1>Свайпнем Pindie</h1>
+<p>Всё так! Красивые с точки зрения дизайна элементы страницы должны быть просты в использовании и интерактивны, чтобы привлекать внимание и побуждать пользователя к взаимодействию. Чрезмерное улучшение и попытка совместить несовместимое не приведут ни к чему хорошему. Разве что к визуальному шуму.</p>
+<p>Для оптимизации интерфейса и более интерактивного взаимодействия с пользователем мы добавим динамики в списки игр. Научим тебя использовать крутой слайдер, чтобы список игр перелистывался на мобильных устройствах и анимированно прокручивался на компьютерах 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/demo.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Такой слайдер можно реализовать самостоятельно, но это задача непростая. Самая сложная часть — предусмотреть все особенности различных устройств и браузеров пользователя. Сделать красивый, стабильный и оптимальный слайдер на все случаи жизни — задача не на один день. Но, как говорится, зачем придумывать свой «велосипед», когда существуют крутые готовые решения. Вот популярное и универсальное решение для слайдеров — `Swiper.js`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Untitled_Artwork.mp4}</p>
+<h2>Поговорим о Swiper</h2>
+<p>Чтобы ознакомиться с библиотекой, залетай на [сайт](https://swiperjs.com){target=&quot;_blank&quot;} проекта. Там же для юзеров собраны примеры применения самых популярных слайдеров 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1581_1710156364.png)</p>
+<p>Библиотекой предусмотрена гибкая настройка типов анимаций и способов взаимодействия с интерфейсом слайдера.</p>
+<p>**Swiper** — универсальное решение для любых платформ. Его можно использовать в веб-приложениях, написанных при помощи разных библиотек. Под каждую из них есть своя версия свайпера. Но в то же время существует классическая JavaScript-версия, которую можно встроить вообще в любой клиентский JS-код 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1582_1710156376.png)</p>
+<p>Чтобы установить и использовать библиотеку Swiper в своём проекте, жми на раздел **Docs**, где содержится вся-вся инфа👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1583_1710156388.png)</p>
+<p>В зависимости от использованных технологий инструкция может отличаться. К сожалению, на момент разработки проекта Pindie, Swiper для React-компонентов скорее всего перестанет поддерживаться в следующих обновлениях и будет удален. Мы с тобой будем использовать **классическое решение** на JavaScript, оно самое универсальное и поможет разобраться в этапах добавления сторонней библиотеки.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/get_started.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Разработчики постарались сделать работу со Swiper максимально простой, чтобы добавление и использование библиотеки не вызывало трудностей. Но перед тем, как её подключать, разберёмся, где и как будем использовать слайдеры в Pindie.</p>
+<h2>Адаптируем проект</h2>
+<p>Сейчас в проекте есть компонент `CardsList`, он объединяет информацию об отображаемой коллекции игр и список карточек с ними. Разделим эту логику на отдельные компоненты:</p>
+<p>- Компонент `CardsSlider` при помощи библиотеки Swiper будет отображать список карточек с анимацией их перелистывания. - Компонент `CardsList` будет отображать статичный список карточек, как это было раньше. - Отдельный компонент `CardsListSection` будет управлять отображением разных списков карточек. Используя переменную `type`, будем отображать слайдеры (компонент `CardsSlider`) для главной страницы Pindie — для этого передадим пропс `type=&quot;slider&quot;`. Для страниц с играми, отсортированными по жанрам, будем использовать статичные списки игр (компонент `CardsList`).</p>
+<p>Папку в проекте `app/components/CardsList` переименуй в `CardsListSection`, то же самое сделай с файлом `css`</p>
+<p>Создай одноимённый файл с компонентом `CardsListSection`, в котором будешь использовать стили для секции из файла `CardsListSection.module.css`, и опиши только информацию о секции. Используя условное отображение, тернарным оператором проверяется значение `props.type` и отображается компонент `CardsSlider`, если `props.type === &#x27;slider&#x27;`, в противном случае — компонент `CardsList` 👇🏻</p>
+<pre><code>// Файл CardsListSection.jsx
+
+import Styles from &quot;./CardsListSection.module.css&quot;;
+import { CardsList } from &quot;./CardsList&quot;;
+import { CardsSlider } from &quot;./CardsSlider&quot;;
+
+export const CardsListSection = (props) =&gt; {
+  return (
+    &lt;section className={Styles[&quot;list-section&quot;]}&gt;
+      &lt;h2 className={Styles[&quot;list-section__title&quot;]} id={props.id}&gt;
+        {props.title}
+      &lt;/h2&gt;
+      {props.type === &#x27;slider&#x27; ? &lt;CardsSlider data={props.data} /&gt; : &lt;CardsList data={props.data} /&gt;}
+    &lt;/section&gt;
+  );
+};</code></pre>
+<p>В файле `CardsList.jsx` используй стили из `CardsListSection.module.css`, а компонент `CardsList` будет возвращать статичный список карточек с играми 👇🏻</p>
+<pre><code>// Файл CardsList.jsx 
+
+import Link from &quot;next/link&quot;;
+import { Card } from &quot;../Card/Card&quot;;
+import Styles from &quot;./CardsListSection.module.css&quot;;
+
+export const CardsList = (props) =&gt; {
+  return (
+    &lt;ul className={Styles[&quot;cards-list&quot;]}&gt;
+      {props.data.map((item) =&gt; {
+        return (
+          &lt;li className={Styles[&quot;cards-list__item&quot;]} key={item.id}&gt;
+            &lt;Link href={`/games/${item.id}`} className={Styles[&quot;card-list__link&quot;]}&gt;
+              &lt;Card
+                {...item}
+              /&gt;
+            &lt;/Link&gt;
+          &lt;/li&gt;
+        );
+      })}
+    &lt;/ul&gt;
+  );
+};</code></pre>
+<p>В папках с отдельными страницами по жанрам игр (`new`, `pixel-games`, `popular`, `runners`, `shooters`, `tds`) замени использование компонента `CardsList` на новый компонент `CardsListSection`👇🏻</p>
+<pre><code>// Компонент New в файле app/new/page.js
+import { endpoints } from &quot;@/app/api/config&quot;;
+import { useGetDataByCategory } from &quot;@/app/api/api-hooks&quot;;
+import { CardsList } from &quot;../components/CardsList/CardsList&quot;; // удалить
+import { CardsListSection } from &quot;../components/CardsListSection/CardsListSection&quot;; // добавить
+import { Preloader } from &quot;@/app/components/Preloader/Preloader&quot;;
+
+export default function New() {
+  const newGames = useGetDataByCategory(endpoints.games, &quot;new&quot;);
+  return (
+    &lt;main className=&quot;main-inner&quot;&gt;
+	    {/* Используем CardsListSection вместо CardsList */}
+      {newGames ? &lt;CardsListSection id=&quot;new&quot; title=&quot;Новые&quot; data={newGames} /&gt; : &lt;Preloader /&gt;}
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>Подготовка проекта завершена. Осталось установить библиотеку Swiper и описать компонент слайдера с играми `CardsSlider`</p>
+<h2>Используем Swiper в проекте</h2>
+<p>На сайте Swiper, в разделе **Swiper Demos,** можно выбрать подходящий вариант слайдера. Для Pindie сделаем тип анимации `Autoplay` для компьютеров👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1584_1710156507.png)</p>
+<p>А для мобильных гаджетов — тип `Pagination fraction` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1585_1710156518.png)</p>
+<p>Каждая библиотека содержит собственную инструкцию по установке и API для взаимодействия с инструментами. В Swiper это сделано максимально просто. Зайди в раздел **Getting Started** и выполни инструкцию по установке 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1586_1710156529.png)</p>
+<p>В терминале редактора кода введи команду `npm install swiper`</p>
+<p>После установки библиотеки создай компонент слайдера: файл `CardsSlider.jsx` в папке `CardsListSection` по адресу в проекте `app/components/CardsListSection`. Это будет клиентский компонент, который будет отображать список карточек, как и компонент `CardsList`, только при этом он может использовать дополнительные возможности из библиотеки Swiper.</p>
+<h3>**Опишем компонент `CardsSlider`**</h3>
+<h3>Шаг 1. Импорты</h3>
+<p>Для корректной работы слайдера нужно:</p>
+<p>- Импортировать основной модуль `Swiper` из одноимённой библиотеки `import Swiper from &#x27;swiper&#x27;` - Добавить CSS-стили для управления элементами слайдера и их стилизации `import &#x27;swiper/css&#x27;` - Для слайдеров `Autoplay` и  `Pagination fraction` нужно отдельно импортировать соответствующие модули: `import { Autoplay, Pagination } from &quot;swiper/modules&quot;` (так как по умолчанию Swiper экспортирует только базовую версию без дополнительных модулей, таких как навигация, нумерация страниц и т. п.). - Для постраничной нумерации пригодятся дополнительные CSS-классы, импортируй их, как это описано в инструкции по установке библиотеки **Getting Started With Swiper**: `import &#x27;swiper/css/pagination&#x27;`</p>
+<pre><code>import Swiper from &quot;swiper&quot;;
+import { Autoplay, Pagination } from &quot;swiper/modules&quot;;
+import &quot;swiper/css&quot;;
+import &quot;swiper/css/pagination&quot;;</code></pre>
+<h3>Шаг 2. Из списка в слайдеры</h3>
+<p>Теперь, как в разделе **Add Swiper HTML Layout,** добавим ключевые классы для превращения списка карточек в слайдер.</p>
+<p>Для этого добавь файл `CardsSlider.module.css` в папку `app/components/CardsListSection` со своими CSS-стилями для правильного позиционирования и отображения слайдера в проекте Pindie.</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📩 Стили для `CardsSlider` можешь скачать из [GitHub](https://github.com/Yandex-Practicum/pindie-prebuild-components/blob/main/CardsListSection/CardsSlider.module.css){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>В компоненте `CardsSlider` пометь основные элементы классами `swiper...` для работы библиотеки Swiper:</p>
+<p>- Фрагмент со слайдером `className={``swiper ${Styles[&quot;slider&quot;]}``}` - Выдели список карточек внутри слайдера через классы: `className={``swiper-wrapper ${Styles[&quot;slider-wrapper&quot;]}``}` - Укажи для каждого элемента списка класс: `className={``swiper-slide ${Styles[&quot;slide&quot;]}``}` - Добавь дополнительный элемент `div` с классом `className={``swiper-pagination ${Styles[&quot;pagination&quot;]}``}` для нумерации слайдов на мобильных устройствах.</p>
+<p>Чекай 👇🏻</p>
+<pre><code>export const CardsSlider = (props) =&gt; {
+  return (
+    &lt;&gt;
+			// Slider main container / Главный контейнер слайдера
+      &lt;div className={`swiper ${Styles[&quot;slider&quot;]}`}&gt;
+				// Additional required wrapper / Дополнительная обёртка для списка карточек 
+        &lt;ul className={`swiper-wrapper ${Styles[&quot;slider-wrapper&quot;]}`}&gt;
+          {props.data.map((item, i) =&gt; {
+            return (
+							// Slides / Слайды
+              &lt;li className={`swiper-slide ${Styles[&quot;slide&quot;]}`} key={i}&gt;
+                &lt;Link href={`/games/${item.id}`}&gt;
+                  &lt;Card {...item} /&gt;
+                &lt;/Link&gt;
+              &lt;/li&gt;
+            );
+          })}
+        &lt;/ul&gt;
+				// If we need pagination / Класс для постраничной нумерации
+        &lt;div className={`swiper-pagination ${Styles[&quot;pagination&quot;]}`}&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};</code></pre>
+<p>Благодаря этим классам код библиотеки Swiper сможет определить, как и какие элементы должны быть анимированы.</p>
+<h3>Шаг 3. Запуск</h3>
+<p>Чтобы настроить и запустить слайдер, достаточно вызвать экземпляр класса с набором опций `new Swiper(&quot;.swiper&quot;, options)`</p>
+<p>О том, какие опции тебе пригодятся, расскажет раздел сайта **Swiper Core/API** 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1587_1710156844.png)</p>
+<p>Ранее мы решили, что на разных разрешениях экрана слайдер должен отличаться. В этом поможет параметр `breakpoints` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1588_1710156889.png)</p>
+<p>В объекте `options` укажи ключ `breakpoints`, а в его значение положи другой объект, который будет содержать описание для выбранной ширины экрана. Для устройств с шириной экрана от `450px` укажи следующие параметры 👇🏻</p>
+<pre><code>const options = {
+      breakpoints: {
+				// Параметры слайдера для мониторов &gt; 450px
+        450: {
+          loop: true, // Установи бесконечное переключение слайдов
+          spaceBetween: 20, // Установи расстояние между слайдами в 20px
+          slidesPerView: &quot;auto&quot;, // Количество отображаемых слайдов (в зависимости от ширины экрана)
+          allowTouchMove: false, // Запрети пользователю перемещать слайды
+          speed: 6500, // Установи скорость анимации в миллисекундах
+					// Включи автовоспроизведение анимации — модуль Autoplay
+          autoplay: {
+            enabled: true,
+            delay: 0,
+          },
+					// Отключи постраничную навигацию — модуль Pagination
+          pagination: {
+            enabled: false,
+          },
+        },
+      },
+      modules: [Autoplay, Pagination],
+    };</code></pre>
+<p>Для экранов мобильных устройств опиши другие параметры 👇🏻</p>
+<pre><code>    const options = {
+			// Параметры слайдера для экранов мобильных гаджетов шириной &lt; 450px
+      loop: false, // Отключи бесконечное переключение слайдов
+      spaceBetween: 10, // Установи расстояние между слайдами в 10px
+      allowTouchMove: true, // Позволь пользователю перемещать слайды
+      slidesPerView: 1, // Количество отображаемых слайдов за раз = 1
+			// Отключи автовоспроизведение — модуль Autoplay
+      autoplay: {
+        enabled: false,
+      },
+			// Параметры слайдера для мониторов компьютеров
+      pagination: {
+        el: &quot;.swiper-pagination&quot;,
+        type: &quot;fraction&quot;,
+        enabled: true,
+        clickable: true,
+      },
+			// Параметры слайдера для мониторов &gt; 450px
+      breakpoints: {
+        450: {
+          loop: true,
+          spaceBetween: 20,
+          slidesPerView: &quot;auto&quot;,
+          allowTouchMove: false,
+          speed: 6500,
+          autoplay: {
+            enabled: true,
+            delay: 0,
+          },
+          pagination: {
+            enabled: false,
+          },
+        },
+      },
+			// Используй модули для разных типов анимации
+      modules: [Autoplay, Pagination],
+    };</code></pre>
+<p>Осталось запустить слайдер в момент монтирования компонента. Для этого используй хук `useEffect` и вызови экземпляр класса `Swiper` с выбранными параметрами 👇🏻</p>
+<pre><code>useEffect(() =&gt; {
+    const options = {
+      loop: false,
+      spaceBetween: 10,
+      allowTouchMove: true,
+      slidesPerView: 1,
+      autoplay: {
+        enabled: false,
+      },
+      pagination: {
+        el: &quot;.swiper-pagination&quot;,
+        type: &quot;fraction&quot;,
+        enabled: true,
+        clickable: true,
+      },
+      breakpoints: {
+        450: {
+          loop: true,
+          spaceBetween: 20,
+          slidesPerView: &quot;auto&quot;,
+          allowTouchMove: false,
+          speed: 6500,
+          autoplay: {
+            enabled: true,
+            delay: 0,
+          },
+          pagination: {
+            enabled: false,
+          },
+        },
+      },
+      modules: [Autoplay, Pagination],
+    };
+		new Swiper(&quot;.swiper&quot;, options);
+  }, []);</code></pre>
+<pre><code>&quot;use client&quot;;
+
+import Swiper from &quot;swiper&quot;;
+import { Autoplay, Pagination } from &quot;swiper/modules&quot;;
+import &quot;swiper/css&quot;;
+import &quot;swiper/css/pagination&quot;;
+import { useEffect } from &quot;react&quot;;
+import { Card } from &quot;../Card/Card&quot;;
+import Styles from &quot;./CardsSlider.module.css&quot;;
+import Link from &quot;next/link&quot;;
+
+export const CardsSlider = (props) =&gt; {
+  useEffect(() =&gt; {
+    const options = {
+	    // Параметры слайдера для экранов мобильных гаджетов шириной &lt; 450px
+      loop: false,
+      spaceBetween: 10,
+      allowTouchMove: true,
+      slidesPerView: 1,
+      autoplay: {
+        enabled: false,
+      },
+      pagination: {
+        el: &quot;.swiper-pagination&quot;,
+        type: &quot;fraction&quot;,
+        enabled: true,
+        clickable: true,
+      },
+			// Параметры слайдера для мониторов компьютера
+      breakpoints: {
+        450: {
+          loop: true,
+          spaceBetween: 20,
+          slidesPerView: &quot;auto&quot;,
+          allowTouchMove: false,
+          speed: 6500,
+          autoplay: {
+            enabled: true,
+            delay: 0,
+          },
+          pagination: {
+            enabled: false,
+          },
+        },
+      },
+      modules: [Autoplay, Pagination],
+    };
+    new Swiper(&quot;.swiper&quot;, options);
+  }, []);
+  return (
+    &lt;&gt;
+      &lt;div className={`swiper ${Styles[&quot;slider&quot;]}`}&gt;
+        &lt;ul className={`swiper-wrapper ${Styles[&quot;slider-wrapper&quot;]}`}&gt;
+          {props.data.map((item, i) =&gt; {
+            return (
+              &lt;li className={`swiper-slide ${Styles[&quot;slide&quot;]}`} key={i}&gt;
+                &lt;Link href={`/games/${item.id}`}&gt;
+                  &lt;Card {...item} /&gt;
+                &lt;/Link&gt;
+              &lt;/li&gt;
+            );
+          })}
+        &lt;/ul&gt;
+        &lt;div className={`swiper-pagination ${Styles[&quot;pagination&quot;]}`}&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};</code></pre>
+<h2>Подведём итоги</h2>
+<p>Используя сторонние библиотеки, важно помнить, что проект может стать зависимым от других разработчиков. Необходимо постоянно следить за его работой и взаимодействием со сторонними библиотеками, так как существует множество причин для сбоев:</p>
+<p>- При очередном обновлении библиотеки может измениться принцип взаимодействия элементов. - Возможно возникновение конфликтов с кодом других библиотек или версий фреймворка. - Устаревание кодовой базы и отсутствие поддержки библиотек.</p>
+<p>В реальных проектах часто возникают трудности при адаптации стороннего кода. Swiper имеет простой и гибкий интерфейс, однако даже от него порой сложно добиться желаемого результата. Но, несмотря на все минусы, это всё ещё отличное решение. При самостоятельной разработке подобного слайдера пришлось бы потратить гораздо больше времени и ресурсов.</p>
+</body>
+</html>

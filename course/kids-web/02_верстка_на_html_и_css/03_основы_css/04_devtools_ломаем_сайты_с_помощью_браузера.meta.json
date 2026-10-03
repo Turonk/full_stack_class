@@ -1,0 +1,18 @@
+{
+  "lesson_id": "caa447b8-da63-44b3-9a28-5a74177297ec",
+  "title": "DevTools: ломаем сайты с помощью браузера",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/caa447b8-da63-44b3-9a28-5a74177297ec/",
+  "markdown_chars": 7254,
+  "content_hash": "0fff47715f33ba11",
+  "saved_at": "2026-07-29T15:20:11.364314+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/04_devtools_ломаем_сайты_с_помощью_браузера.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/04_devtools_ломаем_сайты_с_помощью_браузера.html"
+  }
+}

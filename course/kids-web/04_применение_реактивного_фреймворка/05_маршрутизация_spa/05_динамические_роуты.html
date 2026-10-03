@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Динамические роуты</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Динамические роуты</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/a3ba9e3d-48ec-4b77-9ff3-4ea5fa2b600f/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/a3ba9e3d-48ec-4b77-9ff3-4ea5fa2b600f/</a></p>
+  <h1>Динамические роуты</h1>
+<p>Простой роутинг — это когда мы вручную прописываем, какой будет ссылка. Но если на сайте тысячи страниц? Точно невозможно справиться с такой задачей, если не научиться автоматически создавать ссылки, подставляя в них параметры.</p>
+<p>В уроке ниже мы научимся этому.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_47_1708348049.jpg)</p>
+<h2>Динамические роуты</h2>
+<p>Посмотрим, что за динамические роуты, на примере [Доки](https://doka.guide/){target=&quot;_blank&quot;}. Перед тобой статья [«Спред-синтаксис…»](https://doka.guide/js/spread/){target=&quot;_blank&quot;}.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1515_2_1708348099.png)</p>
+<p>Её адрес — [https://doka.guide/js/spread/](https://doka.guide/js/spread/){target=&quot;_blank&quot;}.</p>
+<p>Он состоит из трёх частей:</p>
+<p>- адрес сайта [https://doka.guide](https://doka.guide/js/spread/){target=&quot;_blank&quot;} - роут `js` - роут `spread`</p>
+<p>Откроем [другую статью](https://doka.guide/js/ternary-operator/){target=&quot;_blank&quot;} раздела о JavaScript.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1516_1708348150.png)</p>
+<p>Её адрес уже иной — [https://doka.guide/js/ternary-operator/](https://doka.guide/js/ternary-operator/){target=&quot;_blank&quot;}.</p>
+<p>Изменение последней части адреса привело к тому, что и содержание страницы поменялось, хотя разметка идентична. Страницы со статьями в Доке формируются динамически в зависимости от последней части адреса. Таким образом, страница с путём `spread` открывает статью о спред-синтаксисе, а с путём `ternary-operator` — о тернарном операторе.</p>
+<p>Эта изменяющаяся часть адреса хранит параметр, в зависимости от которого подгружается нужная информация. В Next.js-приложениях роуты, которые позволяют добавлять такой параметр, называют **динамическими.**</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1517_1_1708348184.png)</p>
+<h2>Динамические роуты в Pindie</h2>
+<p>Используя динамические роуты, нам предстоит сделать отдельные страницы для каждой игры в проекте Pindie.</p>
+<p>У любой игры, данные о которой мы получаем, есть `id` — мы можем использовать это значение как параметр в динамическом роуте. То есть у каждой игры будет роут вида `/games/[id]`. Так, `/games/1` будет указывать на страницу игры со значением `id` 1.</p>
+<p>Динамические роуты в Next.js можно сделать, создавая в папке `app` новую папку с названием в квадратных скобках, в которой будет лежать новый файл `page.js`. Вот как это выглядит на примере адреса `games/[id]` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1518_1708348242.png)</p>
+<p>Вот так это выглядит для разных страниц в проекте:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1523_1708348255.png)</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Больше о возможностях динамического роутинга можешь почитать в [документации Next.js](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>Давай для наглядности создадим файл `/app/games/[id]/page.js` и выведем что-нибудь простое на сайте по пути `/games/[id]`. Например, `Привет!`</p>
+<pre><code>export default function GamePage() {
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;h1&gt;Привет!&lt;/h1&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>Теперь по пути `/games/[id]` мы будем видеть заголовок `Привет!`. Вот как это выглядит, если перейти по адресу `/games/1` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1519_1708348514.png)</p>
+<p>То же самое будет и на страницах с другими значениями `id` — то есть по адресу `/games/42` мы увидим этот же заголовок.</p>
+<p>Теперь поговорим о том, как получить динамический параметр из роута.</p>
+<p>Объект, содержащий параметры страницы, будет доступен в знакомом тебе объекте `props` как `props.params` (обновить в памяти эту инфу можно в уроке «Отсыпаем propsы»). Вот как его получить и вывести в консоль 👇🏻</p>
+<pre><code>&quot;use client&quot;
+export default function GamePage(props) {
+  const params = props.params;
+  console.log(params)
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;h1&gt;Привет!&lt;/h1&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1520_1708348530.png)</p>
+<p>Соответственно, мы можем вывести на страницу, например, её `id`</p>
+<pre><code>&quot;use client&quot;;
+export default function GamePage(props) {
+  const params = props.params;
+
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;h1&gt;Привет! Это страница {params.id}&lt;/h1&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Ты можешь называть динамический параметр не только `id`. Например, если хочешь назвать этот параметр `slug` (часто эту часть адреса называют именно так), то папка, где будет храниться код страницы, будет называться `[slug]`. Соответственно, и в `props.params` будет такой объект: `{ slug: ‘1’ }` {/quiz-task}</p>
+<p>Всё верно, и это уже попахивает домашкой.</p>
+<h2>Домашка</h2>
+<p>Открой файл `/app/components/CardsList/CardsList.jsx`</p>
+<p>Сейчас карточки ведут на страницу игры и ссылка выглядит так 👇🏻</p>
+<pre><code>&lt;a href={item.link} target=&quot;_blank&quot; className={Styles[&quot;card-list__link&quot;]}&gt;
+  &lt;Card
+    {...item}
+  /&gt;
+&lt;/a&gt;</code></pre>
+<p>Сделай так, чтобы ссылки вели на страницу `/games/[id]`, для этого:</p>
+<p>- Замени тег `&lt;a&gt;` на `&lt;Link&gt;` - Убери атрибут `target` (нам ведь не надо будет переходить на другую страницу в новой вкладке, мы остаёмся в Pindie) - Замени `href`: вместо `item.link` нужно использовать `item.id`. Имей в виду, тебе нужно указать адрес, учитывая роут `/games/`. Чтобы сделать всё правильно, можешь передать адрес шаблонной строкой, вот так: ``/games/${item.id}``</p>
+<p>Должно получиться так:</p>
+<pre><code>    &lt;Link href={`/games/${item.id}`} className={Styles[&quot;card-list__link&quot;]}&gt;
+      &lt;Card
+        {...item}
+      /&gt;
+    &lt;/Link&gt;</code></pre>
+</body>
+</html>

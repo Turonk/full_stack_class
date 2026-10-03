@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Дэзэшечка</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Дэзэшечка</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/88e6b85b-4e05-4280-ac1a-4dc8394e3720/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/88e6b85b-4e05-4280-ac1a-4dc8394e3720/</a></p>
+  <h1>Дэзэшечка</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4918_2_1_1712910173.jpg)</p>
+<h2>Чек-лист 📝</h2>
+<h2>Шаг 1. Миддлвары</h2>
+<p>Для начала убедись, что в `app.js` подключён миддлвар из библиотеки `body-parser`. Он нужен для того, чтобы прочитать данные из тела запроса `req.body` как JSON-объекты. Если вдруг этот шаг был пропущен, лови подробную инструкцию в тоггле 👀</p>
+<p>1. Загрузи библиотеку командой 👇🏻</p>
+<pre><code>    npm install body-parser</code></pre>
+<p>2. Добавь её в файл `app.js` 👇🏻</p>
+<pre><code>    // app.js 
+    const express = require(&#x27;express&#x27;);
+    const path = require(&#x27;path&#x27;);
+    // Импортируем библиотеку
+    const bodyParser = require(&#x27;body-parser&#x27;);
+    const mainRoute = require(&#x27;./routes/main&#x27;);
+    const gamesRouter = require(&#x27;./routes/games&#x27;); 
+    
+    const PORT = 3000;
+    const app = express();
+    
+    // Настраиваем миддлвар-функцию bodyParser
+    app.use(
+        bodyParser.json(),
+        express.static(path.join(__dirname, &#x27;public&#x27;)),
+        mainRoute,
+        gamesRouter
+    ); 
+    
+    app.listen(PORT, () =&gt; {
+        console.log(`Server is running at PORT http://localhost:${PORT}`);
+    })</code></pre>
+<p>Теперь `middleware`-функция `bodyParser.json` подключена глобально и будет вызываться для всех маршрутов приложения.</p>
+<p>В первом файле мы настраивали CORS — механизм, способный решать, кто может отправлять запросы к твоему серверу (подробно о том, что это такое, говорили в уроке «CORS»). В нём должен находиться список разрешённых сайтов и функция-миддлвар `cors`, которая следит за тем, чтобы запрос к серверу поступал от разрешённого сайта.</p>
+<p>Рекомендуем пробежаться по шагам и проверить себя ещё раз 👇🏻</p>
+<p>1. В файле `middlewares/cors.js` хранится функция `cors`, которая принимает `req` — информацию о запросе, `res` — ответ, `next` — функцию для запуска следующего миддлвара. 2. Через заголовок запроса `origin` можно проверить, кто обращается к серверу. Лови реализацию для проверки 👇🏻</p>
+<pre><code>function cors(req, res, next) {
+	const { origin } = req.headers; // Смотрим, кто стучится к серверу
+}
+
+module.exports = cors;</code></pre>
+<p>3. Чтобы сайт мог выполнять запросы к твоему приложению, убедись, что добавлен заголовок `Access-Control-Allow-Origin`. Значением заголовка должен быть адрес сайта, которому разрешено делать запрос. В твоём случае — `&#x27;http://localhost:3000&#x27;`. Можешь добавить и пару других адресов, чтобы попрактиковаться, — `https://practicum.yandex.ru` и `https://students-projects.ru` 4. В конце нужно передать управление следующему миддлвару с помощью функции `next()` 5. Не забудь подключить миддлвар в `app.js`. Это нужно сделать первым делом, чтобы сначала проверялся сайт, отправляющий запрос, а уже после передавалось управление другим миддлварам и функциям 👇🏻</p>
+<pre><code>    app.use(
+      cors, // Добавляем CORS самым первым
+      
+      // Остальные миддлвары и контроллеры
+    )</code></pre>
+<pre><code>// Список сайтов, которым мы разрешаем обращаться к серверу
+const allowedCors = [
+  &#x27;https://practicum.yandex.ru&#x27;,
+  &#x27;https://students-projects.ru&#x27;,
+  &#x27;localhost:3000&#x27;
+];
+
+// Функция, которая принимает объекты req (информация о запросе),
+// res (объект ответа) и функцию next (для запуска следующего миддлвара)
+function cors(req, res, next) {
+	const { origin } = req.headers; // Смотрим, кто стучится к серверу
+	if (allowedCors.includes(origin)) { // Если это наш друг,
+		res.header(&#x27;Access-Control-Allow-Origin&#x27;, origin); // говорим: «Добро пожаловать!»
+	}
+	
+	next(); // Идём дальше, не задерживаем очередь
+}
+
+module.exports = cors;</code></pre>
+<p>Во второй файл мы начали переносить общие функции из `/controllers/games.js`. К этому моменту у тебя уже должен быть готов миддлвар `getAllGames`, в который вынесли код для получения игр. Теперь тебе предстоит разбить его на несколько миддлвар, каждый из которых будет нужен для выполнения одной подзадачи. Так код удобнее читать и поддерживать в будущем. Вот список миддлвар, которые должны у тебя получиться:</p>
+<p>a. `getAllGames` — функция для чтения из файла `data/games.json`. Мы уже рассказывали, как подготовить эту функцию, в уроке «Миддлвары». Эту функцию можно разбить на несколько миддлваров — код для них тебе нужно написать самому, ниже описываем подробнее, как это сделать.</p>
+<p>b. `checkIsTitleInArray` — проверка, есть ли игра в списке игр, который прочитан функцией `getAllGames`. Вынеси в этот миддлвар код из `getAllGames`, который был нужен для этой проверки, и не забудь использовать функцию `next()` в конце (это касается всех миддлваров, которые тут описаны).</p>
+<p>c. `updateGamesArray` — обновление списка игр. В этот миддлвар нужно вынести код, с помощью которого в `getAllGames` добавлялись новые игры. В нём будет проверка, что отправляются данные новой игры (это как раз проверяет миддлвар `checkIsTitleInArray`). В случае, если игра новая, список игр в объекте `req` обновляется и в конце используется функция `next()`. Если игра уже есть в списке игр, нужно отправлять ошибку 400 с текстом “Игра с таким именем уже есть”.</p>
+<p>d. `updateGamesFile` — запись обновлённого списка в файл `data/games.json`. Вынеси код, который использовался в `getAllGames` для записи списка.</p>
+<p>e. `deleteGame` — удаление игры.</p>
+<p>f. `findGameById` — поиск игры по ID. В этом миддлваре должен быть код для поиска игры по ID из функции `deleteGame`</p>
+<pre><code>const { readData, writeData } = require(&quot;../utils/data&quot;);
+
+const getAllGames = async (req, res, next) =&gt; {
+  const games = await readData(&quot;./data/games.json&quot;);
+  if (!games) {
+    res.status(400);
+    res.send({
+      status: &quot;error&quot;,
+      message: &quot;Нет игр в базе данных. Добавь игру.&quot;
+    });
+    return;
+  }
+  req.games = games;
+  next();
+};
+
+const checkIsTitleInArray = (req, res, next) =&gt; {
+  req.isNew = !Boolean(req.games.find(item =&gt; item.title === req.body.title));
+  next();
+};
+
+const updateGamesArray = (req, res, next) =&gt; {
+  if (req.isNew) {
+    const inArray = req.games.map(item =&gt; Number(item.id));
+    let maximalId;
+    if (inArray.length &gt; 0) {
+      maximalId = Math.max(...inArray);
+    } else {
+      maximalId = 0;
+    }
+
+    req.updatedObject = {
+      id: maximalId + 1,
+      title: req.body.title,
+      image: req.body.image,
+      link: req.body.link,
+      description: req.body.description
+    };
+    req.games = [...req.games, req.updatedObject];
+    next();
+  } else {
+    res.status(400);
+    res.send({ status: &quot;error&quot;, message: &quot;Игра с таким именем уже есть.&quot; });
+  }
+};
+
+const updateGamesFile = async (req, res, next) =&gt; {
+  await writeData(&quot;./data/games.json&quot;, req.games);
+  next();
+};
+
+const findGameById = (req, res, next) =&gt; {
+  const id = Number(req.params.id);
+  req.game = req.games.find(item =&gt; item.id === id);
+  next();
+};
+
+const deleteGame = (req, res, next) =&gt; {
+  const id = req.game.id;
+  const index = req.games.findIndex(item =&gt; item.id === id);
+  req.games.splice(index, 1);
+  next();
+};
+
+module.exports = {
+  getAllGames,
+  checkIsTitleInArray,
+  updateGamesArray,
+  updateGamesFile,
+  findGameById,
+  deleteGame
+};</code></pre>
+<h2>Шаг 2. Контроллеры</h2>
+<p>О них мы подробно рассказали в уроке «Ещё пара слов про контроллеры». Сейчас у тебя должен быть файл `/controllers/games.js` — в него мы сначала переносили инструкции, как обрабатывать полученные запросы из файла `/routes/games.js`, а после создания миддлваров, куда мы вынесли общий код, в этом файле нужно описать две функции для отправки данных:</p>
+<p>a. `sendAllGames` — отправляет игры, записанные в объект `req`</p>
+<p>b. `sendUpdatedGames` — обновляет игры, записанные в объект `req`, и данные обновлённой игры.</p>
+<pre><code>const sendAllGames = (req, res) =&gt; {
+  res.send(req.games);
+};
+
+const sendUpdatedGames = (req, res) =&gt; {
+  res.send({
+    games: req.games,
+    updated: req.updatedObject
+  });
+};
+
+module.exports = { sendAllGames, sendUpdatedGames };</code></pre>
+<h2>Шаг 3. Роуты</h2>
+<p>На всякий случай рекомендуем заглянуть в урок «Роуты в Express». Сейчас у тебя в проекте должно быть уже три роута: для обработки `GET`, `POST` и `DELETE`-запросов:</p>
+<p>1. `GET`</p>
+<p>a. должен отправляться на роут `/games`</p>
+<p>b. должны быть подключены миддлвары `getAllGames` и `sendAllGames` из `/middlewares/middlewares.js`</p>
+<p>2. `POST`</p>
+<p>a. тоже отправляется на роут `/games`</p>
+<p>b. должны быть подключены миддлвары:</p>
+<p>а) `getAllGames`</p>
+<p>б) `checkIsTitleInArray`</p>
+<p>в) `updateGamesArray`</p>
+<p>г) `updateGamesFile`</p>
+<p>д) `sendUpdatedGames`</p>
+<p>3. `DELETE`</p>
+<p>a. отправляется на роут `&quot;/games/:id&quot;`, где через параметр `id` передаётся ID игры, которую надо удалить</p>
+<p>b. должны быть подключены миддлвары:</p>
+<p>а) `getAllGames`</p>
+<p>б) `findGameById`</p>
+<p>в) `deleteGame`</p>
+<p>г) `updateGamesFile`</p>
+<p>д) `sendUpdatedGames`</p>
+<pre><code>const gamesRouter = require(&quot;express&quot;).Router();
+
+const {
+  getAllGames,
+  checkIsTitleInArray,
+  updateGamesArray,
+  updateGamesFile,
+  findGameById,
+  deleteGame
+} = require(&quot;../middlewares/games&quot;);
+const { sendAllGames, sendUpdatedGames } = require(&quot;../controllers/games&quot;);
+
+gamesRouter.get(&quot;/games&quot;, getAllGames, sendAllGames);
+
+gamesRouter.post(
+  &quot;/games&quot;,
+  getAllGames,
+  checkIsTitleInArray,
+  updateGamesArray,
+  updateGamesFile,
+  sendUpdatedGames
+);
+
+gamesRouter.delete(
+  &quot;/games/:id&quot;,
+  getAllGames,
+  findGameById,
+  deleteGame,
+  updateGamesFile,
+  sendUpdatedGames
+);
+
+module.exports = gamesRouter;</code></pre>
+</body>
+</html>

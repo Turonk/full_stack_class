@@ -1,0 +1,18 @@
+{
+  "lesson_id": "1a4378a0-73c1-4622-ac84-b9c088604525",
+  "title": "Шрифты пропали 😳",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/1a4378a0-73c1-4622-ac84-b9c088604525/",
+  "markdown_chars": 4017,
+  "content_hash": "af44a7385de42e42",
+  "saved_at": "2026-07-29T15:20:12.726823+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/05_шрифты_пропали.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/05_шрифты_пропали.html"
+  }
+}

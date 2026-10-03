@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Магазин{% endblock %}
+{% block content %}
+<h1>Мерч</h1>
+<div class="grid">
+  {% for p in products %}
+  <article class="card">
+    <h2>{{ p.title }}</h2>
+    <p>{{ p.price }} ₽</p>
+  </article>
+  {% endfor %}
+</div>
+<p class="muted">Корзину на localStorage оставляем как клиентскую фичу: файл shop.js можно подключить позже.</p>
+{% endblock %}

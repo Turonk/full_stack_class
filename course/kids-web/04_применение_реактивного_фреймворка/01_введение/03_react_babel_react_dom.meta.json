@@ -1,0 +1,18 @@
+{
+  "lesson_id": "e2d2dd5a-8984-4d7d-a370-fc6e373882ad",
+  "title": "React, Babel, React DOM",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "45833102-a2e5-4bd6-9310-fd272688b493",
+  "topic_name": "Введение",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/45833102-a2e5-4bd6-9310-fd272688b493/lessons/e2d2dd5a-8984-4d7d-a370-fc6e373882ad/",
+  "markdown_chars": 7551,
+  "content_hash": "08d7e10273215ea8",
+  "saved_at": "2026-07-29T15:22:02.443444+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/01_введение/03_react_babel_react_dom.md",
+    "html": "04_применение_реактивного_фреймворка/01_введение/03_react_babel_react_dom.html"
+  }
+}

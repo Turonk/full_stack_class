@@ -1,0 +1,18 @@
+{
+  "lesson_id": "cc5ec4de-17be-4b1a-b010-e88ab3b78fb7",
+  "title": "Сетевое путешествие за сайтом 🏃🏻",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/cc5ec4de-17be-4b1a-b010-e88ab3b78fb7/",
+  "markdown_chars": 5285,
+  "content_hash": "164b9f887a38f5f6",
+  "saved_at": "2026-07-29T15:20:30.988251+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/02_сетевое_путешествие_за_сайтом.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/02_сетевое_путешествие_за_сайтом.html"
+  }
+}

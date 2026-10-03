@@ -1,0 +1,18 @@
+{
+  "lesson_id": "fa15cec0-cdab-47a0-b46a-9c62a4617bbc",
+  "title": "Взгляд из-под капота",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/fa15cec0-cdab-47a0-b46a-9c62a4617bbc/",
+  "markdown_chars": 1647,
+  "content_hash": "faf491ee6b74e5ae",
+  "saved_at": "2026-07-29T15:23:51.137673+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/22_взгляд_из_под_капота.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/22_взгляд_из_под_капота.html"
+  }
+}

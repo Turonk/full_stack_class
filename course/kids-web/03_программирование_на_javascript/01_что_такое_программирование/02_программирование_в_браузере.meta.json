@@ -1,0 +1,18 @@
+{
+  "lesson_id": "04596ef3-ca32-408e-abaf-104cf4830375",
+  "title": "Программирование в браузере",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "ef13eae8-f00c-4a12-b11e-3cec328dadb3",
+  "topic_name": "Что такое программирование",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/ef13eae8-f00c-4a12-b11e-3cec328dadb3/lessons/04596ef3-ca32-408e-abaf-104cf4830375/",
+  "markdown_chars": 6053,
+  "content_hash": "7d2e950e8e82352b",
+  "saved_at": "2026-07-29T15:20:53.748225+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/01_что_такое_программирование/02_программирование_в_браузере.md",
+    "html": "03_программирование_на_javascript/01_что_такое_программирование/02_программирование_в_браузере.html"
+  }
+}

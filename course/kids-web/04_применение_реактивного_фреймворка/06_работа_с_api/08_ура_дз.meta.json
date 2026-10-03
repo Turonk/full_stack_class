@@ -1,0 +1,18 @@
+{
+  "lesson_id": "55f8bbc8-89e8-45b1-8b17-6e7a9b51c676",
+  "title": "Ура, ДЗ!",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "bc79c275-9228-450f-a1d7-3eab285e7058",
+  "topic_name": "Работа с API",
+  "sprint_id": 190124,
+  "lesson_type": "homework",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/55f8bbc8-89e8-45b1-8b17-6e7a9b51c676/",
+  "markdown_chars": 9403,
+  "content_hash": "3de08396bf1634e9",
+  "saved_at": "2026-07-29T15:22:57.620615+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/06_работа_с_api/08_ура_дз.md",
+    "html": "04_применение_реактивного_фреймворка/06_работа_с_api/08_ура_дз.html"
+  }
+}

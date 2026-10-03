@@ -1,0 +1,18 @@
+{
+  "lesson_id": "30c39936-c55b-455c-86f2-603ecc3c4dac",
+  "title": "Самый важный тег (нет)",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7267cf1c-ae83-4e81-95b4-8cacbf27ac92",
+  "topic_name": "Что такое веб-разработка",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7267cf1c-ae83-4e81-95b4-8cacbf27ac92/lessons/30c39936-c55b-455c-86f2-603ecc3c4dac/",
+  "markdown_chars": 377,
+  "content_hash": "986832eee8863475",
+  "saved_at": "2026-07-29T15:19:55.253726+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/06_самый_важный_тег_нет.md",
+    "html": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/06_самый_важный_тег_нет.html"
+  }
+}

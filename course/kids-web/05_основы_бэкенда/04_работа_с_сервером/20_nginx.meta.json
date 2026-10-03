@@ -1,0 +1,18 @@
+{
+  "lesson_id": "b443c6ba-834f-4395-9ebd-a650d7334f01",
+  "title": "Nginx",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/b443c6ba-834f-4395-9ebd-a650d7334f01/",
+  "markdown_chars": 7395,
+  "content_hash": "ecf3cb9e720958d4",
+  "saved_at": "2026-07-29T15:24:58.148698+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/20_nginx.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/20_nginx.html"
+  }
+}

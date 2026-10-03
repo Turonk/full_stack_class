@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Промисы</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Промисы</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/76cdbb1b-ddf2-4966-8b14-3cade642a1ef/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/76cdbb1b-ddf2-4966-8b14-3cade642a1ef/</a></p>
+  <h1>Промисы</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4967_1712130574.jpg)</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Ниже в скринкастах ты увидишь дополнительные файлы в проекте: `node_modules` и `package.json`. А запуск проектов будет выполняться новой командой `npm run dev`. О том, как эти файлы и команда упрощают разработку, расскажем в следующем уроке, а пока можешь запускать проект как раньше командой `node app.js` {/quiz-task}</p>
+<h2>Немного о промисах</h2>
+<p>Давай вспомним, как `promise` помогает работать с асинхронными операциями на примере хорошо знакомой тебе функции `fetch`, которая доступна и в Node.js тоже.</p>
+<p>**Сетевой запрос** — это яркий пример асинхронной операции. Программа выполняет запрос и ждёт, пока адресат что-нибудь ответит. В зависимости от скорости соединения время ожидания может быть разным. Именно поэтому функция `fetch` возвращает не непосредственный результат запроса, которым ответил адресат, а объект `promise`, то есть обещание, что рано или поздно ответ прилетит.</p>
+<p>Смотри, как это выглядит в коде 👇🏻</p>
+<pre><code>/**
+ * Команда fetch делает сетевой запрос — асинхронную операцию
+ * Результат вызова fetch — объект Promise, то есть обещание, что на запрос рано или поздно будет получен ответ
+ * promiseFromFetch — переменная, в которую мы сохранили это обещание
+ */
+const promiseFromFetch = fetch(&#x27;https://api-code-2.practicum-team.ru/games&#x27;)</code></pre>
+<p>Как только обещание было создано, оно находится в состоянии `pending` — ожидание, когда же выполнится асинхронная операция, для которой это обещание было создано.</p>
+<p>Аски шутит! JavaScript всегда выполняет промисы, и тебе уже известны два способа, как можно обработать результат их работы. Если подзабылось, можешь освежить в своей памяти, открыв тогглы с кодом 👀</p>
+<pre><code>/**
+ * Команда fetch делает сетевой запрос — асинхронную операцию
+ * Результат вызова fetch — объект Promise, то есть обещание, что на запрос рано или поздно будет получен ответ
+ * promiseFromFetch — переменная, в которую мы сохранили это обещание
+ */
+const promiseFromFetch = fetch(&#x27;https://api-code-2.practicum-team.ru/games&#x27;)
+
+/**
+ * В then передаётся обработчик результата выполнения обещания 
+ * В catch передаётся обработчик ошибки при выполнении обещания
+ */
+promiseFromFetch
+    .then((result) =&gt; {
+        console.log(result)
+    })
+    .catch((error) =&gt; {
+        console.log(error)
+    })</code></pre>
+<p>Когда обещание выполнено, оно переходит в состояние `fulfilled` и вызывается обработчик `then`, если после обещания успешно был получен результат, или обработчик `catch`, если в процессе выполнения обещания была получена ошибка.</p>
+<p>Кроме `then` и `catch` существует ещё один способ обрабатывать результат обещания — это синтаксис `async await`. Модифицируя пример выше, получим следующее 👇🏻</p>
+<pre><code>// Командой async говорим, что getData — асинхронная функция
+async function getData() {
+    try {
+        // Командой await дожидаемся результата выполнения асинхронной функции fetch
+        const response = await fetch(&#x27;https://api-code-2.practicum-team.ru/games&#x27;);
+    } catch (error) {
+        console.log(error);
+    }
+}</code></pre>
+<p>Стоит помнить, что любая функция, в названии которой указано `async`, возвращает объект Promise. Конструкцию `try`/`catch` мы используем для обработки ошибок. Если в коде в блоке `try` возникнет ошибка, то выполнение программы перейдёт в блок `catch`</p>
+<h2>Добавляем сетевой запрос списка игр</h2>
+<p>Ранее в уроке «Подготовка проекта» мы использовали контроллер `mainRouteController` в файле `controllers/main.js`, который срабатывает при обработке запросов к основному маршруту `/`. В этом уроке мы добавим в этот контроллер сетевой запрос списка игр по адресу `https://api-code-2.practicum-team.ru/games`</p>
+<p>Чтобы это сделать, первым делом в папке `appModules` создай ещё одну — `api`, а в ней файл `api-utils.js`. В `api-utils.js` пропиши асинхронную функцию `getData`, которая будет выполнять сетевой запрос с помощью `fetch`. Смотри 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/1.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>В функции `getData`, помимо вызова `fetch`, также добавь строку 👇🏻</p>
+<pre><code>// response — это объект ответа, который был получен в результате вызова fetch
+const data = await response.json();</code></pre>
+<p>У `response` есть метод `json`, он достаёт из объекта ответа данные в формате `.json`, которые отправил нам адресат запроса.</p>
+<p>В данный момент `getData` получилась не универсальной функцией: она умеет выполнять запросы только по одному заданному адресу. Мы попробуем передавать адрес для запроса в аргументы `getData`, а все адреса, которые могут быть в нашем приложении, будем складывать в специальный файл `config.js`, который создадим в папке `api`. Чекай ниже 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/3.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Осталось только добавить использование функции `getData` в контроллер `mainRouteController`. Но перед этим обрати внимание на то, что `api` — это папка внутри `appModules`, то есть это полноценный модуль. В разработке на JavaScript принято добавлять в папки-модули специальный файл `index.js` — это своего рода оглавление модуля, того, что из него экспортируется. В модуле `api` из файла `api-utils.js` экспортируется функция `getData`, из файла `config.js` экспортируется объект `endpoints`. Нам нужно реэкспортировать из файла `index.js` функцию `getData` и объект `endpoints`. Как это сделать, покажем в скринкасте. Лови инструкции 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/33.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Благодаря `index.js` ты можешь импортировать функцию `getData` и объект `endpoints`, не указывая конкретного файла, в которых они находятся 👇🏻</p>
+<pre><code>const { getData, endpoints } = require(&quot;../appModules/api&quot;);</code></pre>
+<p>Теперь обрати внимание на `mainRouteController`. Мы добавили в него вызов `getData`, а при объявлении использовали  `async function getData(*url*) { … }`. Любая функция, у которой при объявлении указано ключевое слово `async`, возвращает промис. Именно поэтому в `mainRouteController` мы использовали `await`, чтобы дождаться выполнения `Promise` из `getData`. Как только обещание выполнится, мы залогируем полученный список игр в консоль.</p>
+<h2>Добавляем работу с файлами на сервере</h2>
+<p>Давай сделаем так, чтобы можно было не просто логировать список игр, который загрузили с помощью `getData`, но и записывать его в файл.</p>
+<p>В прошлом уроке «Синхронность и асинхронность» мы рассказывали про такой способ обработки асинхронных операций, как `callback`, а также про `callback hell` (ад из колбэков 🥵), который они могут создавать. Решение этой проблемы — использовать промисы вместо колбэков.</p>
+<p>Мы уже несколько раз встречались c асинхронными функциями `readFile` и `writeFile` из модуля `fs` для чтения из файла и записи в файл. Существует версия модуля `fs`, где функции `readFile` и `writeFile` возвращают промис, который можно обрабатывать с помощью `then`/`catch` или `await`. Разбираться проще на примере 👇🏻</p>
+<pre><code>// Импортируем модуль fs, в котором функции возвращают промис
+const fs = require(&#x27;fs&#x27;).promises;
+
+// Читаем файл асинхронной функции readFile
+fs.readFile(&#x27;data.json&#x27;, { encoding: &#x27;utf8&#x27; })
+	// Когда промис разрешится успешно, сработает обработчик в then, в который будут переданы прочитанные данные
+  .then((data) =&gt; {
+    console.log(data);
+  })
+  // Если промис разрешится с ошибкой, сработает обработчик в catch, куда будет передана ошибка
+  .catch(err =&gt; {
+    console.log(err);
+  });</code></pre>
+<p>Итак, вернёмся к проекту с сервером для составления интересного рейтинга игр. В данный момент в контроллере `mainRouteController` мы просто логируем список игр, который загрузили с помощью `getData`. Также у нас есть файл `dataset/rating.json`. Мы могли бы записывать полученный список игр в этот файл командой модуля `fs`, функции которого возвращают промис.</p>
+<p>Для это нам понадобится сделать ещё один модуль `appModules/rating` и в нём файл `rating-file.js`, где будет лежать функция `makeRatingFile`. Её задача — принимать на вход путь к файлу, в который надо записать сам список игр.</p>
+<pre><code>const fs = require(&quot;fs&quot;).promises;
+
+/**
+ * path — путь к файлу
+ * array — список игр
+ */
+async function makeRatingFile(path, array) {
+  // Читаем содержимое файла по пути path. ratingFile — строка со всем содержимым файла
+  const ratingFile = await fs.readFile(path, &quot;utf8&quot;);
+  // Так как ratingFile — строка, то преобразуем её в json
+  const ratingArray = JSON.parse(ratingFile);
+
+  // Код далее повторяем для каждой игры из списка игр
+  array.forEach((item) =&gt; {
+    // Если в ratingArray ещё нет игры с таким id,
+    if (!ratingArray.find((el) =&gt; el.id === item.id)) {
+      let obj = {
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        link: item.link,
+        description: item.description,
+        rating: 0,
+      };
+      // добавляем её к уже существующему списку игр
+      ratingArray.push(obj);
+    }
+  });
+
+  // Обновим список игр в файле по пути path, записав туда обновлённый массив ratingArray
+  await fs.writeFile(path, JSON.stringify(ratingArray));
+}
+
+module.exports = makeRatingFile;</code></pre>
+<p>В модуле `appModules/rating` нужно создать файл `config.js`, откуда ты будешь экспортировать строку — путь к файлу `rating.json`. Чекай 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/4.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>В конце скринкаста видно, что после того, как мы в браузере делаем запрос по маршруту `/`, в коде отрабатывает контроллер `mainRouteController` и записывает загруженный список треков в файл `dataset/rating.json`</p>
+<p>У нас осталось ещё одно место, где мы могли бы использовать модуль `fs` с промисами, — это контроллер `gameRouteController`, в коде которого происходит чтение из `dataset/rating.json`. Смотри и проверяй себя 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/5.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Не у всех функций в JavaScript есть версии, которые возвращают `promise`. Например, функция `parseBody`, которую мы используем в проекте для обработки результата запроса. Пока что она принимает `сallback`, сейчас же ты промисифицируешь её, то есть сделаешь так, чтобы она возвращала `promise`, который разрешится, когда будут обработаны все данные запроса.</p>
+<pre><code>function parseBody(req) {
+  // Фукнция parseBody возвращает Promise, созданный с помощью конструктора
+  return new Promise((resolve, reject) =&gt; {
+    let body = &quot;&quot;;
+    req.on(&quot;data&quot;, (chunk) =&gt; {
+      body += chunk.toString();
+    });
+    req.on(&quot;end&quot;, () =&gt; {
+      // Как только обработали все данные, успешно разрешаем Promise
+      resolve(body)
+    });
+    req.on(&quot;error&quot;, (error) =&gt; {
+      // Если в процессе возникла ошибка, то разрешаем Promise с ошибкой
+      reject(error)
+    });
+  })
+}</code></pre>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/6.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>В конце скринкаста мы изменили код в контроллере `voteRouteController`. Теперь мы не передаём `callback` в функцию `parseBody`, а командой `await` дожидаемся, пока разрешится `promise`, который она возвращает.</p>
+</body>
+</html>

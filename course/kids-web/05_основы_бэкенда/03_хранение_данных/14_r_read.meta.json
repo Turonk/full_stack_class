@@ -1,0 +1,18 @@
+{
+  "lesson_id": "646841b9-4f5a-4c46-a3ca-dcb0555ebaf9",
+  "title": "R — read",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "b0783e3e-bba5-418d-9bdb-d5fa877df8f3",
+  "topic_name": "Хранение данных",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/646841b9-4f5a-4c46-a3ca-dcb0555ebaf9/",
+  "markdown_chars": 12459,
+  "content_hash": "07c49377e420da3e",
+  "saved_at": "2026-07-29T15:24:24.243943+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/03_хранение_данных/14_r_read.md",
+    "html": "05_основы_бэкенда/03_хранение_данных/14_r_read.html"
+  }
+}

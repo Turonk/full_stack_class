@@ -1,0 +1,18 @@
+{
+  "lesson_id": "3e82616e-968a-42e0-af69-b7477bd906bb",
+  "title": "Определяем победителя",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/3e82616e-968a-42e0-af69-b7477bd906bb/",
+  "markdown_chars": 10309,
+  "content_hash": "364571a182e7e36a",
+  "saved_at": "2026-07-29T15:21:42.878283+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/08_определяем_победителя.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/08_определяем_победителя.html"
+  }
+}

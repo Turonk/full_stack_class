@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Transitions:  плавные переходы</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Transitions:  плавные переходы</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/173937cb-046d-41bf-8f8b-a4a43ef382d8/">https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/173937cb-046d-41bf-8f8b-a4a43ef382d8/</a></p>
+  <h1>Transitions:  плавные переходы</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_114_1_1_1698761279.png)</p>
+<p>С помощью псевдоклассов мы сделали элементы анимированными, но реализация пока оставляет желать лучшего: в анимации цвет слишком резко меняется на другой.</p>
+<p>Пришло время добавить плавности!</p>
+<p>Чтобы сделать анимации плавными и более приятными, надо использовать свойство `transition`. На русский переводится как «переход», что достаточно хорошо отражает его суть.</p>
+<p>В CSS свойство выглядит так:</p>
+<pre><code>.element {
+	transition: opacity 200ms ease-in-out;
+}</code></pre>
+<p>На самом деле `transition` — сокращённая запись нескольких свойств:</p>
+<p>- `transition-property` Какое свойство будет изменяться (например, в коде выше — `opacity`). - `transition-duration` Сколько времени будет идти анимация (в примере выше — 200 миллисекунд). - `transition-timing-function` Как анимация будет меняться во времени (в примере выше — `ease-in-out`). С помощью этого ты сможешь делать `transition` плавнее.</p>
+<p>Здесь список основных значений `transition-timing-function`: а) `linear` — линейное изменение (скорость изменения свойства не меняется). б) `ease-in` — изменение свойств ускоряется к концу анимации. в) `ease-out` — изменение свойств замедляется к концу анимации. г) `ease-in-out` — медленное начало, быстрая середина и медленный конец.</p>
+<p>Это, конечно, не все доступные варианты, но их должно быть достаточно, чтобы анимировать элементы на твоём сайте! Полный список значений этого свойства ты всегда можешь чекнуть в [Доке](https://doka.guide/css/transition-timing-function/){target=&quot;_blank&quot;}.</p>
+<p>- `transition-delay` Задержка перед началом анимации (в примере выше её нет, но она бы добавлялась последней в этой записи).</p>
+<p>Заметь, что мы задаём `transition` для изначального состояния элемента, а не для его состояния, описанного с помощью псевдокласса.</p>
+<p>Плавно менять с помощью `transition` можно многие свойства, но чаще всего так изменяют значения `box-shadow`, `background-color`, `color`, `opacity` и `transform`</p>
+<p>Намёк понят! Лови песочницу, в которой можно поиграть с разными значениями и посмотреть, в чём разница между ними.</p>
+<p>Попробуй ставить не очень высокую скорость анимации в этом тренажёре, это поможет лучше вникнуть в то, как работают свойства.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/03-transitions/sandbox-01/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Тогда давай вернёмся к нашему плейлисту, с которым работали в предыдущем уроке. В нём уже добавлены псевдоклассы для состояния с наведённым на карточку курсором и для нажатия на карточку.</p>
+<p>Поэтому теперь ты можешь добавить элементам в плейлисте свойство `transition` и увидеть, что анимации стали плавными! Сделай так, чтобы за 200 миллисекунд изменялось свойство `box-shadow`, значением `transition-timing-function` пусть будет `ease-in-out`. Работай в файле `styles/style.css`</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/03-transitions/sandbox-02/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>.card {
+    /* Другие свойства */
+    transition: box-shadow ease-in-out 200ms;
+}</code></pre>
+<p>{quiz-task} background: | #f5f6f7 content: | Обрати внимание: при указании свойства `transition` записи для псевдоклассов остаются нетронутыми. Иначе `transition` будет добавляться элементу только в тех состояниях, которые эти псевдоклассы описывают. Например, наведение курсора на карточку будет происходить плавно, а когда курсор покинет карточку, она будет дёргаться, словно никакого `transition` у неё и не задано. {/quiz-task}</p>
+<p>Вот что у тебя должно было получиться:</p>
+<p>{video:https://code.s3.yandex.net/kids-web/result.mp4}</p>
+<p>Зафиналим!</p>
+<p>Теперь ты умеешь не только добавлять анимации элементам, но и делать их плавными и красивыми. Для этого филигранно используешь CSS-свойство `transition` и все его подвиды: `transition-property`, `transition-duration`, `transition-timing-function`, `transition-delay`</p>
+<p>А если хочешь уметь делать анимации посложнее, беги на следующий урок.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_237_1_1698826977.png)</p>
+</body>
+</html>

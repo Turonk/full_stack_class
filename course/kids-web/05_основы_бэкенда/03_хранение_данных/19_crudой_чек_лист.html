@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>CRUDой чек-лист</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>CRUDой чек-лист</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/c6e11221-0102-4f70-8c94-0772e337244a/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/c6e11221-0102-4f70-8c94-0772e337244a/</a></p>
+  <h1>CRUDой чек-лист</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4918_2_1_1714062359.png)</p>
+<h2>Чек-лист 📝</h2>
+<h3>Часть 1. Обновление папки</h3>
+<p>Для начала проверь, что папка `public` обновлена — в проекте изменился фронтенд приложения. Если это ещё не сделано, лови новую и замени ею уже имеющуюся 👇🏻</p>
+<p>[public.zip](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/public.zip){target=&quot;_blank&quot;}</p>
+<h3>Часть 2. C — Create</h3>
+<p>Убедись, что настроена функция **Create** — метод для добавления новых данных в базу.</p>
+<p>1. Создана асинхронная функция `createGame` в файле `/middlewares/games.js` 👇🏻 Она принимает три аргумента: объект запроса `req`, объект ответа `res`, а также метод `next()` для запуска следующего по списку миддлвара. В теле запроса `req.body` будут переданы данные игры, которые пользователь заполнял через форму. Нужно обратиться к модели `games` и вызвать метод `create`, передав аргументом `req.body` (перед вызовом `create` должно быть ключевое слово `await`). Результат запроса записывается в `req.game` Не забудь про обработку ошибок: метод `create` возвращает промис, значит, код следует обернуть в конструкцию `try … catch` или обработчики `then`/`catch`. В случае ошибки устанавливается статус `400` и отправляется сообщение `Ошибка создания игры`</p>
+<pre><code>const createGame = async (req, res, next) =&gt; {
+  console.log(&quot;POST /games&quot;);
+  try {
+    console.log(req.body);
+    req.game = await games.create(req.body);
+    next();
+  } catch (error) {
+    res.status(400).send(&quot;Error creating game&quot;);
+  }
+};</code></pre>
+<p>2\. Создана функция `createCategory` в файле `/middlewares/categories.js`. Алгоритм её настройки аналогичен функции `createGame` 👇🏻</p>
+<p>* Передай в функцию аргументы `req`, `res` и `next` * Используй `try … catch` для обработки ошибок. * Запиши в `req.category` результат работы метода `create` - В качестве текста ошибки выведи `Ошибка создания категории`</p>
+<pre><code>const createCategory = async (req, res, next) =&gt; {
+  console.log(&quot;POST /categories&quot;);
+  try {
+    req.category = await categories.create(req.body);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка создания категории&quot; }));
+  }
+};</code></pre>
+<p>3\. Создана функция `createUser` в файле `/middlewares/users.js`. И снова те же действия 👇🏻</p>
+<p>- Передай в функцию аргументы `req`, `res` и `next` - Используй `try … catch` для обработки ошибок. - Запиши в `req.user` результат работы метода `create` - В качестве текста ошибки выведи `Ошибка создания пользователя`</p>
+<pre><code>const createUser = async (req, res, next) =&gt; {
+  console.log(&quot;POST /users&quot;);
+  try {
+    console.log(req.body);
+    req.user = await users.create(req.body);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка создания пользователя&quot; }));
+  }
+};</code></pre>
+<p>4\. Теперь нужно проверить контроллеры для обработки `create`-запросов. Должны быть созданы 👇🏻</p>
+<p>- `sendGameCreated` в файле `/controllers/games.js` - `sendCategoryCreated` в файле `/controllers/categories.js` - `sendUserCreated` в файле `/controllers/users.js`</p>
+<p>Все три функции принимают аргументами объект запроса `req` и объект ответа `res`. В теле функции устанавливаются заголовки с правильным типом контента (в твоём случае `application/json`), а возвращается объект с добавленными в базу данными, приведёнными к строке командой `JSON.stringify`</p>
+<p>Функция `sendGameCreated` должна вернуть `req.game`, `sendCategoryCreated` — `req.category`, `sendUserCreated` — `req.user`</p>
+<pre><code>const sendGameCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.game));
+};</code></pre>
+<pre><code>const sendCategoryCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.category));
+};</code></pre>
+<pre><code>const sendUserCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.user));
+};</code></pre>
+<p>5\. После того как подготовлен контроллер, убедись в настройке роутера 👇🏻</p>
+<p>- В файле `/routes/games.js` добавь обработчик `POST`-запросов по маршруту `/games`. Подключи миддлвары, которые создали ранее: `createGame`, `sendGameCreated` - В `/routes/categories.js` добавь обработчик `POST`-запросов по маршруту `/categories`. Подключи миддлвары `createCategory` и `sendCategoryCreated` - В `/routes/users.js` добавь обработчик `POST`-запросов по маршруту `/users`. Подключи миддлвары `createUser` и `sendUserCreated`</p>
+<pre><code>gamesRouter.post(&quot;/games&quot;, findAllGames, createGame, sendGameCreated);</code></pre>
+<pre><code>categoriesRouter.post(
+  &quot;/categories&quot;,
+  findAllCategories,
+  createCategory,
+  sendCategoryCreated
+);</code></pre>
+<pre><code>usersRouter.post(
+  &quot;/users&quot;,
+  findAllUsers,
+  createUser,
+  sendUserCreated
+);</code></pre>
+<h3>Часть 3. R — Read</h3>
+<p>Убедись, что настроена функция **Read** — методы для чтения из базы данных.</p>
+<p>1. В файле `/middlewares/games.js` создана асинхронная функция `findGameById` — поиск игры по ID 👇🏻 Она принимает три аргумента: объект запроса `req`, объект ответа `res`, а также метод `next()` для запуска следующего миддлвара. Запрос к базе снова должен быть обёрнут в конструкцию `try … catch`. Для этого в блоке `try` создай новое поле `game` в объекте запроса `req` и присвой ему результат работы функции `findById` Аргументом `req.params.id` должен быть переданный в параметрах запроса `id` нужной игры. После этого вызывай функцию `next()` Проверь, что при ошибке пользователю отправится сообщение `Игра не найдена` и статус `404`</p>
+<pre><code>const findGameById = async (req, res, next) =&gt; {
+	try {
+		req.game = await games.findById(req.params.id);
+    next();
+	} catch (error) {
+		res.status(404).send({ message: &quot;Game not found&quot; });
+	}
+};</code></pre>
+<p>2. По аналогии созданы функции `findCategoryById` в `/middlewares/categories.js` и `findUserById` в `/middlewares/users.js` 👇🏻 Записывай найденную категорию в `req.category`, а найденного пользователя — в `req.user`</p>
+<pre><code>// middlewares/users.js
+const findUserById = async (req, res, next) =&gt; {
+  console.log(&quot;GET /users/:id&quot;);
+  try {
+    req.user = await users.findById(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(404).send(JSON.stringify({ message: &quot;Пользователь не найдена&quot; }));
+  }
+};</code></pre>
+<pre><code>// middlewares/categories.js
+const findCategoryById = async (req, res, next) =&gt; {
+  console.log(&quot;GET /categories/:id&quot;);
+  try {
+    req.category = await categories.findById(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(404).send(JSON.stringify({ message: &quot;Категория не найдена&quot; }));
+  }
+};</code></pre>
+<p>3. Обновлены функции `findAllGames` и `findGameById` 👇🏻 Настрой их работу так, чтобы при ответе передавались все данные о категориях, а данные пользователя не содержали пароль. Для этого воспользуйся методом `populate`. Чтобы исключить пароли из ответа, передай объект `{ path: &quot;users&quot;, select: &quot;-password&quot; }` при вызове метода `populate` для данных пользователей.</p>
+<pre><code>const findAllGames = async (req, res, next) =&gt; {
+  console.log(&quot;GET /games&quot;);
+  req.gamesArray = await games
+    .find({})
+    .populate(&quot;categories&quot;)
+    .populate({
+		  path: &quot;users&quot;,
+		  select: &quot;-password&quot;
+		});
+  next();
+};</code></pre>
+<p>4. В файле `/controllers/games.js` создана функция `sendGameById` для отправления данных об игре, найденной по `id` 👇🏻 Установи тип контента `application/json` и отправь приведённым к строке `req.game`</p>
+<pre><code>const sendGameById = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.game));
+}; </code></pre>
+<p>5. В файле `/routes/games.js` добавлен маршрут, в котором указано, что игру можно получить по её идентификатору 👇🏻 Для этого подключи `findGameById` и `sendGameById`</p>
+<pre><code>gamesRouter.get(&quot;/games/:id&quot;, findGameById, sendGameById);</code></pre>
+<p>6\. Создана функция `sendCategoryById` в контроллере `categories.js` 👇🏻</p>
+<p>- Внутри функции установи заголовок с типом контента `application/json` - Отправь на клиент данные пользователя из поля `req.category`, преобразовав данные в строку формата JSON.</p>
+<pre><code>const sendCategoryById = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.category));
+};</code></pre>
+<p>7\. Создан маршрут на получение данных категории по идентификатору в роуте `categories.js` 👇🏻</p>
+<p>- Укажи маршруту тип запроса `GET` - Передай первым аргументом путь `/categories/:id` - Передай следующими аргументами миддлвар `findCategoryById` и контроллер `sendCategoryById` в порядке следования.</p>
+<pre><code>categoriesRouter.get(&quot;/categories/:id&quot;, findCategoryById, sendCategoryById);</code></pre>
+<p>8\. Создана функция `sendUserById` в контроллере `users.js` 👇🏻</p>
+<p>- Внутри функции установи заголовок с типом контента `application/json` - Отправь на клиент данные пользователя из поля `req.user`, преобразовав их в строку формата JSON.</p>
+<pre><code>const sendUserById = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.user));
+};</code></pre>
+<p>9\. Создан маршрут на получение данных пользователя по идентификатору в роуте `users.js` 👇🏻</p>
+<p>- Укажи маршруту тип запроса `GET` - Передай первым аргументом путь `/users/:id` - Передай следующими аргументами миддлвар `findUserById` и контроллер `sendUserById` в порядке следования.</p>
+<pre><code>usersRouter.get(&quot;/users/:id&quot;, findUserById, sendUserById);</code></pre>
+<h3>Часть 4. U — Update</h3>
+<p>Убедись, что настроена функция **Update** — методы для обновления уже имеющихся в базе данных записей.</p>
+<p>1. Обновлён миддлвар `findGameById` в файле `/middlewares/games.js` 👇🏻 Теперь вместо метода `.find({})` нужно использовать `.findById()`, а аргументом передавать значение `id` из `req.params.id`. Не забудь обернуть это всё в `try/catch`. В блоке `try` обратись к БД: у модели `games` методами `findById` найди запись и воспользуйся методами `populate` для загрузки данных о категориях и пользователях, связанных с искомой игрой.</p>
+<pre><code>// Файл middlewares/games.js
+
+const findGameById = async (req, res, next) =&gt; {
+  try {
+	  // Пробуем найти игру по id
+    req.game = await games
+      .findById(req.params.id) // Поиск записи по id
+      .populate(&quot;categories&quot;) // Загрузка связанных записей о категориях
+      .populate(&quot;users&quot;); // Загрузка связанных записей о пользователях
+    next(); // Передаём управление в следующую функцию
+  } catch (error) {
+    // На случай ошибки вернём статус-код 404 с сообщением, что игра не найдена
+    res.status(404).send({ message: &quot;Игра не найдена&quot; });
+  }
+};</code></pre>
+<p>2. Создан миддлвар `updateGame` в файле `middlewares/games.js` 👇🏻 Это должна быть асинхронная функция, обёрнутая в блок `try/catch`. Для этого воспользуйся методом `findByIdAndUpdate`, который принимает два параметра: `id` (получи его из `req.params.id`) и объект со свойствами, которые нужно обновить.</p>
+<pre><code>// Файл middlewares/games.js
+
+const updateGame = async (req, res, next) =&gt; {
+  try {
+	  // В метод передаём id из параметров запроса и объект с новыми свойствами
+    req.game = await games.findByIdAndUpdate(req.params.id, req.body);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: &quot;Ошибка обновления игры&quot; });
+  }
+};</code></pre>
+<p>3. Добавлена функция-контроллер `sendGameUpdated` в `/controllers/games.js`👇🏻 Её назначением будет отправка сообщения `Игра обновлена`</p>
+<pre><code>// Файл controllers/games.js
+
+const sendGameUpdated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end({ message: &quot;Игра обновлена&quot; });
+};</code></pre>
+<p>4. Обновлён роутер игр 👇🏻 Для этого добавь инструкцию, что делать при получении `PUT`-запроса: сначала ищешь игру по ID, обновляешь запись с игрой и возвращаешь ответ клиенту.</p>
+<pre><code>// Файл routes/games.js
+
+// Пока запишем порядок действий псевдокодом 
+gamesRouter.put(
+  &quot;/games/:id&quot;, // Слушаем запросы по эндпоинту  
+	findGameById, // Шаг 1. Находим игру по id из запроса
+	// Шаг 2. Проверки, если нужны
+	updateGame, // Шаг 3. Обновляем запись с игрой
+	sendGameUpdated // Шаг 4. Возвращаем на клиент ответ с результатом обновления
+);</code></pre>
+<p>5\. По аналогии описаны обновления категорий и пользователей 👇🏻</p>
+<p>- Для обновления категорий создай миддлвар `updateCategory` в `/middlewares/categories.js`, контроллер `sendCategoryUpdated` в `/controllers/categories.js` с сообщением `Категория обновлена` и опиши, как обрабатывать запрос в роутере `/routes/categories.js`</p>
+<pre><code>categoriesRouter.put(
+  &quot;/categories/:id&quot;,
+  updateCategory,
+  sendCategoryUpdated
+);</code></pre>
+<p>- Для обновления пользователей создай миддлвар `updateUser` в `/middlewares/users.js`, контроллер `sendUserUpdated` в `/controllers/users.js` с сообщением `Пользователь обновлён` и опиши, как обрабатывать запрос в роутере `/routes/users.js`</p>
+<pre><code>usersRouter.put(
+  &quot;/users/:id&quot;,
+  updateUser,
+  sendUserUpdated
+);</code></pre>
+<h3>Часть 5. D — Delete</h3>
+<p>Убедись, что настроена функция **Delete** — методы для удаления записи из базы данных.</p>
+<p>1. Записана миддлвар-функция `deleteGame` в файле `/middlewares/games.js` 👇🏻 Для этого понадобится метод `findByIdAndDelete` с аргументом `id`. Не забывай о `try/catch`</p>
+<pre><code>// Файл middlewares/games.js
+
+const deleteGame = async (req, res, next) =&gt; {
+  try {
+    // Методом findByIdAndDelete по id находим и удаляем документ из базы данных
+    req.game = await games.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.status(400).send({ message: &quot;Error deleting game&quot; });
+  }
+};</code></pre>
+<p>2. Добавлен контроллер в файле `sendGameDeleted` в `/controllers/games.js` 👇🏻 Отправляй в ответе объект с удалённой игры.</p>
+<pre><code>// Файл controllers/games.js
+
+const sendGameDeleted = (req, res) =&gt; {
+	// Объект игры отправляем в формате JSON 
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  // Отправляем на клиент найденный и удалённый элемент из базы данных
+  res.end(JSON.stringify(req.game));
+};</code></pre>
+<p>3. Обновлён роутер игр и описано, что делать при получении `DELETE`-запрос 👇🏻</p>
+<pre><code>// Файл routes/games.js
+
+gamesRouter.delete(
+  &quot;/games/:id&quot;, // Слушаем запросы по эндпоинту
+  deleteGame,
+  sendGameDeleted // Тут будут функция удаления элементов из MongoDB и ответ клиенту
+);</code></pre>
+<p>4\. По аналогии описаны удаления игр и пользователей 👇🏻</p>
+<p>Для пользователей `usersRouter.delete(&quot;/users/:id&quot;, deleteUser, sendUserDeleted);`</p>
+<p>- Добавь миддлвар с использованием метода модели `findByIdAndDelete`, передав аргументом `id` пользователя.</p>
+<pre><code>const deleteUser = async (req, res, next) =&gt; {
+  console.log(&quot;DELETE /users/:id&quot;);
+  try {
+    req.user = await users.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка удаления пользователя&quot; }));
+  }
+};</code></pre>
+<p>- Верни удалённого пользователя `req.user` в качестве ответа на запрос.</p>
+<pre><code>const sendUserDeleted = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.user));
+};</code></pre>
+<p>Для категорий `categoriesRouter.delete(&quot;/categories/:id&quot;, deleteCategory, sendCategoryDeleted);`</p>
+<p>- Добавь миддлвар с использованием метода модели `findByIdAndDelete`, передав аргументом `id` категории.</p>
+<pre><code>const deleteCategory = async (req, res, next) =&gt; {
+  console.log(&quot;DELETE /categories/:id&quot;);
+  try {
+    req.category = await categories.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка удаления категории&quot; }));
+  }
+};</code></pre>
+<p>- Верни удалённого пользователя `req.category` в качестве ответа на запрос.</p>
+<pre><code>const sendCategoryDeleted = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.category));
+};</code></pre>
+<h2>Напоследок. Проверки и ошибки</h2>
+<p>Для обработки неправильного ввода пользователя внедри в проект миддлвары. Они будут проверять пустые поля и попытку сломать твой бэкенд.</p>
+<p>1. **Проверка пустых полей** При попытках создать или обновить игру, убедись, что обязательные поля приходят с фронтенда. Это поля `title`, `description`, `image`, `link` и `description`</p>
+<pre><code>const checkEmptyFields = async (req, res, next) =&gt; {
+  if (
+    !req.body.title ||
+    !req.body.description ||
+    !req.body.image ||
+    !req.body.link ||
+    !req.body.developer
+  ) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Заполните все поля&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>При попытках создать категорию — проверь, что `name` не пустое.</p>
+<pre><code>const checkEmptyName = async (req, res, next) =&gt; {
+  if (!req.body.name) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Введите название категории&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>При создании пользователя проверяй, что введены его имя, email и пароль.</p>
+<pre><code>const checkEmptyNameAndEmailAndPassword = async (req, res, next) =&gt; {
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Введите имя, email и пароль&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>А при обновлении пользователя нужна проверка, что имя пользователя или email не пустые.</p>
+<pre><code>const checkEmptyNameAndEmail = async (req, res, next) =&gt; {
+  if (!req.body.username || !req.body.email) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Введите имя и email&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>2. **Проверка дубликатов** Перед тем, как создавать новую игру или обновлять существующую, проверь, нет ли игры с таким же названием в базе.</p>
+<pre><code>const checkIsGameExists = async (req, res, next) =&gt; {
+  const isInArray = req.gamesArray.find((game) =&gt; {
+    return req.body.title === game.title;
+  });
+  if (isInArray) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Игра с таким названием уже существует&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>Та же самая проверка нужна для пользователя и категории.</p>
+<pre><code>const checkIsUserExists = async (req, res, next) =&gt; {
+  const isInArray = req.usersArray.find((user) =&gt; {
+    return req.body.email === user.email;
+  });
+  if (isInArray) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Пользователь с таким email уже существует&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<pre><code>const checkIsCategoryExists = async (req, res, next) =&gt; {
+  const isInArray = req.categoriesArray.find((category) =&gt; {
+    return req.body.name === category.name;
+  });
+  if (isInArray) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Категория с таким названием уже существует&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>3. **Проверка наличия категории у игры** Нам нельзя добавлять в базу игры без присвоенных категорий. Проверь это.</p>
+<pre><code>const checkIfCategoriesAvaliable = async (req, res, next) =&gt; {
+  if (!req.body.categories || req.body.categories.length === 0) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Выберите хотя бы одну категорию&quot; }));
+  } else {
+    next();
+  }
+};</code></pre>
+<p>4. **Проверка, что прикрепленных к игре пользователей больше ровно на одного** Это самая сложная проверка. Проверь, что при обновлении игры в случае приходящего массива с пользователями игры количество пользователей в этом массиве увеличивается на единицу. Это нужно для механики голосования за игру.</p>
+<pre><code>const checkIfUsersAreSafe = async (req, res, next) =&gt; {
+  if (!req.body.users) {
+    next();
+    return;
+  }
+  if (req.body.users.length - 1 === req.game.users.length) {
+    next();
+    return;
+  } else {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Нельзя удалять пользователей или добавлять больше одного пользователя&quot; }));
+  }
+};</code></pre>
+<p>5. **Обновление роутов, добавление миддлваров проверок** Убедись, что проверки на своём месте.</p>
+<pre><code>gamesRouter.post(
+  &quot;/games&quot;,
+  findAllGames,
+  checkIsGameExists,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  createGame,
+  sendGameCreated
+);
+
+gamesRouter.put(
+  &quot;/games/:id&quot;,
+  findGameById,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  updateGame,
+  sendGameUpdated
+);</code></pre>
+<pre><code>categoriesRouter.post(
+  &quot;/categories&quot;,
+  findAllCategories,
+  checkIsCategoryExists,
+  checkEmptyName,
+  createCategory,
+  sendCategoryCreated
+);
+
+categoriesRouter.put(
+  &quot;/categories/:id&quot;,
+  checkEmptyName,
+  updateCategory,
+  sendCategoryUpdated
+);</code></pre>
+<pre><code>usersRouter.post(
+  &quot;/users&quot;,
+  findAllUsers,
+  checkIsUserExists,
+  checkEmptyNameAndEmailAndPassword,
+  createUser,
+  sendUserCreated
+);
+
+usersRouter.put(
+  &quot;/users/:id&quot;,
+  checkEmptyNameAndEmail,
+  updateUser,
+  sendUserUpdated
+);</code></pre>
+</body>
+</html>

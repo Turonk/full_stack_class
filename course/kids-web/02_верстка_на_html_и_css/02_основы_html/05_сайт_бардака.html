@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Сайт бардака</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Сайт бардака</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7ddb1582-865a-433f-a22a-5bef0f720708/lessons/57bab6f7-472f-4c19-89c5-98a5c42234b6/">https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7ddb1582-865a-433f-a22a-5bef0f720708/lessons/57bab6f7-472f-4c19-89c5-98a5c42234b6/</a></p>
+  <h1>Сайт бардака</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_332_1694781941.png)</p>
+<p>Давай для начала зададим структуру сайту: укажем тип документа (html), добавим открывающий и закрывающий теги `&lt;html&gt;` и между ними добавим теги `&lt;head&gt;&lt;/head&gt;` и `&lt;body&gt;&lt;/body&gt;`</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+  &lt;head&gt;
+
+	&lt;/head&gt;
+  &lt;body&gt;
+	
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Из вселенной оптимизации поиска 🕵🏻‍♀️</p>
+<p>Это атрибут, который отвечает за основной язык страницы: в нашем случае значение — русский. Благодаря использованию этого атрибута поисковики лучше будут считывать, кому показывать твой сайт.</p>
+<p>Теперь в `&lt;head&gt;&lt;/head&gt;` пропишем тег `&lt;meta&gt;` с указанием кодировки и `&lt;title&gt;&lt;/title&gt;`:</p>
+<pre><code>&lt;head&gt;
+		&lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Ретро свалка&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+<p>Ну название вкладки в `&lt;title&gt;&lt;/title&gt;` мы так, черново набросали — попробуй покреативить и дать своё.</p>
+<p>А мы пока подключим стили. У нас уже есть готовый файл стилей от Цэ-эс-эсочки — в этот раз она любезно им поделилась. В дальнейшем такие придётся делать своими силами. Всё, что нужно сделать — в тег `&lt;head&gt;` добавить тег `&lt;style&gt;`, в который скопипастить стили, и не забудь потом закрыть тег!</p>
+<pre><code>.trash-images img {
+    position: absolute;
+    width:  500px;
+}
+
+body {
+    background-image: url(&#x27;https://code.s3.yandex.net/kids-web/pomoyka-background.png&#x27;);
+    background-size: cover;
+}
+
+.trash-images {
+    max-width: 1600px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.trash-images .imagination-text {
+    z-index: 13;
+    top: 0;
+    width: 810px;
+}
+
+.trash-images .mouse {
+    top: 621px;
+    left: 576px;
+    z-index: 15;
+    width: 240px;
+}
+
+.trash-images .trash {
+    width: 1043px;
+    top: 165px;
+    right: 0;
+}
+
+.trash-images .keyboard {
+    left: 359px;
+    top: 216px;
+    width: 678px;
+    z-index: 14;
+}
+
+.trash-images .old-mac {
+    top: 272px;
+    z-index: 14;
+    left: 149px;
+    width: 652px;
+}
+
+.trash-images .pc-for-dummies {
+    top: 127px;
+    left: 309px;
+    z-index: 14;
+    width: 311px;
+}
+
+.trash-images .trash-bag {
+    right: 0;
+    bottom: 2px;
+    top: 259px;
+    z-index: 15;
+    width: 600px;
+}
+
+.trash-images .very-old-comp {
+    right: 58px;
+    z-index: 14;
+    top: 127px;
+}
+
+.trash-images .computer-mag {
+    right: 133px;
+    top: 0;
+    z-index: 13;
+    width: 438px;
+}
+
+.trash-images .windows98 {
+    top: 666px;
+    z-index: 14;
+    left: 386px;
+    width: 311px;
+}
+
+.old-comp {
+    left: 5px;
+    top: 535px;
+    z-index: 14;
+}
+
+.old-comp-2 {
+    left: 4px;
+    top: 185px;
+    z-index: 14;
+}
+
+.trash-images .disks {
+    right: 268px;
+    top: 538px;
+}</code></pre>
+<p>С головой закончили. В `&lt;body&gt;`, естественно, не поместится всё содержимое свалки, но мы добавим аж 13 изображений имущества его корпоративного величества.</p>
+<p>Для этого давай сделаем пока 13 пустых тегов `&lt;img /&gt;` и обернем их в `div` с классом `“trash-images”`. Помни про копипаст! CTRL + C, CTRL + V, погнали!</p>
+<pre><code>&lt;body&gt;
+  &lt;div class=&quot;trash-images&quot;&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+    &lt;img /&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+<p>Осталось всего лишь указать у всех атрибут `src`, и сайт почти готов. Сейчас покажем тебе три первых, а остальные ссылки попробуй вставить самостоятельно (список ниже!). Порядок — дело твоего вкуса.</p>
+<pre><code>&lt;img src=&quot;https://code.s3.yandex.net/kids-web/trash.png&quot; /&gt;
+&lt;img src=&quot;https://code.s3.yandex.net/kids-web/trash-bag.png&quot; /&gt;
+&lt;img src=&quot;https://code.s3.yandex.net/kids-web/the-imagination-machine.png&quot; /&gt;</code></pre>
+<p>1. [https://code.s3.yandex.net/kids-web/old-computer.png](https://code.s3.yandex.net/kids-web/old-computer.png){target=&quot;_blank&quot;} 2. [https://code.s3.yandex.net/kids-web/very-old-comp.png](https://code.s3.yandex.net/kids-web/very-old-comp.png){target=&quot;_blank&quot;} 3. [https://code.s3.yandex.net/kids-web/old-computer-2.png](https://code.s3.yandex.net/kids-web/old-computer-2.png){target=&quot;_blank&quot;} 4. [https://code.s3.yandex.net/kids-web/old-computer-3.png](https://code.s3.yandex.net/kids-web/old-computer-3.png){target=&quot;_blank&quot;} 5. [https://code.s3.yandex.net/kids-web/mouse.png](https://code.s3.yandex.net/kids-web/mouse.png){target=&quot;_blank&quot;} 6. [https://code.s3.yandex.net/kids-web/computer-mag.png](https://code.s3.yandex.net/kids-web/computer-mag.png){target=&quot;_blank&quot;} 7. [https://code.s3.yandex.net/kids-web/windows98-mag.png](https://code.s3.yandex.net/kids-web/windows98-mag.png){target=&quot;_blank&quot;} 8. [https://code.s3.yandex.net/kids-web/hands-keyboard.png](https://code.s3.yandex.net/kids-web/hands-keyboard.png){target=&quot;_blank&quot;} 9. [https://code.s3.yandex.net/kids-web/pc-for-dummies.png](https://code.s3.yandex.net/kids-web/pc-for-dummies.png){target=&quot;_blank&quot;} 10. [https://code.s3.yandex.net/kids-web/disks.png](https://code.s3.yandex.net/kids-web/disks.png){target=&quot;_blank&quot;}</p>
+<p>Прекрасно! 13 ретроайтемов из коллекции Короля теперь сияют на экране. Мы почти у цели.</p>
+<p>Нам осталось только правильно привязать их к нашей странице с помощью классов. Для этого нужно вставить атрибут `class` с названием класса, содержащего нужные стили в CSS.</p>
+<p>Смотри, как мы присвоили классы первым трём ссылкам, и сделай то же самое с остальными в своём коде (список названий под кодом).</p>
+<pre><code>&lt;img src=&quot;https://code.s3.yandex.net/kids-web/trash.png&quot; class=&quot;trash&quot; /&gt;
+&lt;img src=&quot;https://code.s3.yandex.net/kids-web/trash-bag.png&quot; class=&quot;trash-bag&quot; /&gt;
+&lt;img src=&quot;https://code.s3.yandex.net/kids-web/the-imagination-machine.png&quot; class=&quot;imagination-text&quot; /&gt;</code></pre>
+<p>*подсказка: название класса частично или полностью совпадает с названием файла в конце пути к файлу атрибута `src`*</p>
+<p>**`old-computer`**</p>
+<p>**`old-comp-2`**</p>
+<p>**`old-comp-3`**</p>
+<p>**`computer-mag`**</p>
+<p>**`windows98`**</p>
+<p>**`keyboard`**</p>
+<p>**`pc-for-dummies`**</p>
+<p>**`disks`**</p>
+<p>**`mouse`**</p>
+<p>**`very-old-comp`**</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_49_1696672958.png)</p>
+</body>
+</html>

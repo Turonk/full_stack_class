@@ -1,0 +1,18 @@
+{
+  "lesson_id": "7cd8167b-f7bd-422a-a9d7-58f51b816dae",
+  "title": "Планёрка с менеджером",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "7fa40fdd-1d01-45f2-8cd5-271295dfecfc",
+  "topic_name": "Внешние менеджеры состояний",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/7cd8167b-f7bd-422a-a9d7-58f51b816dae/",
+  "markdown_chars": 1229,
+  "content_hash": "5c0eda2eb9033f52",
+  "saved_at": "2026-07-29T15:22:59.589230+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/01_планерка_с_менеджером.md",
+    "html": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/01_планерка_с_менеджером.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "9973cb23-850a-4f96-ae8f-b65899a54ca4",
+  "title": "Отсыпаем propsы",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "b0c0d850-4469-4132-bd4f-a89e666eea81",
+  "topic_name": "Поток данных и состояние",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/9973cb23-850a-4f96-ae8f-b65899a54ca4/",
+  "markdown_chars": 13506,
+  "content_hash": "d5f1d1012a6cb16e",
+  "saved_at": "2026-07-29T15:22:18.164174+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/03_поток_данных_и_состояние/02_отсыпаем_propsы.md",
+    "html": "04_применение_реактивного_фреймворка/03_поток_данных_и_состояние/02_отсыпаем_propsы.html"
+  }
+}

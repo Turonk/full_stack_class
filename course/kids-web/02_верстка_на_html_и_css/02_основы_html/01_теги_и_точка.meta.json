@@ -1,0 +1,18 @@
+{
+  "lesson_id": "97027139-95d7-40dc-8805-198904d39e32",
+  "title": "Теги и точка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7ddb1582-865a-433f-a22a-5bef0f720708",
+  "topic_name": "Основы HTML",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7ddb1582-865a-433f-a22a-5bef0f720708/lessons/97027139-95d7-40dc-8805-198904d39e32/",
+  "markdown_chars": 5500,
+  "content_hash": "b6e5b6f145f40865",
+  "saved_at": "2026-07-29T15:19:56.656978+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/02_основы_html/01_теги_и_точка.md",
+    "html": "02_верстка_на_html_и_css/02_основы_html/01_теги_и_точка.html"
+  }
+}

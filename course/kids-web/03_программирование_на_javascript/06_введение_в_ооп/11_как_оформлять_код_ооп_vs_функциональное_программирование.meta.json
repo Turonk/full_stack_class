@@ -1,0 +1,18 @@
+{
+  "lesson_id": "2f766277-22f2-47f7-9188-915420098864",
+  "title": "Как оформлять код (ООП vs функциональное программирование)",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/2f766277-22f2-47f7-9188-915420098864/",
+  "markdown_chars": 6674,
+  "content_hash": "b4fb0c84907d3a7d",
+  "saved_at": "2026-07-29T15:21:47.319350+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/11_как_оформлять_код_ооп_vs_функциональное_программирование.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/11_как_оформлять_код_ооп_vs_функциональное_программирование.html"
+  }
+}

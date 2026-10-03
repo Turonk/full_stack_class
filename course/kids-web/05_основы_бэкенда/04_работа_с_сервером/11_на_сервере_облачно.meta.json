@@ -1,0 +1,18 @@
+{
+  "lesson_id": "6017943b-863e-443b-96d0-c9d0fff46bb2",
+  "title": "На сервере облачно",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/6017943b-863e-443b-96d0-c9d0fff46bb2/",
+  "markdown_chars": 1046,
+  "content_hash": "84da03a3ea1f366c",
+  "saved_at": "2026-07-29T15:24:46.805726+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/11_на_сервере_облачно.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/11_на_сервере_облачно.html"
+  }
+}

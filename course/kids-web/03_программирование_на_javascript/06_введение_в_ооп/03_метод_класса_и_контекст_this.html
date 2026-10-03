@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Метод класса и контекст this</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Метод класса и контекст this</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/db14c968-9665-44a2-a21a-f2eb48dd4516/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/db14c968-9665-44a2-a21a-f2eb48dd4516/</a></p>
+  <h1>Метод класса и контекст this</h1>
+<p>Твоя правда, Аски. Если мы собираемся делать игру, где информация о персонажах не просто хранится, но как-то изменяется или выводится на экран, то придётся научиться создавать код для описания действий.</p>
+<p>В нашей игре с танцевальным баттлом нам бы хотелось, чтобы свойства каждого экземпляра класса выводились в консоль. Такое действие будет одинаковым для каждого персонажа, логично его задать в шаблоне — классе `Hero`</p>
+<p>В уроке рассказываем, как это сделать.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_611_1703864591.png)</p>
+<h2>Методы</h2>
+<p>Методы — это функции, их отличие только в том, что они находятся внутри классов и могут взаимодействовать со свойствами класса.</p>
+<p>Допустим, у нас есть класс, описывающий котика:</p>
+<pre><code>class Cat {
+	constructor(name, age, color) {
+		this.name = name;
+    this.age = age;
+    this.color = color;
+	}
+};</code></pre>
+<p>Действительно, Аски.</p>
+<p>Давайте-ка научим его мяукать, для этого добавим в объект метод `makeMew` (обрати внимание, что, в отличие от объявления обычной функции, мы не будем использовать ключевое слово `function`)👇🏻</p>
+<pre><code>class Cat {
+	constructor(name, age, color) {
+		this.name = name;
+    this.age = age;
+    this.color = color;
+	}
+	// Тут не нужно использовать ключевое слово function, так как это метод объекта
+	makeMew() { // Мяукнуть 
+		console.log(&#x27;Мяу-мяу&#x27;);
+	}
+};
+
+// Создадим объект (кота Барни) — экземпляр класса Cat
+const catBarni = new Cat(&quot;Барни&quot;, 7, &quot;чёрно-белый&quot;);</code></pre>
+<p>Мы можем обращаться к свойствам класса через точку, чтобы получать значения этих свойств или перезаписывать их. Вызов метода выполняется также через точку 👇🏻</p>
+<pre><code>// Выведем в консоль имя кота
+console.log(catBarni.name) // &quot;Барни&quot;
+// Обращаться к методам объекта также можно через точку 
+catBarni.makeMew() // Выведет в консоль &quot;Мяу-мяу&quot;</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗️Не забывай указывать круглые скобки для вызова метода — этим он похож на обычные функции. А ещё удели внимание именованию методов. Методы — это какой-то процесс, поэтому их необходимо называть, используя глаголы: `makeMew` или `сделайМяу`. Это позволит отличить методы от свойств, которые записываются с помощью существительных: `name`, `age`, `color` {/quiz-task}</p>
+<p>Без проблем, можем добавить метод `sayAge()` , чтобы кот мог мяукнуть столько раз, сколько ему лет. Но для этого поговорим поподробнее о `this`</p>
+<h2>Немного о `this`</h2>
+<p>Чтобы кот научился рассказывать о своём возрасте, надо в методе `sayAge()` обратиться к свойству `age` — для этого необходимо использовать ключевое слово `this` 👇🏻</p>
+<pre><code>class Cat {
+	constructor(name, age, color) {
+		this.name = name;
+    this.age = age;
+    this.color = color;
+	}
+	
+	makeMew() { 
+		console.log(&#x27;Мяу-мяу&#x27;);
+	}
+	
+	sayAge() {
+    console.log(&quot;Мяукнуть &quot; + this.age +&quot; раз&quot;);
+  }
+};
+
+// Создадим объект (кота Барни) - экземпляр класса Cat
+const catBarni = new Cat(&quot;Барни&quot;, 7, &quot;чёрно-белый&quot;);
+catBarni.sayAge() // Команда выведет в консоль &quot;Мяукнуть 7 раз&quot;</code></pre>
+<p>С помощью `this` можно обращаться к любым свойствам и методам текущего класса. Значение `this` — это объект перед точкой, который используется для вызова метода.</p>
+<pre><code>// Во время выполнения catBarni.sayAge() значением this будет являться 
+// объект catBarni, поэтому this.age вернёт то же значение, как catBarni.age
+cat.sayAge() // &quot;Мяукнуть 7 раз&quot;</code></pre>
+<p>Это удобно, потому что значение `this` вычисляется во время выполнения кода и зависит от места вызова. Если у нас есть два разных экземпляра класса с одинаковым методом, то в каждом случае результат вызова метода будет отличаться. Это значительно практичнее, чем указывать фиксированную переменную в методе.</p>
+<pre><code>class Cat {
+	constructor(name, age, color) {
+		this.name = name;
+    this.age = age;
+    this.color = color;
+	}
+	
+	makeMew() { 
+		console.log(&#x27;Мяу-мяу&#x27;);
+	}
+	
+	sayAge() {
+    console.log(&quot;Мяукнуть &quot; + this.age +&quot; раз&quot;);
+  }
+};
+
+// Создадим объект (кота Барни) - экземпляр класса Cat
+const catBarni = new Cat(&quot;Барни&quot;, 7, &quot;чёрно-белый&quot;);
+// Создадим объект (кошку Булочку) - экземпляр класса Cat
+const catBulochka = new Cat(&quot;Булочка&quot;, 5, &quot;коричневый&quot;);
+
+// В зависимости от экземпляра класса, в значении this будут разные объекты 
+// и, соответственно, разный возраст животного
+catBarni.sayAge() // &quot;Мяукнуть 7 раз&quot;
+catBulochka.sayAge() // &quot;Мяукнуть 5 раз&quot;</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | 🚨 **Важный момент!** `this` удобен для использования в разных объектах, но его динамическое вычисление может приводить к ряду проблем. Поэтому использовать его нужно с умом и следить за ним в оба глаза. {/quiz-task}</p>
+<h2>`class Hero` и его метод `displayHero()`</h2>
+<p>В проекте есть класс — шаблон, который позволяет создавать персонажей для проекта. И мы уже создали два объекта с персонажами `CSSchan` и `ASCIIsan` на его основе 👇🏻</p>
+<pre><code>class Hero {
+	constructor(name, level, healthPoints, stats) {
+	  this.name = name; //имя
+    this.level = level; //уровень
+    this.healthPoints = healthPoints; //жизненные силы
+    this.stats = stats; //параметры
+  }
+}
+
+let ASCIIsan = new Hero(
+  &quot;Рыцарь Аски&quot;,
+	100,
+	100,
+	{
+		str: 100,
+		int: 30,
+		agi: 100
+	}
+);
+
+let CSSchan = new Hero(
+  &quot;Цэ-эс-эсочка&quot;,
+	100,
+	100,
+	{
+		str: 30,
+		int: 100,
+		agi: 100
+	}
+);</code></pre>
+<p>Теперь давай добавим классу `Hero` метод `displayHero()`, который будет выводить основные характеристики героя в консоль.</p>
+<p>В этой функции ты соберёшь характеристики из объекта героя при помощи ключевого слова `this` в шаблонную строку и отобразишь её в консоли при помощи `console.log()`👇🏻</p>
+<pre><code>class Hero {
+	constructor(name, level, healthPoints, stats) {
+	  this.name = name; //имя
+    this.level = level; //уровень
+    this.healthPoints = healthPoints; //жизненные силы
+    this.stats = stats; //параметры
+  }
+	// Метод, отвечающий за вывод информации о герое в консоль
+  displayHero() {
+		// С помощью шаблонной строки соберём характеристики героя в строку
+    const heroInfo =
+			// this.name выведет значение имени героя у объекта
+			// &quot;\n&quot; - символ, позволяющий перенести текст на новую строку 
+      `Имя: ${this.name}` + 
+      `\nУровень: ${this.level}` +
+      `\nЖизненные силы: ${this.healthPoints}` +
+      `\nСила: ${this.stats.str}` +
+      `\nИнтеллект: ${this.stats.int}` +
+      `\nЛовкость: ${this.stats.agi}`;
+			// Вывод информации в консоль
+      console.log(heroInfo);
+    }
+}</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | Кстати, так часто используемая функция `console.log()` — это тоже **метод,** подробнее о нём можно прочитать в статье на [Доке](https://doka.guide/js/console-log/){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>Теперь, после создания героев на основе класса `Hero`, у них будет метод `displayHero()`. Вызвав метод на объекте героя, ты увидишь в консоли его характеристики 👇🏻</p>
+<pre><code>let ASCIIsan = new Hero(
+  &quot;Рыцарь Аски&quot;,
+	100,
+	100,
+	{
+		str: 100,
+		int: 30,
+		agi: 100
+	}
+);
+
+let CSSchan = new Hero(
+  &quot;Цэ-эс-эсочка&quot;,
+	100,
+	100,
+	{
+		str: 30,
+		int: 100,
+		agi: 100
+	}
+);
+
+CSSchan.displayHero();
+/*
+Имя: Цэ-эс-эсочка;
+Уровень: 100;
+Жизненные силы: 100;
+Сила: 30;
+Интеллект: 100;
+Ловкость: 100
+*/
+
+ASCIIsan.displayHero();
+/*
+Имя: Рыцарь Аски;
+Уровень: 100;
+Жизненные силы: 100;
+Сила: 100;
+Интеллект: 30;
+Ловкость: 100
+*/</code></pre>
+<p>Верно! Поэтому в следующем уроке добавим им разные навыки и свойства.</p>
+</body>
+</html>

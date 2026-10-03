@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Дэзэшечка «Игровой лаунчер»</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Дэзэшечка «Игровой лаунчер»</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/ab5c982d-8b29-48fc-9332-419bc922944b/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/ab5c982d-8b29-48fc-9332-419bc922944b/</a></p>
+  <h1>Дэзэшечка «Игровой лаунчер»</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4918_2_1711451699.jpg)</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **Игровой лаунчер** — это приложение, которое обеспечивает удобное управление играми. Он помогает пользователям запускать игры, выходить и выбирать другие, а также перезапускать их для повторного прохождения. {/quiz-task}</p>
+<p>Да! Лаунчер на Node.js позволяет геймить в различные игры, такие как «Монетка», «Поле чудес», «Рыцарь, дракон или принцесса» и многие другие. В среде создаются серверные приложения, поэтому запускаться и работать лаунчер будет прямо в консоли VS Code.</p>
+<p>Вот что должно получиться 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/2024-02-29_13-34-2012.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<h2>Подготовительные работы</h2>
+<p>Беспокоиться о написании кода для игр или текста ответов пользователю не стоит — мы уже сделали это за тебя!</p>
+<p>Займёмся подготовкой: создай новую папку на компьютере и выбери для неё название — к примеру, `«GameNoda»`. Теперь перемести туда все заготовки из нашего репозитория.</p>
+<p>[GitHub - Yandex-Practicum/kb-backend-week-1-startkit: Стартовый архив для студента, чтобы написать навигатор по играм для консоли разработчика](https://github.com/Yandex-Practicum/kb-backend-week-1-startkit){target=&quot;_blank&quot;}</p>
+<p>В подготовленном для тебя файле `README.md` собрано подробное описание каждого модуля и его функциональности. Но если захочешь детальнее разобраться в работе приложения, можешь пробежаться по коду основных модулей и файлов. В процессе создания лаунчера мы также будем использовать встроенный модуль `readline`. Чтобы освежить в памяти его работу, рекомендуем пересмотреть урок «Глобальные переменные и встроенные модули».</p>
+<p>Все подготовительные работы завершены, можно начинать!</p>
+<h2>Шаг 1. Импорт модулей</h2>
+<p>Сначала импортируй модули необходимые для работы лаунчера. Среди них есть уже подготовленные модули `dictionary` и `games` 👇🏻</p>
+<pre><code>const dictionary = require(&quot;../dictionary&quot;);
+const games = require(&quot;../games&quot;);</code></pre>
+<p>Затем подключи встроенный модуль `readline` и сразу настрой его работу, передав объект с опциями в метод `createInterface`. Стандарт CommonJS достаточно продвинутый и мощный, поэтому позволяет работать с модулями сразу после их подключения. Смотри 👇🏻</p>
+<pre><code>const readline = require(&quot;readline&quot;).createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false,
+  prompt: &quot;&quot;,
+});</code></pre>
+<p>Настраивая интерфейс `readline`, используй базовые опции, которые подробно описаны в уроке «Глобальные переменные и встроенные модули».</p>
+<h2>Шаг 2. Работа с массивом игр</h2>
+<p>При импорте модуля `games` мы не используем деструктуризацию, а просто собираем все игры в объект `games`. В будущем пользователь будет вводить номер игры, а лаунчер — её запускать. Чтобы лаунчер понимал, какое число соответствует нужной игре, создай массив `gamesArray`, в котором для каждой игры необходимо задать объект с двумя полями: `id` и `game`. Теперь каждая игра будет связана с нужным числом (её идентификатором) 👇🏻</p>
+<pre><code>const gamesArray = [
+  { id: &quot;1&quot;, game: games.knightDragonAndPrincessGame },
+  { id: &quot;2&quot;, game: games.poleChudesGame },
+  { id: &quot;3&quot;, game: games.makeWordGame },
+  { id: &quot;4&quot;, game: games.blackJackGame },
+  { id: &quot;5&quot;, game: games.trueOrFalseGame },
+  { id: &quot;6&quot;, game: games.dropCoin },
+];</code></pre>
+<h2>Шаг 3. Настройка запуска игр</h2>
+<p>Для запуска нужной игры создай асинхронную функцию `startGame`, которая будет принимать идентификатор игры в качестве параметра `gameId` 👇🏻</p>
+<pre><code>async function startGame(gameId) {}</code></pre>
+<p>Прежде всего функция должна проверить число из параметра `gameId`, которое ввёл пользователь, и найти соответствующую игру в массиве `gamesArray`. Для этого создай переменную `selectedGame`, в которой будет храниться выбранная игра. Для поиска используй метод `find`, сравнивая поле `id` у каждой игры в массиве `gamesArray` с параметром `gameId` 👇🏻</p>
+<pre><code>async function startGame(gameId) {
+  const selectedGame = gamesArray.find((game) =&gt; game.id === gameId);
+}</code></pre>
+<p>Не забывай и про обработку ошибок. После поиска необходимо проверить переменную `selectedGame` на наличие внутри неё игры. Если метод `find` ничего не найдёт, в переменной будет храниться значение `false`</p>
+<p>Для проверки используй конструкцию `if…else`. В случае, если игра найдена методом `find`, её необходимо запустить. Важно понимать, что каждая игра — это просто функция, которая возвращает результат при своём завершении. Чтобы сообщить пользователю о его результатах, создай переменную `result` и затем запусти игру, обратившись к `selectedGame` и вызвав функцию `game` 👇🏻</p>
+<pre><code>async function startGame(gameId) {
+  const selectedGame = gamesArray.find((game) =&gt; game.id === gameId);
+	if (selectedGame) {
+		const result = await selectedGame.game();
+	}
+}</code></pre>
+<p>Так как функция `startGame` асинхронная, а процесс игры может занять определённое время, используй ключевое слово `await`. Благодаря `await` функция `startGame` дождётся полного завершения игры и только после этого будет запускать другие функции.</p>
+<p>Через массив `gamesArray` каждой игре присваивается функция для её запуска, хранящаяся в поле `game` объекта данной игры. Другими словами, при вызове функции `game` ты на самом деле запускаешь выбранную игру.</p>
+<h2>Шаг 4. Функция подсчёта результатов</h2>
+<p>После завершения игры нужно вывести её результат, иначе пользователь не поймёт, выиграл он или проиграл. Создай функцию `countResult`, принимающую параметр `gameResult` — результат завершённой игры 👇🏻</p>
+<pre><code>function countResult(gameResult) {}</code></pre>
+<p>Используй конструкцию `if…else`, где будешь проверять параметр `gameResult`, который может содержать одно из трёх значений:</p>
+<p>- Булевое значение `true`, если пользователь победил - Булевое значение `false`, если пользователь проиграл - Строковое значение `&quot;draw&quot;`, если в игре победила дружба (ничья)</p>
+<p>Первым шагом проверь `gameResult` на наличие значения `&quot;draw&quot;`. Если в игре ничья, выведи в консоль сообщение из словаря с ключом `dictionary.global.draw` 👇🏻</p>
+<pre><code>function countResult(gameResult) {
+	if (gameResult === &quot;draw&quot;) {
+		console.log(dictionary.global.draw);
+	}
+}</code></pre>
+<p>Ниже, в блоке `else`, используй тернарный оператор, чтобы сократить код и сделать его чище. Он также будет проверять переменную `gameResult`, но уже на оставшиеся два значения: `true` или `false`. Если `gameResult` содержит `true`, выведи в консоль сообщение о выигрыше. Найти его можно в словаре по ключу `dictionary.global.win`. Иначе, если `gameResult` содержит `false`, выведи сообщение о проигрыше, которое также находится в словаре с ключом `dictionary.global.lose` 👇🏻</p>
+<pre><code>function countResult(gameResult) {
+	if (gameResult === &quot;draw&quot;) {
+		console.log(dictionary.global.draw);
+	} else {
+		console.log(gameResult ? dictionary.global.win : dictionary.global.lose);
+	}
+}</code></pre>
+<p>Вернёмся к функции `startGame` и усовершенствуем её. Для этого после завершения игры вызови функцию подсчёта результатов. Здесь нам и пригодится переменная `result`, в которой хранится результат завершённой игры. Передай эту переменную в качестве параметра функции `countResult` 👇🏻</p>
+<pre><code>async function startGame(gameId) {
+  const selectedGame = gamesArray.find((game) =&gt; game.id === gameId);
+	if (selectedGame) {
+		const result = await selectedGame.game();
+		countResult(result);
+	}
+}</code></pre>
+<h2>Шаг 5. Запуск и остановка лаунчера</h2>
+<p>Следующим шагом создай функции для запуска и прекращения работы самого лаунчера. Рекомендуем начать с первой и назвать её `startLauncher`. Эта функция будет использовать модуль `readline` для взаимодействия с пользователем и вывода меню с доступными играми 👇🏻</p>
+<pre><code>function startLauncher() {
+	readline.question(dictionary.global.chooseGame);
+}</code></pre>
+<p>Переменная `chooseGame` в объекте `global` из словарика содержит список всех игр, доступных для запуска. После вывода сообщения пользователь вводит идентификатор желаемой игры, и лаунчер должен запустить эту игру. Здесь пригодится ранее созданная функция `startGame`</p>
+<p>Для обработки ответа пользователя передай вторым аргументом стрелочную функцию с параметром `answer`, который будет содержать в себе ответ пользователя — число, соответствующее определённой игре. Внутри этой функции нужно вызвать `startGame`, передавая в неё параметр `answer` 👇🏻</p>
+<pre><code>function startLauncher() {
+	readline.question(dictionary.global.chooseGame, (answer) =&gt; {
+		startGame(answer);
+	});
+}</code></pre>
+<p>Теперь создай функцию для остановки лаунчера. Функция `stopLauncher` будет выводить прощальное сообщение пользователю, которое можно найти в словаре по ключу `dictionary.global.goodbye`. Для полной остановки приложения достаточно обратиться к `readline` и вызвать метод `close`. Он прекратит принимать от пользователя сообщения через консоль VS Code, а так как приложению после этого ничего не нужно делать, оно просто завершит свою работу 👇🏻</p>
+<pre><code>function stopLauncher() {
+  console.log(dictionary.global.goodbye);
+  readline.close();
+}</code></pre>
+<p>Модифицируй функцию `startLauncher` для обработки ещё одного сценария. Дело в том, что при выводе сообщения из переменной `chooseGame` пользователь может не только выбрать желаемую игру, но и прекратить работу лаунчера, если введёт цифру `7`. Чтобы код работал исправно, добавь проверку ответа пользователя конструкцией `if…else`. Сразу проверь переменную `answer` на соответствие цифре `7` в строковом формате. Если это так, вызови функцию `stopLauncher`, иначе будет запускаться игра 👇🏻</p>
+<pre><code>function startLauncher() {
+	readline.question(dictionary.global.chooseGame, (answer) =&gt; {
+    if (answer === &quot;7&quot;) {
+      stopLauncher();
+    } else {
+      startGame(answer);
+    }
+	});
+}</code></pre>
+<h2>Шаг 6. Выбор действия после игры</h2>
+<p>Половина пройдена! Лаунчер готов к запуску, предлагая пользователям игры, запуская их, а также отображая результат при завершении. Осталось реализовать функцию, которая будет срабатывать после того, как пользователь доиграет в любую из игр. Она должна спрашивать пользователя, что делать дальше и совершать нужное действие в зависимости от ответа.</p>
+<p>Создай функцию `afterGame`, которая будет принимать параметр `gameToRepeatId` — идентификатор игры, которую только что завершил пользователь 👇🏻</p>
+<pre><code>function afterGame(gameToRepeatId) {}</code></pre>
+<p>Для начала воспользуйся модулем `readline` и выведи сообщение, содержащее варианты продолжения. Оно находится в словаре с ключом `dictionary.global.playAgain` 👇🏻</p>
+<pre><code>function afterGame(gameToRepeatId) {
+	readline.question(dictionary.global.playAgain);
+}</code></pre>
+<p>Обработай каждый из ответов с помощью конструкции `if…else`. При вводе пользователем числа «1» необходимо перезапустить игру, в которую он только что играл. При вводе числа «2» — отобразить начальное меню со всеми играми, чтобы можно было выбрать любую другую. При вводе числа «3» полностью заверши работу лаунчера 👇🏻</p>
+<pre><code>function afterGame(gameToRepeatId) {
+	readline.question(dictionary.global.playAgain, (answer) =&gt; {
+		if (answer === &quot;1&quot;) {
+			startGame(gameToRepeatId);
+    }
+    if (answer === &quot;2&quot;) {
+      startLauncher();
+    }
+    if (answer === &quot;3&quot;) {
+      stopLauncher();
+    }
+	});
+}</code></pre>
+<p>Метод `question` модуля `readline` вновь принимает вторым аргументом стрелочную функцию, внутри которой ты проводишь нужные проверки. Перезапуская игру в первом случае, ты передаёшь в функцию `startGame` параметр `gameToRepeatId`, чтобы функция понимала, какую игру ей нужно перезапустить. Во втором случае просто вызываешь функцию `startLauncher` для отображения меню со списком игр. В третьем, финальном, варианте прекращаешь работу приложения, вызывая функцию `stopLauncher`</p>
+<h2>Шаг 7. Улучшение запуска игр</h2>
+<p>Вернёмся к функции `startGame`, чтобы модифицировать её. После завершения игры и подсчёта результатов необходимо вызвать функцию `afterGame`, которая будет спрашивать пользователя, что делать дальше. Для этого вызови функцию `afterGame` после функции подсчёта результата, передавая параметром переменную `gameId` 👇🏻</p>
+<pre><code>async function startGame(gameId) {
+  const selectedGame = gamesArray.find((game) =&gt; game.id === gameId);
+	if (selectedGame) {
+		const result = await selectedGame.game();
+		countResult(result);
+		afterGame(gameId);
+	}
+} </code></pre>
+<p>Теперь обработаем ошибки ввода пользователя. Добавь блок `else`, в котором будем выводить сообщение о некорректном вводе и вызывать функцию `stopLauncher`. Сообщение доступно по ключу `dictionary.global.wrongInput` 👇🏻</p>
+<pre><code>async function startGame(gameId) {
+  const selectedGame = gamesArray.find((game) =&gt; game.id === gameId);
+	if (selectedGame) {
+		const result = await selectedGame.game();
+		countResult(result);
+		afterGame(gameId);
+	} else {
+    console.log(dictionary.global.wrongInput);
+    startLauncher();
+	}
+} </code></pre>
+<p>Эта часть кода будет срабатывать в том случае, если пользователь введёт число, не соответствующее ни одной игре или сценарию завершения работы лаунчера.</p>
+<h2>Финальные штрихи</h2>
+<p>Осталось импортировать функцию запуска лаунчера в основной исполняемый файл `index.js`. Для этого сначала экспортируй функцию `startLauncher`, используя `module` и `exports` в конце файла `/AppModules/launcher/index.js` 👇🏻</p>
+<pre><code>module.exports = { run: startLauncher };</code></pre>
+<p>При экспорте мы хотим сделать функцию `startLauncher` доступной для использования в других частях приложения. Мы присваиваем её свойству `run` объекта, который экспортируем. Таким образом, когда мы импортируем этот модуль в другом месте программы, мы сможем вызвать функцию `startLauncher`, обращаясь к свойству `run`</p>
+<p>Перейди в файл `index.js` в корневой папке проекта и импортируй игровой лаунчер 👇🏻</p>
+<pre><code>const launcher = require(&#x27;./AppModules/launcher&#x27;);</code></pre>
+<p>В этом файле уже есть некоторые импорты и настройки. После команды `console.log` с выводом сообщения `hello` вызови функцию `run`, обращаясь к объекту `launcher` 👇🏻</p>
+<pre><code>launcher.run();</code></pre>
+<p>Теперь ты можешь запустить приложение и поиграть самостоятельно. Для этого введи команду `node index.js` в терминале VS Code.</p>
+</body>
+</html>

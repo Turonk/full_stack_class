@@ -1,0 +1,18 @@
+{
+  "lesson_id": "2c1f76c9-171b-4fbf-a7c8-d204c3f83b2b",
+  "title": "Классная минутка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/2c1f76c9-171b-4fbf-a7c8-d204c3f83b2b/",
+  "markdown_chars": 18,
+  "content_hash": "8f33950dcbeb46ab",
+  "saved_at": "2026-07-29T15:20:40.476665+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/09_классная_минутка.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/09_классная_минутка.html"
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {"id": "hoodie", "title": "Худи Pulse", "price": 2490, "genre": "wear"},
+  {"id": "cap", "title": "Кепка Night Circuit", "price": 990, "genre": "wear"},
+  {"id": "sticker", "title": "Стикеры эквалайзер", "price": 250, "genre": "paper"},
+  {"id": "poster", "title": "Постер After Bell", "price": 450, "genre": "paper"},
+  {"id": "pins", "title": "Пины A S D F", "price": 350, "genre": "wear"},
+  {"id": "tote", "title": "Шоппер Pixel Tide", "price": 790, "genre": "wear"}
+]

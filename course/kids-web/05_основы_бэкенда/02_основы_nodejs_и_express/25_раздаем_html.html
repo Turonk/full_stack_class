@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Раздаём HTML</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Раздаём HTML</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/a3c0a61a-2fc2-476e-a16a-9f330ff3dc59/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/a3c0a61a-2fc2-476e-a16a-9f330ff3dc59/</a></p>
+  <h1>Раздаём HTML</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/11.04.2024_1712855934.jpg)</p>
+<p>Мы разобрались с передачей данных в ответе на запрос. Но пользователю нужно отдавать и статичные файлы: разметку, стили, скрипты, изображения. Тебе уже знаком стандартный Node.js-модуль для работы с файлами — `fs`. Файлы, которые нужно отдавать клиентам, складывают в отдельную папку — её принято называть `public`. Ты можешь прочитать содержимое папки `public` и отдавать на запрос HTML-страницу.</p>
+<p>В файле с роутером `main.js` для базового запроса к серверу обеспечь доступ к `index.html` 👇🏻</p>
+<pre><code>// routes/main.js
+const mainRoute = require(&quot;express&quot;).Router();
+
+mainRoute.get(&quot;/&quot;, (req, res) =&gt; {
+  res.status(200).send(&#x27;&lt;h1&gt;Скоро тут будет интерфейс&lt;/h1&gt;&#x27;);
+});
+
+module.exports = mainRoute;</code></pre>
+<p>Добавь импорт модуля `fs` и методом `readFile` прочти HTML-файл из `public` с указанием верной кодировки `utf-8`. Этот процесс асинхронный, поэтому воспользуйся `.then()` и отправь ответ с указанием заголовков после чтения файла 👇🏻</p>
+<pre><code>// routes/main.js
+const mainRoute = require(&quot;express&quot;).Router();
+const fs = require(&quot;fs&quot;).promises;
+
+mainRoute.get(&quot;/&quot;, (req, res) =&gt; {
+  fs.readFile(&quot;./public/index.html&quot;, &quot;utf-8&quot;).then((data) =&gt; {
+    res.header(&quot;Content-Type&quot;, &quot;text/html&quot;).send(data);
+  });
+});
+module.exports = mainRoute;</code></pre>
+<p>Теперь клиент сможет получить заготовленную HTML-страницу по `GET`-запросу с роутом `&quot;/&quot;`</p>
+<p>Писать обработчики для всей этой информации неудобно и не нужно, вместо этого научимся пользоваться методом `static` из Express.</p>
+<p>По умолчанию у пользователей нет доступа к файлам на твоём сервере. Это можно изменить, так как метод `static` принимает адрес папки на вход и делает её доступной снаружи 👇🏻</p>
+<pre><code>// Сделали всё, что есть на сервере, доступным пользователю
+app.use(express.static(__dirname));</code></pre>
+<p>Оптимальным вариантом будет дать доступ только к папке `public`</p>
+<p>1) Скачай для своего проекта этот архив и добавь его в корень проекта 👇🏻</p>
+<p>[public.zip](https://code.s3.yandex.net/kids-web/vids/M4/public.zip){target=&quot;_blank&quot;}</p>
+<p>2) Теперь папка `public` лежит в корне проекта на одном уровне с исполняемым файлом — `app.js`. Переменная `__dirname` указывает абсолютный путь к корню сервера, содержащему текущий исполняемый файл, поэтому остаётся только воспользоваться методом `join` (информация о методе, как всегда, в [документации](https://nodejs.org/api/path.html#pathjoinpaths){target=&quot;_blank&quot;}), чтобы склеить абсолютный путь до файла и название папки с файлами, к которым хотим дать доступ 👇🏻</p>
+<pre><code>// app.js 
+const express = require(&#x27;express&#x27;);
+const path = require(&#x27;path&#x27;);
+const mainRoute = require(&#x27;./routes/main&#x27;);
+const gamesRouter = require(&#x27;./routes/games&#x27;); 
+
+const PORT = 3000;
+const app = express();
+
+// Теперь клиент имеет доступ только к публичным файлам
+app.use(express.static(path.join(__dirname, &#x27;public&#x27;))); 
+
+app.use(mainRoute, gamesRouter); 
+
+app.listen(PORT, () =&gt; {
+  console.log(`Server is running at PORT http://localhost:${PORT}`);
+})</code></pre>
+<p>Метод `static` задаёт определённую логику отправки файлов. Если обратиться к корню сервера, ты автоматически попадёшь в `public` и получишь файл `index.html`. Получается, что не нужно добавлять в запрос имя файла, достаточно просто обратиться в корень — по адресу `&quot;/&quot;`</p>
+<p>Публичная папка — отправная точка в проекте, которую мы уже указали с помощью `express.static`</p>
+</body>
+</html>

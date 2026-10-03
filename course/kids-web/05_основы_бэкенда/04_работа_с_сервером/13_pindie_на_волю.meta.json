@@ -1,0 +1,18 @@
+{
+  "lesson_id": "761951e0-5f8a-46fa-bcec-1b7081608544",
+  "title": "Pindie на волю!",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/761951e0-5f8a-46fa-bcec-1b7081608544/",
+  "markdown_chars": 2547,
+  "content_hash": "ca776882ecad0923",
+  "saved_at": "2026-07-29T15:24:49.626816+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/13_pindie_на_волю.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/13_pindie_на_волю.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "20c833e0-1507-490c-8b45-2f438e537064",
+  "title": "Хуки роутинга и навигации",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "dc689bfe-1408-47f0-a390-91a5bb1735be",
+  "topic_name": "Маршрутизация SPA",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/20c833e0-1507-490c-8b45-2f438e537064/",
+  "markdown_chars": 5191,
+  "content_hash": "77a49b5ea1bbe78a",
+  "saved_at": "2026-07-29T15:22:45.573461+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/07_хуки_роутинга_и_навигации.md",
+    "html": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/07_хуки_роутинга_и_навигации.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "e211e2a4-9605-41ee-8b4f-73c260d6f8b5",
+  "title": "Протоколы: http, https, ssh",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "afe55206-09c1-442b-a141-c69c44323348",
+  "topic_name": "Как устроен интернет",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/afe55206-09c1-442b-a141-c69c44323348/lessons/e211e2a4-9605-41ee-8b4f-73c260d6f8b5/",
+  "markdown_chars": 4062,
+  "content_hash": "b3c4c6c9ed887a39",
+  "saved_at": "2026-07-29T15:23:19.471410+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/01_как_устроен_интернет/04_протоколы_http_https_ssh.md",
+    "html": "05_основы_бэкенда/01_как_устроен_интернет/04_протоколы_http_https_ssh.html"
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Ещё пара слов про контроллеры</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Ещё пара слов про контроллеры</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/a58cd521-7bfc-443d-9a64-e730756cc609/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/a58cd521-7bfc-443d-9a64-e730756cc609/</a></p>
+  <h1>Ещё пара слов про контроллеры</h1>
+<p>Напомним, **контроллер** — это функция, предназначенная для выполнения определённых действий в качестве реакции на полученный запрос по какому-либо маршруту.</p>
+<pre><code>// routes/games.js
+const gamesRouter = require(&quot;express&quot;).Router(); // Создали роутер
+const { readData, writeData } = require(&quot;../utils/data&quot;); // Чтение и запись данных в json файл
+
+// Получим игры из JSON файла и отправим в ответ на запрос
+const getAllGames = async (req, res) =&gt; {
+  const games = await readData(&quot;./data/games.json&quot;);
+  if (!games) {
+    res.status(400);
+    res.send({
+      status: &quot;error&quot;,
+      message: &quot;Нет игр в базе данных. Добавьте игру.&quot;
+    });
+    return;
+  }
+  req.games = games;
+  res.send(req.games);
+};
+
+const deleteGame = async (req, res) =&gt; {
+	// Получим данные из файла
+  const games = await readData(&quot;./data/games.json&quot;);
+  if (!games) {
+    res.status(400);
+    res.send({
+      status: &quot;error&quot;,
+      message: &quot;Нет игр в базе данных. Добавьте игру.&quot;,
+    });
+    return;
+  }
+  req.games = games;
+  
+  // Прочитаем запрашиваемый id игры из запроса
+	const id = Number(req.params.id);
+	
+	// Найдём игру, которую хотят удалить из общего массива с играми, по id
+	req.game = req.games.find((item) =&gt; item.id === id);
+	
+	// Найдём индекс удаляемой игры в общем массиве игр
+	const index = req.games.findIndex((item) =&gt; item.id === req.game.id);
+	
+	// Удалим из массива игр игру
+	req.games.splice(index, 1);
+	
+	// Запишем обновленный массив игр в JSON файл
+	await writeData(&quot;./data/games.json&quot;, req.games);
+	
+	// Вернём ответ о проделанной операции с данными о играх
+	res.send({
+    games: req.games,
+    updated: req.game
+  });
+}
+
+gamesRouter.get(&quot;/games&quot;, getAllGames)
+gamesRouter.delete(&quot;/games/:id&quot;, deleteGame);
+
+module.exports = gamesRouter;</code></pre>
+<p>В этом случае функции `getAllGames` и `deleteGame` — контроллеры, которые используются для обработки маршрутов 👇🏻</p>
+<pre><code>gamesRouter.get(&quot;/games&quot;, getAllGames)
+gamesRouter.delete(&quot;/games/:id&quot;, deleteGame);</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Но пока в данном коде есть проблема: когда в `routes/games.js` появится больше маршрутов, хранить все контроллеры для них в этом же файле будет очень неудобно, тем более если сами контроллеры будут сложные и объёмные. {/quiz-task}</p>
+<p>Создай отдельную папку `controllers` с `games.js` , перенеси в него функции `getAllGames` и `deleteGame`. Дальше будешь экспортировать их оттуда, чтобы можно было использовать в файле с маршрутами `routes/games.js` 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/7.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+</body>
+</html>

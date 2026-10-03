@@ -1,0 +1,18 @@
+{
+  "lesson_id": "36d0a672-3598-4b33-b625-34ec9ed90f35",
+  "title": "Качалка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/36d0a672-3598-4b33-b625-34ec9ed90f35/",
+  "markdown_chars": 568,
+  "content_hash": "e6741165a2e3712a",
+  "saved_at": "2026-07-29T15:20:15.373660+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/07_качалка.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/07_качалка.html"
+  }
+}

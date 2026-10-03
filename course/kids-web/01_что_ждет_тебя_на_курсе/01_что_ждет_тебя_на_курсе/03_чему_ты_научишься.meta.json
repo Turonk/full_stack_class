@@ -1,0 +1,18 @@
+{
+  "lesson_id": "2b1d2d4b-dffe-4bd1-b40d-27fbea2887a4",
+  "title": "Чему ты научишься",
+  "course_id": "b87be68a-7444-4748-b8bf-15a9055c44a3",
+  "course_name": "Что ждёт тебя на курсе",
+  "topic_id": "ccad0d68-e397-49ba-8efe-d98fac738947",
+  "topic_name": "Что ждёт тебя на курсе",
+  "sprint_id": 190121,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/b87be68a-7444-4748-b8bf-15a9055c44a3/sprints/190121/topics/ccad0d68-e397-49ba-8efe-d98fac738947/lessons/2b1d2d4b-dffe-4bd1-b40d-27fbea2887a4/",
+  "markdown_chars": 1279,
+  "content_hash": "9d3571e520193b2b",
+  "saved_at": "2026-07-29T15:19:42.769300+00:00",
+  "paths": {
+    "md": "01_что_ждет_тебя_на_курсе/01_что_ждет_тебя_на_курсе/03_чему_ты_научишься.md",
+    "html": "01_что_ждет_тебя_на_курсе/01_что_ждет_тебя_на_курсе/03_чему_ты_научишься.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "259a050e-ac5d-4f26-af35-32d87cb1fa67",
+  "title": "Билет на Express",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/259a050e-ac5d-4f26-af35-32d87cb1fa67/",
+  "markdown_chars": 6044,
+  "content_hash": "eb5e5b5520e5764b",
+  "saved_at": "2026-07-29T15:23:52.126363+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/23_билет_на_express.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/23_билет_на_express.html"
+  }
+}

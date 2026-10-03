@@ -1,0 +1,18 @@
+{
+  "lesson_id": "86ca393a-dfc2-45e1-b374-bdaa12b68b9c",
+  "title": "Тест собачий",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/86ca393a-dfc2-45e1-b374-bdaa12b68b9c/",
+  "markdown_chars": 2151,
+  "content_hash": "46f65e1a1a9d9ec4",
+  "saved_at": "2026-07-29T15:25:05.976117+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/25_тест_собачий.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/25_тест_собачий.html"
+  }
+}

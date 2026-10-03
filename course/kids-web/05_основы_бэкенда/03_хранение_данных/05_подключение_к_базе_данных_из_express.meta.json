@@ -1,0 +1,18 @@
+{
+  "lesson_id": "132b0620-499d-4902-81e1-bcf97549e622",
+  "title": "Подключение к базе данных из Express",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "b0783e3e-bba5-418d-9bdb-d5fa877df8f3",
+  "topic_name": "Хранение данных",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/132b0620-499d-4902-81e1-bcf97549e622/",
+  "markdown_chars": 3826,
+  "content_hash": "d0efde6a71d09494",
+  "saved_at": "2026-07-29T15:24:12.837576+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/03_хранение_данных/05_подключение_к_базе_данных_из_express.md",
+    "html": "05_основы_бэкенда/03_хранение_данных/05_подключение_к_базе_данных_из_express.html"
+  }
+}

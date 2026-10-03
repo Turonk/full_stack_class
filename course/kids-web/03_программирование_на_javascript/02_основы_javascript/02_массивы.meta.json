@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a9ab1048-101f-447d-8ee8-1e176259741d",
+  "title": "Массивы",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "a58f4def-7a91-4ad6-938d-4ef32345242b",
+  "topic_name": "Основы JavaScript",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/a58f4def-7a91-4ad6-938d-4ef32345242b/lessons/a9ab1048-101f-447d-8ee8-1e176259741d/",
+  "markdown_chars": 3011,
+  "content_hash": "5c179287a47adc49",
+  "saved_at": "2026-07-29T15:20:56.403403+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/02_основы_javascript/02_массивы.md",
+    "html": "03_программирование_на_javascript/02_основы_javascript/02_массивы.html"
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Transform: двигаем, вращаем</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Transform: двигаем, вращаем</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/a42cf47c-686a-4aa5-a1af-8ae6edf1eb36/">https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/a42cf47c-686a-4aa5-a1af-8ae6edf1eb36/</a></p>
+  <h1>Transform: двигаем, вращаем</h1>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_512.mp4}</p>
+<p>Мы потрудились над плейлистом, добавили в него анимацию, пора бы поговорить о трансформах.</p>
+<p>Ну, это CSS-свойство по своим мощностям не уступает Оптимусу Прайму. С ним ты сможешь делать ещё больше интересных анимаций в своих проектах.</p>
+<p>Вот как оно выглядит:</p>
+<pre><code>.element {
+	transform: rotate(180deg);
+	/* поворот элемента на 180 градусов */
+}</code></pre>
+<p>В значении `transform` пишется функция трансформации, которая применяется к элементу (если несколько функций, тогда они пишутся через пробел).</p>
+<p>Например, функция `rotate` в примере выше значит, по сути, «поверни элемент на 180 градусов». При этом элемент трансформируется так, что изменения не повлияют на соседние элементы.</p>
+<p>Вот, к примеру, плейлист с неестественно наклонённой карточкой — но она не мешает основному потоку элементов.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-25_v_15.39.05_1698851773.png)</p>
+<p>Ниже рассмотрим несколько основных функций `transform`. После каждой из них тебе будет доступна песочница, где в файле `styles/style.css` ты можешь испытать трансформации в действии.</p>
+<p>- `rotate(z)` — поворот элемента. Значение указывается в градусах. По умолчанию крутит элементы по оси Z (перпендикулярно экрану).</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/05-transforms/sandbox-01-rotate/pre/|minWidth:400px|minHeight:600px}</p>
+<p>- `translate(x, y)` — смещение элемента от его изначальной позиции. `x` — смещение по горизонтали, `y` — по вертикали. Можно расписывать смещения и отдельно по каждой оси с помощью функций `translateX`, `translateY`</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/05-transforms/sandbox-03-translate/pre/|minWidth:400px|minHeight:600px}</p>
+<p>- `scale(x, y)` — масштабирование элемента. `scale(0)` скрывает элемент, значения меньше единицы делают его меньше, а значения больше обозначают, во сколько раз он должен быть увеличен. Если в скобках только одно число (например, `scale(1.5)`), то браузером считывается как значение по обеим осям (`scale(1.5, 1.5)`).</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/05-transforms/sandbox-02-scale/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Вот песочница, в которой в плейлист добавлены все упомянутые выше функции. В каждой четвёртой карточке соединены все трансформации.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/05-transforms/sandbox-05-all/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Полный список функций трансформации ты можешь, как и всегда, посмотреть в [Доке](https://doka.guide/css/transform-function/){target=&quot;_blank&quot;}. Но даже этих трёх тебе будет достаточно для того, чтобы необычно анимировать элементы в своих проектах.</p>
+<p>Чтобы потренироваться, можешь попробовать помочь мухе в песочнице ниже поизучать музыку в нашем плейлисте — анимируй её в файле `style.css`</p>
+<p>Делись результатами в чате — чем страннее выйдет, тем лучше.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/06-layout-details/01-sandboxes/05-transforms/sandbox-04-fly/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Теперь ты знаешь, как делать анимации с помощью CSS-свойства `transform`, как по-разному крутить, двигать и увеличивать элементы.</p>
+<p>Ну и, конечно, благодарная муха не забудет твоей услуги с прослушиванием плейлиста. И, кстати, она тебе назойливо напоминает, что пора сдавать свой проект — в следующем уроке окно для этого дела.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_235_1_1698852170.png)</p>
+</body>
+</html>

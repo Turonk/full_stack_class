@@ -1,0 +1,18 @@
+{
+  "lesson_id": "8fabf7be-edfc-4f4d-9905-c907b411f753",
+  "title": "Финал проекта",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "homework",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/8fabf7be-edfc-4f4d-9905-c907b411f753/",
+  "markdown_chars": 1865,
+  "content_hash": "22b5b42a23d47600",
+  "saved_at": "2026-07-29T15:25:08.387483+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/27_финал_проекта.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/27_финал_проекта.html"
+  }
+}

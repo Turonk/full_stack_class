@@ -1,0 +1,18 @@
+{
+  "lesson_id": "c182c977-8193-46cb-8053-25580657da61",
+  "title": "Ставим хореографию проекта",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/c182c977-8193-46cb-8053-25580657da61/",
+  "markdown_chars": 24095,
+  "content_hash": "27bdaae47758e80b",
+  "saved_at": "2026-07-29T15:21:39.657551+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/05_ставим_хореографию_проекта.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/05_ставим_хореографию_проекта.html"
+  }
+}

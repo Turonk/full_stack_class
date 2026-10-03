@@ -1,0 +1,18 @@
+{
+  "lesson_id": "0d314563-7499-4068-9820-6b0e1a0af5c9",
+  "title": "Методы массивов. Функции includes() и find()",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/0d314563-7499-4068-9820-6b0e1a0af5c9/",
+  "markdown_chars": 4764,
+  "content_hash": "87cfc699161952fd",
+  "saved_at": "2026-07-29T15:21:48.730240+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/12_методы_массивов_функции_includes_и_find.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/12_методы_массивов_функции_includes_и_find.html"
+  }
+}

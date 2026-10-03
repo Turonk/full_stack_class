@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Фрагменты</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Фрагменты</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/9d746607-01fd-4b20-b51c-1d53e28b434c/lessons/fedc7384-6dcb-4c2d-a714-f88c9077ae59/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/9d746607-01fd-4b20-b51c-1d53e28b434c/lessons/fedc7384-6dcb-4c2d-a714-f88c9077ae59/</a></p>
+  <h1>Фрагменты</h1>
+<pre><code>export function List() {
+	return (
+		&lt;ul&gt;&lt;/ul&gt;
+	)
+}</code></pre>
+<p>Аски, ты поднял очень важную тему! Подхватываем рассуждения.</p>
+<p>Попробуем вставить в компонент `&lt;List /&gt;` элементы этого списка 👇🏻</p>
+<pre><code>&lt;li&gt;Чай&lt;/li&gt;
+&lt;li&gt;Кофе&lt;/li&gt;
+&lt;li&gt;Какао&lt;/li&gt;</code></pre>
+<p>Если ты обернёшь их, например, в элемент `&lt;div&gt;`, вёрстка будет **невалидной** (неправильно оформленной) 👇🏻</p>
+<pre><code>&lt;ul&gt;
+	&lt;div&gt;
+		&lt;li&gt;Чай&lt;/li&gt;
+		&lt;li&gt;Кофе&lt;/li&gt;
+		&lt;li&gt;Какао&lt;/li&gt;
+	&lt;/div&gt;
+&lt;/ul&gt;</code></pre>
+<p>Ага.</p>
+<p>{quiz-task} background: | #f5f6f7 content: | Кстати, проверить правильность вёрстки всегда можно в валидаторе HTML — [здесь](https://validator.w3.org/){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>При такой вёрстке, как выше, валидатор покажет ошибку 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1425_1706619823.png)</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_17_1706620087.png)</p>
+<p>Элементы из списка Аски можно перенести в компонент `&lt;ListItems /&gt;`, используя средство, которое помогает в таких ситуациях.</p>
+<p>Вот что получится 👇🏻</p>
+<pre><code>export function ListItems() {
+	return (
+		&lt;&gt;
+			&lt;li&gt;Чай&lt;/li&gt;
+			&lt;li&gt;Кофе&lt;/li&gt;
+			&lt;li&gt;Какао&lt;/li&gt;
+		&lt;/&gt;
+	)
+}</code></pre>
+<p>Видишь символы `&lt;&gt;` в начале и `&lt;/&gt;` в конце компонента?</p>
+<p>Они как раз и обозначают упомянутый Собакой **JSX-фрагмент.** JSX-фрагменты позволяют группировать элементы, если им не нужна обёртка (как в примере с чаем, кофе и какао). Фрагменты не влияют на вёрстку приложения, потому что при их использовании не создаётся новых элементов.</p>
+<p>Теперь, если ты вставишь компонент `&lt;ListItems /&gt;` в компонент `&lt;List /&gt;` вот так…</p>
+<pre><code>export function List() {
+	return (
+		&lt;ul&gt;
+			&lt;ListItems /&gt;
+		&lt;/ul&gt;
+	)
+}</code></pre>
+<p>… результатом будет идеальный HTML 👇🏻</p>
+<pre><code>&lt;ul&gt;
+	&lt;li&gt;Чай&lt;/li&gt;
+	&lt;li&gt;Кофе&lt;/li&gt;
+	&lt;li&gt;Какао&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>Тогда попрактикуйся в песочнице, которую мы для тебя подготовили.</p>
+<p>Попробуй самостоятельно повторить то, что описано выше, — вынеси элементы списка в компонент `&lt;ListItems /&gt;` и используй этот компонент вместо элементов списка в `&lt;List /&gt;`</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/03-framework/02-components/0204-fragments/example-01/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Тогда давай попробуем использовать JSX-фрагменты в проекте.</p>
+<p>Посмотри на файл `/app/page.js`</p>
+<p>Там есть два элемента списков `&lt;ul&gt;` — с новыми и с популярными играми. Мы вынесем их оттуда в отдельные компоненты!</p>
+<p>Вот что тебе нужно сделать:</p>
+<p>**Шаг 1. Проверь, что у тебя создана** папка `/CardsList` в папке `/components`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step1.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>**Шаг 2.** Перенеси элементы списков в два файла, для этого:</p>
+<p>- Создай файл `PopularCardsFragment.jsx` в папке `/CardsList`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step2.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>- Создай в нём компонент `PopularCardsFragment`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step3.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>- Скопируй в компонент элементы списка `Популярные`. Для этого тебе как раз и понадобится фрагмент JSX, о котором мы говорили выше</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step4.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>- Проделай то же самое для списка `Новинки`. Пусть файл с этим списком называется `NewCardsFragment.jsx`, а компонент — `NewCardsFragment`</p>
+<p>**Шаг 3.** Теперь скопируй блоки, в которых лежали эти списки, в ту же папку `/components/CardsList`, для этого:</p>
+<p>- Создай файл `PopularCardsList.jsx` в папке `/CardsList` - Создай в нём компонент `PopularCardsList` - Перенеси туда элементы `&lt;section&gt;` и `&lt;ul&gt;`, которые были в разделе `Популярные`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step5.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>- Добавь в список `&lt;ul&gt;` компонент, который ты создал в `PopularCardsFragment.jsx`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step6.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>- Повтори эти же шаги для списка `Новинки`. Пусть файл называется `NewCardsList.jsx`, а компонент — `NewCardsList`</p>
+<p>**Шаг 4.** Вставь компоненты `PopularCardsList` и `NewCardsList` в тех же местах `page.js`, где находились списки.</p>
+<p>Если всё сделано правильно, то списки должны отображаться на странице так же, как они отображались и до внесения изменений.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/fragments_step7.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Поздравляем!</p>
+<p>Несомненно, Аски!</p>
+<p>И раз все всё поняли, время перейти к домашнему заданию.</p>
+</body>
+</html>

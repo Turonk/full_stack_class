@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Схемы и модели</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Схемы и модели</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/bd138be3-29e2-4d98-a13d-c8ec4d6f2b73/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/bd138be3-29e2-4d98-a13d-c8ec4d6f2b73/</a></p>
+  <h1>Схемы и модели</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/shemi_modeli_1713536985.jpg)</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **Схема данных** — это описание структуры документа в БД MongoDB с указанием типов каждого отдельного поля этого документа. {/quiz-task}</p>
+<p>Предлагаем рассмотреть пример данных об игре 👇🏻</p>
+<pre><code>{
+  &quot;title&quot;: &quot;G.U.N.N.E.R.&quot;,
+  &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/gunner/cover.png&quot;,
+  &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/gunner/game/index.html&quot;,
+  &quot;description&quot;: &quot;Продержись как можно дольше, отбиваясь от врагов, которых будет становиться всё больше.&quot;,
+  &quot;developer&quot;: &quot;CoolDeveloper&quot;
+}</code></pre>
+<p>Это объект с полями `title`, `image`, `link`, `description`, `developer`, каждому из которых соответствует конкретное значение. Подобных объектов в базе данных может быть сколь угодно, но все они соответствуют единой схеме 👇🏻</p>
+<pre><code>{
+  &quot;title&quot;: String,
+  &quot;image&quot;: String,
+  &quot;link&quot;: String,
+  &quot;description&quot;: String,
+  &quot;developer&quot;: String
+}</code></pre>
+<p>Но задача схемы состоит не только в том, чтобы наглядно описывать типы значений для каждого из полей документа. **Основное назначение** заключается в наложении ограничений при записи нового файла в БД. Например, попробуй записать в базу данные об игре, где в поле `description` вместо строкового значения будет число 👇🏻</p>
+<pre><code>{
+  &quot;title&quot;: &quot;G.U.N.N.E.R.&quot;,
+  &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/gunner/cover.png&quot;,
+  &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/gunner/game/index.html&quot;,
+  &quot;description&quot;: 12345,
+  &quot;developer&quot;: &quot;CoolDeveloper&quot;
+}</code></pre>
+<p>Операция не будет выполнена, и мы получим ошибку. Это связано с тем, что объект выше не соответствует схеме: значение в `description` имеет неподходящий тип.</p>
+<h2>Создаём схемы с помощью Mongoose</h2>
+<p>В библиотеке Mongoose для создания схем используется конструктор `Shema`. Лови пример одной из них, иллюстрирующий, какие типы можно использовать для полей 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const internalSchema = new mongoose.Schema({
+  deepStringField: String, // Поле со строковым значением
+  deepNumberField: Number, // Поле с числовым значением
+  deepBooleanField: Boolean, // Поле со значением true или false
+})
+
+const exampleSchema = new mongoose.Schema({
+  stringField: String, // Поле со строковым значением
+  anotherStringField: {type: String} // Тоже поле со строковым значением, просто в другой записи
+  numberField: Number, // Поле с числовым значением
+  booleanField: Boolean, // Поле со значением true или false
+  arrayOfStrings: [String], // Поле, где значение — это массив строк
+  arrayOfNumbers: [Number], // Поле, где значение — это массив чисел
+  arrayOfBooleans: [Boolean], // Поле, где значение — это массив c true или false
+  withDefaultValue: { type: String, default: &#x27;aski&#x27; }, // Поле со строковым значением, где по умолчанию будет использоваться значение &#x27;aski&#x27;
+  withRestrictions: { // Поле со строковым значением и дополнительными ограничениями
+    type: String,
+    minlength: 2, // Минимальная длина строки — 2 символа,
+    maxlength: 30, // а максимальная — 30 символов
+  },
+  withEnum: { // Строковое поле, которое может принимать одно из значений, указанных в enum
+    type: String,
+    enum: [&#x27;Один&#x27;, &#x27;Два&#x27;, &#x27;Три&#x27;]
+  },
+  objectField: internalSchema // Поле, где значением является другой объект с полями
+})</code></pre>
+<p>Но и это ещё не всё. Чтобы использовать схему по её основному назначению, необходимо создать модель. **Модель** — это результат вызова функции `mongoose.model`. Благодаря ей осуществляется чтение, запись и удаление данных из базы. Создать модель можно следующим образом 👇🏻</p>
+<pre><code>const exampleModel = mongoose.model(&#x27;example&#x27;, exampleSchema)</code></pre>
+<p>Первым аргументом в `mongoose.model` передай строку — название модели, а вторым — нашу схему. Когда, используя её, ты будешь записывать данные в базу, тип каждого поля будет проверяться на соответствие типу, указанному для этого поля в схеме.</p>
+<p>Сначала нужно понять, что именно должно содержаться в БД: в нашем случае мы хотим хранить данные об играх, категориях, к которым эти игры относятся, и данные о пользователях. Соответственно тебе нужно создать три модели и схемы для каждой из них так, чтобы они были связаны между собой. Сейчас вместе разберёмся, как их скриэйтить, а в следующих уроках — как реализовать эту связь в коде.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/scheme_1713537018.jpg)</p>
+<p>Итак, создай в проекте папку `models`, а в ней — три файла cо следующим содержимым:</p>
+<p>- В файле `game.js` 👇🏻</p>
+<pre><code>    const mongoose = require(&#x27;mongoose&#x27;);
+
+    const gameSchema = new mongoose.Schema({
+      title: {
+          // Поле со строковым значением
+        type: String,
+        // Явно указываем, что поле обязательно при записи в базу нового документа
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      developer: {
+        type: String,
+        required: true
+      },
+      image: {
+        type: String,
+        required: true
+      },
+      link: {
+        type: String,
+        required: true
+      }
+    });
+
+    module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>- В файле `category.js` 👇🏻</p>
+<pre><code>    const mongoose = require(&#x27;mongoose&#x27;);
+
+    const categorySchema = new mongoose.Schema({
+      name: {
+        type: String,
+        required: true,
+      },
+    });
+
+    module.exports = mongoose.model(&#x27;category&#x27;, categorySchema);</code></pre>
+<p>- В файле `user.js` 👇🏻</p>
+<pre><code>    const mongoose = require(&#x27;mongoose&#x27;);
+
+    const userSchema = new mongoose.Schema({
+      username: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      password: {
+        type: String,
+        required: true
+      },
+    });
+
+    module.exports = mongoose.model(&#x27;user&#x27;, userSchema);</code></pre>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "49187527-80d4-4719-9a1c-0876d77502e4",
+  "title": "Чек-лист перед деплоем сайта",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/49187527-80d4-4719-9a1c-0876d77502e4/",
+  "markdown_chars": 3292,
+  "content_hash": "4e4935dfad5a45db",
+  "saved_at": "2026-07-29T15:20:31.873996+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/03_чек_лист_перед_деплоем_сайта.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/03_чек_лист_перед_деплоем_сайта.html"
+  }
+}

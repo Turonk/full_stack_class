@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+env/
+*.pyc
+
+# Secrets and local env
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Scraper with session cookies — never push
+yandex_scraper/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "2ccad05e-7312-420c-9716-696d3ab02313",
+  "title": "Git, система контроля версий",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/2ccad05e-7312-420c-9716-696d3ab02313/",
+  "markdown_chars": 4155,
+  "content_hash": "56e9a41ef94e0ae7",
+  "saved_at": "2026-07-29T15:20:36.334468+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/06_git_система_контроля_версий.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/06_git_система_контроля_версий.html"
+  }
+}

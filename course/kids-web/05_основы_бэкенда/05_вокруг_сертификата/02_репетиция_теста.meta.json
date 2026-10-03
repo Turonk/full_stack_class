@@ -1,0 +1,18 @@
+{
+  "lesson_id": "b6ea3486-25c8-487e-b993-aff743e0a2bb",
+  "title": "Репетиция теста",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "bf184dd9-9c22-462d-9547-2393853aa823",
+  "topic_name": "Вокруг сертификата",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/bf184dd9-9c22-462d-9547-2393853aa823/lessons/b6ea3486-25c8-487e-b993-aff743e0a2bb/",
+  "markdown_chars": 2845,
+  "content_hash": "60e7f080b247bf73",
+  "saved_at": "2026-07-29T15:25:11.209515+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/05_вокруг_сертификата/02_репетиция_теста.md",
+    "html": "05_основы_бэкенда/05_вокруг_сертификата/02_репетиция_теста.html"
+  }
+}

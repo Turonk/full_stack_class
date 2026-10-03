@@ -1,0 +1,18 @@
+{
+  "lesson_id": "0f5a6325-3c3b-4932-ab78-8adb26ca2c94",
+  "title": "Гайд по библиотекам",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "45833102-a2e5-4bd6-9310-fd272688b493",
+  "topic_name": "Введение",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/45833102-a2e5-4bd6-9310-fd272688b493/lessons/0f5a6325-3c3b-4932-ab78-8adb26ca2c94/",
+  "markdown_chars": 6635,
+  "content_hash": "daf2c772a0c306ea",
+  "saved_at": "2026-07-29T15:22:01.197604+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/01_введение/02_гайд_по_библиотекам.md",
+    "html": "04_применение_реактивного_фреймворка/01_введение/02_гайд_по_библиотекам.html"
+  }
+}

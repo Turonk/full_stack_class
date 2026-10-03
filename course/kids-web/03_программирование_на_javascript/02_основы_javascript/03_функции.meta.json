@@ -1,0 +1,18 @@
+{
+  "lesson_id": "dcc4664e-3a61-4c1d-847c-b88ada88ec38",
+  "title": "Функции",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "a58f4def-7a91-4ad6-938d-4ef32345242b",
+  "topic_name": "Основы JavaScript",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/a58f4def-7a91-4ad6-938d-4ef32345242b/lessons/dcc4664e-3a61-4c1d-847c-b88ada88ec38/",
+  "markdown_chars": 3084,
+  "content_hash": "df7cc0554956c2b9",
+  "saved_at": "2026-07-29T15:20:58.095615+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/02_основы_javascript/03_функции.md",
+    "html": "03_программирование_на_javascript/02_основы_javascript/03_функции.html"
+  }
+}

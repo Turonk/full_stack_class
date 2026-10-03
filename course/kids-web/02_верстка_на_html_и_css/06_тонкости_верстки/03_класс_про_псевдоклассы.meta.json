@@ -1,0 +1,18 @@
+{
+  "lesson_id": "259f0058-5765-4c72-9e7d-01e8e5ec02f3",
+  "title": "Класс про псевдоклассы",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/259f0058-5765-4c72-9e7d-01e8e5ec02f3/",
+  "markdown_chars": 7233,
+  "content_hash": "284361c60e318040",
+  "saved_at": "2026-07-29T15:20:44.287500+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/03_класс_про_псевдоклассы.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/03_класс_про_псевдоклассы.html"
+  }
+}

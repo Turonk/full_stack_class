@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Запускаем Pindie: бэк отдельно, фронт отдельно</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Запускаем Pindie: бэк отдельно, фронт отдельно</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/11aced92-0b53-4cfa-abf6-0d70ea0cf0ef/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/11aced92-0b53-4cfa-abf6-0d70ea0cf0ef/</a></p>
+  <h1>Запускаем Pindie: бэк отдельно, фронт отдельно</h1>
+<p>![](https://pictures.s3.yandex.net/resources/Pindie_0_1715007105.jpg)</p>
+<p>Запусти фронтенд Pindie из третьего модуля и убедись, что он запустился на порте `3000` (по адресу [localhost:3000](http://localhost:3000){target=&quot;_blank&quot;} в браузере).</p>
+<p>Супер! Дальше в этом уроке мы будем подсказывать тебе, как доработать код в твоём фронтенде, чтобы он научился взаимодействовать с бэкендом.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Не исключено, что при выполнении практики в этом уроке что-то не будет работать так, как надо. На этот случай мы прикладываем свой архив с тем, что у тебя должно было получиться в конце прошлого модуля. Можешь сверить свой код с кодом в архиве и доработать его при необходимости.</p>
+<p>[pindie-theme-8-main.zip](https://code.s3.yandex.net/kids-web/vids/M4/M4T4/pindie-theme-8-main.zip){target=&quot;_blank&quot;}</p>
+<p>Заодно скачай нашу коллекцию данных и импортируй её в Compass.</p>
+<p>[pindie-collections.zip](https://code.s3.yandex.net/kids-web/vids/M4/M4T4/pindie-collections.zip){target=&quot;_blank&quot;} {/quiz-task}</p>
+<p>Запусти бэкенд на порте `3001`. Указать порт нужно в `app.js` 👇🏻</p>
+<pre><code>/* app.js */
+
+const PORT = 3001;
+/* Код Express-приложения */
+app.listen(PORT);</code></pre>
+<p>Теперь можно перейти к обновлению фронтенда и бэкенда.</p>
+<h2>Наводим порядки в Next.js-приложении</h2>
+<p>Сначала обнови файл `/app/api/config.js` на фронте. Сейчас в константе `BASE_URL` адресом для отправления запросов указан `https://api-code-2.practicum-team.ru` — замени его на `http://localhost:3001/api`</p>
+<p>Ещё поменяй несколько эндпоинтов. Теперь авторизация идёт по новым адресам:</p>
+<p>- `/auth/login` - `/me`</p>
+<p>С нашего бэкенда приходят JSON-файлы с несколько другой структурой (есть поле `_id` вместо `id` и `users` вместо поля `users_permissions_users`).</p>
+<p>У нас уже создана функция `normalizeDataObject`, которая приводит полученные с бэкенда данные к нужному нам виду. Её надо обновить. Можешь скопировать новую функцию из блока ниже 👇🏻</p>
+<pre><code>const normalizeDataObject = (obj) =&gt; {
+  let str = JSON.stringify(obj)
+  
+  str = str.replaceAll(&#x27;_id&#x27;, &#x27;id&#x27;);
+  const newObj = JSON.parse(str)
+  const result = { ...newObj, category: newObj.categories }
+  return result;
+}</code></pre>
+<p>Теперь обнови авторизацию. Раньше при авторизации приходил объект такого вида 👇🏻</p>
+<pre><code>{
+	identifier: &quot;&quot;,
+	password: &quot;&quot;,
+	id: &quot;&quot;
+}</code></pre>
+<p>Сейчас этот объект выглядит так 👇🏻</p>
+<pre><code>{
+	email: &quot;&quot;,
+	password: &quot;&quot;,
+	_id: &quot;&quot;
+}</code></pre>
+<p>Поэтому нужно заменить `identifier` на `email` в файле `/app/components/AuthForm/AuthForm.jsx` (при создании стейта `authData` и в атрибуте `name` поля ввода электронной почты). Новый вариант идентификатора `_id` нужно передавать при вызове `authContext.login()` (первым параметром — объект `{ …userData, id: userData._id }`).</p>
+<pre><code>const [authData, setAuthData] = useState({ email: &quot;&quot;, password: &quot;&quot; });</code></pre>
+<pre><code>authContext.login({...userData, id: userData._id}, userData.jwt);</code></pre>
+<pre><code>&lt;input
+  onInput={handleInput}
+  className={Styles[&quot;form__field-input&quot;]}
+  name=&quot;email&quot;
+  type=&quot;email&quot;
+  placeholder=&quot;hello@world.com&quot;
+/&gt;</code></pre>
+<p>Ещё нужно, чтобы голосование заработало с новым ключом. У нас теперь нет ключа `users_permissions_users`, поэтому функцию `vote` внутри `app/api/api-utils.js` нужно переписать. Новый `body` в запросе к серверу 👇🏻</p>
+<pre><code>body: JSON.stringify({ users: usersArray })</code></pre>
+<p>Небольшие доработки также потребуются в `store`. В файле `app/store/app-store.js` есть такая строчка 👇🏻</p>
+<pre><code>set({ isAuth: true, user, token: jwt });</code></pre>
+<p>Она должна стать такой, чтобы в сторе хранился верный `id` 👇🏻</p>
+<pre><code>set({ isAuth: true, user: { ...user, id: user._id }, token: jwt });</code></pre>
+<h2>Наводим порядки в Express-приложении</h2>
+<p>Теперь обнови бэкенд приложения.</p>
+<p>Чтобы запросы к бэкенду не блокировались CORS, нужно записать порты `3000` и `3001` в список разрешённых портов в файле `/middlewares/cors.js` (о CORS мы говорили подробно в одноимённом уроке).</p>
+<p>Нужно сделать так, чтобы при голосовании пользователя за игру не проверялись категории и пустые поля. Для этого надо отличать `PUT`-запросы из админки, которые изменяют данные об игре, и запросы голосования за игру из Pindie. Этого можно добиться, добавив миддлвар `checkIsVoteRequest` в файл `/middlewares/games.js`, который будет записывать в объект `req`, что полученный запрос — голос за игру 👇🏻</p>
+<pre><code>const checkIsVoteRequest = async (req, res, next) =&gt; {
+	// Если в запросе присылают только поле users
+  if (Object.keys(req.body).length === 1 &amp;&amp; req.body.users) {
+    req.isVoteRequest = true;
+  }
+  next();
+};</code></pre>
+<p>Теперь, если запрос будет голосом за игру, можно не проверять её на категории и пустые поля, а передавать следующим миддлварам через условие в начале функций `checkEmptyFields` и `checkIfCategoriesAvailable` 👇🏻</p>
+<pre><code>if(req.isVoteRequest) {
+    next();
+    return;
+  }</code></pre>
+<p>Осталось обновить роутер `gamesRouter.put` в `/routes/games.js`. Проверка `checkIsVoteRequest` должна идти сразу после миддлвара `findGameById`</p>
+<p>Последний штрих, чтобы всё точно запустилось — донастрой CORS. В миддлваре `middlewares/cors.js` разреши все ключевые запросы между доменами. Перед вызовом `next()` добавь строчки 👇🏻</p>
+<pre><code>res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;GET,HEAD,PUT,PATCH,POST,DELETE&quot;);
+res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization&quot;);</code></pre>
+<p>Теперь Pindie завершён целиком — фронт запущен отдельно от бэка и получает данные из него.</p>
+<h2>Задача со звёздочкой</h2>
+<p>Задача в том, что на фронте нужно сделать так, чтобы получение пустой коллекции из базы данных не ломало проект.</p>
+<p>**В чём проблема сейчас**</p>
+<p>При получении игр по категории, если массив окажется пустым, приложение выдаст ошибку.</p>
+<p>**Как решить**</p>
+<p>Предлагаем три варианта решения, используй любой из них на свой вкус:</p>
+<p>- Измени функцию `getNormalizedGamesDataByCategory` так, чтобы при проверке длины массива не выбрасывалась ошибка. - Измени хук `useGetDataByCategory`, добавив дополнительную проверку `isResponseOk` перед тем, как возвращать данные. - Измени проверку массива `gamesArray` на каждой странице категорий: пусть проверяется не только массив, но и его длина.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Когда сделаешь всё, описанное в этом уроке, и фронтенд начнёт работать с бэкендом, помести их в два отдельных репозитория на гитхабе. Скорее всего, бэкенд у тебя уже лежит там, нужно просто сделать коммит и пуш. А вот для кода фронтенда Pindie создай отдельный репозиторий. Эти репозитории ты будешь использовать в следующей теме, поэтому подготовься заранее. {/quiz-task}</p>
+</body>
+</html>

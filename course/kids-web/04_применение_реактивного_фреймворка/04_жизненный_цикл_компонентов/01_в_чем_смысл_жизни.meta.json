@@ -1,0 +1,18 @@
+{
+  "lesson_id": "f469b1de-fb5c-43ea-a40d-91bc4296297f",
+  "title": "В чём смысл жизни?",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "ecbb1837-8130-4770-bb43-fdf318ce6b70",
+  "topic_name": "Жизненный цикл компонентов",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/ecbb1837-8130-4770-bb43-fdf318ce6b70/lessons/f469b1de-fb5c-43ea-a40d-91bc4296297f/",
+  "markdown_chars": 1540,
+  "content_hash": "a1f4fa59d971d1a9",
+  "saved_at": "2026-07-29T15:22:26.861731+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/04_жизненный_цикл_компонентов/01_в_чем_смысл_жизни.md",
+    "html": "04_применение_реактивного_фреймворка/04_жизненный_цикл_компонентов/01_в_чем_смысл_жизни.html"
+  }
+}

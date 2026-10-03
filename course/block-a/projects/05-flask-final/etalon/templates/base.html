@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PulseLab{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/flask.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header class="top">
+    <p class="logo">PulseLab</p>
+    <nav>
+      <a href="{{ url_for('home') }}">Дом</a>
+      <a href="{{ url_for('music') }}">Музыка</a>
+      <a href="{{ url_for('game') }}">Игра</a>
+      <a href="{{ url_for('shop') }}">Магазин</a>
+      <a href="{{ url_for('contact') }}">Написать</a>
+    </nav>
+  </header>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash">
+        {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <p>© 2026 PulseLab · MediaGameHub v1</p>
+  </footer>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

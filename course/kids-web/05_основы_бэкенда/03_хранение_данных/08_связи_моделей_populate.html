@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Связи моделей. Populate</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Связи моделей. Populate</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/39cfc03f-47aa-4a60-b987-7bafc00d2a5d/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/39cfc03f-47aa-4a60-b987-7bafc00d2a5d/</a></p>
+  <h1>Связи моделей. Populate</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_7_1713540702.jpg)</p>
+<h2>Настраиваем связь двух схем</h2>
+<p>Построение связи начинается со схемы. В Pindie две сущности: категории и игры. Вот схема игры 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>Игры могут относиться к определённым категориям, которые описываются одним полем `name`, то есть их названием 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const categorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+});
+
+module.exports = mongoose.model(&#x27;category&#x27;, categorySchema);</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Лучшая ссылка из одного документа на другой — идентификатор. Mongo автоматически создаёт поле `_id` — уникальный идентификатор для каждого из них. Именно он позволяет связать один документ с другим. {/quiz-task}</p>
+<p>Чтобы сделать это на уровне схемы, полю следует установить специальный тип — `mongoose.Schema.Types.ObjectId` — и свойство `ref`. В него записывают имя модели, на которую ссылаются. Главное, не забудь импортировать свойство в файл 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+// Импорт модели для связывания 
+const categoryModel = require(&#x27;./category&#x27;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  // Добавляем свойство категории с массивом объектов, в котором укажем 
+  // тип ObjectId и ref на существующую модель категорий
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: categoryModel,
+  }],
+});
+
+module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>Также в твоём проекте пользователи могут голосовать. Получается, что данные о пользователях, которые отдали голос в пользу игры, нужно тоже хранить в схеме.</p>
+<p>Рассмотрим их модель. Она содержит несколько обязательных полей — `username`, `email` и `password` 👇🏻</p>
+<pre><code>// models/user.js
+
+const mongoose = require(&#x27;mongoose&#x27;);
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true
+  },
+});
+
+module.exports = mongoose.model(&#x27;user&#x27;, userSchema);</code></pre>
+<p>Аналогичным образом, как с категориями, создай поле `users` в схеме игры и свяжи элемент массива со схемой пользователя. Для этого нужно использовать идентификатор, который автоматически присвоит Mongo для пользователя `mongoose.Schema.Types.Objectd`, и свойство `ref` со ссылкой на его модель 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+// Не забываем импортировать модель, на которую ссылаемся
+const userModel = require(&#x27;./user&#x27;);
+const categoryModel = require(&#x27;./category&#x27;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  // Добавляем поле для списка пользователей
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: userModel,
+  }],
+  // Добавляем поле для списка категорий
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: categoryModel,
+  }],
+});
+
+module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Теперь, когда в твоей модели есть связи, можешь попробовать посоздавать через Compass тестовые данные в коллекции игр. В массив помещай `_id` категорий и игр из соответствующих коллекций. А если эти упражнения тебя утомляют, просто импортируй наши данные в Compass, там уже настроены связи — но обязательно посмотри, как это устроено. С данными коллекциями всё заработает.</p>
+<p>[pindie.categories.json](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/pindie.categories.json){target=&quot;_blank&quot;}</p>
+<p>[pindie.games.json](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/pindie.games.json){target=&quot;_blank&quot;}</p>
+<p>[pindie.users.json](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/pindie.users.json?etag=914870702313b3368f48bc774279b4c6){target=&quot;_blank&quot;}</p>
+<p>Твой браузер умеет открывать JSON-файлы, поэтому при клике на них они покажутся в новой вкладке. Скачать их можно через меню (**Файл ➡️ Сохранить**) в твоём браузере или через комбинацию клавиш `Ctrl + S`. После этого файлы можно импортировать в Compass. {/quiz-task}</p>
+<h2>**Получаем всю информацию — метод `populate`**</h2>
+<p>В прошлом уроке мы уже написали миддлвары для поиска пользователей и категорий проекта, а теперь попробуем получить данные об играх.</p>
+<p>В папке `middlewares` создай файл `games.js`, импортируй в него модель `games` и запиши функцию для поиска всех игр с использованием метода модели `find` 👇🏻</p>
+<pre><code>// Файл middlewares/games.js
+
+// Импортируем модель
+const games = require(&quot;../models/game&quot;);
+
+const findAllGames = async (req, res, next) =&gt; {
+  // По GET-запросу на эндпоинт /games найдём все документы категорий
+  req.gamesArray = await games.find({});
+  // Выведем в терминал результат поиска 
+  console.log(req.gamesArray);
+  next();
+};
+
+// Экспортируем функцию поиска всех игр
+module.exports = findAllGames;</code></pre>
+<p>Супер! Метод `find` найдёт все документы с информацией об играх.</p>
+<p>Давай взглянем на один из результатов — все поля заполнены согласно схеме: `title`, `description` и другие значения ключей в виде строк. Чекай, что ничего не пропущено 👇🏻</p>
+<pre><code>[
+  {
+    _id: new ObjectId(&#x27;65ef2c368c121ad8a56dabc2&#x27;),
+    title: &#x27;G.U.N.N.E.R.&#x27;,
+    description: &#x27;Продержись как можно дольше, отбиваясь от врагов, которых будет становиться всё больше.&#x27;,
+    developer: &#x27;IDKWIAm&#x27;,
+    image: &#x27;https://code.s3.yandex.net/teens/pindie-games/gunner/cover.png&#x27;,
+    link: &#x27;https://code.s3.yandex.net/teens/pindie-games/gunner/game/index.html&#x27;,
+    categories: [
+      new ObjectId(&#x27;65ef2d1f8c121ad8a56dabc6&#x27;),
+      new ObjectId(&#x27;65ef2d848c121ad8a56dabc9&#x27;)
+    ],
+    users: [ new ObjectId(&#x27;65ef1f358c121ad8a56dabb6&#x27;) ]
+  }
+]</code></pre>
+<p>К самой модели игры Mongo автоматически добавила поле с идентификатором `_id`, а в полях `categories` и `users` хранятся также идентификаторы моделей категорий и пользователей соответственно.</p>
+<p>Теперь создай контроллер, который будет возвращать результат поиска в ответе на запрос 👇🏻</p>
+<pre><code>// Файл controllers/games.js
+
+const sendAllGames = (req, res) =&gt; {
+  res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);
+  // Вернём найденные игры в формате JSON
+  res.end(JSON.stringify(req.gamesArray));
+};
+
+module.exports = sendAllGames;</code></pre>
+<p>Добавь в роут `gamesRouter` обработку `GET`-запроса по эндпоинту `&#x27;/games&#x27;` с использованием `findAllGames` и `sendAllGames` 👇🏻</p>
+<pre><code>// Файл routes/games.js
+
+const gamesRouter = require(&#x27;express&#x27;).Router();
+
+const findAllGames = require(&#x27;../middlewares/games&#x27;);
+const sendAllGames = require(&#x27;../controllers/games&#x27;);
+
+gamesRouter.get(&#x27;/games&#x27;, findAllGames, sendAllGames);
+
+module.exports = gamesRouter;</code></pre>
+<p>В результате сервер будет обрабатывать запрос на получение данных об играх.</p>
+<p>Почти. Давай протестируем в Postman запрос и убедимся, что результат соответствует данным, хранящимся на сервере 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/1_3_1713540730.jpg)</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/2_3_1713540746.jpg)</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Идентификатор — это полезный элемент для связывания данных, но одного его недостаточно для отображения актуальных категорий и пользователей. Нужны конкретные поля: для категорий — `name`, а для пользователей — `username`. Чтобы в поля `categories` и `users` загрузились данные из документов по указанным идентификаторам, необходимо дополнительно использовать метод `populate` для связанных моделей. {/quiz-task}</p>
+<p>Метод `populate` позволяет ссылаться на документы в других коллекциях и автоматически заменяет указанные ссылки на другие документы данными из них.</p>
+<p>Для этого нужно вызвать метод и передать в него аргументом название коллекции, которую нужно подгрузить. Последовательно вызови `.populate(&quot;categories&quot;).populate(&quot;users&quot;)` 👇🏻</p>
+<pre><code>const findAllGames = async (req, res, next) =&gt; {
+  // Используем метод populate для загрузки данных
+  // из моделей categories и users по их id
+  const result = await games.find({}).populate(&quot;categories&quot;).populate(&quot;users&quot;);
+  console.log(result);
+  next();
+};</code></pre>
+<p>Теперь в полях `categories` и `users` ты увидишь подробную информацию о каждом элементе: метод `populate` по идентификатору и ссылке на другую модель нашёл данные и подставил их в нужные места 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/3_3_1713540774.jpg)</p>
+<p>Отправив ответ на запрос, клиент получит всё необходимое для отображения информации об игре 👇🏻</p>
+<pre><code>// Файл middlewares/games.js
+
+// Импортируем модель
+const games = require(&quot;../models/game&quot;);
+
+const findAllGames = async (req, res, next) =&gt; {
+  req.gamesArray = await games.find({}).populate(&quot;categories&quot;).populate(&quot;users&quot;);
+  next();
+};
+
+// Экспортируем функцию поиска всех игр
+module.exports = findAllGames;</code></pre>
+<p>Смотри, вот так данные об игре будут отображаться на клиенте 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/5_3_1713540794.jpg)</p>
+<p>Теперь объект с описанием игры имеет всю необходимую информацию, в том числе список категорий и пользователей, проголосовавших за неё 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/4_3_1713540839.jpg)</p>
+</body>
+</html>

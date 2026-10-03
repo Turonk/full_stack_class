@@ -1,0 +1,18 @@
+{
+  "lesson_id": "d040a779-3235-4282-8628-0d68bc8aee16",
+  "title": "Роуты в Express",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web_server",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/d040a779-3235-4282-8628-0d68bc8aee16/",
+  "markdown_chars": 12146,
+  "content_hash": "26b69c32dcf35125",
+  "saved_at": "2026-07-29T15:23:53.438913+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/24_роуты_в_express.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/24_роуты_в_express.html"
+  }
+}

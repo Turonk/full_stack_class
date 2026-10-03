@@ -1,0 +1,18 @@
+{
+  "lesson_id": "1f02330b-7702-4031-8810-9b47caac157a",
+  "title": "Рассказываем про проект",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/1f02330b-7702-4031-8810-9b47caac157a/",
+  "markdown_chars": 1936,
+  "content_hash": "71dc983e99ad67a4",
+  "saved_at": "2026-07-29T15:21:14.703374+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/05_рассказываем_про_проект.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/05_рассказываем_про_проект.html"
+  }
+}

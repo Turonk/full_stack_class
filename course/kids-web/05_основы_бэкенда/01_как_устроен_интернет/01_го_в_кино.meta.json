@@ -1,0 +1,18 @@
+{
+  "lesson_id": "07cee51f-8141-47f3-8c31-8c3cca24e65a",
+  "title": "Го в кино!",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "afe55206-09c1-442b-a141-c69c44323348",
+  "topic_name": "Как устроен интернет",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/afe55206-09c1-442b-a141-c69c44323348/lessons/07cee51f-8141-47f3-8c31-8c3cca24e65a/",
+  "markdown_chars": 1927,
+  "content_hash": "caddfc58182db354",
+  "saved_at": "2026-07-29T15:23:16.256836+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/01_как_устроен_интернет/01_го_в_кино.md",
+    "html": "05_основы_бэкенда/01_как_устроен_интернет/01_го_в_кино.html"
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Подготовка проекта</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Подготовка проекта</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/ff06936e-73f9-40d0-b3bc-48da90f05bce/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/ff06936e-73f9-40d0-b3bc-48da90f05bce/</a></p>
+  <h1>Подготовка проекта</h1>
+<p>Занудно напомним, что такая работа с кодом называется {{рефакторинг}}[web_teens_theme4_lesson_3_«рефакторинг»]! А теперь беги читать урок.</p>
+<p>![](https://pictures.s3.yandex.net/resources/Worn-Ass-Semi-Gloss_25_1714758795.jpg)</p>
+<h2>Единый интерфейс в роутах</h2>
+<p>Ты уже знаешь, что серверное приложение может обрабатывать и возвращать разные данные: игры, категории, пользователей. Но для работы с каждым из этих разделов, будь это создание игры или получение категории по идентификатору, нужно иметь единую точку входа.</p>
+<p>Сейчас для взаимодействия с данными в приложении у тебя уже описаны соответствующие роуты. К примеру, для получения всех игр 👇🏻</p>
+<pre><code>http://localhost:3000/games</code></pre>
+<p>Здесь `http://` — это протокол подключения, `localhost:3000` — адрес нашего сервера, а `/games` — роут для получения информации обо всех играх.</p>
+<p>Такого же типа маршруты можно наблюдать и для получения данных всех категорий, и для пользователей 👇🏻</p>
+<pre><code>http://localhost:3000/categories // Получаем все категории
+http://localhost:3000/users // Получаем всех пользователей</code></pre>
+<p>Для всех этих маршрутов существует единый интерфейс, другими словами — точка входа, то есть адрес сайта.</p>
+<p>Чтобы не происходило таких конфликтов, предлагаем создать единый роут для серверного приложения, явно указав, что мы обращаемся к API.</p>
+<p>Для этого добавь файл `apiRouter.js` в папку `routes`. Затем внутри него создай сам роут, как мы раньше делали это со всеми остальными 👇🏻</p>
+<pre><code>const apiRouter = require(&quot;express&quot;).Router();</code></pre>
+<p>После обратись к созданному `apiRouter` и используй метод `use`, указав первым аргументом главный путь, а вторым — роут, который будешь использовать по этому пути. Лови пример игрового роута `gamesRouter`, только не забудь его импортировать перед компиляцией 👇🏻</p>
+<pre><code>const gamesRouter = require(&quot;./games&quot;);
+
+const apiRouter = require(&quot;express&quot;).Router();
+apiRouter.use(&quot;/api&quot;, gamesRouter);</code></pre>
+<p>Таким образом, для всех маршрутов, которые работают с данными пользователя, изменится точка входа. Конечный маршрут для всех роутов внутри `gamesRouter` будет `localhost:3000/api/games`</p>
+<p>Теперь добавь самостоятельно `usersRouter`, `categoriesRouter`, `authRouter`, указав тот же путь `/api`. Должно получиться вот так 👇🏻</p>
+<pre><code>// Импорты и инициализация главного роута
+apiRouter.use(&quot;/api&quot;, gamesRouter);
+apiRouter.use(&quot;/api&quot;, usersRouter);
+apiRouter.use(&quot;/api&quot;, categoriesRouter);
+apiRouter.use(&quot;/api&quot;, authRouter);</code></pre>
+<p>Не забывай экспортировать наш единый роут 👇🏻</p>
+<pre><code>// Код роута
+module.exports = apiRouter;</code></pre>
+<p>Осталось только указать приложению, чтобы оно использовал его вместе с остальными инструментами. При этом все одиночные роуты для пользователей, игр и категорий нужно исключить, как и их импорты 👇🏻</p>
+<pre><code>// app.js
+// Импорты и инициализация приложения
+
+app.use(
+  cors,
+  bodyParser.json(),
+  apiRouter // Добавляем
+  express.static(path.join(__dirname, &quot;public&quot;)),
+  usersRouter, // Удаляем
+  gamesRouter, // Удаляем
+  categoriesRouter, // Удаляем
+);
+
+// Запуск приложения</code></pre>
+<h2>Защищаем пароли</h2>
+<p>При работе с библиотекой Mongoose мы уже знакомили тебя с методом `populate`, собирающим полный документ из ссылок на другие документы. Например, при запросе всех файлов из коллекции `games`, чтобы подгрузить полные данные категорий 👇🏻</p>
+<pre><code>const findAllGames = async (req, res, next) =&gt; {
+  req.gamesArray = await games
+	  .find({})
+	  .populate(&quot;categories&quot;)
+  // Остальной код
+};</code></pre>
+<p>Метод `populate` заполняет данными массив `users`, который хранит всю информацию о пользователях, проголосовавших за игру.</p>
+<p>Поэтому при втором вызове `populate` следует детально настроить его и указать, что поле `password` нужно исключить из данных запроса 👇🏻</p>
+<pre><code>const findAllGames = async (req, res, next) =&gt; {
+  req.gamesArray = await games
+	  .find({})
+	  .populate(&quot;categories&quot;)
+	  .populate({path: &quot;users&quot;, select: &quot;-password&quot;});
+	// Остальной код
+};</code></pre>
+<p>Решить эту проблему можно двумя разными способами: используя возможности Mongoose или создав собственную функцию исключения пароля из данных каждого пользователя. Рассмотрим оба, а ты выбери тот, что тебе по вкусу.</p>
+<p>Как ты знаешь, документы представляют собой объекты. Создай новую функцию в миддлваре для работы с пользователями, которая будет пересобирать объект каждого юзера при запросе его данных, исключая оттуда поле с паролем.</p>
+<p>Для этого перейди в файл `users.js` в папке `middlewares` и добавь функцию `filterPassword` 👇🏻</p>
+<pre><code>const filterPassword = (req, res, next) =&gt; {};</code></pre>
+<p>Она будет служить миддлваром как для запросов на получение всех пользователей, так и для запросов на получение одного конкретного юзера по его идентификатору. Для того чтобы можно было обработать и одиночный объект пользователя, и массив с объектами пользователей, внутри функции `filterPassword` создай универсальную функцию `filterUser` 👇🏻</p>
+<pre><code>const filterPassword = (req, res, next) =&gt; {
+  const filterUser = (user) =&gt; {
+    const { password, ...userWithoutPassword } = user.toObject();
+    return userWithoutPassword;
+  };
+};</code></pre>
+<p>Она будет принимать объект пользователя и пересобирать его, используя метод `toObject` из библиотеки Mongoose.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Обрати внимание на деструктуризацию объекта. Здесь мы говорим нашему приложению собрать новый объект, но исключить из него поле `password`. После чего возвращаем из функции новый объект — `userWithoutPassword` {/quiz-task}</p>
+<p>При запросе данных всех пользователей — в объекте ответа мы создаём поле `usersArray`, а при запросе данных одного пользователя — поле `user`. Поэтому нужно проверить наличие каждого из полей и запустить функцию `filterUser` для каждого из них по-своему.</p>
+<p>Первым делом проверь поле `user` 👇🏻</p>
+<pre><code>const filterPassword = (req, res, next) =&gt; {
+	// Код функции фильтрации
+  if (req.user) {
+    req.user = filterUser(req.user);
+  }
+};</code></pre>
+<p>Здесь всё очень просто: если в объекте запроса содержится поле `user` — перезапиши объект внутри него, применив функцию фильтрации.</p>
+<p>Добавь вторую проверку на случай, если в объекте запроса будет поле `usersArray`. В этом случае проделай те же действия, но для каждого из пользователей. Используя метод `map`, отфильтруй каждый объект юзера в массиве 👇🏻</p>
+<pre><code>const filterPassword = (req, res, next) =&gt; {
+	// Код функции фильтрации
+  if (req.user) {
+    req.user = filterUser(req.user);
+  }
+  if (req.usersArray) {
+    req.usersArray = req.usersArray.map((user) =&gt; filterUser(user));
+  }
+};</code></pre>
+<p>Осталось добавить вызов метода `next()` после всех действий и проверок, чтобы передать запрос следующему миддлвару 👇🏻</p>
+<pre><code>const filterPassword = (req, res, next) =&gt; {
+	// Остальной код
+	next();
+};</code></pre>
+<p>Теперь нужно применить новый миддлвар для двух запросов: получения данных всех пользователей и получения данных одного пользователя. Перейди в роут, который работает с юзерами, и добавь функцию `filterPassword` между миддлваром для поиска и контроллером, который возвращает ответ 👇🏻</p>
+<pre><code>usersRouter.get(&quot;/users&quot;, findAllUsers, filterPassword, sendAllUsers);
+usersRouter.get(&quot;/users/:id&quot;, findUserById, filterPassword, sendUserById);</code></pre>
+<p>Чтобы приложение работало без ошибок, не забудь экспортировать новую функцию из миддлвара и импортировать её в роут `users.js` в папке `routes`</p>
+<p>Метод `find` библиотеки Mongoose умеет не только принимать параметры, по которым будет проходить поиск документов в коллекции, но и использовать опцию проекции, благодаря которой можно указать, какие поля включать или исключать из запроса.</p>
+<p>Чтобы применить опцию в запросе, будем использовать немного непривычный для тебя синтаксис. Добавь проекцию в функцию получения данных всех пользователей `findAllUsers` 👇🏻</p>
+<pre><code>const findAllUsers = async (req, res, next) =&gt; {
+  console.log(&quot;GET /api/users&quot;);
+  req.usersArray = await users.find({}, { password: 0 });
+  next();
+};</code></pre>
+<p>Здесь вторым аргументом метода `find` ты передаёшь объект с полем `password`, у которого установлено значение `0`. Это и называется **проекцией.**</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Этот механизм работает практически так же, как функция фильтрации, которую мы создавали в первом варианте, только не требует от нас дополнительных усилий для создания функции и включения её в цепочку миддлваров. {/quiz-task}</p>
+<p>Кстати, метод `findById` тоже поддерживает проекцию. Попробуй самостоятельно добавить эту опцию в запрос в функции `findUserById`</p>
+<pre><code>const findUserById = async (req, res, next) =&gt; {
+  console.log(&quot;GET /api/users/:id&quot;);
+  try {
+    req.user = await users.findById(req.params.id, { password: 0 });
+    next();
+  } catch (error) {
+    res.status(404).send(&quot;User not found&quot;);
+  }
+};</code></pre>
+<p>По мере доработки серверного приложения не стоит забывать и про интерфейс админки. В рамках этой темы мы добавим в проект много крутых фич, а нашему интерфейсу нужно будет под них адаптироваться. Чтобы все изменения заработали как надо, замени содержимое папки `public` в проекте. Скачай архив по ссылке ниже, распакуй его в удобном месте, и вместо старого интерфейса добавь в проект новый из архива 👇🏻</p>
+<p>[public.zip](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/files/f/public.zip){target=&quot;_blank&quot;}</p>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Fetch на сервере и клиенте</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Fetch на сервере и клиенте</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/0baa08b9-9663-40e1-bac2-ab7a6e75d6df/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/0baa08b9-9663-40e1-bac2-ab7a6e75d6df/</a></p>
+  <h1>Fetch на сервере и клиенте</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_54_1708938069.jpg)</p>
+<h3>`fetch` в серверных компонентах: `&quot;u**se server**&quot;`</h3>
+<p>В серверных компонентах легко описать и вызвать асинхронную функцию.</p>
+<p>Проиллюстрируем файлом `page.js` из Pindie.</p>
+<p>Сейчас компонент `Home` обрабатывается на сервере (по умолчанию все компоненты серверные) и загрузку данных можно осуществить в нём 👇🏻</p>
+<pre><code>import { getGamesByCategory } from &quot;./data/data-utils&quot;;
+import { Banner } from &quot;./components/Banner/Banner&quot;;
+import { CardsList } from &quot;./components/CardsList/CardsList&quot;;
+import { Promo } from &quot;./components/Promo/Promo&quot;;
+
+export default function Home() {
+  const popularGames = getGamesByCategory(&quot;popular&quot;);
+  const newGames = getGamesByCategory(&quot;new&quot;);
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;Banner /&gt;
+      &lt;CardsList id=&quot;popular&quot; title=&quot;Популярные&quot; data={popularGames} /&gt;
+      &lt;CardsList id=&quot;new&quot; title=&quot;Новинки&quot; data={newGames} /&gt;
+      &lt;Promo /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>Запишем асинхронную функцию `getData` для получения данных по `url` 👇🏻</p>
+<pre><code>import { getGamesByCategory } from &quot;./data/data-utils&quot;;
+import { Banner } from &quot;./components/Banner/Banner&quot;;
+import { CardsList } from &quot;./components/CardsList/CardsList&quot;;
+import { Promo } from &quot;./components/Promo/Promo&quot;;
+
+export const getData = async (url) =&gt; {
+  try {
+    const response = await fetch(url)
+    if (response.status !== 200) {
+      throw new Error(&#x27;Ошибка получения данных&#x27;)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return error
+  }
+}
+
+export default function Home() {
+  const popularGames = getGamesByCategory(&quot;popular&quot;);
+  const newGames = getGamesByCategory(&quot;new&quot;);
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;Banner /&gt;
+      &lt;CardsList id=&quot;popular&quot; title=&quot;Популярные&quot; data={popularGames} /&gt;
+      &lt;CardsList id=&quot;new&quot; title=&quot;Новинки&quot; data={newGames} /&gt;
+      &lt;Promo /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>В компоненте `Home` создадим переменную `dataFromUrl` для хранения данных, полученных с помощью функции `getData`</p>
+<p>Присвоим в переменную результат вызова функции `getData`. Так как функция асинхронная и нужно дождаться её выполнения, укажем ключевое слово `await` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1540_1_1708938100.png)</p>
+<p>Сверху VSC подчеркивает `await` как ошибку, потому что использовать его можно только в асинхронных функциях с ключевым словом `async`. Поэтому важно указать `async` для функции `Home` (как снизу).</p>
+<p>Теперь при запросе к нашему сайту на сервере предварительно произойдёт запрос и полученные данные сохранятся в переменную `dataFromUrl`. В этом можно убедиться с помощью `console.log(dataFromUrl)`. Данные будут выведены в терминал редактора кода 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1541_1708938113.png)</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **Важно** **запомнить:** используя асинхронную функцию в серверном компоненте, необходимо прописывать ей ключевое слово `async` {/quiz-task}</p>
+<p>Предварительная загрузка данных полезна:</p>
+<p>- Для ускорения загрузки сайта Предзагруженные данные на сервере избавляют пользователя от ожидания дополнительной загрузки данных перед просмотром страницы. - Для улучшения поисковой выдачи Поисковые системы Яндекса, Google и других сервисов могут точнее определять контент сайта, а значит, более точно отображать его в поисковой выдаче. - Для улучшения производительности сайта Снижая нагрузку с клиента (уменьшение количества запросов, дополнительных загрузок и обновлений данных и страниц сайта), мы улучшаем взаимодействие с пользователем. - Для улучшения безопасности Поскольку данные загружаются исключительно на сервере, они остаются недоступными для клиентского браузера.</p>
+<h3>`fetch` в клиентских компонентах: `&quot;use client&quot;`</h3>
+<p>Получение данных на стороне клиента используют для динамических данных: бесконечная лента постов социальной сети, обновление списка комментариев, кнопки лайка или покупки товаров. Такая обработка данных в основном связана со взаимодействием пользователя, обработкой событий и жизненного цикла компонента.</p>
+<p>Для использования асинхронных функций в клиентских компонентах тебе понадобится хук `useEffect`. Он позволит загружать необходимые данные в момент монтирования клиентского компонента.</p>
+<p>В качестве примера укажем в компоненте `Home` ключевую фразу `&quot;use client&quot;` и перенесём объявление асинхронной функции и её вызов в хук `useEffect` 👇🏻</p>
+<pre><code>&quot;use client&quot;;
+import { getGamesByCategory } from &quot;./data/data-utils&quot;;
+import { Banner } from &quot;./components/Banner/Banner&quot;;
+import { CardsList } from &quot;./components/CardsList/CardsList&quot;;
+import { Promo } from &quot;./components/Promo/Promo&quot;;
+import { useEffect } from &quot;react&quot;;
+
+export default function Home() {
+  useEffect(() =&gt; {
+    const getData = async (url) =&gt; {
+      try {
+        const response = await fetch(url);
+        if (response.status !== 200) {
+          throw new Error(&quot;Ошибка получения данных&quot;);
+        }
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } catch (error) {
+        return error;
+      }
+    };
+    getData(&quot;https://api-code-2.practicum-team.ru/games&quot;);
+  }, []);
+
+  const popularGames = getGamesByCategory(&quot;popular&quot;);
+  const newGames = getGamesByCategory(&quot;new&quot;);
+
+  return (
+    &lt;main className=&quot;main&quot;&gt;
+      &lt;Banner /&gt;
+      &lt;CardsList id=&quot;popular&quot; title=&quot;Популярные&quot; data={popularGames} /&gt;
+      &lt;CardsList id=&quot;new&quot; title=&quot;Новинки&quot; data={newGames} /&gt;
+      &lt;Promo /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+<p>Теперь нет нужды делать компонент асинхронным (указывать `async` перед объявлением функции `Home`), как при работе с асинхронными функциями внутри серверных компонентов.</p>
+<p>Асинхронная функция `getData` будет вызвана в момент монтирования компонента `Home` в браузере пользователя благодаря хуку `useEffect` с пустым массивом зависимостей.</p>
+<p>Для наглядности выведем данные в консоль 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1543_1708938176.png)</p>
+<p>Компонент сначала отрисовывается, и только потом происходит запрос и отображение полученных данных.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **Важно помнить:** работа с большим количеством данных может негативно повлиять на производительность страницы в браузере. Ожидание запросов, обработка данных и отсутствие кэширования результатов делают интерфейс менее отзывчивым. {/quiz-task}</p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "350f1846-229e-4a35-a35f-f8fab3fe19e5",
+  "title": "Летучка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/350f1846-229e-4a35-a35f-f8fab3fe19e5/",
+  "markdown_chars": 1062,
+  "content_hash": "3830caa0bea7ad87",
+  "saved_at": "2026-07-29T15:20:41.493589+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/01_летучка.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/01_летучка.html"
+  }
+}

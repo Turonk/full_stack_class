@@ -1,0 +1,18 @@
+{
+  "lesson_id": "9f3e1ab5-16ec-45f9-9b8b-2c9ba8a65237",
+  "title": "Подготовка проекта",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/9f3e1ab5-16ec-45f9-9b8b-2c9ba8a65237/",
+  "markdown_chars": 20510,
+  "content_hash": "ee4e5b11d6af214c",
+  "saved_at": "2026-07-29T15:23:38.913846+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/13_подготовка_проекта.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/13_подготовка_проекта.html"
+  }
+}

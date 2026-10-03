@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>D — delete</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>D — delete</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/512458c8-e11f-41b3-99bb-7c0edef09267/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/512458c8-e11f-41b3-99bb-7c0edef09267/</a></p>
+  <h1>D — delete</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Delete_1714046731.jpg)</p>
+<p>Работая с MongoDB, ты используешь инструменты, предоставляемые библиотекой Mongoose. Создание записей, поиск в базе данных, обновление и множество других операций доступны разработчикам в виде методов моделей.</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Так как модели отвечают за создание и получение документов из БД, в функциях мы часто выбираем подходящий метод из API библиотеки. Со всеми доступными методами можно подробнее ознакомиться в [документации](https://mongoosejs.com/docs/api/model.html){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>Из наших предыдущих уроков тебе уже знакомы:</p>
+<p>- `Model.create()` - `Model.find()` - `Model.findById()` - `Model.findByIdAndUpdate()`</p>
+<p>А сегодня разберём новый метод — `Model.findByIdAndDelete()`</p>
+<p>Запрос на удаление для твоего сервера должен выполняться с определёнными требованиями: содержать метод `delete` и `id` элемента. Лови подробную инструкцию ниже.</p>
+<h2>Шаг 1</h2>
+<p>Для начала создай для маршрута `gamesRouter` ещё один обработчик. Можешь воспользоваться методом `delete`, а идентификатор `id` удаляемого элемента получи из параметра запроса по эндпоинту `&quot;/games/:id&quot;` 👇🏻</p>
+<pre><code>// Файл routes/games.js
+
+gamesRouter.delete(
+  &quot;/games/:id&quot;, // Слушаем запросы по эндпоинту
+  // Тут будут функция удаления элементов из MongoDB и ответ клиенту
+);</code></pre>
+<p>Именно `id` поможет найти нужный документ в базе данных.</p>
+<h2>Шаг 2</h2>
+<p>Теперь запиши миддлвар-функцию `deleteGame` для поиска и удаления игры. Для этого достаточно воспользоваться методом модели `findByIdAndDelete` и передать в него аргументом `id` удаляемого элемента. Процесс работы с MongoDB асинхронный, и для обработки возможных ошибок необходимо использовать блок `try/catch` 👇🏻</p>
+<pre><code>// Файл middlewares/games.js
+
+const deleteGame = async (req, res, next) =&gt; {
+  try {
+    // Методом findByIdAndDelete по id находим и удаляем документ из базы данных
+    req.game = await games.findByIdAndDelete(req.params.id);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка удаления игры&quot; }));
+  }
+};</code></pre>
+<h2>Шаг 3</h2>
+<p>После удаления игры из БД остаётся передать клиенту результат выполнения операции. Для этого сформируй подходящий контроллер `sendGameDeleted` 👇🏻</p>
+<pre><code>// Файл controllers/games.js
+
+const sendGameDeleted = (req, res) =&gt; {
+	// Объект игры отправляем в формате JSON 
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  // Отправляем на клиент найденный и удалённый элемент из базы данных
+  res.end(JSON.stringify(req.game));
+};</code></pre>
+<p>В результате успешного удаления клиент получит объект с игрой и сможет синхронизировать состояние приложения.</p>
+<h2>Шаг 4</h2>
+<p>Описав все необходимые функции, импортируй их в роут и дополни обработчик `delete` 👇🏻</p>
+<pre><code>// Файл routes/games.js
+
+gamesRouter.delete(
+  &quot;/games/:id&quot;, // Слушаем запросы по эндпоинту
+  deleteGame,
+  sendGameDeleted // Тут будут функция удаления элементов из MongoDB и ответ клиенту
+);</code></pre>
+<h3>Самостоятельная работа 📝</h3>
+<p>Опиши роуты для удаления пользователей и категорий игр.</p>
+<p>Для пользователей `usersRouter.delete(&quot;/users/:id&quot;, deleteUser, sendUserDeleted);` 👇🏻</p>
+<p>- Добавь миддлвар с использованием метода модели `findByIdAndDelete`, передав аргументом `id` пользователя. - Верни удалённого пользователя `req.user` в качестве ответа на запрос.</p>
+<p>Для категорий `categoriesRouter.delete(&quot;/categories/:id&quot;, deleteCategory, sendCategoryDeleted);` 👇🏻</p>
+<p>- Добавь миддлвар с использованием метода модели `findByIdAndDelete`, передав аргументом `id` категории. - Верни удалённого пользователя `req.category` в качестве ответа на запрос.</p>
+</body>
+</html>

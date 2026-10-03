@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Установка MongoDB</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Установка MongoDB</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/3908b123-30f1-4703-8da1-57eeab992453/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/3908b123-30f1-4703-8da1-57eeab992453/</a></p>
+  <h1>Установка MongoDB</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/MongoDB_1713454126.jpg)</p>
+<h2>Выбор базы NoSQL</h2>
+<p>Когда ты определишься с типом БД и подходом к обработке информации внутри неё, может возникнуть ещё один важный вопрос: какую именно NoSQL базу данных выбрать?</p>
+<p>Для серверного приложения Pindie лучшим выбором будет **MongoDB**, так как одно из её ключевых преимуществ — совместимость с форматом JSON, который по праву можно считать родным для JavaScript.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **MongoDB** — это лидер среди NoSQL баз данных и самая популярная БД для проектов, разработанных на Node.js. MongoDB предлагает разработчикам мощный набор инструментов для работы с данными, обеспечивая гибкость, масштабируемость и высокую скорость, необходимые для развития приложения. {/quiz-task}</p>
+<p>Существует множество типов NoSQL: документоориентированные, колоночные и другие. Каждый из них обладает своими преимуществами и подходит для определённых задач. С ними ты при желании можешь познакомиться самостоятельно.</p>
+<p>Для начала необходимо скачать установщик с [официального сайта](https://www.mongodb.com/try/download/community){target=&quot;_blank&quot;}. Найди на странице карточку с заголовком «MongoDB Community Server Download» и выбери конфигурацию, как на скриншоте ниже. Если версия `7.0.7` недоступна или плашка `current` отображается у другой, это не критично. Выбери любую рекомендованную тебе версию 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/1_1_1713454213.jpg)</p>
+<p>При установке не забудь также скачать Compass, который облегчает работу с базой данных 🧭</p>
+<p>После окончания загрузки запусти установщик и нажми кнопку `Next` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/2_1_1713454260.jpg)</p>
+<p>Поставь галочку, соглашаясь с условиями использования MongoDB, и нажми `Next` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/3_1_1713454280.jpg)</p>
+<p>В следующем окне выбери `Complete` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/4_1_1713454299.jpg)</p>
+<p>Затем снова нажми `Next` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/5_1_1713454315.jpg)</p>
+<p>Поставь галочку слева снизу, для того чтобы сразу установить Compass, который облегчает работу с базой данных, — он нам точно пригодится. После чего снова нажми `Next` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/6_1713454334.jpg)</p>
+<p>Кул! Теперь на кнопку `Install` и дождись окончания загрузки 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/7_1713454355.jpg)</p>
+<p>После окончания загрузки нажми `Finish` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/8_1713454378.jpg)</p>
+<p>Ещё необходимо создать директории для локального хранения баз данных. Для этого запусти терминал Git Bash от имени администратора.</p>
+<p>Найти его можно в поиске Windows 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/9_1713454849.jpg)</p>
+<p>Введи команду, чтобы перейти в корневую директорию диска `C`. Если на твоём компьютере основной диск называется иначе, к примеру `D` или `F`, то введи его название 👇🏻</p>
+<pre><code>cd /C</code></pre>
+<p>Следующей командой ты сможешь создать две директории: `data` и внутри неё директорию `db`. Общий путь до баз данных будет `C:/data/db` 👇🏻</p>
+<pre><code>mkdir -p data/db</code></pre>
+<p>Заключительным этапом необходимо добавить путь к папке `bin` с исполняемыми файлами MongoDB в переменную окружения.</p>
+<p>Для начала перейди в папку по этому пути. Сделать это можно прямо из стандартного проводника Windows 👇🏻</p>
+<pre><code>C:\Program Files\MongoDB\Server\7.0\bin</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/10_1713454898.jpg)</p>
+<p>Теперь открой стандартный поиск Windows, нажав клавишу `Win`, и введи «Изменение переменных среды текущего пользователя». Для системы с английским языком по умолчанию эта настройка будет называться «Edit the System Environment Variables» 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/11_1713454938.jpg)</p>
+<p>Выбери `Открыть` и в появившемся окне в верхнем списке найди переменную с названием `Path`, а затем нажми кнопку `Изменить` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/12_1713454960.jpg)</p>
+<p>Ок! Теперь в окне с заголовком «Изменить переменную среды» нажми `Создать`, после чего скопируй путь до папки `bin`, которую мы открыли в проводнике, и вставь в новую строку. Должно получиться вот так 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/13_1713454979.jpg)</p>
+<p>После чего нажми `ОК` во всех открытых окнах, и переменная окружения будет добавлена.</p>
+<p>На этом процесс установки MongoDB завершён! Если у тебя на каком-то из этапов возникли проблемы, можешь свериться с [официальной инструкцией](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/#install-mdb-edition){target=&quot;_blank&quot;}.</p>
+<p>Для установки на macOS мы будем пользоваться [инструкцией](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/){target=&quot;_blank&quot;} с официального сайта, в которой для MongoDB используется пакетный менеджер Homebrew.</p>
+<p>Перед тем как установить Homebrew, добавь инструменты командной строки для `Xcode`, выполнив команду 👇🏻</p>
+<pre><code>xcode-select --install</code></pre>
+<p>Далее необходимо установить сам пакетный менеджер Homebrew. Для этого скопируй команду, которая указана на [официальном сайте](https://brew.sh/#install) 👇🏻</p>
+<pre><code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</code></pre>
+<p>Приступаем к установке MongoDB. Последовательно выполни три команды.</p>
+<p>Во-первых 👇🏻</p>
+<pre><code>brew tap mongodb/brew</code></pre>
+<p>Во-вторых 👇🏻</p>
+<pre><code>brew update</code></pre>
+<p>В-третьих 👇🏻</p>
+<pre><code>brew install mongodb-community@7.0</code></pre>
+<p>В процессе будут установлены следующие утилиты:</p>
+<p>- **`mongosh`** — представляет консольный интерфейс для взаимодействия с базами данных, своего рода консольный клиент. - **`mongod`** — сервер БД MongoDB. Он обрабатывает запросы, управляет форматом данных и выполняет различные операции в фоновом режиме по управлению базами данных. - **`mongos`** — служба маршрутизации MongoDB, которая помогает обрабатывать запросы и определять местоположение данных в кластере MongoDB.</p>
+<p>Кроме того, при установке в зависимости от архитектуры компьютера (`Intel` или `ARM`) будут созданы:</p>
+<p>- Файл конфигурации — посмотрим на него чуть ниже. - Каталог для записи логов — если вдруг по какой-то причине сервер MongoDB не запускается или при запуске/работе сервера возникают какие-нибудь ошибки, то мы можем проверить файл лога, чтобы понять причину ошибок. - Каталог для баз данных — в этой папке будут храниться БД.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/14_1713455181.jpg)</p>
+<p>Лови пути для компьютеров на `Intel`:</p>
+<p>- Файл конфигурации — `/usr/local/etc/mongod.conf` - Каталог логов — `/usr/local/var/log/mongodb` - Каталог баз данных — `/usr/local/var/mongodb`</p>
+<p>Пути для компьютеров на `ARM`:</p>
+<p>- Файл конфигурации — `/opt/homebrew/etc/mongod.conf` - Каталог логов — `/opt/homebrew/var/log/mongodb` - Каталог баз данных — `/opt/homebrew/var/mongodb`</p>
+<p>Для компьютера на `Intel` файл конфигурации выглядит так 👇🏻</p>
+<pre><code>systemLog:
+  destination: file
+  path: /usr/local/var/log/mongodb/mongo.log
+  logAppend: true
+storage:
+  dbPath: /usr/local/var/mongodb
+net:
+  bindIp: 127.0.0.1, ::1
+  ipv6: true</code></pre>
+<p>А для компьютера на `ARM` файл конфигурации `mongod.conf` следующий 👇🏻</p>
+<pre><code>systemLog:
+  destination: file
+  path: /opt/homebrew/var/log/mongodb/mongo.log
+  logAppend: true
+storage:
+  dbPath: /opt/homebrew/var/mongodb
+net:
+  bindIp: 127.0.0.1, ::1
+  ipv6: true</code></pre>
+<p>Пути в файле `mongod.conf` можно поменять, в том числе и сам `mongod.conf`, переложив в другую папку, но мы не советуем этого делать. Дальнейшие уроки мы пишем, предполагая, что всё лежит в тех же местах, что и при начальной установке.</p>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Импорт данных в Mongo</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Импорт данных в Mongo</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/df455e24-747f-4724-b3e5-4d308f30dc2a/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/df455e24-747f-4724-b3e5-4d308f30dc2a/</a></p>
+  <h1>Импорт данных в Mongo</h1>
+<p>Сейчас, если ты откроешь браузер и в адресной строке введёшь свой домен, то увидишь страницу с окном авторизации 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net/resources/9_1_1715787489.jpg)</p>
+<p>![](https://pictures.s3.yandex.net/resources/Worn-Ass-Semi-Gloss_43_1715787529.jpg)</p>
+<h2>Экспортируем коллекции из Compass</h2>
+<p>Чтобы создать в MongoDB коллекции с документами категорий, игр и юзеров, нужно сначала их экспортировать из Compass в виде JSON-файлов.</p>
+<p>Для этого в корневой папке проекта создай папку `compass-export`, в которую будут сохранены все JSON-файлы с коллекциями. Далее перейди в Compass и экспортируй оттуда коллекции. Для этого нажми на вкладку коллекции, а затем на кнопку `Export Data` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net/resources/5_2_1715787543.jpg)</p>
+<p>Затем выбери пункт меню `Export the full collection` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net/resources/10_1_1715787556.jpg)</p>
+<p>И в качестве формата файла, в котором будет экспортирована коллекция, выбери JSON 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net/resources/16_1715787576.jpg)</p>
+<p>Гуд! В конце нажми на кнопку `Export…`. Далее ты увидишь окно, где тебе будет предложено выбрать папку, куда нужно сохранить файл. Выбери `compass-export`, которую мы создали ранее.</p>
+<p>Да, в результате в проекте в папке `compass-export` у тебя будет три JSON-файла 👇🏻</p>
+<p>- `pindie.categories.json` - `pindie.games.json` - `pindie.users.json`</p>
+<h2>Загружаем коллекции на виртуальную машину</h2>
+<p>Файлы, которые мы только что получили из Compass, можно положить на виртуальную машину при помощи `git`</p>
+<p>В корневой папке проекта выполни команду 👇🏻</p>
+<pre><code>git add .</code></pre>
+<p>Теперь в будущий коммит попадут все изменения, которые мы сделали на данный момент, в том числе и папка `compass-export` со всем её содержимым. Далее выполни сам коммит 👇🏻</p>
+<pre><code>git commit -m &quot;коллекции для mongodb&quot;</code></pre>
+<p>И запушь его в репозиторий 👇🏻</p>
+<pre><code>git push</code></pre>
+<p>Теперь подключись к удалённой машине по `ssh` — как это сделать, мы показывали в уроке «Работа с сервером по SSH». Далее в терминале нужно перейти в папку с проектом командой 👇🏻</p>
+<pre><code>cd &lt;имя папки с проектом&gt;</code></pre>
+<p>Загрузи последние изменения из удалённого репозитория, куда мы только что запушили JSON-файлы с коллекциями. Для этого, находясь в папке проекта, выполни команду 👇🏻</p>
+<pre><code>git pull</code></pre>
+<h2>Импортируем коллекции в MongoDB</h2>
+<p>Сейчас, когда JSON-файлы с коллекциями уже есть на виртуальной машине, настало время их импортировать в MongoDB, которая запущена на этой машине. Для этого, находясь в корневой папке проекта, перейди в папку с JSON-файлами коллекций 👇🏻</p>
+<pre><code>cd compass-export</code></pre>
+<p>И выполни последовательно три команды:</p>
+<p>- Импорт коллекции игр 👇🏻</p>
+<pre><code>sudo mongoimport --db pindie --collection games --file pindie.games.json --jsonArray</code></pre>
+<p>- Импорт коллекции категорий 👇🏻</p>
+<pre><code>sudo mongoimport --db pindie --collection categories --file pindie.categories.json --jsonArray</code></pre>
+<p>- Импорт коллекции пользователей 👇🏻</p>
+<pre><code>sudo mongoimport --db pindie --collection users --file pindie.users.json --jsonArray</code></pre>
+<p>Лови скринкаст для наглядности 👀</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/M4T4/Screen_Recording_2024-05-03_at_17.41.23.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+</body>
+</html>

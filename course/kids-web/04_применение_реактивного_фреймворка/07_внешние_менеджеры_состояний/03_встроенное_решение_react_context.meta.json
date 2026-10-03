@@ -1,0 +1,18 @@
+{
+  "lesson_id": "ec77c33f-aa3e-455f-b707-a6c296c8d0bb",
+  "title": "Встроенное решение — React Context",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "7fa40fdd-1d01-45f2-8cd5-271295dfecfc",
+  "topic_name": "Внешние менеджеры состояний",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/ec77c33f-aa3e-455f-b707-a6c296c8d0bb/",
+  "markdown_chars": 19871,
+  "content_hash": "3c8f8656025150bd",
+  "saved_at": "2026-07-29T15:23:02.421875+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/03_встроенное_решение_react_context.md",
+    "html": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/03_встроенное_решение_react_context.html"
+  }
+}

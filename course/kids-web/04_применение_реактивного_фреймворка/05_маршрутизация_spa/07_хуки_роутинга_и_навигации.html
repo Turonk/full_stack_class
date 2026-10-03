@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Хуки роутинга и навигации</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Хуки роутинга и навигации</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/20c833e0-1507-490c-8b45-2f438e537064/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/20c833e0-1507-490c-8b45-2f438e537064/</a></p>
+  <h1>Хуки роутинга и навигации</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_48_1708349473.jpg)</p>
+<p>Бывают ситуации, когда пользователь совершает действие, после которого нам надо переместить его на другую страницу. К примеру, перемещение юзера на главную страницу после авторизации на сайте.</p>
+<p>Или нам может понадобиться покрасить ссылку с адресом текущей страницы в хедере. Так часто делают, чтобы пользователь не терялся на сайте. На скриншоте видно, как это выглядит на сайте [Next.js](https://nextjs.org/){target=&quot;_blank&quot;} — в хедере цветом выделена ссылка [Docs](https://nextjs.org/docs){target=&quot;_blank&quot;}, поскольку мы находимся в документации фреймворка.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1529_1708349507.png)</p>
+<p>Для решения таких задач в Next.js существуют встроенные **хуки роутинга и навигации**.</p>
+<h2>Хук `useRouter`</h2>
+<p>Начнём с хука `useRouter` — он даёт средства для того, чтобы с помощью JS менять роуты на сайте. Проще говоря, перемещать пользователя между страницами программно. Сейчас в Pindie нет задач, для которых этот хук необходим (кроме задачи со звёздочкой в домашнем задании), но вообще такое приходится делать достаточно часто. Поэтому давай посмотрим на простом примере, как использовать этот хук 👇🏻</p>
+<pre><code>&#x27;use client&#x27;
+ 
+import { useRouter } from &#x27;next/navigation&#x27;
+ 
+export default function Page() {
+  const router = useRouter()
+ 
+  return (
+    &lt;button type=&quot;button&quot; onClick={() =&gt; router.push(&#x27;/about&#x27;)}&gt;
+      Нажми на меня и окажешься на странице about!
+    &lt;/button&gt;
+  )
+}</code></pre>
+<p>Вначале мы создаём объект `router`. В нём записываются методы, благодаря которым мы и можем осуществлять навигацию:</p>
+<p>- `router.push()` — перемещает пользователя на другую страницу; - `router.replace()` — перемещает пользователя на другую страницу, не записывая перемещение в историю браузера; - `router.back()` — перемещает пользователя на прошлую страницу.</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Полный список функций, которые можно выполнять с помощью роутера, можешь посмотреть в [документации](https://nextjs.org/docs/app/api-reference/functions/use-router){target=&quot;_blank&quot;} Next.js. {/quiz-task}</p>
+<p>Подробнее остановимся на первом из методов — `router.push()`. В примере выше видно, как он работает: в круглых скобках передаётся строка с нужным адресом страницы, на которую нужно перенести пользователя. При нажатии на кнопку пользователя перенесёт в начало страницы `/about`. Можно передать этой функции и объект, который будет указывать, что не нужно возвращаться в начало страницы — вот как это будет выглядеть: `router.push(&#x27;/about&#x27;, {scroll: false})`</p>
+<h2>Хук `usePathname`</h2>
+<p>Теперь поговорим о хуке `usePathname` — знания о нём понадобятся для работы над Pindie.</p>
+<p>Вот небольшой пример кода с ним 👇🏻</p>
+<pre><code>&quot;use client&quot;;
+
+import { usePathname } from &quot;next/navigation&quot;;
+
+export const Header = () =&gt; {
+	const pathname = usePathname();
+
+	console.log(pathname);
+
+	return &lt;header&gt;&lt;/header&gt;
+}</code></pre>
+<p>В константу `pathname` записывается адрес, на котором пользователь сейчас находится. Например, если пользователь находится на главной странице, то в `pathname` будет записано `&#x27;/&#x27;`. Так же и с остальными страницами сайта. `pathname` будет очищен от лишней информации: например, в адресе `/games/1?game=true` есть дополнительные параметры, но в `pathname` всё равно запишется строка `&quot;/games/1&quot;`</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Если почувствуешь в себе силы, то можешь узнать о [специальном хуке](https://nextjs.org/docs/app/api-reference/functions/use-search-params){target=&quot;_blank&quot;}, который есть в Next.js для работы с этими дополнительными параметрами. {/quiz-task}</p>
+<h2>Работа над Pindie</h2>
+<p>В Pindie нужно обозначать ссылку, на которой ты находишься. Такие ссылки называют активными.</p>
+<p>Вот чего мы хотим добиться 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1530_1708349617.png)</p>
+<p>Давай сделаем это пошагово!</p>
+<p>**Шаг 1**</p>
+<p>Ниже CSS-код для активной ссылки. Вставь его в `Header.module.css` и не забудь, что `menu__link_active` должен располагаться после описания `.menu__link`, иначе стили будут конфликтовать.</p>
+<pre><code>.menu__link_active {
+  background-color: #ffff00;
+  pointer-events: none;
+}</code></pre>
+<p>**Шаг 2**</p>
+<p>Теперь открой файл с компонентом-хедером — `app/components/Header/Header.jsx`. Сделай так, чтобы у компонентов `Link` в меню менялся стиль в случае, если открытая страница соответствует адресу этого `Link`. Это можно сделать с помощью шаблонных строк и тернарного оператора.</p>
+<p>Например, для ссылки на страницу с новинками это будет выглядеть так 👇🏻</p>
+<pre><code>&lt;Link
+  href=&quot;/new&quot;
+  className={`${Styles[&quot;menu__link&quot;]} ${
+    pathname === &quot;/new&quot; ? Styles[&quot;menu__link_active&quot;] : &quot;&quot;
+  }`}
+&gt;</code></pre>
+<p>**Шаг 3**</p>
+<p>Теперь повтори то же самое для остальных ссылок. Можешь использовать в этом условии значение `href`</p>
+<p>**Задание со звёздочкой**</p>
+<p>Кстати, тернарный оператор поможет тебе выполнить ещё одну задачу со звёздочкой. На нашем сайте есть логотипы в шапке и в подвале. Нужно сделать так, чтобы на главной странице они не были ссылками, а на всех остальных — были.</p>
+<pre><code>{
+	путь === &quot;/&quot; ? &lt;img /&gt; : &lt;Link&gt;&lt;img /&gt;&lt;/Link&gt;
+}</code></pre>
+</body>
+</html>

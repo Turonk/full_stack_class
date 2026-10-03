@@ -1,0 +1,18 @@
+{
+  "lesson_id": "e316a6f1-19d1-4d38-bcb4-03d5864331cd",
+  "title": "Классная минутка",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/e316a6f1-19d1-4d38-bcb4-03d5864331cd/",
+  "markdown_chars": 18,
+  "content_hash": "8f33950dcbeb46ab",
+  "saved_at": "2026-07-29T15:23:28.619959+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/06_классная_минутка.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/06_классная_минутка.html"
+  }
+}

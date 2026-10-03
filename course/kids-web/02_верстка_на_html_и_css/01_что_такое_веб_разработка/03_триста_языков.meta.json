@@ -1,0 +1,18 @@
+{
+  "lesson_id": "e49f023c-0919-42fd-9ef6-257613c81c10",
+  "title": "Триста (языков)",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7267cf1c-ae83-4e81-95b4-8cacbf27ac92",
+  "topic_name": "Что такое веб-разработка",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7267cf1c-ae83-4e81-95b4-8cacbf27ac92/lessons/e49f023c-0919-42fd-9ef6-257613c81c10/",
+  "markdown_chars": 4407,
+  "content_hash": "33d8a87c371c2ca7",
+  "saved_at": "2026-07-29T15:19:50.370843+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/03_триста_языков.md",
+    "html": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/03_триста_языков.html"
+  }
+}

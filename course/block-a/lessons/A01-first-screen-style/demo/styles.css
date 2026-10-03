@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #070b14;
+  color: #e8eefc;
+  font-family: "Segoe UI", sans-serif;
+}
+.hud { padding: 56px 32px; max-width: 640px; }
+.badge {
+  letter-spacing: 0.2em;
+  color: #2ee6a6;
+  font-size: 0.75rem;
+}
+h1 { font-size: 2.6rem; margin: 8px 0 12px; }
+.sub { color: #8b95ad; margin-bottom: 28px; }
+.play {
+  display: inline-block;
+  background: #2ee6a6;
+  color: #070b14;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+}

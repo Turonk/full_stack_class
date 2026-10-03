@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a6d39122-9770-4b3c-8dc9-aec2323aae51",
+  "title": "Переменные",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "a58f4def-7a91-4ad6-938d-4ef32345242b",
+  "topic_name": "Основы JavaScript",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/a58f4def-7a91-4ad6-938d-4ef32345242b/lessons/a6d39122-9770-4b3c-8dc9-aec2323aae51/",
+  "markdown_chars": 7436,
+  "content_hash": "46298a7cecf8ae26",
+  "saved_at": "2026-07-29T15:20:55.312721+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/02_основы_javascript/01_переменные.md",
+    "html": "03_программирование_на_javascript/02_основы_javascript/01_переменные.html"
+  }
+}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Свойство Flex и другие флекс-свойства</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Свойство Flex и другие флекс-свойства</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/1db970fb-1f48-4cfc-a2fd-704fe0932555/">https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/1db970fb-1f48-4cfc-a2fd-704fe0932555/</a></p>
+  <h1>Свойство Flex и другие флекс-свойства</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_417_1696945888.png)</p>
+<p>Теперь, научившись упаковывать элементы своей вёрстки в контейнеры, ты узнаешь, как с помощью всего нескольких правил можно ими легко управлять: выравнивать, центрировать и упорядочивать. В этом нам поможет flexbox — специальная фича в CSS для быстрой и простой вёрстки интерфейсов любой сложности. Короче, в этом уроке научим тебя флексить по-программистски 🌚</p>
+<p>Ещё разок. Flexbox (гибкий контейнер) — это CSS-технология, которая помогает решать ряд проблем в веб-дизайне, связанных с размещением и выравниванием элементов внутри контейнеров.</p>
+<p>Проблема в том, что выравнивание, центрирование, равномерное распределение элементов по контейнеру требуют написания множества стилей как для контейнера, так и для элементов в нём. А flexbox позволяет это сделать буквально с помощью нескольких строк.</p>
+<p>Базовые полезности технологии следующие:</p>
+<p>- **Центрирование элементов** Flexbox позволяет легко центрировать элементы как по горизонтали, так и по вертикали внутри их контейнера, что до его изобретения было не всегда просто и требовало множества CSS-правил.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_2.mp4}</p>
+<p>- **Равномерное распределение пространства** Можно равномерно распределять доступное пространство между элементами флекс-контейнера, что полезно, например, для создания горизонтальных и вертикальных меню.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_3.mp4}</p>
+<p>- **Автоматическое выравнивание элементов разной высоты** Во Flexbox элементы могут выравниваться так, чтобы их высота не влияла на выравнивание других элементов в контейнере.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_4.mp4}</p>
+<p>- **Устранение пустых пространств** Flexbox может автоматически удалять или заполнять пустое пространство в контейнере, что полезно для создания динамических макетов.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_5.mp4}</p>
+<p>О, это интересная история. Дело в том, что потребность в адаптиве появилась не сразу.</p>
+<p>Долгое время веб-интерфейсы разрабатывались только под десктопные устройства (персональные компьютеры, ноутбуки) — собственно, именно с них юзеры сайты и смотрели.</p>
+<p>Но всё изменил выход первого айфона в 2007 году. Тогда-то и пришлось задуматься об адаптивности, а достигнуть её в то время можно было только путём написания правил для каждого элемента.</p>
+<p>С первым айфоном число пользователей мобильного интернета на планете стало резко расти. Из-за его популярности разработчикам понадобился инструмент, который позволил бы легче изменять блочную модель документа. Так и родился флекс в мире кодинга.</p>
+<p>Ага!</p>
+<p>Сейчас покажем, как работает технология, на примере. Рекомендуем открыть свой VSCode и флексить с нами.</p>
+<p>Сверстаем музыкальный сайтик по макету, точнее блок с заголовком «Популярные треки». Вот, к слову, макет:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Glavnaia_6_1_1697815095.png)</p>
+<p>Это html:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;ТРЕКИ — И ТОЧКА.&lt;/title&gt;
+    &lt;link href=&quot;./style.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;main class=&quot;main&quot;&gt;
+        &lt;section class=&quot;content&quot;&gt;
+            &lt;h2 class=&quot;content__title&quot;&gt; ❤️‍🔥 Плейлист меланхоличный, Октябрь 2023 &lt;/h2&gt;
+            &lt;div class=&quot;content__cards&quot;&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Ski Head&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/1.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/191417/track/1932452&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Ski Head&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Frazier Chorus&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Ami&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/2.png&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/8704945/track/57748857&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Ami&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Devendra Banhart&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Ancora Tu&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/3.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/5977070/track/43696602&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Ancora Tu&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Róisín Murphy&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Shell&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/4.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info card__info_yellow&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://www.youtube.com/watch?v=wtd_SgWo4Vw&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Shell&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Sunny War&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;All the Tired Horses&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/5.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_longer-title&quot; href=&quot;https://music.yandex.ru/album/18861236/track/93557371&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;All the Tired Horses&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Bob Dylan&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Strange&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/6.jpg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info card__info_green&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/965419/track/560522&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Strange&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Patsy Cline&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Baby&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/7.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_longer-author&quot; href=&quot;https://music.yandex.ru/album/719229/track/6690568&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Baby&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Ariel Pink&#x27;s Haunted Graffiti&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Foreigners&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/8.png&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/3300905/track/27584658&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Foreigners&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Joe Mubare&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;It’s Good for the Soul&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/9.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_long&quot; href=&quot;https://music.yandex.ru/album/442068/track/3926762&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;It’s Good for the Soul&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by The Salsoul Orchestra&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Sign Your Name&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/10.png&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/9418994/track/60745743&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Sign Your Name&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Sananda Maitreya&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Cherry&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/11.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/90459/track/810198&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Cherry&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by J.J. Cale&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Rain&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/12.png&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info card__info_pink&quot;&gt;
+                        &lt;a class=&quot;card__link&quot; href=&quot;https://music.yandex.ru/album/21946/track/215079&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Rain&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Madonna&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Bad Influence&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/13.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info card__info_blue&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_longer-author&quot; href=&quot;https://music.yandex.ru/album/11472049/track/68922978&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Bad Influence&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Sebastian Maschat &amp; Erlend Øye&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Baby Bye Bye (Demo)&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/14.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_wide&quot; href=&quot;https://music.yandex.ru/album/11889963/track/70411796&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Baby Bye Bye (Demo)&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Mac DeMarco&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Ride Like the Wind&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/15.jpeg&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_wide&quot; href=&quot;https://music.yandex.ru/album/56494/track/34174528&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Ride Like the Wind&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Christopher Cross&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;img alt=&quot;Choo Choo Gatagoto&quot; src=&quot;https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/images/16.png&quot; class=&quot;card__image&quot; /&gt;
+                    &lt;div class=&quot;card__info&quot;&gt;
+                        &lt;a class=&quot;card__link card__link_wide&quot; href=&quot;https://music.yandex.ru/album/6472367/track/47594088&quot; target=&quot;_blank&quot; rel=&quot;norefferer&quot;&gt;
+                            &lt;h3 class=&quot;card__text card__text_title&quot;&gt;Choo Choo Gatagoto&lt;/h3&gt;
+                            &lt;p class=&quot;card__text card__text_author&quot;&gt;by Haruomi Hosono&lt;/p&gt;
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/main&gt; 
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Это стили:</p>
+<pre><code>@font-face {
+    font-family: &quot;Anonymous Pro&quot;;
+    src: url(https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/styles/fonts/AnonymousPro-Regular.woff) format(&#x27;woff&#x27;), 
+    url(https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/styles/fonts/AnonymousPro-Regular.ttf) format(&#x27;truetype&#x27;);
+    font-weight: 400;
+    font-style: normal;
+    display: swap;
+}
+
+@font-face {
+    font-family: &quot;Anonymous Pro&quot;;
+    src: url(https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/styles/fonts/AnonymousPro-Bold.woff) format(&#x27;woff&#x27;), 
+    url(https://sandbox-teens.practicum-team.ru/tasks/03-more-html-and-css-sprint/01-flex-sandboxes/06-header-and-footer/sandbox-01/pre/styles/fonts/AnonymousPro-Bold.ttf) format(&#x27;truetype&#x27;);
+    font-weight: 700;
+    font-style: normal;
+    display: swap;
+}
+
+body {
+    margin: 0;
+}
+
+.main {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(156deg, #FFED00 0%, #FF3DFE 51.89%, #5253FF 100%);
+    flex: 1 0 auto;
+    color: #121723;
+}
+
+.content {
+    margin: 68px auto 26px;
+	  display: block;
+    width: 90%;
+    max-width: 1290px;
+}
+
+.content__title {
+    color: #121723;
+    font-family: &quot;Anonymous Pro&quot;, sans-serif;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    margin: 0;
+}
+
+.content__cards {
+	  display: block;
+    width: 100%;
+    margin: 26px 0 0;
+}
+
+.card {
+  	display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    margin: 4px;
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.card__info {
+    display: block;
+    margin: 0;
+    border-radius: 12px;
+    background: white;
+    padding: 24px 12px;
+    min-height: 72px;
+}
+
+.card__info_yellow {
+    background: #FAFF00;
+}
+
+.card__info_green {
+    background: #24FF00;
+}
+
+.card__info_pink {
+    background: #FFB4EA;
+}
+
+.card__info_blue {
+    background: #03E7FC;
+}
+
+.card__link {
+    width: 85%;
+    color: #121723;
+    text-decoration: none;
+}
+
+.card__text {
+    font-family: &quot;Anonymous Pro&quot;, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.card__text_title {
+    font-size: 26px;
+}
+
+.card__text_author {
+    font-size: 20px;
+    font-weight: 400;
+}</code></pre>
+<p>В этом коде карточки выстроены в ряд с помощью свойства, которое мы проходили на прошлых уроках — `display: inline-block;`(оно делает элемент блочным, но при этом заставляет его находиться в строке).</p>
+<p>Так тоже можно, но карточки выстроены не по макету, а про адаптив речи вообще не идёт. Будем исправлять, а пока копируй как есть и посмотри, как выглядит страница сейчас.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.13.25_1698229080.png)</p>
+<p>Ну что, погнали!</p>
+<h2>Шаг 1</h2>
+<p>Первое, что мы сделаем, — это зададим всему контейнеру с карточками (у него класс `content__cards`) `display: flex;`, а у класса `card` уберём свойства `display: inline-block;` и `margin-right: 30px;` – заменим `display` на `flex`, а `margin` вообще уберём.</p>
+<p>Получится такая вот очередь в школьную столовую:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.20.06_1698229564.png)</p>
+<pre><code>.content__cards {
+	display: flex;
+    width: 100%;
+    margin: 26px 0 0;
+}
+.card {
+		display: flex;
+    flex-direction: column;
+    width: 100%;
+		min-height: 72px;
+    max-width: 300px;
+}</code></pre>
+<h2>Шаг 2</h2>
+<p>Теперь для контейнера с классом `content__cards` пропишем свойство `flex-wrap: wrap;`</p>
+<p>Оно заставляет элементы внутри контейнера переноситься на следующую строчку, если они не помещаются. Наши карточки встанут в ряд по четыре штуки на каждой строке.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.21.09_1698229736.png)</p>
+<h2>Шаг 3</h2>
+<p>Как видишь, карточки всё ещё прилипают друг к другу. А теперь открой DevTools и наведи на контейнер. Ты увидишь, что фиолетовым выделено пустое пространство справа.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.22.38_1698229784.png)</p>
+<p>Мы это тоже сейчас поправим одним правилом.</p>
+<p>Нужно в этот же селектор контейнера `content__cards` дописать `justify-content: space-between;`</p>
+<p>Это свойство регулирует распределение пространства между элементами внутри контейнера. Мы установили ему значение `space-between;`, что буквально означает «пространство между». При таком выборе крайние элементы прижимаются к границам родительского контейнера, а оставшиеся выстраиваются внутри него равномерно, так, чтобы между ними были одинаковые отступы.</p>
+<p>Гляди:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.24.07_1698229891.png)</p>
+<p>Для `justify-content` можно задать и другие значения, чекай в [доке](https://doka.guide/css/justify-content/){target=&quot;_blank&quot;}.</p>
+<pre><code>.content__cards {
+	  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 26px 0 0;
+}</code></pre>
+<h2>Шаг 4</h2>
+<p>Сделаем нашу страничку адаптивной — в том числе для смартфонов.</p>
+<p>Создадим медиазапрос `@media (max-width: 768px) {}` и напишем в нём, что контейнер `content__cards` будет иметь правило `flex-direction: column;`</p>
+<p>Это свойство отвечает за направление flex-элементов: значение `row` задаёт горизонтальное направление, то есть заставляет элементы выстраиваться в ряд, а `column` задаёт вертикальное направление, то есть элементы будут выстраиваться в колонку.</p>
+<p>Теперь наша страница на разрешениях до 768px выглядит так:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.26.36_1698230027.png)</p>
+<p>Не совсем то, что нам нужно – элементы прижимаются к левому краю. Но и это мы можем поправить всего одним правилом.</p>
+<p>Для `content__cards` зададим `align-items: center;`</p>
+<p>Теперь колонка карточек будет выглядеть так:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.27.54_1698230069.png)</p>
+<p>`align-items` отвечает за выравнивание элементов в текущем флекс-направлении (в нашем случае — в колонке), сейчас мы указали выравнивание по центру — `center`</p>
+<p>Можно указать и другие значения: например, `flex-end` (элементы выравниваются по нижнему краю при расположении в строку или по правому краю при расположении в столбик), это выглядит так:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.28.25_1698230092.png)</p>
+<p>А значение `flex-start` (элементы прижимаются к краю, от которого начинается основная ось) даст вот такой эффект:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.28.36_1698230116.png)</p>
+<p>Есть ещё приличное количество других, но мы остановимся на `align-items: center;`</p>
+<p>Кстати, его можно записать **НЕ** в медиазапрос, а в обычный селектор `content__cards`, так как выравнивание не помешает на любых разрешениях экрана.</p>
+<p>Сейчас на десктопе разницы не будет видно, потому что все карточки у нас одинакового размера.</p>
+<p>Теперь наша страница довольно-таки адаптивна 💁🏻‍♀️</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Screenshot_2023-10-05_at_21.38.19_1696947223.png)</p>
+<pre><code>.content__cards {
+	  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin: 26px 0 0;
+}
+
+@media (max-width: 768px) {
+    .content__cards {
+        flex-direction: column;
+    }
+}</code></pre>
+<p>Пфф. Ну а смысл нам врать? Сейчас покажем последний финт в этом уроке.</p>
+<p>Нужно задать немного отступов для карточек.</p>
+<h2>Шаг 5</h2>
+<p>Сейчас снизу от карточки у нас нет отступов, а в макете они есть. Нужно задать 22px снизу и 30px сбоку, и это тоже можно очень просто сделать с помощью флексов.</p>
+<p>Для того же контейнера `content__cards` зададим свойство `column-gap` со значением `30px` и `row-gap` со значением `22px`.</p>
+<p>Первое значение отмеряет расстояние между флекс-элементами по вертикали, второе — по горизонтали. Мы сейчас увидим только работу значения по вертикали, так как у нас ранее прописано `justify-content: space-between;`  и из-за этого элементы разбегаются по краям контейнера, оставляя между собой пространство. Но без `justify-content` расстояние между карточками будет 30px, можешь убрать его и удостовериться.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-10-19_v_17.37.27_1698230210.png)</p>
+<pre><code>.content__cards {
+    width: 100%;
+		display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 22px;
+    row-gap: 30px;
+    margin: 26px 0 0;
+}</code></pre>
+<p>Наши поздравления!</p>
+<p>Теперь ты в курсе следующих вещей:</p>
+<p>- Знаешь, что такое flexbox и для чего его применяют - Умеешь выравнивать элементы, да ещё и по разным краям, с помощью `align-items` - Можешь легко управлять элементами и пространством, которое они занимают, с помощью `justify-content` - Можешь создавать отступы с помощью `gap` - И лёгким движением руки можешь сделать адаптив и не только, задав направление флекс-элементам с помощью `flex-direction`</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_95_1697815834.png)</p>
+</body>
+</html>

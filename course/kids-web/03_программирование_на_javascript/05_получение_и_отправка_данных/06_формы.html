@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Формы</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Формы</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/1db669a2-ce0d-4dc3-96ab-a250cb9c9f44/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/1db669a2-ce0d-4dc3-96ab-a250cb9c9f44/</a></p>
+  <h1>Формы</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_594_1703164020.png)</p>
+<p>Исправить это поможет отправка данных на сервер и сохранение данных о новых карточках. При обновлении страницы будет происходить запрос на сервер — а сервер будет отдавать уже обновлённые данные, которые мы сможем показывать вместо стартового набора карточек.</p>
+<p>Сначала предстоит заменить текстовые поля ввода на форму со специальным тегом в вёрстке — так можно получить более крутой функционал. Затем нужно научиться получать данные о персонаже через новую форму и отправлять их на сервер для сохранения и обновления списка героев.</p>
+<p>Лови мини-план для получения данных через форму:</p>
+<p>- собрать данные из формы в объект - сформировать JSON - отправить данные на сервер</p>
+<p>Давай приступим!</p>
+<h2>Формы и как собрать данные</h2>
+<p>В уроке прошлой недели мы с тобой уже получали данные из тегов `&lt;input&gt;` и обновляли нашу переменную с карточками.</p>
+<p>На нашем сайте была такая вёрстка:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;КарП&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+    &lt;button id=&quot;addButton&quot;&gt;Добавить героя&lt;/button&gt;
+		&lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Как ты можешь заметить, в ней находятся два одиноких тега `&lt;input&gt;` и кнопка, при помощи которой мы получали данные из полей ввода и сохраняли их в переменную.</p>
+<p>В этот раз у нас более сложная вёрстка с большим количеством тегов:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;/&gt;
+        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;
+        &lt;title&gt;КарП&lt;/title&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;
+        &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;h1 class=&quot;page-heading&quot;&gt;КарП&lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;
+        &lt;main class=&quot;container&quot;&gt;
+            &lt;section&gt;
+		            &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required placeholder=&quot;Имя героя&quot;/&gt;
+                &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;description&quot; id=&quot;description&quot; required placeholder=&quot;Описание&quot;/&gt;
+                &lt;div class=&quot;form-parameters&quot;&gt;
+		                &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;str&quot; id=&quot;str&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Сила&quot; /&gt;
+                    &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;agi&quot; id=&quot;agi&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Ловкость&quot; /&gt;
+                    &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;hp&quot; id=&quot;hp&quot; min=&quot;1&quot; max=&quot;100&quot; placeholder=&quot;Очки жизни&quot; /&gt;
+                    &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;int&quot; id=&quot;int&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Интеллект&quot; /&gt;
+                &lt;/div&gt;
+                &lt;input class=&quot;form-input&quot; type=&quot;email&quot; name=&quot;studentEmail&quot; id=&quot;studentEmail&quot; placeholder=&quot;student@yandex.ru&quot; /&gt;
+                &lt;button class=&quot;form-button&quot; id=&quot;addHero&quot;&gt;Добавить героя&lt;/button&gt;
+            &lt;/section&gt;
+            &lt;section class=&quot;cards&quot; id=&quot;cards-container&quot;&gt;&lt;/section&gt;
+        &lt;/main&gt;
+        &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>В таком случае можно запутаться и упустить важные данные. Лучшей практикой считается объединять подобные поля ввода в отдельные **формы**.</p>
+<p>Ты сталкиваешься с кучей форм в интернете, настала пора познакомиться с ними поближе и научиться создавать их самостоятельно.</p>
+<p>**Формы** — основной инструмент для получения информации от пользователя. Создание профиля в соцсети, страница оплаты заказа в интернет-магазине, окно загрузки файла в облачных хранилищах — всё это делается с помощью форм.</p>
+<p>Чтобы создать форму, достаточно обернуть нашу вёрстку с полями ввода и кнопкой в тег `&lt;form&gt;`:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;/&gt;
+        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;
+        &lt;title&gt;КарП&lt;/title&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;
+        &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;h1 class=&quot;page-heading&quot;&gt;КарП&lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;
+        &lt;main class=&quot;container&quot;&gt;
+            &lt;section class=&quot;form-wrapper&quot;&gt;
+								&lt;!-- Тут установим тег form --&gt;
+                &lt;form name=&quot;addHero&quot; class=&quot;form&quot;&gt;
+                    &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required placeholder=&quot;Имя героя&quot;/&gt;
+                    &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;description&quot; id=&quot;description&quot; required placeholder=&quot;Описание&quot;/&gt;
+                    &lt;div class=&quot;form-parameters&quot;&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;str&quot; id=&quot;str&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Сила&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;agi&quot; id=&quot;agi&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Ловкость&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;hp&quot; id=&quot;hp&quot; min=&quot;1&quot; max=&quot;100&quot; placeholder=&quot;Очки жизни&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;int&quot; id=&quot;int&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Интеллект&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;button class=&quot;form-button&quot; id=&quot;addHero&quot;&gt;Добавить героя&lt;/button&gt;
+                &lt;/form&gt;
+								&lt;!-- Тут установим тег form --&gt;
+            &lt;/section&gt;
+            &lt;section class=&quot;cards&quot; id=&quot;cards-container&quot;&gt;&lt;/section&gt;
+        &lt;/main&gt;
+        &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Он позволяет объединить интерактивные элементы в один логический блок — так удобнее обрабатывать информацию. Теперь данные из формы ты сможешь доставать из всемогущей переменной `document`. Для этого тебе надо будет просто обратиться к ней через точку. Например, достать все формы, имеющиеся на странице, ты можешь так: `document.forms`</p>
+<p>Если форм несколько, проще будет различать их по уникальному названию. Давай и мы дадим нашей форме имя: `&lt;form name=&quot;addHero&quot;&gt;`. Так её можно будет найти по имени: `document.forms.addHero`</p>
+<h3>Поля ввода и кнопки</h3>
+<p>В формах бывают различные теги `&lt;input&gt;`, и, чтобы проще было их распознавать, им дают имена. В нашем случае просто скопируем их из идентификаторов `id`:</p>
+<pre><code>&lt;form name=&quot;addHero&quot; class=&quot;form&quot;&gt;
+	&lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required placeholder=&quot;Имя героя&quot;/&gt;
+	&lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;description&quot; id=&quot;description&quot; required placeholder=&quot;Описание&quot;/&gt;
+	&lt;div class=&quot;form-parameters&quot;&gt;
+		&lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;str&quot; id=&quot;str&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Сила&quot; /&gt;
+		&lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;agi&quot; id=&quot;agi&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Ловкость&quot; /&gt;
+		&lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;hp&quot; id=&quot;hp&quot; min=&quot;1&quot; max=&quot;100&quot; placeholder=&quot;Очки жизни&quot; /&gt;
+		&lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;int&quot; id=&quot;int&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Интеллект&quot; /&gt;
+	&lt;/div&gt;
+	&lt;input class=&quot;form-input&quot; type=&quot;email&quot; name=&quot;studentEmail&quot; id=&quot;studentEmail&quot; placeholder=&quot;student@yandex.ru&quot; /&gt;
+  &lt;button class=&quot;form-button&quot; id=&quot;addHero&quot;&gt;Добавить героя&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>Кнопки в формах также бывают разные, вот три основных типа:</p>
+<p>1. Отправка формы на сервер (при нажатии на кнопку происходит событие `submit`) 2. Сброс полей ввода (происходит событие `reset`) 3. Прочее (нет события по умолчанию, можно назначить на кнопку что угодно с помощью `addEventListener`)</p>
+<p>По умолчанию любая кнопка внутри формы имеет тип `submit`. И при нажатии на кнопку происходит событие `submit`. Оно же происходит и при нажатии Enter, если пользователь находится в одном из полей формы. Поэтому дополнительные обработчики нажатия клавиш для `submit` делать не нужно.</p>
+<p>Чаще всего цель формы — отправить данные на сервер для их обработки. Прямо перед отправкой происходит событие `submit`: оно перезагружает страницу.</p>
+<p>При необходимости в обработчике события `submit` отменяют стандартную отправку на сервер и проверяют данные, которые ввёл пользователь, или преобразуют их нужным образом:</p>
+<pre><code>const form = document.forms.addHero; // Получаем форму
+
+// Вешаем на неё обработчик события submit
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+  // Выполняем какие-то действия с данными:
+	// например, проверяем данные пользователя или как-то их преобразовываем
+});</code></pre>
+<p>Если в обработчике события `submit` вызвать `evt.preventDefault`, то перезагрузки страницы и стандартной отправки данных не произойдёт.</p>
+<p>Элементы формы лежат внутри самой формы в свойстве `elements`, поэтому их тоже легко получить из переменной `document`</p>
+<pre><code>const form = document.forms.addHero; // Получаем форму
+form.elements.title // &lt;input type=&quot;text&quot; name=&quot;title&quot; ...
+form.elements.description // &lt;input type=&quot;text&quot; name=&quot;description&quot; ...</code></pre>
+<h2>Отправка данных на сервер</h2>
+<p>Давай соберём всё, что обсудили, в единую картину — можешь потренироваться в VSCode, а мы пошагово расскажем, что должно быть в коде.</p>
+<h3>Шаг 1</h3>
+<p>Получаем форму и поля ввода. Всё можно найти внутри переменной `document`:</p>
+<pre><code>//Получение элементов формы
+const form = document.forms.addHero; // Получаем форму
+const titleInput = form.elements.title; // Получаем поле с именем
+const descriptionInput = form.elements.description; // Получаем поле с описанием
+const strInput = form.elements.str; // Получаем поле с уровнем силы
+const agiInput = form.elements.agi; // Получаем поле с уровнем ловкости
+const hpInput = form.elements.hp; // Получаем поле с уровнем здоровья
+const intInput = form.elements.int; // Получаем поле с уровнем интеллекта</code></pre>
+<h3>Шаг 2</h3>
+<p>За отправку данных по клику на кнопку или нажатие на клавишу `Enter` отвечает событие `submit` у формы. Установим слушатель для этого события и отменим стандартные процессы, происходящие при действии `submit`, так как нам нужно подготовить данные и сформировать запрос:</p>
+<pre><code>form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+
+  // Формируем данные и запрос
+});</code></pre>
+<h3>Шаг 3</h3>
+<p>Каждый из элементов формы содержит свойство со значением, которое ввёл пользователь. В нашем случае текстовые поля формы хранят значения в свойстве `value`. Обратившись к ним, мы получим введённое пользователем значение:</p>
+<pre><code>titleInput.value // &quot;Цэ-эс-эсочка&quot;
+descriptionInput.value // &quot;Лунная призма, дай мне силу, пожалуйста.&quot;</code></pre>
+<p>Соберём данные из полей ввода и создадим объект с новым персонажем:</p>
+<pre><code>// Создаём объект с новым персонажем и записываем данные
+let newHero = {
+	title: titleInput.value,
+  description: descriptionInput.value,
+  str: strInput.value,
+  agi: agiInput.value,
+  hp: hpInput.value,
+  int: intInput.value,
+	// укажем тестовую почту для регистрации карточки
+	studentEmail: &quot;student@yandex.ru&quot;,
+
+};</code></pre>
+<p>И с помощью известной нам функции `JSON.stringify()` сформируем JSON:</p>
+<pre><code>let newHeroJSON = JSON.stringify(newHero);</code></pre>
+<p>Распаковав JSON, сервер сможет понять, что за информация к нему пришла, даже если сервер написан на другом языке программирования.</p>
+<h3>Шаг 4</h3>
+<p>Самый сложный шаг — верно составить запрос на сервер. Из урока про функцию `fetch()` ты узнал про метод `POST`, который используется для информирования сервера, что нужно получить данные с клиента и сохранить их. А также ты уже умеешь добавлять файл к запросу в свойство `body` и с помощью свойства `headers` информировать сервер о типе передаваемых данных прямо в запросе. Давай запишем этот запрос:</p>
+<pre><code>// Используем api нашего сервера 
+fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+	method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+  body: newHeroJSON, // Тело запроса в JSON-формате
+  headers: {
+	  // Добавляем необходимые заголовки
+	  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+	},
+})
+	.then((response) =&gt; response.json())
+	// Смотрим ответ сервера на наш запрос
+  .then((data) =&gt; console.log(data))</code></pre>
+<h3>Шаг 5</h3>
+<p>После того как форма обработана, её поля обычно сбрасывают до исходных значений. Чтобы не сбрасывать каждое поле отдельно, у формы есть функция сброса полей `reset()`</p>
+<pre><code>form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+  // Формируем данные и запрос...
+
+	// Сбрасываем все поля
+	form.reset();
+});</code></pre>
+<p>Если все сделать по шагам, то запрос благополучно отправится на сервер с новыми данными. Останется только проверить ответ от сервера: если он положительный, то можно обновить страницу сайта и посмотреть, какие данные к нам придут в этот раз!</p>
+<pre><code>//Получение элементов формы
+const form = document.forms.addHero; // Получаем форму
+const titleInput = form.elements.title; // Получаем поле с именем
+const descriptionInput = form.elements.description; // Получаем поле с описанием
+const strInput = form.elements.str; // Получаем поле с уровнем силы
+const agiInput = form.elements.agi; // Получаем поле с уровнем ловкости
+const hpInput = form.elements.hp; // Получаем поле с уровнем здоровья
+const intInput = form.elements.int; // Получаем поле с уровнем интеллекта
+
+// Вешаем на форму обработчик события submit
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Создаём объект с новым персонажем и записываем данные
+	let newHero = {
+		title: titleInput.value,
+	  description: descriptionInput.value,
+	  str: strInput.value,
+	  agi: agiInput.value,
+	  hp: hpInput.value,
+	  int: intInput.value,
+		// укажем тестовую почту для регистрации карточки
+		studentEmail: &quot;student@yandex.ru&quot;,
+
+	};
+	// Формируем JSON-строку из объекта
+	let newHeroJSON = JSON.stringify(newHero);
+
+	// Используем API нашего сервера 
+	fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+		method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+	  body: newHeroJSON, // Тело запроса в JSON-формате
+	  headers: {
+		  // Добавляем необходимые заголовки
+		  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+		},
+	})
+		.then((response) =&gt; response.json())
+		// Cмотрим ответ сервера на наш запрос
+	  .then((data) =&gt; console.log(data))
+		// Сбрасываем все поля
+		form.reset();
+});</code></pre>
+<p>Верно! О том, как это реализовать, уже в следующем уроке!</p>
+</body>
+</html>

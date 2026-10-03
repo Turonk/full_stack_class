@@ -1,0 +1,18 @@
+{
+  "lesson_id": "dbc92352-16b4-45a8-ac0f-04a9821596a0",
+  "title": "Git через терминал",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/dbc92352-16b4-45a8-ac0f-04a9821596a0/",
+  "markdown_chars": 8924,
+  "content_hash": "13ab6c89aed01308",
+  "saved_at": "2026-07-29T15:24:01.393127+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/30_git_через_терминал.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/30_git_через_терминал.html"
+  }
+}

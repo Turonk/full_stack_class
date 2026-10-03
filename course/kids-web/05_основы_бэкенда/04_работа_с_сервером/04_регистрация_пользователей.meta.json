@@ -1,0 +1,18 @@
+{
+  "lesson_id": "ce017acd-0650-41fc-8c4d-4c2850dd6d68",
+  "title": "Регистрация пользователей",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/ce017acd-0650-41fc-8c4d-4c2850dd6d68/",
+  "markdown_chars": 6666,
+  "content_hash": "d076a8dc70a1e88c",
+  "saved_at": "2026-07-29T15:24:38.175962+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/04_регистрация_пользователей.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/04_регистрация_пользователей.html"
+  }
+}

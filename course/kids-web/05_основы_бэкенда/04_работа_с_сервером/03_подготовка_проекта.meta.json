@@ -1,0 +1,18 @@
+{
+  "lesson_id": "ff06936e-73f9-40d0-b3bc-48da90f05bce",
+  "title": "Подготовка проекта",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/ff06936e-73f9-40d0-b3bc-48da90f05bce/",
+  "markdown_chars": 9307,
+  "content_hash": "6e387de7196398b7",
+  "saved_at": "2026-07-29T15:24:36.635935+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/03_подготовка_проекта.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/03_подготовка_проекта.html"
+  }
+}

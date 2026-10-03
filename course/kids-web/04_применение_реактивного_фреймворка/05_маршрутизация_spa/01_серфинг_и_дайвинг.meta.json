@@ -1,0 +1,18 @@
+{
+  "lesson_id": "39e6825b-c52f-4cd1-8b61-88e2b49d4624",
+  "title": "Сёрфинг и дайвинг",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "dc689bfe-1408-47f0-a390-91a5bb1735be",
+  "topic_name": "Маршрутизация SPA",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/39e6825b-c52f-4cd1-8b61-88e2b49d4624/",
+  "markdown_chars": 1113,
+  "content_hash": "23cf3a5c4a6a8131",
+  "saved_at": "2026-07-29T15:22:37.788241+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/01_серфинг_и_дайвинг.md",
+    "html": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/01_серфинг_и_дайвинг.html"
+  }
+}

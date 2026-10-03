@@ -1,0 +1,18 @@
+{
+  "lesson_id": "8abbadb1-e041-4d83-913a-6e600efb0a3f",
+  "title": "Собираем синтезатор",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/8abbadb1-e041-4d83-913a-6e600efb0a3f/",
+  "markdown_chars": 6977,
+  "content_hash": "3aba7a1e324232a2",
+  "saved_at": "2026-07-29T15:21:12.155205+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/03_собираем_синтезатор.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/03_собираем_синтезатор.html"
+  }
+}

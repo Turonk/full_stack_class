@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a7a0f1fe-1d96-4391-8729-8a0c812e9827",
+  "title": "Очень серьёзный разговор про проект 😐",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "fffbb60d-2661-440d-902f-210b147c01b1",
+  "topic_name": "Больше HTML и CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/a7a0f1fe-1d96-4391-8729-8a0c812e9827/",
+  "markdown_chars": 3395,
+  "content_hash": "2cead9653ada455e",
+  "saved_at": "2026-07-29T15:20:19.504432+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/04_больше_html_и_css/02_очень_серьезный_разговор_про_проект.md",
+    "html": "02_верстка_на_html_и_css/04_больше_html_и_css/02_очень_серьезный_разговор_про_проект.html"
+  }
+}

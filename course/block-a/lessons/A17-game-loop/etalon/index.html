@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseBeat</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>PulseBeat</h1>
+    <p>Лови вспышку. Клавиши A S D F или клик.</p>
+  </header>
+  <p>Счёт: <span id="score">0</span> · Жизни: <span id="lives">3</span> · Время: <span id="time">30</span></p>
+  <div id="pads" class="pads" aria-label="Площадки"></div>
+  <p>
+    <button id="start" type="button">Старт</button>
+    <button id="restart" type="button">Рестарт</button>
+  </p>
+  <p id="status" role="status"></p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+:root { --bg:#0b0f1a; --text:#f4f1ea; --accent:#7c5cff; --ok:#2ee6a6; --danger:#ff6b6b; }
+body { margin:0; font-family:"IBM Plex Sans",sans-serif; background:var(--bg); color:var(--text); padding:20px; }
+h1 { font-family:Syne,sans-serif; }
+.pads { display:grid; grid-template-columns:repeat(4,minmax(64px,1fr)); gap:12px; max-width:520px; }
+.pad {
+  border:0; border-radius:20px; min-height:90px; background:#141a2a; color:var(--text);
+  font-size:1.4rem; cursor:pointer; transition:transform .15s ease, background .15s ease;
+}
+.pad.is-active { background:var(--accent); animation:hit .4s ease; }
+.pad.is-hit { background:var(--ok); }
+@keyframes hit { 50% { transform:scale(1.06); } }
+button { font:inherit; padding:8px 14px; border-radius:999px; border:0; cursor:pointer; }
+#start { background:var(--accent); color:white; }
+@media (prefers-reduced-motion: reduce) {
+  .pad, .pad.is-active { animation:none; transition:none; }
+}

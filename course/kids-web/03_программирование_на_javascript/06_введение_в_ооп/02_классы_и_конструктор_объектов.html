@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Классы и конструктор объектов</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Классы и конструктор объектов</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/bf06c8b8-bdc7-4b1c-8583-f2a4c4cb08dd/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/bf06c8b8-bdc7-4b1c-8583-f2a4c4cb08dd/</a></p>
+  <h1>Классы и конструктор объектов</h1>
+<p>Аски, ты прав! В JavaScript есть специальный инструмент, который играет роль такого шаблона, — это **классы**. В этом уроке мы научимся описывать с их помощью типовые объекты.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_24.mp4}</p>
+<p>Работа с классами чем-то напоминает работу с уже знакомыми тебе функциями. Ты же помнишь, что функцию надо сначала объявить, потом описать, что она будет делать, а потом вызывать в самом коде. С классами похожий алгоритм: сперва создаёшь класс, а потом — **экземпляр** класса. Экземпляром класса называют созданный с помощью класса объект.</p>
+<p>Чтобы описать класс, нужно написать ключевое слово `class`, его название и фигурные скобки (в которых как раз будем описывать свойства создаваемых объектов).</p>
+<p>Начнём создавать класс для базовой карточки любого героя нашей игры. Обычно классы принято называть существительным, поэтому мы назовём его `Hero` 👇🏻</p>
+<pre><code>class Hero {}</code></pre>
+<p>Теперь создать нового героя по шаблону из класса мы можем, используя ключевое слово `new` и название класса с круглыми скобками после него 👇🏻</p>
+<pre><code>let newHero = new Hero();</code></pre>
+<p>Отлично, мы уже создали шаблон карточки персонажа и саму карточку, но пока что они пусты. Давай посмотрим, как использовать класс `Hero`, чтобы превратить в шаблон наш объект из прошлой темы.</p>
+<pre><code>let newHero = {
+	title: titleInput.value,
+	description: descriptionInput.value,
+	str: strInput.value,
+	agi: agiInput.value,
+	hp: hpInput.value,
+	int: intInput.value,
+	studentEmail: studentEmail
+}</code></pre>
+<p>Если мы попробуем добавить данные так же, как со знакомыми тебе объектами, то вернётся ошибка👇🏻</p>
+<pre><code>class Hero {
+	title: &quot;Цэ-эс-эсочка&quot;,
+	description: &quot;Лунная призма, дай мне сил, пожалуйста.&quot;,
+	str: 30,
+	agi: 99,
+	hp: 99,
+	int: 99,
+	studentEmail: &quot;student@yandex.ru&quot;
+}
+
+let CSSchan = new Hero(); // Будет ошибка</code></pre>
+<p>Всё дело в том, что при создании классовых объектов для указания их свойств нужно воспользоваться функцией-конструктором, она так и называется: `constructor()`. А записывать данные в создаваемый объект нужно, используя ключевое слово `this`  (`this` переводится «здесь» и в конструкторе класса указывает на класс, в котором мы записываем свойства). Вот как это выглядит 👇🏻</p>
+<pre><code>class Hero {
+	constructor() {
+		this.title = &quot;Цэ-эс-эсочка&quot;;
+		this.description = &quot;Лунная призма, дай мне сил, пожалуйста.&quot;;
+		this.str = 30;
+		this.agi = 99;
+		this.hp = 99;
+		this.int = 99;
+		this.studentEmail = &quot;student@yandex.ru&quot;;
+	}
+}
+
+let CSSchan = new Hero();
+
+console.log(&quot;Описание Цэ-эс-эсочки: &quot; + CSSchan.description);
+// &quot;Описание Цэ-эс-эсочки: Лунная призма, дай мне сил, пожалуйста.&quot;</code></pre>
+<p>Данные в ней будут такими же, как мы указали в нашем шаблоне — функции-конструкторе.</p>
+<pre><code>let ASCIIsan = new Hero();
+console.log(&quot;Описание Рыцаря Аски: &quot; + ASCIIsan.description);
+// &quot;Описание Рыцаря Аски: Лунная призма, дай мне сил, пожалуйста.&quot;</code></pre>
+<p>Поняли-приняли. Чтобы иметь возможность передавать другие данные при создании нового объекта с помощью класса, нужно указать их как параметры в функции-конструкторе. Вот так 👇🏻</p>
+<pre><code>class Hero {
+  constructor(title, description, str, agi, hp, int, studentEmail) {
+    this.title = title;
+    this.description = description;
+    this.str = str;
+    this.agi = agi;
+    this.hp = hp;
+    this.int = int;
+    this.studentEmail = studentEmail;
+  }
+}
+
+let CSSchan = new Hero(
+  &quot;Цэ-эс-эсочка&quot;,
+  &quot;Лунная призма, дай мне сил, пожалуйста.&quot;,
+  30,
+  99,
+  99,
+  99,
+  &quot;student@yandex.ru&quot;
+);
+
+let ASCIIsan = new Hero(
+  &quot;Рыцарь Аски&quot;,
+  &quot;Мои доспехи ведут к успеху.&quot;,
+  99,
+  30,
+  99,
+  99,
+  &quot;student@yandex.ru&quot;
+);
+
+console.log(&quot;Описание Цэ-эс-эсочки: &quot; + CSSchan.description);
+// &quot;Описание Цэ-эс-эсочки: Лунная призма, дай мне сил, пожалуйста.&quot;
+console.log(&quot;Описание Рыцаря Аски: &quot; + ASCIIsan.description);
+// &quot;Описание Рыцаря Аски: Мои доспехи ведут к успеху.&quot;</code></pre>
+<p>Ура, мы получили две карточки персонажей с разными данными, созданными по одному шаблону.</p>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Чтение всех документов в коллекции</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Чтение всех документов в коллекции</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/392dd33d-cfb3-4717-abed-948fbf5c61c3/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/392dd33d-cfb3-4717-abed-948fbf5c61c3/</a></p>
+  <h1>Чтение всех документов в коллекции</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_6_1713537160.jpg)</p>
+<p>При дальнейшей работе с Mongoose в библиотеке будет храниться множество документов, у каждого из которых строго заданная форма. Для описания информации о том, что будет находиться в БД, используется схема с описанными полями и значениями. Согласно ей создаются целые документы, описывающие данные для приложения.</p>
+<p>Сейчас в твоём проекте существует всего три сущности:</p>
+<p>- Игра — `game` - Пользователь — `user` - Категория — `category`</p>
+<p>Для их обработки и быстрого поиска каких-либо данных в БД тебе потребуется специальный метод.</p>
+<h2>Метод `find()`</h2>
+<p>В Mongoose метод модели `find()` является основным инструментом для запросов к базе данных. Первый параметр `find()` — объект фильтра. Благодаря ему MongoDB выполнит поиск всех документов, соответствующих фильтру, а если передать пустой фильтр `find({})` — вернёт все документы обратно.</p>
+<h2>Поиск данных в проекте</h2>
+<p>Кстати, об играх! В проекте по `GET`-запросам можно и нужно выводить соответствующие данные:</p>
+<p>- `GET /categories` — массив категорий. - `GET /users` — массив пользователей.</p>
+<p>Для этого достаточно создать отдельные миддлвары, каждый из которых будет содержать функции по работе с БД.</p>
+<p>Итак, в папке `middlewares` скриэйть файл `categories.js`, импортируй в него модель `categories` и запиши функцию для поиска всех категорий. Важно помнить, что подобные операции требуют времени на обработку, так как это асинхронные функции. Для них воспользуйся ключевыми словами `async/await` 👇🏻</p>
+<pre><code>// Файл middlewares/categories.js
+
+// Импортируем модель
+const categories = require(&#x27;../models/category&#x27;);
+
+const findAllCategories = async (req, res, next) =&gt; {
+	// По GET-запросу на эндпоинт /categories найдём все документы категорий
+  req.categoriesArray = await categories.find({});
+  next();
+}
+
+// Экспортируем функцию поиска всех категорий
+module.exports = findAllCategories;</code></pre>
+<p>Для поиска пользователей алгоритм аналогичный 👇🏻</p>
+<pre><code>// Файл middlewares/users.js
+
+// Импортируем модель
+const users = require(&#x27;../models/user&#x27;);
+
+const findAllUsers = async (req, res, next) =&gt; {
+	// По GET-запросу на эндпоинт /users найдём все документы пользователей
+  req.usersArray = await users.find({});
+  next();
+}
+
+// Экспортируем функцию поиска всех пользователей
+module.exports = findAllUsers;</code></pre>
+<p>Поиск всех игр в проекте происходит так же, но есть один нюанс, поскольку в их схеме сразу два поля: `users` и `categories`. Это две отдельные коллекции, с которыми мы сейчас взаимодействовали. Они не знают друг о друге и существуют независимо. А вот третья коллекция проекта — `games` — имеет взаимосвязи и с играми, и с пользователями.</p>
+<h2>Актуальное состояние проекта</h2>
+<p>Сегодня тебе необходимо добавить миддлвары для поиска пользователей и категорий в проекте, а ещё описать контроллеры и использовать их в роутах для `GET`-запросов. Приступим!</p>
+<h3>Шаг 1</h3>
+<p>Создай миддлвары, как описано в уроке, — должно получиться два файла — `users.js` и `categories.js`</p>
+<p>Для проверки можешь подсмотреть код выше.</p>
+<h3>Шаг 2</h3>
+<p>Теперь добавь в папку `controllers` два файла с этими же названиями и следуй нашей инструкции:</p>
+<p>- В `categories.js` опиши ответ сервера на запрос всех категорий в проекте 👇🏻</p>
+<pre><code>    const sendAllCategories = (req, res) =&gt; {
+    	// Установим заголовок ответа в формате JSON
+      res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);
+      // Отправим данные в виде JSON-объекта, 
+      // которые подготовим в миддлваре findAllCategories
+      res.end(JSON.stringify(req.categoriesArray));
+    };
+    
+    // Экспортируем контроллер
+    module.exports = sendAllCategories;</code></pre>
+<p>- В `users.js` опиши функцию для отправки всех пользователей — `sendAllUsers`, как в примере выше для `categories.js`</p>
+<h3>Шаг 3</h3>
+<p>В папке `routes` создай два файла с теми же названиями: `users.js` и `categories.js`</p>
+<p>- В `categories.js` опиши роут для обработки `GET`-запроса по эндпоинту `&#x27;/categories&#x27;`. Ответ нужно сформировать с помощью миддлвара для поиска всех категорий `findAllCategories` и отправить данные контроллером `sendAllCategories` 👇🏻</p>
+<pre><code>    // Создаём роут для запросов категорий 
+    const categoriesRouter = require(&#x27;express&#x27;).Router();
+    
+    // Импортируем вспомогательные функции
+    const findAllCategories = require(&#x27;../middlewares/categories&#x27;);
+    const sendAllCategories = require(&#x27;../controllers/categories&#x27;);
+    
+    // Обрабатываем GET-запрос с роутом &#x27;/categories&#x27;
+    categoriesRouter.get(&#x27;/categories&#x27;, findAllCategories, sendAllCategories);
+    
+    // Экспортируем роут для использования в приложении — app.js
+    module.exports = categoriesRouter;</code></pre>
+<p>- В `users.js` опиши роут для обработки `GET`-запроса по эндпоинту `&#x27;/users&#x27;`. Ответ нужно сформировать с помощью миддлвара для поиска всех пользователей `findAllUsers` и отправить данные контроллером `sendAllUsers`</p>
+</body>
+</html>

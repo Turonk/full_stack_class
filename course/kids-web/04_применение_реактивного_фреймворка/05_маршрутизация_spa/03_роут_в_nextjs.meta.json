@@ -1,0 +1,18 @@
+{
+  "lesson_id": "8fc98581-ec71-4418-8415-ba55605718bc",
+  "title": "Роут в Next.js",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "dc689bfe-1408-47f0-a390-91a5bb1735be",
+  "topic_name": "Маршрутизация SPA",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/8fc98581-ec71-4418-8415-ba55605718bc/",
+  "markdown_chars": 5009,
+  "content_hash": "3fb3eee362a6092f",
+  "saved_at": "2026-07-29T15:22:40.221528+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/03_роут_в_nextjs.md",
+    "html": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/03_роут_в_nextjs.html"
+  }
+}

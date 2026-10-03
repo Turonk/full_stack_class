@@ -1,0 +1,18 @@
+{
+  "lesson_id": "5185533a-fba4-407e-af9a-b706937aa73c",
+  "title": "Компонент Link",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "dc689bfe-1408-47f0-a390-91a5bb1735be",
+  "topic_name": "Маршрутизация SPA",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/5185533a-fba4-407e-af9a-b706937aa73c/",
+  "markdown_chars": 3894,
+  "content_hash": "dfcc87ce09eccd7e",
+  "saved_at": "2026-07-29T15:22:41.490412+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/04_компонент_link.md",
+    "html": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/04_компонент_link.html"
+  }
+}

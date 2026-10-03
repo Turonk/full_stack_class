@@ -1,0 +1,18 @@
+{
+  "lesson_id": "87a07b00-ed62-403e-9375-690259594e97",
+  "title": "Сдача проекта",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "homework",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/87a07b00-ed62-403e-9375-690259594e97/",
+  "markdown_chars": 2831,
+  "content_hash": "a6b8aa8bbcda2afb",
+  "saved_at": "2026-07-29T15:20:49.345985+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/07_сдача_проекта.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/07_сдача_проекта.html"
+  }
+}

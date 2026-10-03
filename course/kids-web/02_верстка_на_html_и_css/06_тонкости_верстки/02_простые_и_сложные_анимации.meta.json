@@ -1,0 +1,18 @@
+{
+  "lesson_id": "845bd468-f00f-44e2-8a0e-537d4a7cfd28",
+  "title": "Простые и сложные анимации",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/845bd468-f00f-44e2-8a0e-537d4a7cfd28/",
+  "markdown_chars": 3659,
+  "content_hash": "54d925518dce488f",
+  "saved_at": "2026-07-29T15:20:42.783976+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/02_простые_и_сложные_анимации.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/02_простые_и_сложные_анимации.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "4e38e966-1d43-4a12-a31d-71f3b324f723",
+  "title": "Фронтенд рядом с бэкендом",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/4e38e966-1d43-4a12-a31d-71f3b324f723/",
+  "markdown_chars": 10034,
+  "content_hash": "734f47841f69331a",
+  "saved_at": "2026-07-29T15:25:02.908415+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/23_фронтенд_рядом_с_бэкендом.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/23_фронтенд_рядом_с_бэкендом.html"
+  }
+}

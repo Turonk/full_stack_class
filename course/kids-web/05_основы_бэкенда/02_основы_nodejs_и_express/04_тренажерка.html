@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Тренажёрка</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Тренажёрка</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/bca4bacf-0411-4d02-a85e-e98776b90093/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/bca4bacf-0411-4d02-a85e-e98776b90093/</a></p>
+  <h1>Тренажёрка</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4916_2_1711450278.jpg)</p>
+<h2>Метод `split`</h2>
+<p>При работе со строками часто возникает необходимость поделить их на несколько частей по определённому критерию, так называемому разделителю. Для таких задач используется строковый метод `split`. Работает это всё следующим образом: программа принимает в качестве аргумента строку-разделитель и возвращает массив строк — те части, на которые была поделена исходная строка.</p>
+<p>Лови несколько примеров реализации 👇🏻</p>
+<pre><code>const string1 = &#x27;a.b.c.d&#x27;;
+// Делим string1 по точке &#x27;.&#x27;
+const splittedString1 = string1.split(&#x27;.&#x27;); // [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]
+
+const string2 = &#x27;hello world !&#x27;;
+// Делим string2 по пробелу
+const splittedString2 = string2.split(&#x27; &#x27;); // [&#x27;hello&#x27;, &#x27;world&#x27;, &#x27;!&#x27;]
+
+const string3 = &#x27;abcd&#x27;;
+// Делим string3 по пустой строке &#x27;&#x27;, в этом случае исходная строка разделится на символы
+const splittedString3 = string3.split(&#x27;&#x27;); // [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;]</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Если остались ещё какие-то вопросы о методе, подробное описание можно найти в [документации](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<h2>Метод `sort`</h2>
+<p>По названию можно догадаться, что этот метод тесно связан с сортировкой. Всё так и есть. Метод `sort` — это упорядочивание массива. В результате вызова функции возвращается новый отсортированный массив, в исходном также происходят изменения.</p>
+<p>Вот тебе примерчик 👇🏻</p>
+<pre><code>const array = [2, 8, 30];
+array.sort();
+console.log(array); // [2, 30, 8] </code></pre>
+<p>Причина такой сортировки в том, что элементы массива воспринимаются программой как строки. То есть элементы буквально преобразуются к строке и применяется лексикографический порядок сортировки, поэтому и получается, что</p>
+<pre><code>&#x27;8&#x27; &gt; &#x27;30&#x27;</code></pre>
+<p>Лексикографический порядок становится более понятным, когда нужно отсортировать массив, состоящий из букв, в алфавитном порядке 👇🏻</p>
+<pre><code>const array = [&#x27;c&#x27;, &#x27;a&#x27;,  &#x27;b&#x27;];
+array.sort();
+console.log(array); // [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;] </code></pre>
+<p>Чтобы поменять порядок сортировки и задать нужный тебе, необходимо передать методу `sort` функцию, которая будет определять этот порядок. Выглядеть она должна следующим образом 👇🏻</p>
+<pre><code>function compare(a, b) {
+  if (a &gt; b) return 1; // Положительное значение, если a &gt; b
+  if (a == b) return 0; // 0, если равны
+  if (a &lt; b) return -1; // Отрицательное значение, если a &lt; b
+}
+
+// Можно использовать более короткую запись
+function compare(a, b) {
+  return a - b;
+}
+
+// Или даже в виде стрелочной фукнции
+const compare = (a, b) =&gt; a - b</code></pre>
+<p>А теперь несколько примеров, как можно использовать `sort` с функцией для определения порядка сортировки 👇🏻</p>
+<pre><code>const array = [9, 7, 5, 3, 1, 2, 4, 6, 8, 0]
+
+// Сортируем по возрастанию
+const ascendingSort = array.sort((a, b) =&gt; a - b)
+// Сортируем по убыванию
+const descendingSort = array.sort((a, b) =&gt; b - a)
+
+console.log(ascendingSort) // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(descendingSort) // [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</code></pre>
+<h2>Метод `join`</h2>
+<p>Метод `join` по своему действию является полной противоположностью методу `split`. Он соединяет элементы массива через символ-разделитель.</p>
+<p>Смотри, как это выглядит 👇🏻</p>
+<pre><code>const array1 = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;];
+// Соединяем элементы array1 через точку &#x27;.&#x27;
+const string1 = array1.join(&#x27;.&#x27;); // &#x27;a.b.c.d&#x27;
+
+const array2 = [&#x27;hello&#x27;, &#x27;world&#x27;, &#x27;!&#x27;];
+// Соединяем элементы array2 через пробел
+const string2 = array2.join(&#x27; &#x27;); // &#x27;hello world !&#x27;
+
+const array3 = &#x27;abcd&#x27;;
+// Соединяем элементы array3 через пустую строку &#x27;&#x27;
+const string3 = array3.join(&#x27;&#x27;); // &#x27;abcd&#x27;</code></pre>
+</body>
+</html>

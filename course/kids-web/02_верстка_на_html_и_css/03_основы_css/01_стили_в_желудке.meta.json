@@ -1,0 +1,18 @@
+{
+  "lesson_id": "68f8dd3e-11c4-41ad-a728-7b611a0390d4",
+  "title": "Стили в желудке",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/68f8dd3e-11c4-41ad-a728-7b611a0390d4/",
+  "markdown_chars": 7084,
+  "content_hash": "689f9ddb77fe7a99",
+  "saved_at": "2026-07-29T15:20:06.677706+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/01_стили_в_желудке.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/01_стили_в_желудке.html"
+  }
+}

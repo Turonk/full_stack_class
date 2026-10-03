@@ -1,0 +1,18 @@
+{
+  "lesson_id": "e89a06e4-a79f-4987-b6fe-ee842786057d",
+  "title": "Reactивное напутствие",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "ac0745ca-1df5-4ff2-832b-d93d6f90d5db",
+  "topic_name": "Реактивное напутствие",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/ac0745ca-1df5-4ff2-832b-d93d6f90d5db/lessons/e89a06e4-a79f-4987-b6fe-ee842786057d/",
+  "markdown_chars": 2776,
+  "content_hash": "d5a02abf5d266db8",
+  "saved_at": "2026-07-29T15:23:13.979638+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/09_реактивное_напутствие/01_reactивное_напутствие.md",
+    "html": "04_применение_реактивного_фреймворка/09_реактивное_напутствие/01_reactивное_напутствие.html"
+  }
+}

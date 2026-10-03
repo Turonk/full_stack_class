@@ -1,0 +1,18 @@
+{
+  "lesson_id": "eff060f8-f37b-4922-a6b2-2c70cfcc7844",
+  "title": "Сдача работы",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "homework",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/eff060f8-f37b-4922-a6b2-2c70cfcc7844/",
+  "markdown_chars": 2552,
+  "content_hash": "3bc9b41106c03ee8",
+  "saved_at": "2026-07-29T15:21:21.742047+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/10_сдача_работы.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/10_сдача_работы.html"
+  }
+}

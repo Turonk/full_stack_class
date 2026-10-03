@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Практика по базам данных</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Практика по базам данных</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/eb2f74e2-0164-4ecf-9c26-3876197b1eb5/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/eb2f74e2-0164-4ecf-9c26-3876197b1eb5/</a></p>
+  <h1>Практика по базам данных</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4918_2_1713452816.jpg)</p>
+<p>Можешь показать работу наставнику через GitHub, чтобы было проще сдавать итоговый код на проверку в конце мая, но сейчас нет обязательного требования к её сдаче.</p>
+<p>Вот так будет выглядеть твой проект, когда закончишь эту практику 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-04-11_в_15.14.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Если ты приступаешь к проекту только сейчас, перед стартом нужно провести его базовую настройку. Мы описывали, как это сделать, в уроке **«Подключение к базе данных из Express»**. {/quiz-task}</p>
+<h2>Чек-лист 📝</h2>
+<p>1. Проверь, что на твоём компе уже есть база данных MongoDB и графический интерфейс для работы с ней — Compass. На всякий пожарный загляни в уроки «Установка MongoDB» и «Создаём БД с Compass», там мы подробно описали процесс установки. 2. Теперь запусти базу. Как это сделать, рассказывали в уроке «Подключение к базе данных из Express». 3. Убедись, что у тебя в проекте установлена библиотека Mongoose — она нужна, чтобы взаимодействовать с БД через JavaScript 👇🏻</p>
+<pre><code>    npm i mongoose</code></pre>
+<p>4. В корне проекта должна храниться папка `database`, в которой будет описана логика работы с базой данных. 5. Проверь наличие файла `connect.js` и функции `connectToDatabase` в нём 👇🏻</p>
+<pre><code>    const mongoose = require(&#x27;mongoose&#x27;);
+    
+    // Указываем, где запущена база данных
+    // mongodb://localhost:27017 — адрес сервера MongoDB
+    // pindie — имя базы данных на сервере MongoDB
+    const DB_URL = &#x27;mongodb://localhost:27017/pindie&#x27;;
+    
+    async function connectToDatabase() {
+      try {
+    	  // Подключение к БД
+        await mongoose.connect(DB_URL);
+        console.log(&#x27;Успешно подключились к mondodb&#x27;)
+      }
+      catch (err) {
+    	  // Обработка ошибки при подключении к базе
+        console.log(&#x27;При подключении mongodb возникла ошибка&#x27;)
+        console.error(err);
+      }
+    
+      await mongoose.connect(DB_URL);
+    }
+    
+    module.exports = connectToDatabase;</code></pre>
+<p>6. Чекни, чтобы в файле `app.js` была вызвана функция `connectToDatabase` 👇🏻</p>
+<pre><code>    const express = require(&#x27;express&#x27;);
+    const bodyParser = require(&#x27;body-parser&#x27;);
+    const path = require(&#x27;path&#x27;);
+    const usersRouter = require(&#x27;./routes/users&#x27;);
+    const gamesRouter = require(&#x27;./routes/games&#x27;);
+    const categoriesRouter = require(&#x27;./routes/categories&#x27;);
+    
+    const connectToDatabase = require(&#x27;./database/connect&#x27;);
+    const cors = require(&#x27;./middlewares/cors&#x27;);
+    
+    const app = express();
+    const PORT = 3000;
+    
+    connectToDatabase();
+    
+    app.use(
+      cors, 
+      bodyParser.json(),
+      express.static(path.join(__dirname, &#x27;public&#x27;)),
+      usersRouter, 
+      gamesRouter, 
+      categoriesRouter
+    );
+    
+    app.listen(PORT);</code></pre>
+<p>7. Если код добавлялся постепенно во время уроков, к этому моменту у тебя уже должна была появиться и схема данных — описание структуры документа в БД. Для этого мы использовали конструктор `Schema` из библиотеки Mongoose, о чём рассказывали в уроке «Схемы и модели». Убедись, что создана папка `models`, где будут храниться модели для работы с данными из базы. Сейчас их должно быть три: - `game.js` для данных об играх</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+	  // Поле со строковым значением
+    type: String,
+    // Явно указываем, что поле обязательно при записи в базу нового документа
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>- `category.js` для данных о категориях</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const categorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+});
+
+module.exports = mongoose.model(&#x27;category&#x27;, categorySchema);</code></pre>
+<p>- `user.js` для данных о пользователях</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true
+  },
+});
+
+module.exports = mongoose.model(&#x27;user&#x27;, userSchema);</code></pre>
+<p>8. Теперь нужно убедиться, что настроены все миддлвары, в которые записываются функции для работы с БД. Сначала проверь категории и пользователей — с играми ситуация сложнее, и мы рассмотрим их отдельно 👇🏻</p>
+<p>a. В папке `middlewares` создан файл `categories.js`, куда импортирована модель `categories` и добавлена асинхронная функция `findAllCategories` для поиска всех категорий.</p>
+<pre><code>// Файл middlewares/categories.js
+
+// Импортируем модель
+const categories = require(&#x27;../models/category&#x27;);
+
+const findAllCategories = async (req, res, next) =&gt; {
+	// По GET-запросу на эндпоинт /categories найдём все документы категорий
+  req.categoriesArray = await categories.find({});
+  next();
+}
+
+// Экспортируем функцию поиска всех категорий
+module.exports = findAllCategories;</code></pre>
+<p>b. Те же действия проделаны и с пользователями. Создан файл `/middlewares/users.js` и описана функция `findAllUsers` для поиска всех пользователей.</p>
+<pre><code>// Файл middlewares/users.js
+
+// Импортируем модель
+const users = require(&#x27;../models/user&#x27;);
+
+const findAllUsers = async (req, res, next) =&gt; {
+	// По GET-запросу на эндпоинт /users найдём все документы пользователей
+  req.usersArray = await users.find({});
+  next();
+}
+
+// Экспортируем функцию поиска всех пользователей
+module.exports = findAllUsers;</code></pre>
+<p>9. Чекни, что настроены контроллеры.</p>
+<p>a. Создан файл `categories.js` в папке `controllers`,  в котором находится функция `sendAllCategories` для отправки данных о категориях 👇🏻</p>
+<pre><code>        const sendAllCategories = (req, res) =&gt; {
+        	// Установим заголовок ответа в формате JSON
+          res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);
+          // Отправим данные в виде JSON-объекта, 
+          // которые подготовим в миддлваре findAllCategories
+          res.end(JSON.stringify(req.categoriesArray));
+        };
+        
+        // Экспортируем контроллер
+        module.exports = sendAllCategories;</code></pre>
+<p>b. В папку `controllers` добавлен файл `users.js`. Описана функция `sendAllUsers` для отправки данных о пользователях 👇🏻</p>
+<pre><code>        const sendAllUsers = (req, res) =&gt; {
+        	// Установим заголовок ответа в формате JSON
+          res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);
+          // Отправим данные в виде JSON-объекта, 
+          // которые подготовим в миддлваре findAllUsers
+          res.end(JSON.stringify(req.usersArray));
+        };
+        
+        // Экспортируем контроллер
+        module.exports = sendAllUsers;</code></pre>
+<p>10. Теперь давай сверим наличие новых роутов в твоём проекте.</p>
+<p>a. В файле `/routes/categories.js` должна быть обработка GET-запроса к серверу по адресу `/categories`. Для ответа нужно использовать функцию `findAllCategories`, которую прописали ранее.</p>
+<pre><code>// Создаём роут для запросов категорий 
+const categoriesRouter = require(&#x27;express&#x27;).Router();
+
+// Импортируем вспомогательные функции
+const findAllCategories = require(&#x27;../middlewares/categories&#x27;);
+const sendAllCategories = require(&#x27;../controllers/categories&#x27;);
+
+// Обрабатываем GET-запрос с роутом &#x27;/categories&#x27;
+categoriesRouter.get(&#x27;/categories&#x27;, findAllCategories, sendAllCategories);
+
+// Экспортируем роут для использования в приложении — app.js
+module.exports = categoriesRouter;</code></pre>
+<p>b. В файле `/routes/users.js` добавлена обработка GET-запроса к серверу по адресу `/users`. Это делается аналогично тому, что было описано в прошлом пункте: используя функцию `sendAllUsers`, возвращаем данные о пользователях.</p>
+<pre><code>// Создаём роут для запросов пользователей 
+const usersRouter = require(&#x27;express&#x27;).Router();
+
+// Импортируем вспомогательные функции
+const findAllUsers = require(&#x27;../middlewares/users&#x27;);
+const sendAllUsers = require(&#x27;../controllers/users&#x27;);
+
+// Обрабатываем GET-запрос с роутом &#x27;/users&#x27;
+usersRouter.get(&#x27;/users&#x27;, findAllUsers, sendAllUsers);
+
+// Экспортируем роут для использования в приложении — app.js
+module.exports = usersRouter;</code></pre>
+<p>11. Теперь разберёмся с играми. Чтобы реализовать логику работы с ними, нужно связать данные об играх, категориях и пользователях. Проверь следующие шаги 👇🏻</p>
+<p>a. В схему игры добавлено поле `categories`, в котором должен храниться массив объектов, где будет указан спецтип `mongoose.Schema.Types.ObjectId` и свойство `ref` — в него записывается имя модели, на которую ссылается это поле, например `categoryModel`</p>
+<p>b. В схеме содержится поле `users`. Оно должно быть аналогично полю `categories`, но в `ref` будет записана модель `userModel`</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+// Не забываем импортировать модель, на которую ссылаемся
+const userModel = require(&#x27;./user&#x27;);
+const categoryModel = require(&#x27;./category&#x27;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  // Добавляем поле для списка пользователей
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: userModel,
+  }],
+  // Добавляем поле для списка категорий
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: categoryModel,
+  }],
+});
+
+module.exports = mongoose.model(&#x27;game&#x27;, gameSchema);</code></pre>
+<p>c.  Создан файл `/middlewares/games.js`, в котором записана функция `findAllGames` для поиска всех игр. Чтобы получать информацию о категориях и пользователях, связанных с игрой, нужно использовать метод `populate()` 👇🏻</p>
+<pre><code>// Файл middlewares/games.js
+
+// Импортируем модель
+const games = require(&quot;../models/game&quot;);
+
+const findAllGames = async (req, res, next) =&gt; {
+  // По GET-запросу на эндпоинт /games найдём все документы категорий
+  // и с помощью метода populate запросим данные о связанных
+  // категориях и пользователях
+  req.gamesArray = await games.find({}).populate(&quot;categories&quot;).populate(&quot;users&quot;);
+  next();
+};
+
+// Экспортируем функцию поиска всех игр
+module.exports = findAllGames;</code></pre>
+<p>d.  В файле `/controllers/games.js` есть функция `sendAllGames`, которая отправляет данные об играх 👇🏻</p>
+<pre><code>// Файл controllers/games.js
+
+const sendAllGames = (req, res) =&gt; {
+  res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/json&#x27;);
+  // Вернём найденные игры в формате JSON
+  res.end(JSON.stringify(req.gamesArray));
+};
+
+module.exports = sendAllGames;</code></pre>
+<p>e.  Наконец, добавлен роут для обработки GET-запроса по адресу `/games`. Для этого создан отдельный файл `/routes/games.js` и в нём использованы раннее написанные функции `findAllGames` и `sendAllGames` 👇🏻</p>
+<pre><code>// Файл routes/games.js
+
+const gamesRouter = require(&#x27;express&#x27;).Router();
+
+const findAllGames = require(&#x27;../middlewares/games&#x27;);
+const sendAllGames = require(&#x27;../controllers/games&#x27;);
+
+gamesRouter.get(&#x27;/games&#x27;, findAllGames, sendAllGames);
+
+module.exports = gamesRouter;</code></pre>
+</body>
+</html>

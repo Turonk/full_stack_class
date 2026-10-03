@@ -1,0 +1,18 @@
+{
+  "lesson_id": "df455e24-747f-4724-b3e5-4d308f30dc2a",
+  "title": "Импорт данных в Mongo",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/df455e24-747f-4724-b3e5-4d308f30dc2a/",
+  "markdown_chars": 3241,
+  "content_hash": "e48c46ce24fa7d4e",
+  "saved_at": "2026-07-29T15:25:01.476246+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/22_импорт_данных_в_mongo.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/22_импорт_данных_в_mongo.html"
+  }
+}

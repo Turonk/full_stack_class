@@ -1,0 +1,18 @@
+{
+  "lesson_id": "fa62bfc5-4e46-4dc7-bdac-b493a99c823f",
+  "title": "Наследование",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/fa62bfc5-4e46-4dc7-bdac-b493a99c823f/",
+  "markdown_chars": 5267,
+  "content_hash": "fe55ca88d7b74cb5",
+  "saved_at": "2026-07-29T15:21:38.504662+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/04_наследование.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/04_наследование.html"
+  }
+}

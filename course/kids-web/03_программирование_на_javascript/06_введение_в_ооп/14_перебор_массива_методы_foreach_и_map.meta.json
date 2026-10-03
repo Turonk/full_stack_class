@@ -1,0 +1,18 @@
+{
+  "lesson_id": "cb23f9a8-085e-49c6-b9cd-c43d7dc8eaae",
+  "title": "Перебор массива. Методы forEach() и map()",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/cb23f9a8-085e-49c6-b9cd-c43d7dc8eaae/",
+  "markdown_chars": 4944,
+  "content_hash": "271371d1058e66be",
+  "saved_at": "2026-07-29T15:21:53.018752+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/14_перебор_массива_методы_foreach_и_map.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/14_перебор_массива_методы_foreach_и_map.html"
+  }
+}

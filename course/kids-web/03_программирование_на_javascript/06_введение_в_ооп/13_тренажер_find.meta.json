@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a175fcb7-7297-4525-a290-78aea57823a2",
+  "title": "Тренажёр find()",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/a175fcb7-7297-4525-a290-78aea57823a2/",
+  "markdown_chars": 182,
+  "content_hash": "a0b3587023e133a3",
+  "saved_at": "2026-07-29T15:21:51.234524+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/13_тренажер_find.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/13_тренажер_find.html"
+  }
+}

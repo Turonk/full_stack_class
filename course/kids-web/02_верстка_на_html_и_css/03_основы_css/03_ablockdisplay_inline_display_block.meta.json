@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a7fc6e61-271b-4cf9-ad5f-f8723327119d",
+  "title": "a.block{display: inline; display: block;}",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/a7fc6e61-271b-4cf9-ad5f-f8723327119d/",
+  "markdown_chars": 6261,
+  "content_hash": "b015e76d7c2912a4",
+  "saved_at": "2026-07-29T15:20:09.222508+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/03_ablockdisplay_inline_display_block.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/03_ablockdisplay_inline_display_block.html"
+  }
+}

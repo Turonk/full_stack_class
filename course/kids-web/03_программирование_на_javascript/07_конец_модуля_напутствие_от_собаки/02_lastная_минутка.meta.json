@@ -1,0 +1,18 @@
+{
+  "lesson_id": "3a2bf2fb-c635-40a2-b928-370d6129bc79",
+  "title": "Lastная минутка",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "851e4043-9b3d-4874-a372-052ba1371cb1",
+  "topic_name": "Конец модуля. Напутствие от Собаки",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/851e4043-9b3d-4874-a372-052ba1371cb1/lessons/3a2bf2fb-c635-40a2-b928-370d6129bc79/",
+  "markdown_chars": 17,
+  "content_hash": "fe436ba89864207d",
+  "saved_at": "2026-07-29T15:21:58.584733+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/07_конец_модуля_напутствие_от_собаки/02_lastная_минутка.md",
+    "html": "03_программирование_на_javascript/07_конец_модуля_напутствие_от_собаки/02_lastная_минутка.html"
+  }
+}

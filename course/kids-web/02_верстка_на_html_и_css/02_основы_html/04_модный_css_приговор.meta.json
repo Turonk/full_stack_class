@@ -1,0 +1,18 @@
+{
+  "lesson_id": "df804fb8-365e-4bc1-95b6-eb7fca8f94a1",
+  "title": "Модный CSS приговор",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7ddb1582-865a-433f-a22a-5bef0f720708",
+  "topic_name": "Основы HTML",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7ddb1582-865a-433f-a22a-5bef0f720708/lessons/df804fb8-365e-4bc1-95b6-eb7fca8f94a1/",
+  "markdown_chars": 4064,
+  "content_hash": "85c5053c320b9380",
+  "saved_at": "2026-07-29T15:20:00.362468+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/02_основы_html/04_модный_css_приговор.md",
+    "html": "02_верстка_на_html_и_css/02_основы_html/04_модный_css_приговор.html"
+  }
+}

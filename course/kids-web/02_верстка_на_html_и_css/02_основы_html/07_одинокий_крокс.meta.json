@@ -1,0 +1,18 @@
+{
+  "lesson_id": "95cadf82-d7da-4ce6-ba13-949bbeb597b2",
+  "title": "Одинокий крокс",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7ddb1582-865a-433f-a22a-5bef0f720708",
+  "topic_name": "Основы HTML",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7ddb1582-865a-433f-a22a-5bef0f720708/lessons/95cadf82-d7da-4ce6-ba13-949bbeb597b2/",
+  "markdown_chars": 350,
+  "content_hash": "5c5adffa107fd3d5",
+  "saved_at": "2026-07-29T15:20:04.050586+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/02_основы_html/07_одинокий_крокс.md",
+    "html": "02_верстка_на_html_и_css/02_основы_html/07_одинокий_крокс.html"
+  }
+}

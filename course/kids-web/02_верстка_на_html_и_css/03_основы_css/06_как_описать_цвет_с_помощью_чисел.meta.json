@@ -1,0 +1,18 @@
+{
+  "lesson_id": "f5f51b5c-da11-4a58-8d0d-aeb060ee7681",
+  "title": "Как описать цвет с помощью чисел",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/f5f51b5c-da11-4a58-8d0d-aeb060ee7681/",
+  "markdown_chars": 9304,
+  "content_hash": "e2162e3a46c4e820",
+  "saved_at": "2026-07-29T15:20:14.012133+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/06_как_описать_цвет_с_помощью_чисел.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/06_как_описать_цвет_с_помощью_чисел.html"
+  }
+}

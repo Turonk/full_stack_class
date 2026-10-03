@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a51366be-605f-49c4-8f82-280cf219a315",
+  "title": "Качалка: шапка и футер для плейлиста",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "fffbb60d-2661-440d-902f-210b147c01b1",
+  "topic_name": "Больше HTML и CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/a51366be-605f-49c4-8f82-280cf219a315/",
+  "markdown_chars": 7146,
+  "content_hash": "40a8f6eb568635b5",
+  "saved_at": "2026-07-29T15:20:26.186757+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/04_больше_html_и_css/07_качалка_шапка_и_футер_для_плейлиста.md",
+    "html": "02_верстка_на_html_и_css/04_больше_html_и_css/07_качалка_шапка_и_футер_для_плейлиста.html"
+  }
+}

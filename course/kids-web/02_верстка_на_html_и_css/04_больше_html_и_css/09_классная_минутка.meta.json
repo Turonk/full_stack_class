@@ -1,0 +1,18 @@
+{
+  "lesson_id": "77a87ec2-a8db-457c-908d-3d3290f6170c",
+  "title": "Классная минутка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "fffbb60d-2661-440d-902f-210b147c01b1",
+  "topic_name": "Больше HTML и CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/77a87ec2-a8db-457c-908d-3d3290f6170c/",
+  "markdown_chars": 287,
+  "content_hash": "bc9183a2be0a1ee1",
+  "saved_at": "2026-07-29T15:20:28.455676+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/04_больше_html_и_css/09_классная_минутка.md",
+    "html": "02_верстка_на_html_и_css/04_больше_html_и_css/09_классная_минутка.html"
+  }
+}

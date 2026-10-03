@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a81178b7-e799-4c64-9373-641dd0356cad",
+  "title": "Кросс — и точка, не считая блочной модели элемента",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "4c003b68-a0cd-4f4e-88ec-acb344ac9496",
+  "topic_name": "Основы CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/4c003b68-a0cd-4f4e-88ec-acb344ac9496/lessons/a81178b7-e799-4c64-9373-641dd0356cad/",
+  "markdown_chars": 9809,
+  "content_hash": "30db7e15d91d38d5",
+  "saved_at": "2026-07-29T15:20:08.048905+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/03_основы_css/02_кросс_и_точка_не_считая_блочной_модели_элемента.md",
+    "html": "02_верстка_на_html_и_css/03_основы_css/02_кросс_и_точка_не_считая_блочной_модели_элемента.html"
+  }
+}

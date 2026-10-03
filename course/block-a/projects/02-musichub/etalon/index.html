@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicHub · PulseLab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <p class="logo">Pulse FM</p>
+    <nav>
+      <a href="#hits">Хит</a>
+      <a href="#tracks">Треки</a>
+      <a href="#search">Поиск</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="hits">
+      <div>
+        <p class="eyebrow">Хит недели</p>
+        <h1>Night Circuit</h1>
+        <p class="muted">Synth-pop плейлист на дорогу домой. Нажми Play в плеере — пока это учебная кнопка.</p>
+        <button class="btn" type="button">Слушать</button>
+      </div>
+      <div class="cover pulse" aria-hidden="true"></div>
+    </section>
+    <section id="tracks">
+      <h2>Сейчас в эфире</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Pixel Tide</h3>
+          <p class="muted">Nova Park</p>
+          <p>3:14</p>
+        </article>
+        <article class="card">
+          <h3>Low Battery</h3>
+          <p class="muted">Kite Club</p>
+          <p>2:47</p>
+        </article>
+        <article class="card">
+          <h3>After Bell</h3>
+          <p class="muted">Школьный коридор</p>
+          <p>4:02</p>
+        </article>
+      </div>
+    </section>
+    <section id="search">
+      <h2>Найти трек</h2>
+      <form class="search" method="get" action="#search">
+        <label for="q">Название</label>
+        <input id="q" name="q" type="search" required>
+        <button class="btn" type="submit">Искать</button>
+      </form>
+    </section>
+  </main>
+  <div class="player" role="region" aria-label="Плеер">
+    <button type="button" aria-label="Предыдущий">◀</button>
+    <button class="btn play" type="button">Play</button>
+    <button type="button" aria-label="Следующий">▶</button>
+    <p>Night Circuit · превью</p>
+  </div>
+  <footer>
+    <p>© 2026 PulseLab</p>
+  </footer>
+</body>
+</html>

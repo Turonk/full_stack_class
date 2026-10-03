@@ -1,0 +1,18 @@
+{
+  "lesson_id": "9b25f954-c5af-4547-b359-1151d74835e5",
+  "title": "Свайпнем Pindie",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "400cce86-70c5-4448-b47d-5bba20048e1c",
+  "topic_name": "Интеграция со сторонними библиотеками",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/400cce86-70c5-4448-b47d-5bba20048e1c/lessons/9b25f954-c5af-4547-b359-1151d74835e5/",
+  "markdown_chars": 16996,
+  "content_hash": "60e9b187efcf7abf",
+  "saved_at": "2026-07-29T15:23:11.609591+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/08_интеграция_со_сторонними_библиотеками/03_свайпнем_pindie.md",
+    "html": "04_применение_реактивного_фреймворка/08_интеграция_со_сторонними_библиотеками/03_свайпнем_pindie.html"
+  }
+}

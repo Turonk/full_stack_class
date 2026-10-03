@@ -1,0 +1,18 @@
+{
+  "lesson_id": "8228cdea-ee1d-403e-bd4c-e1368099d7dd",
+  "title": "Разработчики спереди и сзади",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7267cf1c-ae83-4e81-95b4-8cacbf27ac92",
+  "topic_name": "Что такое веб-разработка",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7267cf1c-ae83-4e81-95b4-8cacbf27ac92/lessons/8228cdea-ee1d-403e-bd4c-e1368099d7dd/",
+  "markdown_chars": 3676,
+  "content_hash": "aa674717ab5be201",
+  "saved_at": "2026-07-29T15:19:49.554658+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/02_разработчики_спереди_и_сзади.md",
+    "html": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/02_разработчики_спереди_и_сзади.html"
+  }
+}

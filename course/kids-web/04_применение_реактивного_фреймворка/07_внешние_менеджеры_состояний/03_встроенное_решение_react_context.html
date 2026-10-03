@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Встроенное решение — React Context</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Встроенное решение — React Context</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/ec77c33f-aa3e-455f-b707-a6c296c8d0bb/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/ec77c33f-aa3e-455f-b707-a6c296c8d0bb/</a></p>
+  <h1>Встроенное решение — React Context</h1>
+<p>На прошлом уроке мы создали компонент `App`. Это клиентский компонент, который хранит в состоянии данные о пользователе — о том, зарегистрирован ли он, его токен и функции для авторизации на сайте. `App` — компонент-обёртка, как раньше был `RootLayout`, только теперь он хранит общие данные для компонентов сайта и при каждом обновлении проверяет их актуальность 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-02-07_в_18.19.19.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Чекай, как выглядит `App` в коде👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-02-07_в_18.28.09.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Общие данные мы собрали в одном компоненте, а теперь передадим их дочерним компонентам.</p>
+<p>Мы уже использовали `props` для передачи данных вниз по дереву элементов, но, если данных много или их нужно передать очень глубоко в дереве элементов, это приведёт к проблемам.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4717_1709557966.jpg)</p>
+<h3>`Props` и как их не пробрасывать</h3>
+<p>На прошлом уроке мы говорили про концепцию **глобального состояния** — удобный способ независимо хранить данные.</p>
+<p>Верно! Есть разные способы реализовать подобное хранилище и взаимодействие с ним.</p>
+<p>В библиотеке React тоже предусмотрен такой механизм, и называется он **React Context**.</p>
+<p>Context позволяет родительскому компоненту сделать некоторую информацию доступной для любого компонента в дереве под ним — независимо от глубины, без явной передачи её через `props`. С помощью одной простой функции создаётся хранилище 👇🏻</p>
+<pre><code>const context = createContext(&quot;мой контекст&quot;);</code></pre>
+<p>Аргументом в функцию `createContext` передаётся значение, которое нужно сохранить. В данном примере — строка `&quot;мой контекст&quot;`. Если посмотришь в консоли, как выглядит это хранилище — переменная `context`, то увидишь объект с небольшим количеством полей 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1563_1709558021.png)</p>
+<p>В нём можно найти сохранённое значение `&quot;мой контекст&quot;`, а ещё свойство `Provider` (с англ. «поставщик») — этот механизм обеспечит доступ вложенным компонентам приложения к хранилищу.</p>
+<p>Добавим в Pindie контекст для хранения информации об авторизации пользователя.</p>
+<p>**Шаг 1. Создание контекста**</p>
+<p>В папке `app` создай папку `context`, а в ней — файл `app-context.js`</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1564_1709558057.png)</p>
+<p>В файле достаточно импортировать функцию `createContext` из библиотеки React и с помощью вызова создать переменную `AuthContext` для хранения данных. Единственным аргументом для `createContext` является значение по умолчанию. Укажи `null` — пустое значение, а затем переопредели его данными об авторизации пользователя в корневом компоненте `App` 👇🏻</p>
+<pre><code>import {createContext} from &#x27;react&#x27;;
+
+export const AuthContext = createContext(null);</code></pre>
+<p>**Шаг 2. Предоставление контекста**</p>
+<p>Импортируй `AuthContext` в корневой компонент `App`, где хранятся данные об авторизации пользователя 👇🏻</p>
+<pre><code>import {AuthContext} from &#x27;./context/app-context&#x27;;
+
+export const App = (props) =&gt; {
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(&#x27;&#x27;);
+
+  const login = (user, token) =&gt; {
+    setIsAuth(true);
+    setUser(user);
+    setToken(token);
+    setJWT(token);
+  };
+
+  const logout = () =&gt; {
+    setIsAuth(false);
+    setUser(null);
+    setToken(&#x27;&#x27;);
+    removeJWT();
+  };
+
+return (
+	&lt;&gt;
+   &lt;Header /&gt;
+	  {props.children}
+	  &lt;Footer /&gt;
+	&lt;/&gt;
+	)
+};</code></pre>
+<p>Компоненты, которым необходимо получать доступ к контексту, нужно обернуть в `AuthContext.Provider`, а в параметр `value` указать объект с переменными и ссылками на функции. Так компоненты `Header` и `Footer`, а также все остальные вложенные элементы через `{props.children}` смогут использовать значение `value` 👇🏻</p>
+<pre><code>&lt;AuthContext.Provider value={{isAuth, user, token, login, logout}}&gt;
+  &lt;Header /&gt;
+  {props.children}
+  &lt;Footer /&gt;
+&lt;/AuthContext.Provider&gt;</code></pre>
+<p>**Шаг 3. Использование контекста**</p>
+<p>Вложенные в провайдер `AuthContext.Provider` компоненты могут получить доступ к контексту `value` с помощью хука `useContext`. Как и `useState` и `useReducer`, хук можно вызывать только непосредственно внутри компонента React (не внутри циклов или условий). Вызвав хук `useContext` с переданным в аргументы названием контекста (в нашем случае `AuthContext`), `useContext` сообщает React, что компонент хочет прочитать `AuthContext`. Результат вызова записывают в переменную `authContext` — это и будет значением контекста, тем, что передавали в `value` провайдера 👇🏻</p>
+<pre><code>import { useContext } from &quot;react&quot;;
+import { AuthContext } from &quot;@/app/context/app-context&quot;;
+
+export const Component = (props) =&gt; {
+  const authContext = useContext(AuthContext);
+  return (
+    &lt;&gt;
+      {!AuthContext.isAuth &amp;&amp; &lt;button onClick=&quot;() =&gt; authContext.login()&quot;&gt;}
+    &lt;/&gt;
+  )
+}</code></pre>
+<p>В переменной `authContext` сохранён объект с ключами: `isAuth`, `user`, `token`, `login`, `logout`. Поэтому, обращаясь к `authContext` через точку, можно получить значения этих ключей и использовать их в JSX-разметке.</p>
+<h2>Контекст в Pindie</h2>
+<p>Контекст поможет избавиться от лишних импортов и дополнительных `props` внутри компонентов. Компоненты станут более независимыми друг от друга, компактными и простыми.</p>
+<h3>Шаг 1. Создай контекст</h3>
+<p>Создай папку `context`, а в ней файл `app-context.js` с кодом 👇🏻</p>
+<pre><code>import {createContext} from &#x27;react&#x27;;
+
+export const AuthContext = createContext(null);</code></pre>
+<h3>Шаг 2. Оберни компоненты в провайдер</h3>
+<p>Компонент `App` со значением и провайдером уже разобрали, готовый код можно найти под тогглом ниже 👇🏻</p>
+<pre><code>&#x27;use client&#x27;;
+
+import { Header } from &#x27;./components/Header/Header&#x27;;
+import { Footer } from &#x27;./components/Footer/Footer&#x27;;
+
+import { useState, useEffect } from &#x27;react&#x27;;
+import {AuthContext} from &#x27;./context/app-context&#x27;;
+
+import { endpoints } from &#x27;./api/config&#x27;;
+import { getJWT, setJWT, removeJWT, getMe } from &#x27;./api/api-utils&#x27;;
+
+export const App = (props) =&gt; {
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(&#x27;&#x27;);
+
+  const login = (user, token) =&gt; {
+    setIsAuth(true);
+    setUser(user);
+    setToken(token);
+    setJWT(token);
+  };
+
+  const logout = () =&gt; {
+    setIsAuth(false);
+    setUser(null);
+    setToken(&#x27;&#x27;);
+    removeJWT();
+  };
+
+  const checkAuth = async () =&gt; {
+    const token = getJWT();
+    if(token) {
+      const me = await getMe(endpoints.me, token);
+      if(me) {
+        login(me, token);
+      } else {
+        logout();
+      }
+    }
+  };
+
+  useEffect(() =&gt; {
+	  async function check() {
+		  await checkAuth();
+	  };
+	  check();
+  }, []);
+
+  return (
+    &lt;AuthContext.Provider value={{isAuth, user, token, login, logout}}&gt;
+      &lt;Header /&gt;
+      {props.children}
+      &lt;Footer /&gt;
+    &lt;/AuthContext.Provider&gt;
+  )
+    
+};</code></pre>
+<h3>Шаг 3. Используй контекст в `Header` для кнопки авторизации</h3>
+<pre><code>&quot;use client&quot;;
+
+import { useState, useEffect } from &quot;react&quot;;
+
+import Styles from &quot;./Header.module.css&quot;;
+import { Overlay } from &quot;../Overlay/Overlay&quot;;
+import { Popup } from &quot;../Popup/Popup&quot;;
+import { AuthForm } from &quot;../AuthForm/AuthForm&quot;;
+
+import { endpoints } from &quot;@/app/api/config&quot;;
+import { getJWT, removeJWT, getMe, isResponseOk } from &quot;@/app/api/api-utils&quot;;
+
+import Link from &quot;next/link&quot;;
+import { usePathname } from &quot;next/navigation&quot;;
+
+export const Header = () =&gt; {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [popupIsOpened, setPopupIsOpened] = useState(false);
+
+  const openPopup = () =&gt; {
+    setPopupIsOpened(true);
+  };
+  const closePopup = () =&gt; {
+    setPopupIsOpened(false);
+  };
+
+  const pathname = usePathname();
+  useEffect(() =&gt; {
+    const jwt = getJWT();
+    if (jwt) {
+      getMe(endpoints.me, jwt).then((userData) =&gt; {
+        if (isResponseOk(userData)) {
+          setIsAuthorized(true);
+        } else {
+          setIsAuthorized(false);
+          removeJWT();
+        }
+      });
+    }
+  }, []);
+  const handleLogout = () =&gt; {
+    setIsAuthorized(false);
+    removeJWT();
+  };
+  return (
+    &lt;header className={Styles[&quot;header&quot;]}&gt;
+      {pathname === &quot;/&quot; ? (
+        &lt;span className={Styles[&quot;logo&quot;]}&gt;
+          &lt;img
+            className={Styles[&quot;logo__image&quot;]}
+            src=&quot;/images/logo.svg&quot;
+            alt=&quot;Логотип Pindie&quot;
+          /&gt;
+        &lt;/span&gt;
+      ) : (
+        &lt;Link href=&quot;/&quot; className={Styles[&quot;logo&quot;]}&gt;
+          &lt;img
+            className={Styles[&quot;logo__image&quot;]}
+            src=&quot;/images/logo.svg&quot;
+            alt=&quot;Логотип Pindie&quot;
+          /&gt;
+        &lt;/Link&gt;
+      )}
+      &lt;nav className={Styles[&quot;menu&quot;]}&gt;
+        &lt;ul className={Styles[&quot;menu__list&quot;]}&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/new&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/new&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              Новинки
+            &lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/popular&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/popular&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              Популярные
+            &lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/shooters&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/shooters&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              Шутеры
+            &lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/runners&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/runners&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              Ранеры
+            &lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/pixel-games&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/pixel-games&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              Пиксельные
+            &lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className={Styles[&quot;menu__item&quot;]}&gt;
+            &lt;Link
+              href=&quot;/tds&quot;
+              className={`${Styles[&quot;menu__link&quot;]} ${
+                pathname === &quot;/tds&quot; &amp;&amp; Styles[&quot;menu__link_active&quot;]
+              }`}
+            &gt;
+              TDS
+            &lt;/Link&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;div className={Styles[&quot;auth&quot;]}&gt;
+          {isAuthorized ? (
+            &lt;button className={Styles[&quot;auth__button&quot;]} onClick={handleLogout}&gt;
+              Выйти
+            &lt;/button&gt;
+          ) : (
+            &lt;button className={Styles[&quot;auth__button&quot;]} onClick={openPopup}&gt;
+              Войти
+            &lt;/button&gt;
+          )}
+          
+        &lt;/div&gt;
+      &lt;/nav&gt;
+      &lt;Overlay isOpened={popupIsOpened} close={closePopup} /&gt;
+      &lt;Popup isOpened={popupIsOpened} close={closePopup}&gt;
+        &lt;AuthForm close={closePopup} setAuth={setIsAuthorized}/&gt;
+      &lt;/Popup&gt;
+    &lt;/header&gt;
+  );
+};</code></pre>
+<p>В компоненте `App` хранятся данные о пользователе, его статусе авторизации, а самое главное — методы `login` и `logout`. Их будем получать из контекста.</p>
+<p>В этом компоненте больше не понадобится использовать JWT-методы и данные `api`, поэтому смело удаляй импорты 👇🏻</p>
+<pre><code>import { endpoints } from &quot;@/app/api/config&quot;;
+import { getJWT, removeJWT, getMe, isResponseOk } from &quot;@/app/api/api-utils&quot;;</code></pre>
+<p>Благодаря переменным контекста больше всё это тебе не пригодится 👇🏻</p>
+<pre><code>const [isAuthorized, setIsAuthorized] = useState(false);
+
+useEffect(() =&gt; {
+  const jwt = getJWT();
+  if (jwt) {
+    getMe(endpoints.me, jwt).then((userData) =&gt; {
+      if (isResponseOk(userData)) {
+        setIsAuthorized(true);
+      } else {
+        setIsAuthorized(false);
+        removeJWT();
+      }
+    });
+  }
+}, []);
+
+// Перепишем с использованием функции из контекста
+const handleLogout = () =&gt; {
+  setIsAuthorized(false);
+  removeJWT();
+};</code></pre>
+<p>Да, первым делом импортируй в компонент хук `useContext` и сам контекст `AuthContext` 👇🏻</p>
+<pre><code>import { useContext } from &quot;react&quot;;
+import { AuthContext } from &quot;@/app/context/app-context&quot;;</code></pre>
+<p>Внутри компонента вызывай хук `useContext` и сохраняй полученное значение в переменную `authContext` 👇🏻</p>
+<pre><code>const authContext = useContext(AuthContext);</code></pre>
+<p>Клик по кнопке `Войти` открывает всплывающее окно — компонент `Popup`. А клик по кнопке с надписью `Выйти` должен разлогинить пользователя, для этого в контексте из компонента `App` передай функцию `logout`. Перепиши обработчик клика `handleLogout` 👇🏻</p>
+<pre><code>export const Header = () =&gt; {
+
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () =&gt; {
+    authContext.logout(); // Метод logout из контекста
+  };
+
+  return (
+    &lt;header className={Styles[&quot;header&quot;]}&gt;
+      {/* JSX-код компонента */}
+    &lt;/header&gt;
+  );
+}</code></pre>
+<p>Осталось использовать значения из контекста в JSX-разметке компонента `Header` для кнопки авторизации 👇🏻</p>
+<pre><code>&lt;div className={Styles[&quot;auth&quot;]}&gt;
+  {/* Определяем, авторизован ли пользователь */}
+  {authContext.isAuth ? ( 
+    &lt;button className={Styles[&quot;auth__button&quot;]} onClick={handleLogout}&gt;
+      Выйти
+    &lt;/button&gt;
+    ) : (
+    &lt;button className={Styles[&quot;auth__button&quot;]} onClick={openPopup}&gt;
+      Войти
+    &lt;/button&gt;
+  )}
+&lt;/div&gt;</code></pre>
+<p>Используй отображение кнопки по условию: для этого определяй, авторизован ли пользователь, переменной из контекста `authContext.isAuth` и используй обработчик клика `handleLogout` для кнопки `Выйти`. Всё как на видео 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Мои_проект_(3).mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<h3>Шаг 4. Используй контекст в компоненте формы для регистрации `AuthForm`</h3>
+<p>Сохранение данных о зарегистрированном пользователе, а также сохранение токена будут происходить в методе `login`, который получим из контекста. Поэтому в компоненте `AuthForm` больше не понадобится использовать `JWT` и состояние для данных пользователя `userData` , удаляй👇🏻</p>
+<pre><code>import { setJWT } from &quot;@/app/api/api-utils&quot;;
+
+const [userData, setUserData] = useState(null);</code></pre>
+<p>Импортируй хук и контекст 👇🏻</p>
+<pre><code>import { useContext } from &quot;react&quot;;
+import { AuthContext } from &quot;@/app/context/app-context&quot;;</code></pre>
+<p>Внутри компонента получишь значение из контекста 👇🏻</p>
+<pre><code>export const AuthForm = (props) =&gt; {
+  const authContext = useContext(AuthContext);
+  // Остальной код компонента...
+}</code></pre>
+<p>В обработчике `handleSubmit` перепиши три строчки кода с авторизацией пользователя на `authContext.login(userData.user, userData.jwt)` 👇🏻</p>
+<pre><code>const handleSubmit = async (e) =&gt; {
+  e.preventDefault();
+  const userData = await authorize(endpoints.auth, authData);
+  if(isResponseOk(userData)) {
+    authContext.login(userData.user, userData.jwt); // login из контекста
+    setMessage({ status: &quot;success&quot;, text: &quot;Вы авторизовались!&quot; });
+  } else {
+    setMessage({ status: &quot;error&quot;, text: &quot;Неверные почта или пароль&quot; });
+  }
+};</code></pre>
+<p>В хуке `useEffect` вместо `userData` используй значение из контекста `authContext.user` 👇🏻</p>
+<pre><code>useEffect(() =&gt; {
+  let timer; 
+  if(authContext.user) { // Данные о user из контекста
+    timer = setTimeout(() =&gt; {
+      setMessage({ status: null, text: null});
+      props.close();
+    }, 1000);
+  }
+  return () =&gt; clearTimeout(timer);
+}, [authContext.user]); // Данные о user из контекста</code></pre>
+<p>На этом форма авторизации готова. Скринкаст со всем вышеописанным для подстраховки 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Мои_проект_(3)_2.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<h3>Шаг 5. Используй контекст в `GamePage`</h3>
+<p>В этом компоненте больше не понадобится использовать функции, связанные с авторизацией и токеном, поэтому со спокойной душой убирай импорты для `getJWT`, `removeJWT`, `getMe`</p>
+<p>Удали пару переменных состояния и проверку токена 👇🏻</p>
+<pre><code>const [isAuthorized, setIsAuthorized] = useState(false);
+const [currentUser, setCurrentUser] = useState(null);
+
+const jwt = getJWT();
+if (jwt) {
+	getMe(endpoints.me, jwt).then((userData) =&gt; {
+	  if (isResponseOk(userData)) {
+	    setIsAuthorized(true);
+      setCurrentUser(userData);
+    } else {
+      setIsAuthorized(false);
+      removeJWT();
+    }
+  });
+}</code></pre>
+<p>Теперь импортируй хук и контекст 👇🏻</p>
+<pre><code>import { useContext } from &quot;react&quot;;
+import { AuthContext } from &quot;@/app/context/app-context&quot;;</code></pre>
+<p>Внутри компонента получишь значение из контекста 👇🏻</p>
+<pre><code>export default function GamePage(props) {
+  const authContext = useContext(AuthContext);
+	// Остальной код компонента...
+}</code></pre>
+<p>Перепиши хуки `useEffect` с использованием контекста 👇🏻</p>
+<pre><code>useEffect(() =&gt; {
+  async function fetchData() {
+	  setPreloaderVisible(true);
+    const game = await getNormalizedGameDataById(
+      endpoints.games,
+      props.params.id
+    );
+    isResponseOk(game) ? setGame(game) : setGame(null);
+    setPreloaderVisible(false);
+  }
+  fetchData();
+}, []);
+  
+useEffect(() =&gt; { // Данные о пользователе получаем из контекста authContext.user
+	authContext.user &amp;&amp; game ? setIsVoted(checkIfUserVoted(game, authContext.user.id)) : setIsVoted(false);
+}, [authContext.user, game]);</code></pre>
+<p>И измени функцию с использованием переменных их контекста 👇🏻</p>
+<pre><code>const handleVote = async () =&gt; {
+	const jwt = authContext.token; // Данные о токене получаем из контекста
+  let usersIdArray = game.users.length
+	  ? game.users.map((user) =&gt; user.id)
+    : [];
+  usersIdArray.push(authContext.user.id); // Данные о пользователе получаем из контекста
+  const response = await vote(
+	  `${endpoints.games}/${game.id}`,
+    jwt,
+    usersIdArray
+  );
+  if (isResponseOk(response)) {
+	  setGame(() =&gt; {
+	    return {
+	      ...game,
+        // Данные о пользователе получаем из контекста
+        users: [...game.users, authContext.user],
+      };
+    });
+		setIsVoted(true);
+  }</code></pre>
+<p>Замени в JSX-разметке отображение кнопки 👇🏻</p>
+<pre><code>// Заменим isAuthorized на authContext.isAuth
+&lt;button
+	disabled={!authContext.isAuth || isVoted}
+  className={`button ${Styles[&quot;about__vote-button&quot;]}`}
+  onClick={handleVote}
+&gt;
+  {isVoted ? &quot;Голос учтён&quot; : &quot;Голосовать&quot;}
+&lt;/button&gt;</code></pre>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/new-screen.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<h3>Подведём итоги</h3>
+<p>Теперь авторизация пользователя работает эталонно 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-02-08_в_22.37.02.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>После заполнения формы AuthForm и авторизации пользователя данные в контексте меняются и при следующем обновлении интерфейса молниеносно обновляются статусы кнопок в компонентах `Header` и `GamePage`</p>
+<p>Не возражаем: компоненты стали более независимыми, благодаря им уменьшилось количество импортов и использования различной логики авторизации. Теперь она сконцентрирована в одном месте — компоненте `App`, а в дочерних компонентах просто используются переменные и методы из контекста. Всё это сделало компоненты компактнее и проще для поддержки.</p>
+<p>Да, есть один нюанс. React работает так, что компонент перерисовывается, когда изменяются пропсы. Следовательно, если мы прокидываем пропс сквозь множество компонентов, то много компонентов перерисовывается.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Возникает проблема перерисовок, и она — прямое следствие изменения пропсов, приходящих в компонент. Провайдер оборачивает группу компонентов и прокидывает пропсы сквозь них, проблема перерисовки остаётся. {/quiz-task}</p>
+</body>
+</html>

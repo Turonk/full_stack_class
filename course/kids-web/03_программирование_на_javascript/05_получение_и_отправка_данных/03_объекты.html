@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Объекты</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Объекты</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/a5c47f29-27d8-48f2-93d9-6aed6a3ca461/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/a5c47f29-27d8-48f2-93d9-6aed6a3ca461/</a></p>
+  <h1>Объекты</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_599_1703234170.png)</p>
+<p>В проекте этой недели мы много работаем с данными об игровых персонажах. Эти данные мы планируем:</p>
+<p>- принимать от сервера и показывать на карточках - собирать через форму ввода и отправлять на сервер на хранение и для обновления списка карточек</p>
+<p>Чтобы это сделать, в этом уроке придётся разобраться с новым типом данных в JS, а ещё понять, в каком виде клиент и сервер пересылают данные друг другу.</p>
+<h2>Тип данных **«Объект»**</h2>
+<p>В предыдущих уроках мы рассматривали простые типы данных, такие как `string` (строка), `number` (число), `boolean` (логический тип данных). Все эти типы крайне важны, ведь всё вокруг нас так или иначе состоит из простых, примитивных данных.</p>
+<p>Но если присмотреться к окружающему миру чуть пристальнее, можно заметить, как эти простые значения вокруг нас объединяются в группы, в нечто большее. Поэтому пора поговорить про сложные типы данных: объект — один из них (и фух, пока нам хватит только его).</p>
+<p>**Объект** — это сущность, которая может хранить в себе различные данные: простые значения, функции и даже другие объекты. Кстати, с одним из подвидов объекта — массивом — мы уже знакомились на прошлой неделе.</p>
+<p>Объект состоит из набора свойств. Каждое свойство состоит из названия и значения. Название может быть строкой `string`, а значение — любым.</p>
+<p>Прекрасное знание фольклора, поощрим тебя примерами! Так точно станет понятнее.</p>
+<p>Всё вокруг нас можно описать объектом:</p>
+<p>1. Твоего верного друга из сторитела👇🏻</p>
+<pre><code>const htmlCharacter = {
+	name: &#x27;Аски&#x27;, // Имя
+  superPower: function() {
+		console.log(&quot;Рассказать про HTML простым языком&quot;) // Суперспособность
+	},
+	friends: [&quot;Цэ-эс-эсочка&quot;, &quot;Ящерка&quot;, &quot;Собака&quot;], // Друзья
+}</code></pre>
+<p>2. Любимый фильм 👇🏻</p>
+<pre><code>const movie = {
+	name: &#x27;Интерстеллар&#x27;, // Название
+  minutes: 169, // Продолжительность в минутах
+	year: 2014,  // Год выпуска
+	actors: [&quot;Мэттью Макконахи&quot;, &quot;Энн Хэтэуэй&quot;, &quot;Мэтт Деймон&quot;, &quot;Джессика Честейн&quot;] // Актёры
+}</code></pre>
+<p>3. Персонажа твоего проекта 👇🏻</p>
+<pre><code>	    
+const hero = {
+	additionalStat: null, // Даполнительные характеристики персонажа (дополнительное поле)
+	agi: 70, // Уровень ловкости персонажа (от слова agility) 
+	created_at: &quot;2023-12-18T16:19:02.032Z&quot;, // Дата и время создания объекта с описанием персонажа
+	description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, // Описание персонажа
+	hp: 100, // Уровень здоровья персонажа
+	id: 2, // Идентификатор — уникальный номер
+	int: 90, // Уровень интеллекта персонажа (от слова intelligence)  
+	name: null, // Имя персонажа (дополнительное поле)
+	published_at: &quot;2023-12-18T16:20:37.767Z&quot;, // Дата и время публикации объекта с описанием персонажа
+	str: 50, // Уровень силы персонажа (от слова strength) 
+	title: &quot;Цэ-эс-эсочка&quot;, // Заголовок с именем персонажа
+	updated_at: &quot;2023-12-19T18:02:28.719Z&quot; // Дата обновления объекта с описанием персонажа 
+}</code></pre>
+<p>Конечно, Аски!</p>
+<p>Возможно, вам двоим удалось заметить, что объекты объявляют ключевым словом `const`. Это связано с тем, что обычно после создания объекта мы будем менять лишь его «внутренности»: добавлять, модифицировать и удалять отдельные свойства объекта.</p>
+<p>Чтобы создать объект, достаточно использовать фигурные скобки. Точно так же, как и с массивом, только другой вид скобок:</p>
+<pre><code>const student = {};</code></pre>
+<p>А теперь наглядно покажем, почему **объекты — это удобно**.</p>
+<p>Представим, что нам нужно заполнить информацию о студенте: имя, ник, почта, возраст. Используя простые типы данных, нам пришлось бы объявлять множество переменных:</p>
+<pre><code>let studentName = &quot;Пальто&quot;;
+let studentNickname = &quot;Нечушпан&quot;;
+let studentEmail = &quot;palto@slovopacana.com&quot;;
+let studentAge = 14;</code></pre>
+<p>Получается, мягко говоря, по-чушпански.</p>
+<p>Представь, что нужно заполнить данные о каком-то сложном объекте, например полную анкету пользователя социальной сети. В ней должно быть очень много полей: имя, никнейм, город, фото профиля и так далее. Создавать столько переменных — очень плохая идея. Как раз тут нас и выручают объекты.</p>
+<p>Когда нужно создать объект со свойствами, их описывают внутри фигурных скобок.</p>
+<p>Свойства указываются в формате `имяСвойства : значение,`, между свойствами ставится запятая:</p>
+<pre><code>const student = {
+	//Имя свойства – name ; значение – &quot;Пальто&quot;
+	name: &quot;Пальто&quot;,
+	nickname: &quot;Нечушпан&quot;,
+	email: &quot;palto@slovopacana.com&quot;,
+	age: 14,
+	// Остальные 100500 полей очень подробной формы
+};</code></pre>
+<p>В объектах **свойство** — это пара «ключ: значение», где `ключ` — это строка, а значениями ключей могут быть:</p>
+<p>- строки `title: &quot;Пальто&quot;,` - числа `str: 30,` - логические значения - объекты `attributes: {…},` и массивы</p>
+<p>Таким образом, данные отлично структурированы, их легко найти и обработать.</p>
+<p>{quiz-task} background: | #f5f6f7 content: | Объекты очень распространены в JavaScript — это удобный механизм для организации данных и взаимодействия с ними и отличный способ собрать информацию для отправки по сети (что важно для нашего проекта). {/quiz-task}</p>
+<p>Аски, вообще-то, вопрос очень хороший. Кнопка ниже откроет ответ на него.</p>
+<h2>Обмен данными и JSON</h2>
+<p>Учитывая возможную разницу в языках фронтенда и бэкенда сайта, для передачи данных были разработаны специальные форматы. Самый распространённый из них — JSON**.**</p>
+<p>**JSON** расшифровывается как **JavaScript Object Notation** — текстовый формат обмена данными.</p>
+<p>Вот как выглядит персонаж проекта в формате JSON:</p>
+<pre><code>[
+  {
+		&quot;additionalStat&quot;: null, 
+		&quot;agi&quot;: 70,
+		&quot;created_at&quot;: &quot;2023-12-18T16:19:02.032Z&quot;, 
+		&quot;description&quot;: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+		&quot;hp&quot;: 100, 
+		&quot;id&quot;: 2, 
+		&quot;int&quot;: 90, 
+		&quot;name&quot;: null, 
+		&quot;published_at&quot;: &quot;2023-12-18T16:20:37.767Z&quot;, 
+		&quot;str&quot;: 50,  
+		&quot;title&quot;: &quot;Цэ-эс-эсочка&quot;, 
+		&quot;updated_at&quot;: &quot;2023-12-19T18:02:28.719Z&quot;
+	}
+]</code></pre>
+<p>Похоже на объект в JS, о котором мы говорили выше, не так ли? Только обрати внимание, что имена свойств взяты в двойные кавычки — в JSON-формате это обязательно.</p>
+<p>Все данные, которыми необходимо делиться с сервером, на клиенте хранятся в объектах. Для передачи информации в запросе к серверу её необходимо преобразовать в универсальный формат JSON, так сервер сможет её обработать. А при ответе от сервера клиент получает данные в виде JSON, которые нужно преобразовать в объект.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4251_1703234372.png)</p>
+<p>Для преобразования объекта в строку формата JSON и обратно нам понадобятся две функции: **`JSON.stringify`** и **`JSON.parse`**, которым мы передадим данные в качестве аргумента функции.</p>
+<p>Функция `JSON.stringify` делает из объекта JSON и используется для отправки данных на сервер:</p>
+<pre><code>// Переменная с объектом, который надо отправить на сервер
+const hero = {
+	additionalStat: null, 
+	agi: 70, 
+	created_at: &quot;2023-12-18T16:19:02.032Z&quot;, 
+	description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+	hp: 100, 
+	id: 2, 
+	int: 90,
+	name: null, 
+	published_at: &quot;2023-12-18T16:20:37.767Z&quot;, 
+	str: 50, 
+	title: &quot;Цэ-эс-эсочка&quot;,
+	updated_at: &quot;2023-12-19T18:02:28.719Z&quot;
+}
+
+// Формируем из объекта JSON и записываем в переменную heroesJSON для отправки на сервер
+const heroJSON = JSON.stringify(hero);</code></pre>
+<p>Функция `JSON.parse` преобразует JSON, который пришёл с сервера, в объект:</p>
+<pre><code>// Преобразуем JSON, который пришёл с сервера, в объект 
+const heroesObject = JSON.parse(heroJSON);</code></pre>
+<p>Важно, что в функцию `JSON.parse` можно передавать только объект, где свойства и значения — это строки, и они должны быть в двойных кавычках.</p>
+<pre><code>JSON.parse(&#x27;Любая строка или число&#x27;); // Ошибка</code></pre>
+<p>Ну вот теперь вы с Аски точно готовы к работе с данными на фронтенде!</p>
+<h2>Отображение данных</h2>
+<p>Давай вернёмся к проекту. Наше приложение при первой загрузке должно получить стартовый набор данных — информацию о персонажах игры. Допустим, сервер нам вернул JSON с информацией об одном персонаже, мы его преобразовали в объект hero:</p>
+<pre><code>const hero = {
+	additionalStat: null, 
+	agi: 70, 
+	created_at: &quot;2023-12-18T16:19:02.032Z&quot;, 
+	description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+	hp: 100, 
+	id: 2, 
+	int: 90,
+	name: null, 
+	published_at: &quot;2023-12-18T16:20:37.767Z&quot;, 
+	str: 50, 
+	title: &quot;Цэ-эс-эсочка&quot;,
+	updated_at: &quot;2023-12-19T18:02:28.719Z&quot;
+}</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_4_1703234510.png)</p>
+<p>Давай отобразим карточку как на картинке.</p>
+<p>Из макета видно, что нужно получить из объекта `hero` значение свойства `title` и информацию из свойства `description`, чтобы отобразить их на карточке.</p>
+<p>Осталось понять, как вытащить значения свойств объекта, которые нам нужны, и передать их в вёрстку. Об этом читай далее!</p>
+<h3>**Обращение к свойствам объекта**</h3>
+<p>К свойствам объекта можно обращаться — читать или записывать значение в них.</p>
+<p>Чтобы обратиться к свойству объекта, нужно написать название объекта и нужное свойство через точку. Например, если нам нужно свойство `id` объекта `hero`, то обращение к нему будет выглядеть так: `hero.id`</p>
+<p>Вот более развёрнутый пример:</p>
+<pre><code>const hero = {
+	additionalStat: null, 
+	agi: 70, 
+	created_at: &quot;2023-12-18T16:19:02.032Z&quot;, 
+	description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+	hp: 100, 
+	id: 2, 
+	int: 90,
+	name: null, 
+	published_at: &quot;2023-12-18T16:20:37.767Z&quot;, 
+	str: 50, 
+	title: &quot;Цэ-эс-эсочка&quot;,
+	updated_at: &quot;2023-12-19T18:02:28.719Z&quot;
+};
+
+console.log(hero.id) // 2
+// Обратившись к свойству title, увидим в консоли значение этого свойства
+console.log(hero.title) // &quot;Цэ-эс-эсочка&quot;
+// Таким же образом можно перезаписать значение свойства
+hero.title = &quot;Аски&quot;;
+console.log(hero.title) // &quot;Аски&quot;</code></pre>
+<p>Если обратиться к несуществующему свойству объекта, увидим `undefined`. Это значит, что такого значения для указанного свойства попросту нет.</p>
+<pre><code>hero.power // undefined</code></pre>
+<p>В большинстве случаев свойство в объекте — строка. И строгие правила для именования на них не действуют, как с именами переменных. Они могут содержать пробелы, любые слова, символы — такие свойства оборачивают в кавычки. Поэтому через точку к ним не достучаться:</p>
+<pre><code>const hero = {
+	additionalStat: null, 
+	agi: 70, 
+	created_at: &quot;2023-12-18T16:19:02.032Z&quot;, 
+	description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+	hp: 100, 
+	id: 2, 
+	int: 90,
+	name: null, 
+	published_at: &quot;2023-12-18T16:20:37.767Z&quot;, 
+	str: 50, 
+	title: &quot;Цэ-эс-эсочка&quot;,
+	updated_at: &quot;2023-12-19T18:02:28.719Z&quot;,
+	&quot;защита от магии&quot;: 26.6,
+	&quot;45+урона&quot;: true,
+};
+
+hero.защита от магии; // Ошибка
+hero.45+урона; // Ошибка</code></pre>
+<p>На этот случай есть второй способ — универсальный. В нём нужно передать имя свойства в кавычках и квадратных скобках, вот так:</p>
+<pre><code>hero[&quot;title&quot;]; // &quot;Цэ-эс-эсочка&quot;
+hero[&quot;защита от магии&quot;]; // 26.6
+hero[&quot;45+урона&quot;]; // true</code></pre>
+<p>На сегодня, пожалуй, достаточно информации про объекты, этого хватит для выполнения проекта и погружения в обмен данными с сервером.</p>
+<p>Теперь нам нужно получить из объекта `hero` значение свойства `title` и разместить его в теге `&lt;h2 class=&quot;card-title-text&quot;&gt;${hero.title}&lt;/h2&gt;`. В этом нам помогут шаблонные строки — так мы отобразим имя персонажа. Далее информацию из свойства `description` таким же образом разместим в теге `&lt;p class=&quot;card-description-text&quot;&gt;${hero.description}&lt;/p&gt;`</p>
+<p>Шаг за шагом мы внесём характеристики персонажа в заготовленную вёрстку карточки, а затем вставим карточку в веб-страницу.</p>
+<pre><code>// Заполним вёрстку карточки данными 
+// из значений свойств объекта 
+const cardHtml = `
+	&lt;div class=&quot;card-wrapper&quot;&gt;
+	  &lt;div class=&quot;card&quot;&gt;
+	    &lt;div class=&quot;card-title&quot;&gt;
+	      &lt;h2 class=&quot;card-title-text&quot;&gt;${hero.title}&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card-description&quot;&gt;
+	      &lt;p class=&quot;card-description-text&quot;&gt;${hero.description}&lt;/p&gt;
+        &lt;div class=&quot;card-parameters&quot;&gt;
+	        &lt;div class=&quot;card-parameter&quot;&gt;
+	          &lt;p class=&quot;card-parameter-title&quot;&gt;str&lt;/p&gt;
+	          &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.str}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card-parameter&quot;&gt;
+            &lt;p class=&quot;card-parameter-title&quot;&gt;agi&lt;/p&gt;
+            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.agi}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card-parameter&quot;&gt;
+	          &lt;p class=&quot;card-parameter-title&quot;&gt;hp&lt;/p&gt;
+            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.hp}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card-parameter&quot;&gt;
+	          &lt;p class=&quot;card-parameter-title&quot;&gt;int&lt;/p&gt;
+            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.int}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+`;</code></pre>
+<p>Да!</p>
+<h3>Отображаем несколько карточек, которые пришли с сервера</h3>
+<p>Допустим, сервер нам вернул JSON с информацией о персонажах, мы его преобразуем в массив из объектов и сохраняем в переменную `heroes`:</p>
+<pre><code>const heroes = [
+  {
+		additionalStat: null, 
+		agi: 70, 
+		created_at: &quot;2023-12-18T16:19:02.032Z&quot;, 
+		description: &quot;Лунная призма, дай мне силу, пожалуйста.&quot;, 
+		hp: 100, 
+		id: 2, 
+		int: 90,
+		name: null, 
+		published_at: &quot;2023-12-18T16:20:37.767Z&quot;, 
+		str: 50, 
+		title: &quot;Цэ-эс-эсочка&quot;,
+		updated_at: &quot;2023-12-19T18:02:28.719Z&quot;
+	},
+  {
+		additionalStat: null, 
+		agi: 65, 
+		created_at: &quot;2023-12-18T17:57:03.283Z&quot;, 
+		description: &quot;Один парень сделал кольчугу из 3000 пивных колец.&quot;, 
+		hp: 100, 
+		id: 3, 
+		int: 38,
+		name: null, 
+		published_at: &quot;2023-12-18T17:57:03.262Z&quot;, 
+		str: 92, 
+		title: &quot;Рыцарь&quot;,
+		updated_at: &quot;2023-12-19T18:03:23.611Z&quot;
+	},
+  {
+		additionalStat: null, 
+		agi: 60, 
+		created_at: &quot;2023-12-20T16:44:16.720Z&quot;, 
+		description: &quot;Умею Jav-Javкать&quot;, 
+		hp: 100, 
+		id: 8, 
+		int: 99,
+		name: null, 
+		published_at: &quot;2023-12-20T16:44:16.717Z&quot;, 
+		str: 50, 
+		title: &quot;Собака&quot;,
+		updated_at: &quot;2023-12-20T16:44:16.720Z&quot;
+	}
+]</code></pre>
+<p>Тут вспоминаем наш проект с гаданием по emoji. Нам достаточно пройти по массиву `heroes` циклом. На каждой итерации цикла нужно доставать объект персонажа из массива (для удобства сохраним его в переменную `hero`) и передавать его значения свойств в вёрстку:</p>
+<pre><code>// Находим контейнер для карточек в вёрстке по идентификатору id = &#x27;cards-container&#x27;
+const container = document.getElementById(&#x27;cards-container&#x27;); 
+
+// Передаём массив с данными аргументом в функцию отрисовки карточек
+function renderCards(heroes) {
+    // Очищаем контейнер для карточек
+    container.innerHTML = &quot;&quot;;
+
+    //  В цикле достаём из каждого объекта данные о персонаже и вставляем вёрстку карточки
+    for (let i = 0; i &lt; heroes.length; i++) {
+        let hero = heroes[i];
+
+        // Создаём вёрстку карточки и вставляем значения характеристик персонажа
+        const cardHtml = `
+        &lt;div class=&quot;card-wrapper&quot;&gt;
+            &lt;div class=&quot;card&quot;&gt;
+                &lt;div class=&quot;card-title&quot;&gt;
+                    &lt;h2 class=&quot;card-title-text&quot;&gt;${hero.title}&lt;/h2&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;card-description&quot;&gt;
+                    &lt;p class=&quot;card-description-text&quot;&gt;${hero.description}&lt;/p&gt;
+                    &lt;div class=&quot;card-parameters&quot;&gt;
+                        &lt;div class=&quot;card-parameter&quot;&gt;
+                            &lt;p class=&quot;card-parameter-title&quot;&gt;str&lt;/p&gt;
+                            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.str}&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;card-parameter&quot;&gt;
+                            &lt;p class=&quot;card-parameter-title&quot;&gt;agi&lt;/p&gt;
+                            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.agi}&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;card-parameter&quot;&gt;
+                            &lt;p class=&quot;card-parameter-title&quot;&gt;hp&lt;/p&gt;
+                            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.hp}&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;card-parameter&quot;&gt;
+                            &lt;p class=&quot;card-parameter-title&quot;&gt;int&lt;/p&gt;
+                            &lt;p class=&quot;card-parameter-value&quot;&gt;${hero.int}&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `;
+
+        // Добавляем вёрстку карточки в контейнер
+        container.innerHTML += cardHtml;
+    }
+}</code></pre>
+<p>Как ты можешь заметить, мы повторяемся: подобные действия мы уже делали в прошлых проектах, так что тебе не составит труда переделать проект под свою идею, возможно, с другим оформлением и исходной информацией.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/04-get-and-post-data/0403-object/render-example/pre/?tab=script.js|minWidth:400px|minHeight:600px}</p>
+<h2>Перечислим ключевые моменты</h2>
+<p>Теперь мы знаем, что данные передаются между клиентом и сервером в особом формате, и умеем с этим форматом работать. А вот о том, какая функция в JavaScript помогает отправлять запросы, как она устроена и что нужно сделать для отправки запроса, поговорим в следующем уроке.</p>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>HTTP-сервер на Node.js</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>HTTP-сервер на Node.js</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/4493e5e2-554b-46e2-a8c2-bef3e225173a/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/4493e5e2-554b-46e2-a8c2-bef3e225173a/</a></p>
+  <h1>HTTP-сервер на Node.js</h1>
+<p>Да! Сегодня мы рассмотрим простой пример сервера, который в ответ на запрос присылает HTML-разметку с фразой «Привет, мир!». Расслабляться не советуем, ведь потом тебя ждёт тренажёрка из двух заданий, а уже в следующем уроке ты сможешь применить все скиллы и создать сервер для проекта этой недели.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4929_1711631219.jpg)</p>
+<h3>Шаг 1. Подключение встроенного модуля `http`</h3>
+<p>Программу нужно научить принимать сообщения, которые поступают на сервер, так как в JavaScript нет такой встроенной возможности. Но зато она есть в модуле `http` из Node.js, с которым мы уже знакомы.</p>
+<p>Импортируй `http` в код файла `index.js` командой `require` 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);</code></pre>
+<h3>Шаг 2. Создание сервера</h3>
+<p>Добавь сервер — так мы даём библиотеке команду подключиться к компьютеру и принимать сообщения 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+
+const server = http.createServer(); // Создаём сервер</code></pre>
+<p>Теперь доступ к сообщениям осуществляется из JavaScript-кода.</p>
+<h3>Шаг 3. Настройка порта</h3>
+<p>На компьютере может работать несколько программ, которые принимают сообщения. Чтобы это было возможно, предусмотрен специальный механизм в виде точек входа — **портов**.</p>
+<p>Именно так!</p>
+<p>Укажи Node.js принимать сообщения с порта `3000` 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+
+const server = http.createServer(); // Создаём сервер
+
+server.listen(3000); // Будем принимать сообщения с 3000 порта</code></pre>
+<h3>Шаг 4. Установка ответа</h3>
+<p>Ок! Входящие сообщения считывать научились, осталось указать, как на них реагировать. Для этого применим функцию `createServer`, которая принимает колбэк-функцию — в ней и описывают код, который нужно запустить при получении запроса 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+
+// Передаём обработчик
+const server = http.createServer(() =&gt; {
+  console.log(&#x27;Пришёл запрос!&#x27;);
+});
+
+server.listen(3000);</code></pre>
+<p>Функция-обработчик, которую передали в `createServer`, будет вызываться при каждом входящем запросе, пришедшем на порт `3000`</p>
+<p>Сохрани этот код в файле `index.js` и запусти его в терминале командой `node index.js`. Далее в браузере введи `http://localhost:3000` — и увидишь сообщение в терминале: `Пришёл запрос!`, что означает, что браузер успешно отправил запрос на твой локальный сервер.</p>
+<p>Чекай, как это выглядит 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1648_1711631310.png)</p>
+<h3>Шаг 5. Настройка запроса и ответа</h3>
+<p>В предыдущем шаге наш сервер уже принимал запросы и даже реагировал на них. Но пока его реакция — всего лишь сообщение в консоли. Нам же нужно отправить ответ пользователю. Чтобы это сделать, сначала разберёмся с параметрами функции-колбэка.</p>
+<p>Первый параметр — объект запроса, второй — объект ответа 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+
+const server = http.createServer((request, response) =&gt; {
+  console.log(&#x27;Пришёл запрос!&#x27;);
+  console.log(request); // Объект запроса
+  console.log(response); // Объект ответа
+});
+
+server.listen(3000);</code></pre>
+<h3>Шаг 6. Определение объекта запроса</h3>
+<p>Обычно его называют `request`, или сокращённо `req`. Вся информация о запросе содержится в свойствах объекта 👇🏻</p>
+<pre><code>// Запусти этот файл и перейди
+// в браузере по адресу: http://localhost:3000/hello
+
+const http = require(&#x27;http&#x27;);
+
+const server = http.createServer((req, res) =&gt; {
+  console.log(req.url); // /hello
+  console.log(req.method); // GET
+  console.log(req.headers); // Здесь будут заголовки запроса,
+  console.log(req.body); // а здесь тело запроса, но у GET-запроса его нет
+});
+
+server.listen(3000);</code></pre>
+<h3>Шаг 7. Определение объекта ответа</h3>
+<p>Второй параметр обработчика называют `response`, или `res`. Он содержит свойства и методы для работы с ответом 👇🏻</p>
+<pre><code>// Запусти этот файл и перейди
+// в браузере по адресу: http://localhost:3000
+
+const http = require(&#x27;http&#x27;);
+
+const server = http.createServer((req, res) =&gt; {
+  res.statusCode = 200; // Статус ответа
+  res.statusMessage = &#x27;OK&#x27;; // Сообщение ответа
+  res.setHeader(&#x27;Content-Type&#x27;, &#x27;text/plain&#x27;); // Добавление заголовка ответу
+
+  res.write(&#x27;Hello, &#x27;); // Отправление части ответа — строки &#x27;Hello, &#x27;
+  res.write(&#x27;world!&#x27;); // Отправление части ответа — строки &#x27;world!&#x27;
+
+  res.end(); // Окончание отправки ответа
+});
+
+server.listen(3000);</code></pre>
+<p>Ура! Ответ от сервера получен! Мы отправляем его частями методом `res.write`</p>
+<p>Когда все данные получены, вызови метод `res.end`. Так ты обозначишь, что ответ пришёл полностью. Обрати внимание: отправку всех частей ответа нужно прописать до вызова `res.end`</p>
+<p>А вот такой код приведёт к ошибке 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+
+const server = http.createServer((req, res) =&gt; {
+  res.write(&#x27;Hello, &#x27;);
+  res.end();
+
+  res.write(&#x27;world!&#x27;); // Вызовет ошибку
+});
+
+server.listen(3000);</code></pre>
+<p>Отправить ответ можно и в методе `res.end` 👇🏻</p>
+<pre><code>// Запусти этот файл и перейди
+// в браузере по адресу: http://localhost:3000
+
+const http = require(&#x27;http&#x27;);
+
+const server = http.createServer((req, res) =&gt; {
+  res.statusCode = 200; // Статус ответа
+  res.statusMessage = &#x27;OK&#x27;; // Сообщение ответа
+  res.setHeader(&#x27;Content-Type&#x27;, &#x27;text/plain&#x27;); // Добавление заголовка ответу
+
+  res.write(&#x27;Hello, &#x27;); // Отправление части ответа — строки &#x27;Hello, &#x27;
+  res.write(&#x27;world!&#x27;); // Отправление части ответа — строки &#x27;world!&#x27;
+
+  res.end(&#x27;END&#x27;); // Отправление части ответа и окончание отправки
+});
+server.listen(3000);</code></pre>
+<p>Более того, ты можешь не описывать каждое свойство отдельно. Код статуса ответа и заголовки можно передать одним методом — `writeHead`. В качестве ответа можно отправлять в том числе и HTML-строку. Для правильного отображения HTML браузеру нужно указывать кодировку, и в этом тоже поможет метод `res.end`</p>
+<p>Метод `res.end([data], [encoding])` первым параметром принимает ответ — `data`, вторым параметром (`encoding`) устанавливает кодировку ответа, по умолчанию это `&#x27;utf8&#x27;`. Имя кодировки в Node.js часто пишут без дефиса, как это принято в HTML. Каждый запрос должен заканчиваться вызовом этого метода.</p>
+<p>Отправь заголовок `h1` с сообщением 👇🏻</p>
+<pre><code>const http = require(&#x27;http&#x27;);
+const server = http.createServer((req, res) =&gt; {
+	res.writeHead(200, {
+    // Установи подходящий для HTML заголовок (обрати внимание на дефис, в заголовке он нужен)
+		&#x27;Content-Type&#x27;: &#x27;text/html; charset=utf-8&#x27;
+	});
+	// В методе end тоже можно передать данные, в том числе HTML-строку
+	res.end(&#x27;&lt;h1&gt;Привет, мир!&lt;/h1&gt;&#x27;, &#x27;utf8&#x27;);
+});
+
+server.listen(3000); </code></pre>
+<p>Передавая HTML, чтобы избежать проблем с отображением в разных браузерах, лучше не полагаться на параметр по умолчанию и вручную дописывать кодировку ответа.</p>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Чтение и запись файлов</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Чтение и запись файлов</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/0f3dc0c4-3b93-4e34-bed2-0c73e0d9aaec/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/0f3dc0c4-3b93-4e34-bed2-0c73e0d9aaec/</a></p>
+  <h1>Чтение и запись файлов</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4971_1712130362.jpg)</p>
+<p>Для работы с файлами в ноде используют модуль `fs`. Вот как его добавить в проект 👇🏻</p>
+<pre><code>const fs = require(&#x27;fs&#x27;);</code></pre>
+<p>Начнём с чтения данных из файла — для этого воспользуемся функцией `readFile` (с английского — «прочесть файл»). Она работает асинхронно и принимает два аргумента: имя файла, из которого нужно прочитать данные, и функцию, в которой описывают, что нужно сделать с прочитанными данными. Сама функция принимает два параметра: ошибку и данные файла.</p>
+<p>Вот пример её использования 👇🏻</p>
+<pre><code>const fs = require(&#x27;fs&#x27;);
+
+// Читаем файл data.json
+fs.readFile(&#x27;data.json&#x27;, (err, data) =&gt; {
+	// Если при чтении файла происходит ошибка, выводим её в консоль
+  if (err) {
+    console.log(err);
+    return;
+  }
+	// Если ошибки не возникает, в консоли появится 
+	// Текст файла data.json (перекодированный в строку utf8)
+  console.log(&#x27;data: &#x27;, data.toString(&#x27;utf8&#x27;));
+});</code></pre>
+<p>Данные файла поступают в виде двоичных (буфера). Прежде чем работать с ними, преобразуем их в строку одним из двух способов:</p>
+<p>- Метод `toString`, как в примере выше: `data.toString(&#x27;utf8&#x27;)`. Параметр `toString` — строка с кодировкой, которую нужно использовать*.* - Передача кодировки внутри свойства `encoding` объекта опций. В таком случае объект опций становится вторым параметром метода `readFile`. Данные при этом поступают сразу в виде строки, их дополнительное преобразование не требуется. Смотри 👇🏻</p>
+<pre><code>    // app.js
+    
+    const fs = require(&#x27;fs&#x27;);
+    
+    // Добавляем в вызов объект опций, в котором указываем нужную кодировку
+    fs.readFile(&#x27;data.json&#x27;, { encoding: &#x27;utf8&#x27; }, (err, data) =&gt; {
+    	console.log(data); // Выводим его содержимое в консоль
+    }); </code></pre>
+<p>Ок! Откроем `app.js` с таким кодом 👇🏻</p>
+<pre><code>// app.js
+
+const fs = require(&#x27;fs&#x27;);
+
+const readFile = () =&gt; {
+  const file = fs.readFile(&#x27;file.txt&#x27;, { encoding: &#x27;utf8&#x27; }, (err, data) =&gt; {
+		console.log(data); // Выводим содержимое файла в консоль
+	}); // Здесь читаем файл file.txt по относительному пути
+};
+
+readFile();</code></pre>
+<p>Перенесём файл и логику работы с ним в отдельную папку. Тогда получим следующую файловую структуру 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1665_1712130385.png)</p>
+<p>Логика работы теперь находится в отдельном модуле в файле `./files/read-file`. Его нужно подключить к точке входа — `app.js`</p>
+<p>Экспортируй функцию из `read-file.js` 👇🏻</p>
+<pre><code>// read-file.js
+
+const fs = require(&#x27;fs&#x27;);
+
+module.exports.readFile = () =&gt; {
+  const file = fs.readFile(&#x27;file.txt&#x27;, { encoding: &#x27;utf8&#x27; }, (err, data) =&gt; {
+		console.log(data);
+	});
+};</code></pre>
+<p>А теперь импортируй `readFile` в `app.js` 👇🏻</p>
+<pre><code>// app.js
+
+const fs = require(&#x27;fs&#x27;);
+const { readFile } = require(&#x27;./files/read-file&#x27;);
+
+readFile();</code></pre>
+<p>Проблема возникла из-за относительного пути к файлу. Функция `readFile` определена в `/files/read-file.js` (`file.txt` хранится здесь же), но исполняется она в `app.js` (путь до `file.txt` из `app.js` — `/files/file.txt`).</p>
+<p>Чтобы создать динамические пути, нужно:</p>
+<p>- Знать, где находится модуль, из которого мы обращаемся к файлу. - Добавить модуль, который будет собирать пути к файлам.</p>
+<p>Сначала обсудим, как узнать, где находится модуль. Если говорить о Node.js, все они содержат информацию о самом себе и окружении. Внутри каждого модуля хранятся переменные `__filename` и `__dirname`, в которых содержится имя файла модуля и путь к папке, где он лежит, соответственно 👇🏻</p>
+<pre><code>// app.js
+
+console.log(__filename); // /usr/local/project/app.js
+console.log(__dirname); // /usr/local/project</code></pre>
+<p>Мы могли бы сделать путь к файлу `file.txt` динамическим, используя шаблонную строку 👇🏻</p>
+<pre><code>const file = fs.readFile(`${__dirname}/file.txt`, { encoding: &#x27;utf8&#x27; }, (err, data) =&gt; {});</code></pre>
+<p>Модуль `path` хранит методы для работы с путём к файлу. Задачу по преобразованию выполняет метод `join`, который учитывает контекст исполнения, поэтому не приходится думать, например, о разделителях в пути к файлу 👇🏻</p>
+<pre><code>// read-file.js
+
+const fs = require(&#x27;fs&#x27;);
+// Импортируем модуль path
+const path = require(&#x27;path&#x27;);
+
+module.exports.readFile = () =&gt; {
+  const filepath = path.join(__dirname, &#x27;file.txt&#x27;); // Собрали абсолютный путь к файлу
+  const file = fs.readFile(filepath, { encoding: &#x27;utf8&#x27; }, (err, data) =&gt; {
+		console.log(data);
+	});
+};</code></pre>
+<p>С чтением файла разобрались, теперь обсудим другие возможности модулей `fs` и `path`</p>
+<p>Сначала про `fs` 👇🏻</p>
+<p>- Записывает данные в файл</p>
+<p>Для этого есть метод `fs.writeFile`, который принимает три параметра:</p>
+<p>1. Файл, куда нужно записать данные. 2. Сами данные, записанные строкой. 3. Функция для обработки ошибки.</p>
+<pre><code>    const fs = require(&#x27;fs&#x27;);
+    
+    fs.writeFile(&#x27;data.json&#x27;, JSON.stringify([1, 2, 3]), (err) =&gt; {
+      if (err) console.log(err);
+    });</code></pre>
+<p>- Читает все файлы директории</p>
+<p>Здесь применим метод `fs.readdir`, который читает все файлы внутри директории. Первый аргумент метода — путь к директории, второй — функция, в которой описано, что делать с полученными данными. Для её обработки предусмотрено два параметра: первый — ошибка, второй — массив имён найденных файлов 👇🏻</p>
+<pre><code>    const fs = require(&#x27;fs&#x27;);
+    
+    fs.readdir(&#x27;.&#x27;, (err, files) =&gt; {
+      if (err) {
+        console.log(err);
+        return;
+      }
+    
+      console.log(&#x27;data: &#x27;, files);
+    });</code></pre>
+<p>- Создаёт папки</p>
+<p>С этим поможет метод `fs.mkdir`. Он принимает два параметра: имя новой папки и функцию для обработки ошибок. Вместе с именем можно передать и путь, где необходимо создать папку 👇🏻</p>
+<pre><code>    const fs = require(&#x27;fs&#x27;);
+    
+    fs.mkdir(&#x27;incomingData/data&#x27;, (err) =&gt; {
+      if (err) console.log(err);
+    });</code></pre>
+<p>- Удаляет файлы</p>
+<p>Это делает метод `fs.unlink`. У него два параметра: имя файла и колбэк для обработки ошибок 👇🏻</p>
+<pre><code>    const fs = require(&#x27;fs&#x27;);
+    
+    fs.unlink(&#x27;data.json&#x27;, (err) =&gt; {
+      if (err) {
+        console.log(err);
+        return;
+      }
+    
+      console.log(&#x27;Файл удалён!&#x27;);
+    });</code></pre>
+<p>- И ещё много чего…</p>
+<p>Остальные методы модуля `fs` по большей части работают аналогично. Так что, если будет желание скриэйтить что-то этакое с файлом, чего мы не объясняли, — добро пожаловать в документацию 👇🏻</p>
+<p>[Ссылка на документацию модуля fs.](https://nodejs.org/api/fs.html){target=&quot;_blank&quot;}</p>
+<p>А вот ещё несколько полезных методов модуля для работы с путём файла `path` 👇🏻</p>
+<pre><code>const fs = require(&#x27;fs&#x27;);
+const path = require(&#x27;path&#x27;);
+
+// path.normalize убирает из пути лишние
+// разделители и символы .. и .
+path.normalize(&#x27;/foo/bar//baz/asdf/quux/..&#x27;); // /foo/bar/baz/asdf
+
+// path.dirname извлекает путь к папке из переданного пути
+path.dirname(require.main.filename); // /usr/local/my-project
+
+// path.extname извлекает расширение файла
+path.extname(&#x27;app.js&#x27;); // .js
+</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Если тебе интересны другие методы, то можешь почитать о них в [документации Node.js](https://nodejs.org/api/path.html){target=&quot;_blank&quot;}. {/quiz-task}</p>
+</body>
+</html>

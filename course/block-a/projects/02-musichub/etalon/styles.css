@@ -1,0 +1,115 @@
+:root {
+  --bg: #0b0f1a;
+  --bg-elev: #141a2a;
+  --text: #f4f1ea;
+  --muted: #9aa3b8;
+  --accent: #7c5cff;
+  --accent-2: #ffc857;
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+  padding-bottom: 88px;
+}
+img { max-width: 100%; }
+a { color: var(--accent-2); }
+h1, h2, h3, .logo { font-family: Syne, sans-serif; }
+h1 { font-size: 2.4rem; margin: 0 0 0.4em; }
+h2 { font-size: 1.6rem; }
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+}
+.logo { margin: 0; font-size: 1.4rem; }
+nav { display: flex; gap: 16px; }
+
+.hero {
+  display: grid;
+  gap: 24px;
+  padding: 20px;
+}
+.cover {
+  min-height: 180px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #7c5cff, #141a2a);
+}
+.eyebrow { color: var(--accent-2); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; }
+.muted { color: var(--muted); }
+.btn {
+  background: var(--accent);
+  color: white;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+.btn:hover, .btn:focus-visible { transform: scale(1.04); }
+.btn, .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+.card {
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.card:hover, .card:focus-within { transform: translateY(-4px); }
+
+.search { display: grid; gap: 8px; padding: 0 20px 20px; }
+input, select {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #2a3348;
+  background: #0f1524;
+  color: var(--text);
+}
+
+.player {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #101628;
+  border-top: 1px solid #2a3348;
+}
+.player button:not(.btn) {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  cursor: pointer;
+}
+footer { padding: 20px; color: var(--muted); }
+
+.pulse { animation: pulse 2.8s ease-in-out infinite; }
+@keyframes pulse {
+  50% { filter: brightness(1.2); }
+}
+
+@media (min-width: 720px) {
+  .hero { grid-template-columns: 1.2fr 1fr; align-items: center; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse, .btn, .card { animation: none; transition: none; }
+}

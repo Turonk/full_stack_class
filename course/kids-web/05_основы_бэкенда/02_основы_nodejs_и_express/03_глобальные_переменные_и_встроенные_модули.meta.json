@@ -1,0 +1,18 @@
+{
+  "lesson_id": "fa497f75-77e3-4244-82fb-93765d28efd6",
+  "title": "Глобальные переменные и встроенные модули",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "d034b6b4-f9ec-479f-ab65-1b8b1b769e5d",
+  "topic_name": "Основы Node.js и Express",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/fa497f75-77e3-4244-82fb-93765d28efd6/",
+  "markdown_chars": 14982,
+  "content_hash": "b147be10f371c8e3",
+  "saved_at": "2026-07-29T15:23:24.792372+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/02_основы_nodejs_и_express/03_глобальные_переменные_и_встроенные_модули.md",
+    "html": "05_основы_бэкенда/02_основы_nodejs_и_express/03_глобальные_переменные_и_встроенные_модули.html"
+  }
+}

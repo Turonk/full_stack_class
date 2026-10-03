@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Ура, ДЗ!</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Ура, ДЗ!</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/e306fc6c-3f0d-44e5-91b0-ba078938f1df/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/e306fc6c-3f0d-44e5-91b0-ba078938f1df/</a></p>
+  <h1>Ура, ДЗ!</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_32_1707298538.jpg)</p>
+<p>Ага!</p>
+<p>В этот раз ты обновишь проект Pindie, добавив единый источник данных, функцию для фильтрации данных по категории, сделаешь компонент-карточку и поработаешь с `props`</p>
+<p>Сдать работу надо **до 18 февраля**.</p>
+<p>Держи! И удачи!</p>
+<h2>План действий</h2>
+<p>**Часть 1. Единый источник данных (подробнее — в пятом уроке этой недели)**</p>
+<p>- Скачай файл с данными. Его можно найти по [этой](https://gist.github.com/pa7lux/c1cb9b5be2f53bed84785147f70f483a){target=&quot;_blank&quot;} ссылке. Назови файл `data.js` и положи его в папку `data`. Путь к нему будет таким: `/app/data/data.js` - В файле `/app/data/data-utils.js` создай функцию `getGamesByCategory`, которая будет фильтровать данные по категории. - В файле `/app/page.js` создай константы `popularGames` и `newGames`. Сохрани туда результат работы функции `getGamesByCategory` с нужным названием категории. Так ты разделишь данные из общего источника по категориям.</p>
+<p>**Часть 2. Компонент карточки Card (подробнее — во втором уроке этой недели)**</p>
+<p>- Создай папку `/Card` в `app/components` - В этой папке создай файл `Card.jsx` - В этой же папке создай файл `Card.module.css` и перенеси в него стили карточки из файла `CardsList.module.css` (перечитай урок про модульный CSS с прошлой недели, если чувствуешь необходимость освежить в памяти инфу по этой теме). - Создай компонент `Card`. Каждая карточка — элемент списка игр. Можешь скопировать один из таких элементов из компонента `PopularCardsFragment` или `NewCardsFragment` - Используй `props`, чтобы передавать данные в карточку. Вот что нужно поменять:</p>
+<p>а) атрибут `href` в элементе `&lt;a&gt;` — `{props.link}`</p>
+<p>b) ссылка на изображение игры — `{props.image}`</p>
+<p>c) текст заголовка игры — `{props.title}`</p>
+<p>d) текст описания игры — `{props.description}`</p>
+<p>e) имя автора — `{props.developer}`</p>
+<p>f) количество голосов — `{props.users.length}`</p>
+<p>**Часть 3. Компонент CardsList (подробнее — во втором уроке этой недели)**</p>
+<p>- Создай в папке `components/CardsList` файл `CardsList.jsx` - Создай компонент `CardsList`. Его разметку можно взять у компонента `PopularCardsList` или `NewCardsList` - Вставь два компонента `CardsList` в `app/page.js`. Передай спискам соответствующие данные через `props` (укажи нужные `id`, `title` и `data`). - Используй `props`, чтобы получить данные в компоненте `CardsList` Вот что нужно поменять:</p>
+<p>а) значение атрибута `id` в теге заголовка `h2` на `{props.id}`</p>
+<p>b) текст заголовка списка на `{props.title}`</p>
+<p>- Данные для списка передаются в компонент как `{props.data}`. Содержимое списка должно составляться с помощью метода `map()` и компонента `Card`</p>
+<h2>Требования</h2>
+<p>- Все данные хранятся в файле `data.js` в папке `data` - Есть отдельная функция, которая фильтрует данные по категории из `data` - На главной странице из этой функции получаются данные по категориям `Популярные` и `Новые` - Эти данные передаются через параметр `data` в `props` компоненту `CardsList` - `Card` — отдельный компонент, данные карточки попадают в него через `props`. Компонент находится тут: `app/components/Card/Card.jsx`. Модульные стили карточки находятся тут: `app/components/Card/Card.module.css` - Компонент `CardsList` — отдельный компонент. Он находится тут: `app/components/CardsList/CardsList.jsx`. Модульные стили списка должны быть тут: `app/components/CardsList/CardsList.module.css` - Компонент `CardsList` использует метод `map()`, чтобы отобразить карточки (компоненты `Card`) на странице. - Перед отправкой работы удали папки `node_modules` и скрытую папку `.next` Чтобы увидеть скрытые папки на macOS нажми комбинацию горячих клавиш «cmd+shift+.», на Windows — смотри [инструкцию](https://hi-tech.mail.ru/news/47521-kak-pokazat-skrytye-papki/){target=&quot;_blank&quot;}. Проверь, чтобы файлы `package.json` и `package-lock.json` были на месте, а папка с проектом весит не более 10 Мб.</p>
+</body>
+</html>

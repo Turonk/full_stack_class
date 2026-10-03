@@ -1,0 +1,18 @@
+{
+  "lesson_id": "9454f24d-1a5c-43c8-8dbd-7b55cad8a93a",
+  "title": "Переменная event",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/9454f24d-1a5c-43c8-8dbd-7b55cad8a93a/",
+  "markdown_chars": 6124,
+  "content_hash": "ec787f16a2be0d63",
+  "saved_at": "2026-07-29T15:21:10.396899+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/02_переменная_event.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/02_переменная_event.html"
+  }
+}

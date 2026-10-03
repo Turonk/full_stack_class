@@ -1,0 +1,18 @@
+{
+  "lesson_id": "1658c627-6e91-4fcc-afc3-fabdf67ec64b",
+  "title": "Вводный урок",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "180b5a42-c2f8-477c-9b7c-de81164bb657",
+  "topic_name": "Получение и отправка данных",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/1658c627-6e91-4fcc-afc3-fabdf67ec64b/",
+  "markdown_chars": 994,
+  "content_hash": "a2a1a35ea87b8eb2",
+  "saved_at": "2026-07-29T15:21:24.123934+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/05_получение_и_отправка_данных/01_вводный_урок.md",
+    "html": "03_программирование_на_javascript/05_получение_и_отправка_данных/01_вводный_урок.html"
+  }
+}

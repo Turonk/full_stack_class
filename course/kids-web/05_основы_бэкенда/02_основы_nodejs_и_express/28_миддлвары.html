@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Миддлвары</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Миддлвары</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/09fb29c2-cac7-4e39-87a9-1b35b18e1fae/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/09fb29c2-cac7-4e39-87a9-1b35b18e1fae/</a></p>
+  <h1>Миддлвары</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_1187.PNG_1712934251.png)</p>
+<h2>Что такое `middleware`</h2>
+<p>`middleware` — это функция, которая вызывается в промежуток между тем, как сервер получил запрос и отправил ответ на него. Иными словами, перед тем, как сработает контроллер.</p>
+<p>`middleware`-функция в качестве аргументов принимает:</p>
+<p>- Объект запроса `req` — из этого объекта можно получить доступ ко всем параметрам полученного запроса. - Объект ответа `res` — предназначен для отправки ответа сервером. - Функцию `next` — рассмотрим чуть позже, для чего она нужна.</p>
+<p>В качестве примера лови маленькое серверное приложение на `express` 👇🏻</p>
+<pre><code>const express = require(&quot;express&quot;);
+const app = express();
+
+// Объявили middleware-функцию loggingMiddleware
+function loggingMiddleware(req, res, next) {
+  console.log(&quot;Внутри loggingMiddleware&quot;);
+}
+
+// Контроллер для маршрута /
+function homeController(req, res) {
+    console.log(&quot;Внутри homeController&quot;);
+    res.send(&quot;Home Page&quot;);
+}
+
+// Контроллер для маршрута /users
+function usersController(req, res) {
+    console.log(&quot;Внутри usersController&quot;);
+    res.send(&quot;Users Page&quot;);
+}
+
+// Обрабатываем запросы методом GET по маршруту &quot;/&quot;
+app.get(&quot;/&quot;, homeController);
+
+// Обрабатываем запросы методом GET по маршруту &quot;/users&quot;
+app.get(&quot;/users&quot;, usersController);
+
+app.listen(3000, () =&gt; console.log(&quot;Server Started&quot;));</code></pre>
+<p>В коде выше мы обрабатывали запросы по маршрутам `/` и `/users`, а также объявили `middleware`-функцию `loggingMiddleware`. Сейчас при получении запроса по любому маршруту `loggingMiddleware` не будет вызываться, так как мы её не подключили.</p>
+<p>Чтобы это сделать, используем метод `use` 👇🏻</p>
+<pre><code>const express = require(&quot;express&quot;);
+const app = express();
+
+// Объявили middleware-функцию loggingMiddleware
+function loggingMiddleware(req, res, next) {
+  console.log(&quot;Внутри loggingMiddleware&quot;);
+}
+
+// Контроллер для маршрута /
+function homeController(req, res) {
+    console.log(&quot;Внутри homeController&quot;);
+    res.send(&quot;Home Page&quot;);
+}
+
+// Контроллер для маршрута /users
+function usersController(req, res) {
+    console.log(&quot;Внутри usersController&quot;);
+    res.send(&quot;Users Page&quot;);
+}
+
+// Глобально подключили middleware-функцию loggingMiddleware
+app.use(loggingMiddleware);
+
+// Обрабатываем запросы методом GET по маршруту &quot;/&quot;
+app.get(&quot;/&quot;, homeController)
+// Обрабатываем запросы методом GET по маршруту &quot;/users&quot;
+app.get(&quot;/users&quot;, usersController);
+
+app.listen(3000, () =&gt; console.log(&quot;Server Started&quot;));</code></pre>
+<p>Строкой `app.use(loggingMiddleware)` мы глобально подключили `loggingMiddleware`. Глобально — значит, что функция `loggingMiddleware` будет вызываться перед контроллерами по всем маршрутам в приложении, то есть в нашем случае перед контроллерами `homeController` и `usersController`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/8.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>На скринкасте показаны запуск приложения (код выше) и выполнение запроса из браузера по адресу `http://localhost:3000/`. В результате в консоли появляется строка `Внутри loggingMiddleware`, но никакой `Внутри homeController` не будет.</p>
+<p>Так произошло, потому что внутри `loggingMiddleware` мы не вызываем функцию `next` — если добавить её вызов, то всё сработает как должно 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/9.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>В нашем небольшом приложении обработка запросов на каждый маршрут уже состоит из двух этапов: `middleware`-функция `loggingMiddleware` и контроллер. Так вот функция `next` как раз и предназначена для того, чтобы передать управление от одного этапа к следующему. Функцию `next` не нужно путать с `return`: ключевое слово `return` полностью остановит дальнейший процесс обработки запроса, функция `next`, наоборот, передаёт эстафету следующим обработчикам.</p>
+<p>Давай немного усложним наш пример: теперь у нас есть две `middleware`-функции: `nameMiddleware` и `greetingMiddleware` 👇🏻</p>
+<pre><code>const express = require(&quot;express&quot;);
+const app = express();
+
+// Объявили middleware-функцию nameMiddleware
+function nameMiddleware(req, res, next) {
+  const name = &#x27;aski&#x27;;
+  console.log(`Меня зовут ${name}`)
+  req.name = name
+  next();
+}
+
+// Объявили middleware-функцию greetingMiddleware
+function greetingMiddleware(req, res, next) {
+  if (req.name === undefined) {
+    console.log(`А как тебя зовут?`);
+  } else {
+    console.log(`Привет! ${req.name}`);
+  }
+  next();
+}
+
+// Объявили контроллер для маршрута /
+function homeController(req, res) {
+  res.send(&quot;Home Page&quot;);
+}
+
+// Объявили контроллер для маршрута /users
+function usersController(req, res) {
+  res.send(&quot;Users Page&quot;);
+}
+
+// Глобально подключили middleware-функцию nameMiddleware
+app.use(nameMiddleware);
+// Глобально подключили middleware-функцию greetingMiddleware
+app.use(greetingMiddleware);
+// Обрабатываем запросы методом GET по маршруту &quot;/&quot;
+app.get(&quot;/&quot;, homeController);
+// Обрабатываем запросы методом GET по маршруту &quot;/users&quot;
+app.get(&quot;/users&quot;, usersController);
+app.listen(3000, () =&gt; console.log(&quot;Server Started&quot;));</code></pre>
+<p>Обрати внимание на строку `req.name = name;` в `nameMiddleware`. Тут мы присваиваем объекту запроса новое поле `name`, которое в `greetingMiddleware` непосредственно и используется.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ В этом основной смысл `middleware`-функций: они получают доступ к объекту запроса `req` и ответа `res` и могут добавлять или модифицировать данные в них. Таким образом, объекты `req` и `res` проходят через все `middleware`-функции и доходят до функции контроллера. {/quiz-task}</p>
+<p>Посмотри, как это работает 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/99.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>На видео последовательно выполняются следующие шаги:</p>
+<p>1. Запуск приложения. 2. Выполнение из браузера запроса по маршруту `/` по `http://localhost:3000/` в адресной строке. 3. Работа `middleware`-функции `nameMiddleware` и вывод в консоль `Меня зовут aski` 4. Работа `middleware`-функции `greetingMiddleware` и вывод в консоль `Привет, aski!` 5. Работа контроллера `homeController` и ответ браузеру на его запрос текстом `Home Page`</p>
+<p>Есть ещё один момент, требующий твоего внимания: порядок подключения миддлваров функцией `use` напрямую влияет на порядок их выполнения при обработке запроса. Посмотри на скринкаст, и станет яснее 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/999.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>На видео мы поменяли местами подключения двух `middleware`</p>
+<p>Было 👇🏻</p>
+<pre><code>// Глобально подключили middleware-функцию nameMiddleware
+app.use(nameMiddleware);
+// Глобально подключили middleware-функцию greetingMiddleware
+app.use(greetingMiddleware);</code></pre>
+<p>Стало 👇🏻</p>
+<pre><code>// Глобально подключили middleware-функцию greetingMiddleware
+app.use(greetingMiddleware);
+// Глобально подключили middleware-функцию nameMiddleware
+app.use(nameMiddleware);</code></pre>
+<p>Функция `greetingMiddleware` теперь всегда будет выполняться перед `nameMiddleware`. То есть в момент срабатывания `greetingMiddleware` в объекте `req` ещё нет поля `name`, и поэтому в консоль выводится `А как тебя зовут?`</p>
+<p>Стоит также упомянуть, что если у тебя больше одного миддлвара, то необязательно для подключения каждого использовать отдельный вызов `app.use()`. Все миддлвары можно передать в один-единственный `app.use()`. Вот так можно было бы подключить `greetingMiddleware` и `nameMiddleware` 👇🏻</p>
+<pre><code>app.use(greetingMiddleware, nameMiddleware);</code></pre>
+<p>Такой способ полностью идентичен предыдущему способу подключать миддлвары, когда каждый из них передаётся в отдельный `app.use()`. Порядок следования миддлваров в одном `app.use()` тоже влияет на порядок их выполнения.</p>
+<p>Ок! Реализуем 👇🏻</p>
+<pre><code>const express = require(&quot;express&quot;);
+const app = express();
+
+// Объявили middleware-функцию nameMiddleware
+function nameMiddleware(req, res, next) {
+  const name = &#x27;Aski&#x27;;
+  console.log(`Меня зовут ${name}`)
+  req.name = name
+  next();
+}
+
+// Объявили middleware-функцию greetingMiddleware
+function greetingMiddleware(req, res, next) {
+  if (req.name === undefined) {
+    console.log(`А как тебя зовут?`);
+  } else {
+    console.log(`Привет! ${req.name}`);
+  }
+  next();
+}
+
+// Объявили middleware-функцию для проверки авторизации
+function authMiddleware(req, res, next) {
+  console.log(`Пользователь ${req.name} авторизован!`);
+  req.isAuth = true;
+  next()
+}
+
+// Объявили контроллер для маршрута /
+function homeController(req, res) {
+  if (req.isAuth) {
+    res.send(`${req.name} home page`);
+  } else {
+    res.send(&quot;Home Page&quot;);
+  }
+}
+
+// Объявили контроллер для маршрута /users
+function usersController(req, res) {
+  res.send(&quot;Users Page&quot;);
+}
+
+// Глобально подключили middleware-функцию greetingMiddleware
+app.use(greetingMiddleware);
+// Глобально подключили middleware-функцию nameMiddleware
+app.use(nameMiddleware);
+
+// Обрабатываем запросы методом GET по маршруту &quot;/&quot;
+app.get(&quot;/&quot;, authMiddleware, homeController);
+// Обрабатываем запросы методом GET по маршруту &quot;/users&quot;
+app.get(&quot;/users&quot;, usersController);
+app.listen(3000, () =&gt; console.log(&quot;Server Started&quot;));</code></pre>
+<p>Мы создали третью `middleware`-функцию `authMiddleware` и подключили её так 👇🏻</p>
+<pre><code>app.get(&quot;/&quot;, authMiddleware, homeController);</code></pre>
+<p>Теперь `authMiddleware` будет срабатывать только при запросе по маршруту `/`. На видео можешь глянуть, как это работает 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/111.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Видно, что строка `Пользователь Aski авторизован!` логируется в консоль при запросе по маршруту `/`, но при запросе по маршруту `/users` такая строка отсутствует.</p>
+<h2>Используем `middleware` в проекте</h2>
+<p>Прежде чем использовать миддлвары, посмотри на фронтенд проекта: в нём есть форма для добавления новой игры, после нажатия на кнопку `Добавить` фронтенд делает запрос методом `POST` по маршруту `/games` 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/22.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Сейчас `express`-приложение не умеет обрабатывать такие запросы и отвечает ошибкой с номером `404`. Чтобы исправить это, создай новый маршрут в файле `routes/games.js` для запросов методом `POST` по адресу `/games` 👇🏻</p>
+<pre><code>gamesRouter.post(&quot;/games&quot;, addGameController)</code></pre>
+<p>Для обработки запроса будем использовать контроллер `addGameController` 👇🏻</p>
+<pre><code>const addGameController = async (req, res) =&gt; {
+    // Читаем список игр из файла
+    const games = await readData(&quot;./data/games.json&quot;);
+    if (!games) {
+        res.status(400);
+        res.send({
+        status: &quot;error&quot;,
+        message: &quot;Нет игр в базе данных. Добавьте игру.&quot;,
+        });
+        return;
+    }
+    req.games = games;
+    // Проверяем, есть ли уже в списке игра с таким же названием
+    req.isNew = !Boolean(req.games.find(item =&gt; item.title === req.body.title));
+    // Если игра, которую хотим добавить, новая (её не было в списке)
+    if (req.isNew) {
+        // Добавляем объект с данными о новой игре
+        const inArray = req.games.map(item =&gt; Number(item.id));
+        let maximalId;
+        if (inArray.length &gt; 0) {
+          maximalId = Math.max(...inArray);
+        } else {
+          maximalId = 0;
+        }
+        req.updatedObject = {
+          id: maximalId + 1,
+          title: req.body.title,
+          image: req.body.image,
+          link: req.body.link,
+          description: req.body.description
+        };
+        // Добавляем данные о новой игре в список с другими играми
+        req.games = [...req.games, req.updatedObject];
+    } else {
+        res.status(400);
+        res.send({ status: &quot;error&quot;, message: &quot;Игра с таким именем уже есть.&quot; });
+        return
+    }
+    // Записываем обновлённый список игр в файл
+    await writeData(&quot;./data/games.json&quot;, req.games);
+    // В качестве ответа отправляем объект с двумя полями
+    res.send({
+        games: req.games, // Обновлённый список со всеми играми
+        updated: req.updatedObject // Новая добавленная игра
+    });
+}</code></pre>
+<p>Как работает этот контроллер, чекай на видео 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/44.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>В конце скринкаста можно заметить, что после того как мы ввели все данные в форму и попытались выполнить `POST`-запрос, чтобы добавить новую игру, в консоли появилась ошибка 👇🏻</p>
+<pre><code>(node:35834) UnhandledPromiseRejectionWarning: TypeError: Cannot read property &#x27;title&#x27; of undefined</code></pre>
+<p>Ошибка возникла в контроллере `addGameController` в строке ниже при попытке воспользоваться значением поля `title` из объекта `req.body`</p>
+<pre><code>req.isNew = !Boolean(req.games.find(item =&gt; item.title === req.body.title));
+</code></pre>
+<p>В данном случае `req.body` имеет значение `undefined`</p>
+<h3>Библиотека `body-parser`</h3>
+<p>Дело в том, что данные, которые были отправлены из фронтенда в виде `json`-объекта, нельзя просто так взять и прочитать из объекта `req.body`, сначала требуется их специальным образом подготовить, чтобы с ними можно было снова работать как c `json`-объектами. До того как мы начали изучать `express`, мы уже писали функцию `parseBody` с использованием конструктора `Promise`, которая выполняет эту задачу.</p>
+<p>Сейчас же мы наконец подходим к `middleware`: для того чтобы из `req.body` можно было прочитать данные, необходимо воспользоваться миддлварами из библиотеки `body-parser`</p>
+<p>Как мы это сделали, смотри в скринкасте 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/55.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>Сначала установили саму библиотеку командой 👇🏻</p>
+<pre><code>npm install body-parser</code></pre>
+<p>Далее добавили её использование в файл `app.js` 👇🏻</p>
+<pre><code>// app.js 
+const express = require(&#x27;express&#x27;);
+const path = require(&#x27;path&#x27;);
+const bodyParser = require(&#x27;body-parser&#x27;);
+const mainRoute = require(&#x27;./routes/main&#x27;);
+const gamesRouter = require(&#x27;./routes/games&#x27;); 
+
+const PORT = 3000;
+const app = express();
+
+app.use(
+    bodyParser.json(),
+    express.static(path.join(__dirname, &#x27;public&#x27;)),
+    mainRoute,
+    gamesRouter
+); 
+
+app.listen(PORT, () =&gt; {
+    console.log(`Server is running at PORT http://localhost:${PORT}`);
+})</code></pre>
+<p>Теперь `middleware`-функция `bodyParser.json` подключена глобально и будет вызываться для всех маршрутов приложения.</p>
+<h3>Выносим общий код в `middleware`</h3>
+<p>Обрати внимание на код всех трёх контроллеров: `deleteGame`, `addGameController` и `getAllGames`. В каждом из них есть один и тот же блок кода, который отвечает за чтение из файла `data/games.json` 👇🏻</p>
+<pre><code>const games = await readData(&quot;./data/games.json&quot;);
+if (!games) {
+    res.status(400);
+    res.send({
+    status: &quot;error&quot;,
+    message: &quot;Нет игр в базе данных. Добавьте игру.&quot;
+    });
+    return;
+}
+req.games = games;</code></pre>
+<p>Его можно вынести в отдельную функцию и подключить как `middleware` в те маршруты, контроллеры которых используют `req.games`</p>
+<p>Выполни следующие шаги:</p>
+<p>1. Создай папку `middlewares` 2. В `middlewares` добавь файл `games.js`, в который положи функцию с общей частью кода, пусть эта функция будет называться `getAllGames` 3. Так как `getAllGames` — это теперь миддлвар, такую же функцию в файле `controllers/games.js` переименуй в `sendAllGames` 4. Удали один код, который перенесли в `middleware`, из всех контроллеров. 5. Подключи функцию `getAllGames` как `middleware` во все маршруты в файле `routes/games.js`</p>
+<p>Для собственного спокойствия 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/66.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Чтобы сдать проект, тебе нужно написать ещё несколько миддлваров. Детали их работы расскажем в уроке «Дэзэшечка». В этом уроке мы объяснили минимум, чтобы разобраться с тем, что такое миддлвары и написать основу для запуска проекта вместе с фронтендом. {/quiz-task}</p>
+</body>
+</html>

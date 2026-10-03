@@ -1,0 +1,18 @@
+{
+  "lesson_id": "c07472ea-7deb-44a2-8c85-f49d7dd8afc6",
+  "title": "Командная строка (урок со звёздочкой)",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/c07472ea-7deb-44a2-8c85-f49d7dd8afc6/",
+  "markdown_chars": 9865,
+  "content_hash": "ac58314987eebf0e",
+  "saved_at": "2026-07-29T15:20:39.514442+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/08_командная_строка_урок_со_звездочкой.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/08_командная_строка_урок_со_звездочкой.html"
+  }
+}

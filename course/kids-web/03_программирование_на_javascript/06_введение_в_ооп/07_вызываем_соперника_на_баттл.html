@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Вызываем соперника на баттл</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Вызываем соперника на баттл</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/04cfa818-6f6b-4634-a493-af0bae269766/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/04cfa818-6f6b-4634-a493-af0bae269766/</a></p>
+  <h1>Вызываем соперника на баттл</h1>
+<p>Действительно, баттл без соперника никакой не баттл. Поэтому в этом уроке мы реализуем получение случайного противника с сервера. Для этого придётся вспомнить про запросы к серверу и как получать рандомные числа в JS.</p>
+<p>Кстати, противниками в этой танцевальной дуэли будут 20 случайных персонажей из всех тех, что были созданы студентами этого курса. Так что челлендж урока — научиться их получать и отображать их характеристики в карточке проекта.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_627_1_1704994140.png)</p>
+<h2>Получение противника</h2>
+<h3>Шаг 1. Запрашиваем всех возможных врагов</h3>
+<p>В прошлых уроках мы уже сохранили в переменную `getEnemyButton` кнопку для получения соперника. Осталось на неё установить обработчик события клика `onclick`👇🏻</p>
+<pre><code> // По аналогии напишем анонимную функцию для получения оппонента
+getEnemyButton.onclick = () =&gt; {
+    // Тут будем запрашивать данные о персонаже с сервера
+};</code></pre>
+<p>Напишем запрос на сервер с карточками. Чтобы получить информацию, нам понадобится обычный GET-запрос. Его поможет выполнить функция `fetch()` и ссылка для получения всех персонажей 👇🏻</p>
+<pre><code>getEnemyButton.onclick = () =&gt; {
+    // Получаем героя оппонента с сервера
+    fetch(`https://api-code.practicum-team.ru/heroes`)
+				// Обрабатываем ответ сервера
+        .then((response) =&gt; response.json())
+        .then((data) =&gt; {
+						// Смотрим на данные в консоли
+            console.log(data);
+        })
+				// В случае ошибки запроса выводим сообщение об ошибке в консоль 
+        .catch((error) =&gt; console.error(&quot;Ошибка:&quot;, error));
+};</code></pre>
+<h3>Шаг 2. Выбираем случайного соперника</h3>
+<p>Получить данные обо всех персонажах — это половина успеха. Нужно найти случайного оппонента и отобразить его в интерфейсе игры.</p>
+<p>От сервера приходит массив героев, из этого массива мы выбираем по индексу одного из них. Чтобы при каждом нажатии на кнопку `ПОЛУЧИТЬ ГЕРОЯ` нам подбирался новый случайный герой, напишем код для получения случайного элемента массива.</p>
+<p>В JS существует объект `Math`, он позволяет выполнять различные математические операции. В предыдущем проекте мы уже обращались к нему для получения случайного предсказания, сейчас `Math` пригодится нам вновь.</p>
+<p>Вот две очень полезные `Math`-функции в программировании:</p>
+<p>- `Math.floor()` помогает округлить в меньшую сторону то число, которое передали в качестве аргумента - `Math.random()` возвращает случайное число (подробнее [по ссылке](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random){target=&quot;_blank&quot;})</p>
+<p>Чтобы получить случайный индекс массива `data`, мы:</p>
+<p>1. Умножим случайное число на длину массива 2. Округлим полученное значение</p>
+<p>Полностью запись выглядит вот так 👇🏻</p>
+<pre><code>Math.floor(Math.random() * data.length) // Случайный элемент от 0 до длины массива data.length</code></pre>
+<h3>Шаг 3. Сохраняем данные о сопернике</h3>
+<p>Сохраним выбранного персонажа в переменную `randomEnemy` 👇🏻</p>
+<pre><code>getEnemyButton.onclick = () =&gt; {
+	// Получаем героя оппонента с сервера
+    fetch(`https://api-code.practicum-team.ru/heroes`)
+			// Обрабатываем ответ сервера
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; {
+				// Смотрим на данные в консоли
+        console.log(data);
+				let randomEnemy = data[Math.floor(Math.random() * data.length)]; // Получаем случайного героя оппонента
+        console.log(randomEnemy); // Выводим героя оппонента в консоль
+      })
+			// В случае ошибки запроса выводим сообщение об ошибке в консоль 
+      .catch((error) =&gt; console.error(&quot;Ошибка:&quot;, error));
+};</code></pre>
+<p>В переменной `randomEnemy` хранится объект из прошлого проекта. Адаптируем его к актуальному проекту, создав экземпляр класса `Hero` с информацией из объекта `randomEnemy`, и запишем его в переменную `enemyHero`👇🏻</p>
+<pre><code>getEnemyButton.onclick = () =&gt; {
+	// Получаем героя оппонента с сервера
+	  fetch(`https://api-code.practicum-team.ru/heroes`)
+			// Обрабатываем ответ сервера
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; {
+			// Смотрим на данные в консоли
+	      console.log(data);
+				let randomEnemy = data[Math.floor(Math.random() * data.length)]; // Получаем случайного героя оппонента
+        console.log(randomEnemy); // Выводим героя оппонента в консоль
+
+        // Создаём экземпляр класса героя оппонента 
+				// и сохраняем его в переменную enemyHero
+        enemyHero = new Hero(
+	        randomEnemy.title, // Имя героя
+          Math.floor(Math.random() * 10) + 1, // Уровень героя
+          randomEnemy.hp, // Запас сил героя
+	          {
+	            str: randomEnemy.str,
+              int: randomEnemy.int,
+              agi: randomEnemy.agi,
+            }
+          ); // Параметры героя
+			// В случае ошибки запроса выводим сообщение об ошибке в консоль 
+      .catch((error) =&gt; console.error(&quot;Ошибка:&quot;, error));
+};</code></pre>
+<h3>Шаг 4. Выводим персонажа оппонента на экран. Описываем функцию `displayEnemyHero()`</h3>
+<p>Вёрстка для этой карточки готова, необходимо только правильно вставить данные.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-12-28_v_23.32.20_1704994394.png)</p>
+<p>Функция `displayEnemyHero()` позволяет достать значения из объекта и вставить их в вёрстку 👇🏻</p>
+<pre><code>getEnemyButton.onclick = () =&gt; {
+	// Получаем героя оппонента с сервера
+	  fetch(`https://api-code.practicum-team.ru/heroes`)
+			// Обрабатываем ответ сервера
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; {
+			// Смотрим на данные в консоли
+	      console.log(data);
+				let randomEnemy = data[Math.floor(Math.random() * data.length)]; // Получаем случайного героя оппонента
+        console.log(randomEnemy); // Выводим героя оппонента в консоль
+
+        // Создаём экземпляр класса героя оппонента
+        enemyHero = new Hero(
+	        randomEnemy.title, // Имя героя
+          Math.floor(Math.random() * 10) + 1, // Уровень героя
+          randomEnemy.hp, // Запас сил героя
+	          {
+	            str: randomEnemy.str,
+              int: randomEnemy.int,
+              agi: randomEnemy.agi,
+            }
+          ); // Параметры героя
+
+            // Заполняем карточку героя оппонента
+            displayEnemyHero(enemyHero);
+
+			// В случае ошибки запроса выводим сообщение об ошибке в консоль 
+      .catch((error) =&gt; console.error(&quot;Ошибка:&quot;, error));
+};</code></pre>
+<p>В функцию аргументом передаётся экземпляр класса персонажа, в нём хранятся характеристики персонажа и метод. Давай просто вставим каждый параметр в соответствующий HTML-тег и вызовем метод класса 👇🏻</p>
+<pre><code>function displayEnemyHero(hero) {
+	document.getElementById(&quot;enemyHeroClass&quot;).innerHTML = gameClasses[hero.constructor.name];
+  document.getElementById(&quot;enemyHeroName&quot;).innerHTML = hero.name;
+  document.getElementById(&quot;enemyHeroLevel&quot;).innerHTML = hero.level;
+  document.getElementById(&quot;enemyHeroHp&quot;).innerHTML = hero.healthPoints;
+  document.getElementById(&quot;enemyHeroStrength&quot;).innerHTML = hero.stats.str;
+  document.getElementById(&quot;enemyHeroIntelligence&quot;).innerHTML = hero.stats.int;
+  document.getElementById(&quot;enemyHeroAgility&quot;).innerHTML = hero.stats.agi;
+
+  hero.displayHero();
+}</code></pre>
+<p>Чтобы не запутаться, можешь вывести в консоль приходящий аргумент функции `console.log(hero)` — так ты наглядно поймёшь, где в объекте `hero` лежат необходимые свойства.</p>
+<h3>Шаг 5. Снимаем блок с кнопки</h3>
+<p>К этому моменту предполагаемый пользователь на нашем сайте сделал всё, что от него требовалось для начала баттла. Значит, пора разблокировать кнопку начала баттла `startBattleButton` 👇🏻</p>
+<pre><code>getEnemyButton.onclick = () =&gt; {
+	// Получаем героя оппонента с сервера
+  fetch(`https://api-code.practicum-team.ru/heroes`)
+		// Обрабатываем ответ сервера
+    .then((response) =&gt; response.json())
+    .then((data) =&gt; {
+			// Смотрим на данные в консоли
+      console.log(data);
+			let randomEnemy = data[Math.floor(Math.random() * data.length)]; // Получаем случайного героя оппонента
+      console.log(randomEnemy); // Выводим героя оппонента в консоль
+
+      // Создаём экземпляр класса героя оппонента
+      enemyHero = new Hero(
+	      randomEnemy.title, // Имя героя
+        Math.floor(Math.random() * 10) + 1, // Уровень героя
+        randomEnemy.hp, // Запас сил героя
+        {
+	        str: randomEnemy.str,
+          int: randomEnemy.int,
+          agi: randomEnemy.agi,
+        }
+      ); // Параметры героя
+
+      // Заполняем карточку героя оппонента
+      displayEnemyHero(enemyHero);
+			// Проверяем, создал ли пользователь персонажа
+      if (playerHero) {
+				// Если есть два участника, снимаем блок с кнопки
+        startBattleButton.removeAttribute(&quot;disabled&quot;);
+      }
+    })
+		// В случае ошибки запроса выводим сообщение об ошибке в консоль 
+    .catch((error) =&gt; console.error(&quot;Ошибка:&quot;, error));
+};</code></pre>
+<p>Такой результат у тебя должен получиться 😎</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/05-oop/0507-render-enemy-hero/example-01/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Так точно! Впереди самое важное — описание логики расчёта победителя баттла!</p>
+</body>
+</html>

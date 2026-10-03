@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Первый шаг к проекту</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Первый шаг к проекту</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/28dd090a-6b8c-424a-88a9-2f5df3f08dea/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/28dd090a-6b8c-424a-88a9-2f5df3f08dea/</a></p>
+  <h1>Первый шаг к проекту</h1>
+<p>Да! Начинать советуем с чего-то простого, например с создания своего сервера.</p>
+<p>Лови требования 👇🏻</p>
+<p>{quiz-task} background: | #f5f6f7 content: | По итогу у тебя должен получиться сервер, который при запуске выдаёт по любому запросу `h1` c заголовком «Скоро тут будет сервис рейтинга». {/quiz-task}</p>
+<p>Чтобы справиться с задачей, проверь, все ли пункты выполнены:</p>
+<p>- Создай файл `index.js` - Подключи модуль `http` и импортируй его в код файла `index.js` командой `require` - Создай сервер. Для этого объяви переменную `server` и присвой ей результат вызова метода `createServer` модуля `http` - В метод `createServer` передай функцию-колбэк с двумя аргументами — объектом запроса `req` и ответа `res` - В теле функции-колбэка у объекта ответа `res` вызови метод `writeHead` и передай статус ответа `200` и подходящий для HTML заголовок в значение `Content-Type` - Чтобы завершить ответ в теле функции-колбэка, вызови на объекте ответа `res` метод `end` с двумя аргументами:</p>
+<p>1. Первый аргумент — **строка** с тегом `&lt;h1&gt;`, в котором лежит текст `Скоро тут будет сервис рейтинга`</p>
+<p>2. Второй аргумент — **строка** с кодировкой для `html` элементов `utf-8`</p>
+<p>- В конце файла `index.js` после описания метода `createServer` у переменной `server` вызови метод `listen` и передай аргументом номер порта — `3000`</p>
+</body>
+</html>

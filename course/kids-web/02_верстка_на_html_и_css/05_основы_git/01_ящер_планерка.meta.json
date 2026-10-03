@@ -1,0 +1,18 @@
+{
+  "lesson_id": "f7680584-212e-4c9b-bbf1-afba93f4ebce",
+  "title": "Ящер-планёрка",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "0d31bc42-8988-415d-844f-19cda497cd8e",
+  "topic_name": "Основы Git",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/0d31bc42-8988-415d-844f-19cda497cd8e/lessons/f7680584-212e-4c9b-bbf1-afba93f4ebce/",
+  "markdown_chars": 1710,
+  "content_hash": "f38dc2127802a11d",
+  "saved_at": "2026-07-29T15:20:29.415946+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/05_основы_git/01_ящер_планерка.md",
+    "html": "02_верстка_на_html_и_css/05_основы_git/01_ящер_планерка.html"
+  }
+}

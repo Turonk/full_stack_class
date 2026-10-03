@@ -1,0 +1,18 @@
+{
+  "lesson_id": "b3593b16-b5d5-4abb-bf02-b366075027ac",
+  "title": "Роутинг",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "dc689bfe-1408-47f0-a390-91a5bb1735be",
+  "topic_name": "Маршрутизация SPA",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/b3593b16-b5d5-4abb-bf02-b366075027ac/",
+  "markdown_chars": 2828,
+  "content_hash": "810a55fd6740ca9f",
+  "saved_at": "2026-07-29T15:22:39.061526+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/02_роутинг.md",
+    "html": "04_применение_реактивного_фреймворка/05_маршрутизация_spa/02_роутинг.html"
+  }
+}

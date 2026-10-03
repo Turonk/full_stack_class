@@ -1,0 +1,18 @@
+{
+  "lesson_id": "6c757b90-7cb9-47b6-96d6-7e883a992d05",
+  "title": "Печеньки программистов",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/6c757b90-7cb9-47b6-96d6-7e883a992d05/",
+  "markdown_chars": 12405,
+  "content_hash": "a4be33a037fb024a",
+  "saved_at": "2026-07-29T15:24:43.238315+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/08_печеньки_программистов.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/08_печеньки_программистов.html"
+  }
+}

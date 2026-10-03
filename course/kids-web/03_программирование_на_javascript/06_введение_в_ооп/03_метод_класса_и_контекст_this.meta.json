@@ -1,0 +1,18 @@
+{
+  "lesson_id": "db14c968-9665-44a2-a21a-f2eb48dd4516",
+  "title": "Метод класса и контекст this",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/db14c968-9665-44a2-a21a-f2eb48dd4516/",
+  "markdown_chars": 7415,
+  "content_hash": "86ed6db20f78439a",
+  "saved_at": "2026-07-29T15:21:37.166519+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/03_метод_класса_и_контекст_this.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/03_метод_класса_и_контекст_this.html"
+  }
+}

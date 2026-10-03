@@ -1,0 +1,15 @@
+/* эталон переменных — см. ../../projects/02-musichub/etalon/styles.css */
+:root {
+  --bg: #0b0f1a;
+  --text: #f4f1ea;
+  --accent: #7c5cff;
+  --muted: #9aa3b8;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+a { color: var(--accent); }
+.muted { color: var(--muted); }

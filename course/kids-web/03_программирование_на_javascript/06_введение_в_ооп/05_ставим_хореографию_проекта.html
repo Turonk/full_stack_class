@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Ставим хореографию проекта</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Ставим хореографию проекта</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/c182c977-8193-46cb-8053-25580657da61/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/c182c977-8193-46cb-8053-25580657da61/</a></p>
+  <h1>Ставим хореографию проекта</h1>
+<p>Присоединяемся к радостному приветствию! В этом уроке мы наконец начнём разработку интерактивной логики на JavaScript для игры. В ней мы задействуем все твои навыки с прошлых уроков: создание классов, функций, циклов, условий и запросов к серверу.</p>
+<p>Для начала определимся с механикой игры. Пусть это будет `Dance Battle` между двумя персонажами. Одного персонажа мы создаём через форму на сайте, а второй приходит к нам с сервера.</p>
+<p>Затем карточки обоих персонажей с их характеристиками отображаются на странице сайта, появляется кнопка `НАЧАТЬ БАТТЛ!`. При нажатии на эту кнопку запускается вычисление, какой персонаж более выносливый и лучше танцует. Результат вычисления отображается в консоли.</p>
+<p>По умолчанию интерфейс будет выглядеть так:</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-12-29_v_20.33.04_1704912423.png)</p>
+<p>Кажется, работа предстоит масштабная, но давай двигаться постепенно. В этом уроке мы создадим проект и настроим форму, чтобы пользователь мог взаимодействовать с ней, а в следующих разберёмся с выводом информации о танцорах в карточках и логикой игры.</p>
+<h2>Подготовительный этап</h2>
+<p>Прежде чем приступать к программированию логики игры, давай соберём структуру проекта: разложим по местам вёрстку, стили, уже готовый код с классами персонажей.</p>
+<p>[heroesDanceBattle.zip](https://code.s3.yandex.net/kids-web/heroesDanceBattle.zip){target=&quot;_blank&quot;}</p>
+<p>Твоя задача — добавить вёрстку в проект, создать два файла — `classes.js` и `script.js` — и правильно подключить их к HTML-странице. Как это сделать, смотри в видео 👇🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Скринкаст_heroesDanceBattle.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta
+            name=&quot;viewport&quot;
+            content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;
+        /&gt;
+        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;
+        &lt;title&gt;Heroes Dance Battle 💃&lt;/title&gt;
+        &lt;link rel=&quot;icon&quot; href=&quot;images/favicon.ico&quot; type=&quot;image/x-icon&quot; /&gt;
+        &lt;link
+            rel=&quot;shortcut icon&quot;
+            href=&quot;images/favicon.ico&quot;
+            type=&quot;image/x-icon&quot;
+        /&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;h1 class=&quot;page-heading&quot;&gt;Heroes Dance Battle 💃&lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;
+        &lt;main class=&quot;container&quot;&gt;
+            &lt;div class=&quot;game-zones&quot;&gt;
+                &lt;section class=&quot;form-wrapper&quot;&gt;
+                    &lt;form id=&quot;heroForm&quot; class=&quot;form&quot;&gt;
+                        &lt;label class=&quot;radio-label-title&quot;&gt;Класс&lt;/label&gt;
+
+                        &lt;div class=&quot;radio-row&quot;&gt;
+                            &lt;!--    Получи значение выбранного инпута класса   --&gt;
+                            &lt;input
+                                class=&quot;radio-input&quot;
+                                name=&quot;class&quot;
+                                type=&quot;radio&quot;
+                                id=&quot;classMage&quot;
+                                value=&quot;Mage&quot;
+                                checked
+                            /&gt;
+                            &lt;label class=&quot;radio-label-text&quot; for=&quot;classMage&quot;
+                                &gt;Маг 🔮&lt;/label
+                            &gt;
+
+                            &lt;input
+                                class=&quot;radio-input&quot;
+                                type=&quot;radio&quot;
+                                id=&quot;classKnight&quot;
+                                name=&quot;class&quot;
+                                value=&quot;Knight&quot;
+                            /&gt;
+                            &lt;label class=&quot;radio-label-text&quot; for=&quot;classKnight&quot;
+                                &gt;Рыцарь 🗡&lt;/label
+                            &gt;
+                        &lt;/div&gt;
+                        &lt;!--    Получи значение инпута имени    --&gt;
+                        &lt;input
+                            class=&quot;form-input&quot;
+                            type=&quot;text&quot;
+                            id=&quot;name&quot;
+                            name=&quot;name&quot;
+                            maxlength=&quot;24&quot;
+                            placeholder=&quot;Имя героя&quot;
+                        /&gt;
+                        &lt;!--    Получи значение инпута уровня    --&gt;
+                        &lt;input
+                            class=&quot;form-input&quot;
+                            type=&quot;number&quot;
+                            id=&quot;level&quot;
+                            min=&quot;1&quot;
+                            max=&quot;10&quot;
+                            name=&quot;level&quot;
+                            placeholder=&quot;Уровень&quot;
+                        /&gt;
+
+                        &lt;div class=&quot;form-parameters&quot;&gt;
+                            &lt;!--    Получи значение инпутов параметров уровня    --&gt;
+                            &lt;input
+                                class=&quot;form-input parameter-input&quot;
+                                type=&quot;number&quot;
+                                min=&quot;1&quot;
+                                max=&quot;99&quot;
+                                id=&quot;strength&quot;
+                                name=&quot;strength&quot;
+                                placeholder=&quot;Сила&quot;
+                            /&gt;
+                            &lt;input
+                                class=&quot;form-input parameter-input&quot;
+                                type=&quot;number&quot;
+                                min=&quot;1&quot;
+                                max=&quot;99&quot;
+                                id=&quot;intelligence&quot;
+                                name=&quot;intelligence&quot;
+                                placeholder=&quot;Интеллект&quot;
+                            /&gt;
+                            &lt;input
+                                class=&quot;form-input parameter-input&quot;
+                                type=&quot;number&quot;
+                                min=&quot;1&quot;
+                                max=&quot;99&quot;
+                                id=&quot;agility&quot;
+                                name=&quot;agility&quot;
+                                placeholder=&quot;Ловкость&quot;
+                            /&gt;
+                            &lt;input
+                                class=&quot;form-input parameter-input&quot;
+                                type=&quot;number&quot;
+                                id=&quot;additionalStat&quot;
+                                min=&quot;1&quot;
+                                name=&quot;additionalStat&quot;
+                                placeholder=&quot;Мана / Энергия&quot;
+                            /&gt;
+                        &lt;/div&gt;
+                        &lt;label
+                            class=&quot;radio-label-title&quot;
+                            id=&quot;additionalAbilityText&quot;
+                            &gt;Есть зелье для тектоника? / Танцует танго на
+                            коне?&lt;/label
+                        &gt;
+                        &lt;div class=&quot;radio-row&quot;&gt;
+                            &lt;!--    Получи значение выбранного инпута дополнительного параметра  --&gt;
+                            &lt;input
+                                class=&quot;radio-input&quot;
+                                type=&quot;radio&quot;
+                                id=&quot;additionalAbilityTrue&quot;
+                                name=&quot;additionalAbility&quot;
+                                value=&quot;true&quot;
+                                checked
+                            /&gt;
+                            &lt;label
+                                class=&quot;radio-label-text&quot;
+                                for=&quot;additionalAbilityTrue&quot;
+                                &gt;Да&lt;/label
+                            &gt;
+
+                            &lt;input
+                                class=&quot;radio-input&quot;
+                                type=&quot;radio&quot;
+                                id=&quot;additionalAbilityFalse&quot;
+                                name=&quot;additionalAbility&quot;
+                                value=&quot;false&quot;
+                            /&gt;
+                            &lt;label
+                                class=&quot;radio-label-text&quot;
+                                for=&quot;additionalAbilityFalse&quot;
+                                &gt;Нет&lt;/label
+                            &gt;
+                        &lt;/div&gt;
+                        &lt;!--    Обработай нажатие на эту кнопку и добавь создание героя    --&gt;
+                        &lt;button
+                            class=&quot;form-button&quot;
+                            id=&quot;sendToBattleButton&quot;
+                            type=&quot;button&quot;
+                        &gt;
+                            Отправить на танцпол
+                        &lt;/button&gt;
+                    &lt;/form&gt;
+                &lt;/section&gt;
+
+                &lt;section class=&quot;battle-zone&quot;&gt;
+                    &lt;div class=&quot;cards&quot;&gt;
+                        &lt;div class=&quot;card-wrapper&quot;&gt;
+                            &lt;h2 class=&quot;card-heading&quot;&gt;Ваш герой&lt;/h2&gt;
+                            &lt;div class=&quot;card&quot;&gt;
+                                &lt;div class=&quot;card-title&quot;&gt;
+                                    &lt;!--    Помести сюда класс героя по нажатию на кнопку    --&gt;
+                                    &lt;h2 id=&quot;playerHeroClass&quot; class=&quot;card-class&quot;&gt;
+                                        Класс
+                                    &lt;/h2&gt;
+                                    &lt;!--    Помести сюда имя героя    --&gt;
+                                    &lt;h2
+                                        id=&quot;playerHeroName&quot;
+                                        class=&quot;card-title-text&quot;
+                                    &gt;
+                                        Имя героя
+                                    &lt;/h2&gt;
+                                &lt;/div&gt;
+                                &lt;div class=&quot;card-description&quot;&gt;
+                                    &lt;!--    Помести в span уровень героя    --&gt;
+                                    &lt;h3 class=&quot;card-level&quot;&gt;
+                                        Уровень:
+                                        &lt;span
+                                            id=&quot;playerHeroLevel&quot;
+                                            class=&quot;hero-level-amount&quot;
+                                            &gt;--&lt;/span
+                                        &gt;
+                                    &lt;/h3&gt;
+                                    &lt;p class=&quot;card-parameters-heading&quot;&gt;
+                                        Характеристики:
+                                    &lt;/p&gt;
+                                    &lt;div class=&quot;card-parameters&quot;&gt;
+                                        &lt;!--    Помести в span&#x27;ы параметры героя    --&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                STR
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;playerHeroStrength&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                AGI
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;playerHeroAgility&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                HP
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;playerHeroHp&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                INT
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;playerHeroIntelligence&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;!--    Обработай нажатие на эту кнопку и добавь действие дополнительного умения    --&gt;
+                            &lt;button
+                                id=&quot;doSkillButton&quot;
+                                class=&quot;card-button&quot;
+                                disabled
+                            &gt;
+                                Дополнительное умение
+                            &lt;/button&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;card-wrapper&quot;&gt;
+                            &lt;h2 class=&quot;card-heading&quot;&gt;Герой оппонента&lt;/h2&gt;
+                            &lt;div class=&quot;card&quot;&gt;
+                                &lt;div class=&quot;card-title&quot;&gt;
+                                    &lt;!--    Помести сюда класс героя оппонента по нажатию на кнопку    --&gt;
+                                    &lt;h2 id=&quot;enemyHeroClass&quot; class=&quot;card-class&quot;&gt;
+                                        Класс
+                                    &lt;/h2&gt;
+                                    &lt;!--    Помести сюда имя героя оппонента  --&gt;
+                                    &lt;h2
+                                        id=&quot;enemyHeroName&quot;
+                                        class=&quot;card-title-text&quot;
+                                    &gt;
+                                        Имя героя
+                                    &lt;/h2&gt;
+                                &lt;/div&gt;
+                                &lt;div class=&quot;card-description&quot;&gt;
+                                    &lt;!--    Помести в span уровень героя оппонента   --&gt;
+                                    &lt;h3 class=&quot;card-level&quot;&gt;
+                                        Уровень:
+                                        &lt;span
+                                            id=&quot;enemyHeroLevel&quot;
+                                            class=&quot;hero-level-amount&quot;
+                                            &gt;--&lt;/span
+                                        &gt;
+                                    &lt;/h3&gt;
+                                    &lt;p class=&quot;card-parameters-heading&quot;&gt;
+                                        Характеристики:
+                                    &lt;/p&gt;
+                                    &lt;div class=&quot;card-parameters&quot;&gt;
+                                        &lt;!--    Помести в span&#x27;ы параметры героя оппонента   --&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                STR
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;enemyHeroStrength&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                AGI
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;enemyHeroAgility&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                HP
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;enemyHeroHp&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                        &lt;div class=&quot;card-parameter&quot;&gt;
+                                            &lt;p class=&quot;card-parameter-title&quot;&gt;
+                                                INT
+                                            &lt;/p&gt;
+                                            &lt;span
+                                                id=&quot;enemyHeroIntelligence&quot;
+                                                class=&quot;card-parameter-value&quot;
+                                                &gt;--&lt;/span
+                                            &gt;
+                                        &lt;/div&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;!--    Обработай нажатие на эту кнопку и выведи данные героя оппонента на экран    --&gt;
+                            &lt;button
+                                id=&quot;getEnemyButton&quot;
+                                class=&quot;card-button&quot;
+                                disabled
+                            &gt;
+                                Получить героя
+                            &lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;!--    Обработай нажатие на эту кнопку и начни танцевальную битву    --&gt;
+                    &lt;button
+                        id=&quot;startBattleButton&quot;
+                        class=&quot;battle-zone-button&quot;
+                        disabled
+                    &gt;
+                        Начать баттл!
+                    &lt;/button&gt;
+                &lt;/section&gt;
+            &lt;/div&gt;
+        &lt;/main&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>В прошлых уроках мы создавали персонажей трёх видов: `Hero`, `Knight`, `Mage`. У них были параметры интеллекта, силы и так далее. Теперь важно добавить пару переменных, в которые запишем ограничения параметров персонажей. Так игра будет честнее и никто не сможет создать слишком сильного героя.</p>
+<p>Переменная `gameParameters` ограничит характеристики персонажей, а `gameClasses` — их разнообразие:</p>
+<pre><code>// Объект с настройками игры
+const gameParameters = {
+    MAX_LEVEL: 10, //Максимальный уровень героя
+    MAX_STAT: 99, //Минимальный уровень параметра героя
+		MIN_STAT: 10, //Минимальный уровень параметра для умения
+}
+
+// Объект классов игры
+const gameClasses = {
+    Mage: &quot;Маг&quot;,
+    Knight: &quot;Рыцарь&quot;,
+    Hero: &quot;Класс&quot;
+}</code></pre>
+<p>Далее объявим переменные для игроков `Heroes Dance Battle`. В переменной `playerHero` будет персонаж, созданный через форму на сайте. В переменной `enemyHero` — персонаж оппонента, который приходит с сервера:</p>
+<pre><code>// Объявление героя игрока
+let playerHero = null;
+
+// Объявление героя оппонента
+let enemyHero = null;</code></pre>
+<p>Пока запишем в значения переменных `null` — это означает, что данные не определены (ведь мы ещё никого не создали и ничего не получили с сервера). Как только пользователь создаст героя и мы подберём ему соперника, в этих переменных появится соответствующая информация.</p>
+<p>Теперь найдём все интерактивные кнопки в проекте и сохраним их в переменные. Процесс тебе уже знаком: объявляем переменную и записываем в неё то, что вернёт функция `getElementById()` с соответствующим `id` в виде строки. Поиск элементов происходит по DOM-дереву. Оно хранится в объекте `document` 👇🏻</p>
+<p>- кнопку отправки на танцпол можно найти так:</p>
+<pre><code>    // Добавление героя игрока на экран
+    const sendToBattleButton = document.getElementById(&quot;sendToBattleButton&quot;);</code></pre>
+<p>- кнопку подбора противника в карточке `Герой оппонента` — так:</p>
+<pre><code>    // Вывод героя оппонента на экран
+    const getEnemyButton = document.getElementById(&quot;getEnemyButton&quot;);</code></pre>
+<p>- кнопку использования дополнительного умения персонажа в карточке `Ваш герой` — так:</p>
+<pre><code>    // Действие героя игрока
+    const doSkillButton = document.getElementById(&quot;doSkillButton&quot;);</code></pre>
+<p>- а кнопку `НАЧАТЬ БАТТЛ!` под карточками персонажей — так:</p>
+<pre><code>    // Начало баттла
+    const startBattleButton = document.getElementById(&quot;startBattleButton&quot;);</code></pre>
+<h2>Взаимодействие с формой</h2>
+<p>На странице проекта есть форма 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2023-12-29_v_20.39.49_1704912713.png)</p>
+<p>Пользователь, заполняя поля формы, формирует данные карточки своего персонажа. А далее тебе нужно их обработать. Для этого установим слушатель на событие клика по кнопке.</p>
+<h3>Установка слушателя события `click`</h3>
+<p>В прошлых уроках для отслеживания событий клика по элементу мы использовали метод `onclick`. Раньше ему просто присваивали именованную функцию (то есть функцию с именем; о том, какие бывают ещё, расскажем ниже). Для кнопки `sendToBattleButton` это выглядело бы так:</p>
+<pre><code>function logClick() {
+  console.log(&quot;Произошёл click&quot;);
+}
+
+sendToBattleButton.onclick = logClick;</code></pre>
+<p>Но сейчас мы тебе расскажем об очень крутой фишке в JS, которая позволит написать этот код короче и без использования отдельных функций как `logClick()`</p>
+<p>В коде на прошлых неделях можно было заметить **стрелочные функции** (функции с особым синтаксисом), одна из них выглядела так:</p>
+<pre><code>const makeSomeOtherThing = () =&gt; { /*Тело функции*/ }</code></pre>
+<p>Главные её отличия от классической функции — отсутствие ключевого слова `function` и добавленная стрелка после списка аргументов.</p>
+<p>Так выглядит функция сложения элементов `a` и `b`:</p>
+<pre><code>const sum = (a, b) =&gt; a + b;</code></pre>
+<p>А так — получение первого элемента массива:</p>
+<pre><code>const getFirstElemOfArray = array =&gt; array[0];</code></pre>
+<p>В примерах выше стрелочная функция сохранена в переменную. Но если нам нужно вызывать функцию в методе или в слушателе событий, мы можем описать её прямо внутри метода или слушателя. Указатель в виде переменной или названия функций в таком случае не нужны.</p>
+<p>Может показаться сложным, но на самом деле мы уже так делали в уроке про запросы к серверу:</p>
+<pre><code>fetch(`https://api-code.practicum-team.ru/heroes`)
+    .then((response) =&gt; response.json());
+    .then((data) =&gt; console.log(data));
+// В этой части кода мы получали ответ от сервера 
+// и аргументом в функцию then передавали стрелочную функцию для обработки ответа</code></pre>
+<p>В JS функции, которые не имеют имени, называются **анонимными**. Получается, что стрелочные функции могут быть анонимными. Подробно про разновидности функций, как всегда, читай в [Доке](https://doka.guide/js/function/){target=&quot;_blank&quot;}.</p>
+<p>Аски, ты прав!</p>
+<p>Давайте применим новые знания в нашем проекте. Установим слушатель события `click` на кнопку `sendToBattleButton` при помощи метода `onclick` , которому присвоим анонимную стрелочную функцию. Позже в ней мы опишем логику добавления персонажа пользователя:</p>
+<pre><code>// Получение информации героя игрока
+sendToBattleButton.onclick = () =&gt; {
+ // Обработка формы 
+}</code></pre>
+<p>Выносить функцию обработки клика в отдельный блок необязательно, нам не потребуется переиспользовать её где-то ещё. Поэтому описать функцию будет удобно и правильно только там, где она вызывается — в обработчике клика у кнопки `sendToBattleButton`. К тому же стрелочные функции иначе работают с `this`, поэтому их удобно использовать внутри методов объектов или слушателей.</p>
+</body>
+</html>

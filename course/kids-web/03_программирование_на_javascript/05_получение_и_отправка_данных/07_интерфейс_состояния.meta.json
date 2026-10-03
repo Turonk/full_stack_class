@@ -1,0 +1,18 @@
+{
+  "lesson_id": "3d98448b-508c-492b-a2f0-3297616399fb",
+  "title": "Интерфейс состояния",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "180b5a42-c2f8-477c-9b7c-de81164bb657",
+  "topic_name": "Получение и отправка данных",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/3d98448b-508c-492b-a2f0-3297616399fb/",
+  "markdown_chars": 10267,
+  "content_hash": "a380eacdf5ce4b04",
+  "saved_at": "2026-07-29T15:21:30.860701+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/05_получение_и_отправка_данных/07_интерфейс_состояния.md",
+    "html": "03_программирование_на_javascript/05_получение_и_отправка_данных/07_интерфейс_состояния.html"
+  }
+}

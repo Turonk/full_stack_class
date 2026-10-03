@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Подготовка HTML-структуры проекта и подключение JS</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Подготовка HTML-структуры проекта и подключение JS</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/92595f7f-d28f-4e1f-a35f-26af7a9e3191/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/92595f7f-d28f-4e1f-a35f-26af7a9e3191/</a></p>
+  <h1>Подготовка HTML-структуры проекта и подключение JS</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_571_1702554839.png)</p>
+<h2>Что нужно сделать в этом уроке</h2>
+<p>В этом уроке мы будем собирать основу будущего сайта или веб-приложения.</p>
+<p>Есть три основные составляющие любого сайта (веб-приложения) — HTML, CSS и JavaScript. В этот раз большая часть работы ляжет на JavaScript (обработка данных, создание вёрстки и изменение страницы), но, несмотря на всю мощь JavaScript, без HTML и CSS невозможно создать интерфейс.</p>
+<p>В этом уроке:</p>
+<p>- подготовим папку проекта и основу для HTML-страниц - при помощи HTML-тегов сверстаем необходимые элементы под требования проекта - подключим JavaScript к HTML-странице</p>
+<p>Приступим!</p>
+<h2>Шаг 1. Подготовка</h2>
+<h3>Создаём новую папку для проекта</h3>
+<p>Первое, что стоит сделать, — создать новую папку, где будут лежать файлы проекта.</p>
+<p>Сайт с КАРточками Персонажей (Карп), который мы сделаем, будет собирать готовую вёрстку для проекта с помощью JS. На самом деле принцип работы над проектом будет одинаковый для сайта с любыми карточками — любимых фильмов, списка литературы или новогоднего вишлиста.</p>
+<p>Всё, что создаст JavaScript, нужно где-то отобразить. Собирать весь контент будет некуда, если не подключить JavaScript к HTML-странице, а значит, пора создать файл `index.html`</p>
+<p>- ~~Создать новую папку~~ - Файл index.html</p>
+<h3>Создаём базовую вёрстку для HTML-страницы</h3>
+<p>HTML-страница с названием `index.html` — главная страница сайта, открывающаяся по умолчанию. Помнишь что внутри?</p>
+<p>Три обязательных тега. Любой сайт начинается с них: `&lt;html&gt;`, `&lt;head&gt;`, `&lt;body&gt;`</p>
+<p>Вручную их писать не обязательно, есть приём, который используют все разработчики, он позволяет сэкономить время и сгенерировать начальную структуру сайта. Команда внутри редактора VSCode: `! + tab` 👇🏻🏻</p>
+<p>{video:https://code.s3.yandex.net/kids-web/1My_Movie.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload} *VSCode-подсказка для генерации стартового HTML-кода*</p>
+<p>Держи первое задание — оставили его для тебя в комментариях в файле `index.html` в песочнице.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/03-js-in-browser/02-make-html-page-with-js/html-template/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;КарП&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>**Возможные ошибки**</p>
+<p>Потеря тега с кодировкой файла сломает отображение страницы в разных браузерах. А если не указать характеристики окна браузера, то интерфейс не сможет адаптироваться под различные устройства и типы экранов.</p>
+<p>Сверимся со списком:</p>
+<p>- ~~Создать новую папку~~ - ~~Файл index.html~~ - Стили</p>
+<h2>Шаг 2. Стили и информация о проекте</h2>
+<p>В этом пункте подключаем стили и заполняем базовую информацию о сайте.</p>
+<p>В КарПе нам нужно будет отображать карточки с персонажами. За это отвечает файл стилей, в нём мы стилизуем элементы, задаём свойства контейнерам.</p>
+<p>Подключают стили с помощью тега `&lt;link&gt;` внутри `&lt;head&gt;`</p>
+<h3>`&lt;head&gt;`</h3>
+<p>**Подключаем файл стилей**</p>
+<p>В теге `&lt;head&gt;` подключаем CSS-файл, в котором будут находиться стили проекта: `&lt;link href=&quot;styles.css&quot; rel=&quot;stylesheet&quot; /&gt;`</p>
+<p>⚠️ Не забудь создать сам файл стилей, назвать его `styles.css`</p>
+<p>**`&lt;title&gt;`**</p>
+<p>В тег `&lt;title&gt;` размещают текст, который будет отображаться во вкладке в браузере. Это называется «заголовок сайта»: `&lt;title&gt;КарП&lt;/title&gt;`</p>
+<h3>`&lt;body&gt;`</h3>
+<p>В теге `&lt;body&gt;` будет вся наша вёрстка. В него добавим контейнер для карточек и несколько тегов для взаимодействия с пользователем и добавления новых карточек.</p>
+<p>Вёрстку мы дадим. А JavaScript код не дадим 😬</p>
+<p>**Задаём ID-атрибут контейнеру**</p>
+<p>Основному тегу-контейнеру, в котором будут лежать карточки, зададим id-атрибут `&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;`</p>
+<p>В дальнейшем с помощью id-атрибута и JS-функции для поиска элементов найдём элемент и вставим в него карточки. Подразумевается, что айди уникальный, то есть второго такого `id=&quot;container&quot;` быть не должно, но может быть любой другой — просто с другим именем.</p>
+<p>**Тег `&lt;input&gt;`**</p>
+<p>Нам нужно реализовать функциональность добавления новых карточек, для этого пригодится тег для ввода данных — `&lt;input&gt;`. Он позволяет вводить данные в специальное поле на странице — это, например, та самая область, куда мы вводим логин и пароль для доступа к почте и другим аккаунтам на просторах интернета.</p>
+<p>Нам пригодится два инпута: один для названия, а второй для описания героя 👇🏻</p>
+<pre><code>&lt;body&gt;
+	&lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+  &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+	&lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+<p>**Атрибуты `&lt;input&gt;`**</p>
+<p>Тег `&lt;input&gt;` позволяет вводить разные данные — строки, числа, изображения и многое другое. Для имени и описания нам необходим текст, поэтому в качестве атрибута указываем соответсвующий тип инпута: `type=&quot;text&quot;`</p>
+<p>Атрибут `placeholder` является подсказкой, которая отображается по умолчанию, когда поле для ввода пустое. Идентификатор `id` будем использовать для поиска элементов в JavaScript, поэтому задаём простые названия — `heroName` и `heroClass`</p>
+<p>**Тег `&lt;button&gt;`**</p>
+<p>Последний шаг в вёрстке: добавляем кнопку, которая всё запустит. Кнопки — это тег `&lt;button&gt;`. При нажатии на неё будет происходить алгоритм добавления персонажа на странице (опишем логику в следующем уроке).</p>
+<p>И не забудем добавить идентификатор👇🏻</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;КарП&lt;/title&gt;
+	&lt;link href=&quot;./styles.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+  &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+	&lt;button id=&quot;addButton&quot;&gt;Добавить героя&lt;/button&gt;
+	&lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2>Шаг 3. Подключаем JS в HTML</h2>
+<h3>Тег `&lt;script&gt;`</h3>
+<p>На финишной прямой подключаем тег `&lt;script&gt;`</p>
+<p>По умолчанию в браузере открывается HTML-файл. JS можно писать внутри HTML-файла, но это неудобно. А можно писать в отдельном файле, добавив затем в HTML-файл. Совсем как с CSS. Делается это вот так:</p>
+<pre><code>&lt;script src=&quot;./script.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Тег `&lt;script&gt;` является двойным тегом. Это, означает, что он имеет открывающий `&lt;script&gt;` и закрывающий `&lt;/script&gt;` теги, что позволяет вставлять JavaScript-код непосредственно в HTML-документ между этими тегами 👇🏻</p>
+<pre><code>&lt;script&gt;
+		let greetAski = &quot;Привет, Аски!&quot;;
+		console.log(greetAski);
+&lt;/script&gt;</code></pre>
+<p>Либо указать путь до отдельного JS-файла в атрибуте `src` 👇🏻</p>
+<pre><code>&lt;script src=&quot;./script.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h3>Про подключение скриптов и работу браузера</h3>
+<p>При загрузке страницы браузер читает код сверху вниз. В момент, когда он доходит до тега `&lt;script&gt;`, он останавливается и сперва читает, что в этом теге. В этот момент вся остальная страница простаивает и не загружается. Если код внутри `&lt;script&gt;` большой, то это может существенно повлиять на скорость загрузки страницы.</p>
+<p>По этой причине принято ставить теги `&lt;script&gt;` в самом конце разметки, перед закрывающим тегом `&lt;/body&gt;`. Тогда браузер, дойдя до скриптов, уже загрузит всю страницу и пользователь сможет взаимодействовать с контентом.</p>
+<h2>Конец</h2>
+<p>Вот и всё! Мы подготовили HTML-структуру проекта 👇🏻</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;Герои Dota&lt;/title&gt;
+	&lt;link href=&quot;./styles.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&quot;heroesContainer&quot;&gt;&lt;/div&gt;
+	&lt;input type=&quot;text&quot; id=&quot;heroName&quot; placeholder=&quot;Имя героя&quot;&gt;
+  &lt;input type=&quot;text&quot; id=&quot;heroClass&quot; placeholder=&quot;Класс героя&quot;&gt;
+	&lt;button id=&quot;addButton&quot;&gt;Добавить героя&lt;/button&gt;
+  &lt;script src=&quot;./script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>- Неправильная вложенность тегов. Используй инструменты разработчика в браузере `devtools`, чтобы наглядно проверять свою вёрстку. Обращай внимание на подсветку блочной модели на странице — она отлично помогает определять пропорции элементов и находить причины поломки в вёрстке страницы. - Потерянные или незакрытые теги: и снова на помощь приходят инструменты разработчика в браузере `devtools` - Отсутствие семантической вёрстки, из-за которого тяжело ориентироваться в интерфейсе программы. Используй подходящие теги: для кнопок — `&lt;button&gt;`, для текстовых элементов — теги `&lt;p&gt;`, `&lt;h&gt;` и так далее. Подробнее [тут](https://doka.guide/a11y/a11y-html/){target=&quot;_blank&quot;}. - Указаны неправильные пути к файлам или ссылки. Используй относительные пути к файлам, почитать про них можно [здесь](https://thecode.media/path/){target=&quot;_blank&quot;}. - Неподходящее подключение JS-файла. Чтобы не было проблем с определением и изменением HTML-элементов при помощи JS, необходимо подключить тег `&lt;script&gt;` перед закрывающим тегом `&lt;/body&gt;`</p>
+</body>
+</html>

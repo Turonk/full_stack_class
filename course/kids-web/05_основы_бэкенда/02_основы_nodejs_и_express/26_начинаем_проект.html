@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Начинаем проект</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Начинаем проект</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/70ed766f-d5c4-4c4d-9ee6-28d027809d16/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/70ed766f-d5c4-4c4d-9ee6-28d027809d16/</a></p>
+  <h1>Начинаем проект</h1>
+<h2>**Чек-лист**</h2>
+<p>1. **Устанавливаем `express` и другие зависимости в проект**</p>
+<p>a. Проверь, что у тебя создана папка, где ты будешь хранить проект. Название — на твоё усмотрение, но на всякий случай лови наши варианты: `week3`, `adminka`, `admin-panel`. Если папки не было, открывай терминал в ней — через него сейчас будешь устанавливать нужные для работы пакеты.</p>
+<p>b. Напомним, что `express` — пакет для Node.js, который тебе нужно было подгрузить командой `npm`👇🏻</p>
+<pre><code>        # Инициализируй package.json, чтобы нода могла устанавливать зависимости
+        npm init -y # Флаг -y ответит «Да» на все вопросы по настройке package.json
+        
+        # Установи экспресс
+        npm install express</code></pre>
+<p>c. Для того чтобы в проекте при разработке работал {{hot reload}}[web_teens_theme2_lesson_5_hot reload], тебе понадобится пакет `nodemon`. Убедись, что он установлен из `npm` как `dev`-зависимость 👇🏻</p>
+<pre><code>        # Флаг --save-dev установит nodemon как dev-зависимость
+        npm install nodemon --save-dev</code></pre>
+<p>d. Чтобы `nodemon` и программа запускались вместе, нужно было изменить `package.json`. Если это не сделано, отредактируй раздел `scripts` прямо сейчас 👇🏻</p>
+<pre><code>        {
+        	...
+        	&quot;scripts&quot;: {
+        		&quot;start&quot;: &quot;nodemon index.js&quot;
+        	},
+        	...
+        }
+        </code></pre>
+<p>2. **Настраиваем основы `express`-приложения**</p>
+<p>a. Чекни, что у тебя хранится файл `app.js` и подключённый в нём `express` 👇🏻</p>
+<pre><code>        const express = require(&#x27;express&#x27;);
+        // Слушаем порт 3000
+        const PORT = 3000;
+        
+        const app = express();
+        
+        app.listen(PORT, () =&gt; {
+        	// Если всё работает, консоль покажет, какой порт приложение слушает
+        	console.log(`App listening on port ${PORT}`)
+        })</code></pre>
+<p>b. Супер! Теперь ты можешь запустить приложение на порту `3000`</p>
+<p>3. **Добавляем стандартные данные об играх и роутинг**</p>
+<p>a. Проверь наличие файла, в который записываются игры, — `/data/games.json`. Для твоего спокойствия лови один из стартовых вариантов 👇🏻</p>
+<pre><code>        [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Crystal Keeper&quot;,
+            &quot;description&quot;: &quot;Управляй боевым дроном, чтобы любой ценой защитить кристалл от враждебных космослизней.&quot;,
+            &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/cristal-keeper/cover.png&quot;,
+            &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/cristal-keeper/game/index.html&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Dangeons&#x27;n&#x27;Caves. Prologue&quot;,
+            &quot;description&quot;: &quot;Безымянный герой исследует пещеры и подземелья, чтобы найти больше информации о себе.&quot;,
+            &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/dangeons-n-caves-prologue/cover.png&quot;,
+            &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/dangeons-n-caves-prologue/game/index.html&quot;
+          }
+        ]</code></pre>
+<p>b. Если помнишь, мы подготовили вспомогательные функции `readFile` и `writeFile` — они нужны для чтения и записи файлов на сервере. Убедись, что они скачаны из архива…</p>
+<p>[utils.zip](https://code.s3.yandex.net/kids-web/vids/M4/utils.zip){target=&quot;_blank&quot;}</p>
+<p>… и хранятся в папке `/utils/data`</p>
+<p>c. Логику обработки входящих запросов удобно хранить в файле `games.js` из папки `routes`. Пока что он получается достаточно большим — расскажем, как разбить его на меньшие файлы, в следующих уроках. А пока сверься с кодом для запросов 👇🏻</p>
+<pre><code>        // routes/games.js
+        const gamesRouter = require(&quot;express&quot;).Router(); // Создали роутер
+        const { readData, writeData } = require(&quot;../utils/data&quot;); // Чтение и запись данных в JSON-файл
+        
+        // Получим игры из JSON-файла и отправим в ответ на запрос
+        const getAllGames = async (req, res) =&gt; {
+          const games = await readData(&quot;./data/games.json&quot;);
+          if (!games) {
+            res.status(400);
+            res.send({
+              status: &quot;error&quot;,
+              message: &quot;Нет игр в базе данных. Добавьте игру.&quot;
+            });
+            return;
+          }
+          req.games = games;
+          res.send(req.games);
+        };
+        
+        const deleteGame = async (req, res) =&gt; {
+        	// Получим данные из файла
+          const games = await readData(&quot;./data/games.json&quot;);
+          if (!games) {
+            res.status(400);
+            res.send({
+              status: &quot;error&quot;,
+              message: &quot;Нет игр в базе данных. Добавьте игру.&quot;,
+            });
+            return;
+          }
+          req.games = games;
+          
+          // Прочитаем запрашиваемый id игры из запроса
+        	const id = Number(req.params.id);
+        	
+        	// Найдём игру, которую хотят удалить, в общем массиве с играми по id
+        	req.game = req.games.find((item) =&gt; item.id === id);
+        	
+        	// Найдём индекс удаляемой игры в общем массиве игр
+        	const index = req.games.findIndex((item) =&gt; item.id === req.game.id);
+        	
+        	// Удалим из массива игр игру
+        	req.games.splice(index, 1);
+        	
+        	// Запишем обновлённый массив игр в JSON-файл
+        	await writeData(&quot;./data/games.json&quot;, req.games);
+        	
+        	// Вернём ответ о проделанной операции с данными о играх
+        	res.send({
+            games: req.games,
+            updated: req.game
+          });
+        }
+        
+        gamesRouter.get(&quot;/games&quot;, getAllGames)
+        gamesRouter.delete(&quot;/games/:id&quot;, deleteGame);
+        
+        module.exports = gamesRouter;</code></pre>
+<p>d. Проверь наличие в папке `routes` файла `main.js`. Если в нём нет обработчика `GET`-запроса по роуту `/main` — добавляй. Он будет читать `/public/index.html`, который скоро ты внедришь в проект 👇🏻</p>
+<pre><code>        // routes/main.js
+        const mainRoute = require(&quot;express&quot;).Router();
+        
+        mainRoute.get(&quot;/&quot;, (req, res) =&gt; {
+          fs.readFile(&quot;./public/index.html&quot;, &quot;utf-8&quot;).then((data) =&gt; {
+            res.header(&quot;Content-Type&quot;, &quot;text/html&quot;).send(data);
+          });
+        });
+        
+        module.exports = mainRoute;</code></pre>
+<p>e. Чекни импорт созданных роутеров в `app.js` 👇🏻</p>
+<pre><code>        // app.js 
+        const express = require(&#x27;express&#x27;);
+        
+        // Импортируем роутеры
+        const mainRoute = require(&#x27;./routes/main&#x27;);
+        const gamesRouter = require(&#x27;./routes/games&#x27;); 
+        
+        const PORT = 3000;
+        const app = express();
+        
+        // Запускаем
+        app.use(mainRoute, gamesRouter); 
+        
+        app.listen(PORT, () =&gt; {
+          console.log(`Server is running at PORT http://localhost:${PORT}`);
+        })</code></pre>
+<p>4. **Раздаём статические HTML-страницы**</p>
+<p>a. Надеемся, архив с `public` успешно скачан и одноимённая папка уже вставлена в корень проекта (адрес будет `/public`). Если нет, лови 👇🏻</p>
+<p>[public.zip](https://code.s3.yandex.net/kids-web/vids/M4/public.zip){target=&quot;_blank&quot;}</p>
+<p>b. Проверь, что `/public` доступна для внешних пользователей. Для этого достаточно в `app.js` использовать метод `static` 👇🏻</p>
+<pre><code>        // Теперь клиент имеет доступ только к публичным файлам
+        app.use(express.static(path.join(__dirname, &#x27;public&#x27;))); </code></pre>
+<p>c. Метод `static` делает так, что, если обратиться к корню сервера, ты автоматически попадёшь в папку `public` и получишь `index.html`. Получается, что не нужно добавлять в запрос имя файла, достаточно просто обратиться в корень — по адресу `&quot;/&quot;`</p>
+</body>
+</html>

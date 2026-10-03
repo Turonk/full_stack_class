@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Условный рендеринг</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Условный рендеринг</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/0deb42aa-a83f-4c71-ac0f-138206ec2bd9/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/0deb42aa-a83f-4c71-ac0f-138206ec2bd9/</a></p>
+  <h1>Условный рендеринг</h1>
+<p>Всё так! А после того, как ты изучишь теорию, сможешь доработать Pindie.</p>
+<p>Сейчас в проекте есть два листа с вложенными фрагментами на главной странице (`Популярные` и `Новинки`). Сделаем так, чтобы в компонент листа отрисовывался либо один фрагмент, либо другой в зависимости от категории игры.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_29_1_1706890704.png)</p>
+<h2>Адаптация компонентов</h2>
+<p>Давай тогда начнём с примера попроще и представим каталог маркетплейса, где красуется твоя новенькая клавиатура.</p>
+<p>Когда товар есть в наличии, на сайте отображается зелёная кнопка с надписью `Купить`, а если его нет — кнопка меняется на серую с надписью `Нет в наличии`</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1464_3_1706890729.png)</p>
+<p>Кнопка подстраивается под статус товара, который можно представить в виде переменной `inStock` со значением `true` или `false`. Эту переменную мы можем передать в кнопку извне в виде **аргумента функции,** и она будет менять свой внешний вид или контент внутри себя.</p>
+<p>Приведём более масштабный пример.</p>
+<p>При входе на некоторые сайты происходит запрос возраста для проверки. Если пользователю больше 18 лет, сайт предоставляет доступ к главной странице, а если нет — появляется сообщение о запрете входа.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/detmir.mp4}</p>
+<h2>Идея условного рендеринга</h2>
+<p>Примеры выше наглядно показывают, как работает **условный рендеринг**. Он даёт нам возможность настраивать компоненты или менять их в зависимости от передаваемых параметров.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1465_1_1706890915.png)</p>
+<p>Перед тем как изменять компоненты, сначала нужно научиться проверять **props** (аргументы), которые мы в них передаём.</p>
+<p>Давай разберёмся, как это можно сделать.</p>
+<h3>Тернарный оператор</h3>
+<p>Для проверки условий мы обычно пользуемся конструкцией `if...else`. Она удобна, но не работает внутри JSX-компонентов. В мире React на её замену приходит **тернарный оператор.** Он предлагает нам более краткий способ написания условий в JavaScript.</p>
+<p>Его структуру просто описать по следующей схеме 👇🏻</p>
+<pre><code>const result = условие ? действие_если_истина : действие_если_ложь</code></pre>
+<p>Тернарный оператор как бы задаёт вопрос условию «Это правда или ложь?».</p>
+<p>Если правда, можно совершить определённое действие после символа `?`, а если ложь — выполнить что-то другое после символа `:`</p>
+<p>Всегда за!</p>
+<p>Проверим переменную `isStock`: если товар в наличии, выведем в кнопку надпись `Купить`, а если `isStock` окажется ложной и товара в наличии нет, выведем надпись `Нет в наличии` 👇🏻</p>
+<pre><code>const isStock = true;
+const button = document.querySelector(&quot;button&quot;)
+
+// Используем &quot;if - else&quot;
+if (isStock) {
+	button.textContent = &quot;Купить&quot;
+} else {
+	button.textContent = &quot;Нет в наличии&quot;
+}
+
+// Используем тернарный оператор
+button.textContent = isStock ? &quot;Купить&quot; : &quot;Нет в наличии&quot;</code></pre>
+<p>У нас есть поле для ввода числа. При помощи условия `input.value % 2 === 0` мы проверяем, чётное число или нет. Перепиши проверку, используя тернарный оператор.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/03-framework/03-data-flow/0302-conditional-rendering/task-01/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>input.value % 2 === 0 ? status.textContent = &quot;Число чётное&quot; : status.textContent = &quot;Число нечётное&quot;;</code></pre>
+<h3>Конструкция `&quot;&amp;&amp;&quot;`</h3>
+<p>**Конструкция `&quot;&amp;&amp;&quot;`** (`&quot;И&quot;`) уже знакома тебе из модуля «Основы JavaScript».</p>
+<p>Часто мы используем этот оператор, когда нужно проверить два условия и выполнить определённое действие в том случае, если оба верны. Но это не всё, на что он способен.</p>
+<p>`&quot;&amp;&amp;&quot;` может заменить конструкцию `&quot;if&quot;` в ситуациях, когда блок `&quot;else&quot;` не требуется. Такой подход делает проверку условий более компактной, улучшая читаемость кода.</p>
+<pre><code>const products = 5;
+
+// Используем конструкцию &quot;if&quot;
+if (products &gt; 0) {
+	console.log(`Всего товаров: ${products}`);
+}
+
+// Используем конструкцию &quot;&amp;&amp;&quot;
+products &gt; 0 &amp;&amp; console.log(`Всего товаров: ${products}`);</code></pre>
+<p>В этом примере оба подхода приведут к одному и тому же результату — выводу количества товаров, если они есть. Но использование оператора `&quot;&amp;&amp;&quot;` сделает код легче и гораздо понятнее, а также сэкономит ресурсы браузера на его выполнение.</p>
+<p>У нас есть форма с несколькими полями. При клике на кнопку `Отправить` мы используем цикл с проверкой заполненности полей. Если любое из полей пустое, появляется сообщение с ошибкой.</p>
+<p>Перепиши появление ошибки с использованием конструкции `&quot;&amp;&amp;&quot;`</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/03-framework/03-data-flow/0302-conditional-rendering/task-02/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>input.value === &quot;&quot; &amp;&amp; warningMessage.classList.add(&quot;show&quot;);</code></pre>
+<h2>**Условный рендеринг в JSX**</h2>
+<p>После изучения основных идей условного рендеринга в обычном JavaScript давай перенесём наши знания в мир React. Здесь мы часто используем тернарный оператор и конструкцию `&quot;&amp;&amp;&quot;` для удобного управления отображением компонентов.</p>
+<h3>Тернарный оператор в JSX</h3>
+<p>Вспомним, что тернарный оператор позволяет нам сократить условную проверку до одной строчки кода. Рассмотрим пример, где мы изменим не только текст кнопки, но и её стиль 👇🏻</p>
+<pre><code>import Styles from &#x27;./Button.module.css&#x27;
+
+export function Button (props) {
+  return (
+    &lt;button className={props.isStock ? Styles[&#x27;green&#x27;] : Styles[&#x27;gray&#x27;]}&gt;
+      {props.isStock ? &#x27;Купить&#x27; : &#x27;Нет в наличии&#x27;}
+    &lt;/button&gt;
+  )
+}</code></pre>
+<p>В этом компоненте мы используем тернарный оператор для динамического изменения класса в зависимости от переменной `isStock`. Если товар в наличии (`isStock === true`), мы присваиваем класс `Styles[&#x27;green&#x27;]` для стилизации кнопки зелёным цветом и устанавливаем текст `Купить`. В противном случае кнопка получает класс `Styles[&#x27;gray&#x27;]` и отображает текст `Нет в наличии`</p>
+<p>Тернарный оператор может выполнять и более сложные задачи. Кроме изменения текста и стилей мы можем менять и сами компоненты.</p>
+<p>Посмотрим на примере приложения `Погода`👇🏻</p>
+<pre><code>export function WeatherDisplay (props) {
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+      &lt;h1&gt;Погода сегодня&lt;/h1&gt;
+      &lt;div className=&quot;icon&quot;&gt;
+        {props.temperature &lt; 0 ? &lt;SnowyIcon /&gt; : &lt;SunnyIcon /&gt;}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+<p>В этом примере компонент `WeatherDisplay` принимает аргумент `temperature`, представляющий текущую температуру. Используя тернарный оператор, мы решаем, какую иконку погоды отобразить в зависимости от температуры.</p>
+<p>Если температура меньше нуля, отображается компонент `&lt;SnowyIcon /&gt;` — иконка снежной погоды. Если температура выше нуля, выводим компонент `&lt;SunnyIcon /&gt;` — иконку тёплой погоды.</p>
+<p>У компонента `Alert` есть параметр `isError`, который определяет, произошла ли ошибка.</p>
+<p>Если `isError` равен `&quot;true&quot;` — компонент отображает ошибку.</p>
+<p>Если `isError` равен `&quot;false&quot;` — компонент отображает сообщение об успехе.</p>
+<p>**Для отображения сообщения с ошибкой:**</p>
+<p>- Класс `&quot;error&quot;` - Заголовок `&quot;Проблемка&quot;` - Параграф `&quot;Кажется, что-то пошло не так!&quot;`</p>
+<p>**Для отображения успешного сообщения:**</p>
+<p>- Класс `&quot;success&quot;` - Заголовок `&quot;Успешно&quot;` - Параграф `&quot;Всё просто замечательно!&quot;`</p>
+<p>Реализуй изменение компонента, проверяя `isEerror`. Используй тернарный оператор.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/03-framework/03-data-flow/0302-conditional-rendering/task-03/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>const Alert = (props) =&gt; {
+  return (
+    &lt;div className={`alert ${props.isError ? &quot;error&quot; : &quot;success&quot;}`}&gt;
+      &lt;h3&gt;{props.isError ? &quot;Проблемка&quot; : &quot;Успешно&quot;}&lt;/h3&gt;
+      &lt;p&gt;{props.isError ? &quot;Кажется, что-то пошло не так!&quot; : &quot;Всё просто замечательно!&quot;}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<h3>Конструкция `&quot;&amp;&amp;&quot;` в JSX</h3>
+<p>Давай посмотрим на пример использования оператора `&quot;И&quot;` в JSX.</p>
+<p>Представим большой баннер со скидкой для новых покупателей. Если покупатель ещё не успел применить скидку, нам нужно отобразить этот компонент 👇🏻</p>
+<pre><code>export function Home (props) {
+  return (
+		&lt;div className=&quot;container&quot;&gt;
+			{props.isNewUser &amp;&amp; &lt;Banner /&gt;}
+		&lt;/div&gt;
+	)
+}</code></pre>
+<p>В этом примере, благодаря оператору `&quot;И&quot;`, компонент `&lt;Banner/&gt;` будет отображаться только при условии, что `isNewUser` правдиво.</p>
+<p>Если `isNewUser` со значением `&quot;false&quot;` — баннер отображаться не будет.</p>
+<p>На странице есть компонент `Card`, который принимает параметр `props.rating`</p>
+<p>Мы хотим проверить, что значение параметра больше нуля. Если это условие выполняется, нужно вывести параграф с текстом `&quot;Рейтинг:&quot;` и самим рейтингом, используя конструкцию `&quot;&amp;&amp;&quot;`</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/03-framework/03-data-flow/0302-conditional-rendering/task-04/pre/|minWidth:400px|minHeight:600px}</p>
+<pre><code>const Card = (props) =&gt; {
+  return (
+    &lt;div className=&quot;card&quot;&gt;
+      &lt;img src=&quot;ball.png&quot; alt=&quot;Мячик&quot; /&gt;
+      &lt;h4&gt;Баскетбольный мячик&lt;/h4&gt;
+      {props.rating &gt; 0 &amp;&amp; &lt;p&gt;Рейтинг: {props.rating}&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+};</code></pre>
+<p>Отличная идея!</p>
+<h2>Работа над Pindie</h2>
+<p>Откроем проект и посмотрим на главную страницу — компонент `&lt;Home/&gt;`</p>
+<pre><code>&lt;CardsList id=&quot;popular&quot; title=&quot;Популярные&quot;&gt;
+	&lt;PopularCardsFragment /&gt;
+&lt;/CardsList&gt;
+&lt;CardsList id=&quot;new&quot; title=&quot;Новинки&quot;&gt;
+	&lt;NewCardsFragment /&gt;
+&lt;/CardsList&gt;</code></pre>
+<p>Здесь мы используем компонент `&lt;CardsList/&gt;` несколько раз, отображая разные вложенные фрагменты. Предлагаем улучшить это место, чтобы отрисовка фрагментов зависела от передаваемых аргументов `&quot;props&quot;`</p>
+<p>Выполнив четыре шага ниже, ты сможешь добиться этого результата:</p>
+<p>1. В качестве маяка, указывающего на нужный фрагмент, используй значение `&quot;props.id&quot;`. Этот аргумент принимает два возможных значения — `popular` или `new` 2. На странице `&lt;Home/&gt;` убери фрагменты списков и просто передай аргументы, вызывая `&lt;CardsList/&gt;` для отображения популярных и новых игр. 3. Внутри компонента списка импортируй фрагменты `PopularCardsFragment` и `NewCardsFragment`, они нам скоро понадобятся. 4. Проверь значение аргумента `&quot;props.id&quot;`, используя тернарный оператор или конструкцию `&quot;&amp;&amp;&quot;`. При значении `props.id === &quot;popular&quot;` отображай фрагмент с популярными играми, а при значении `props.id === &quot;new&quot;` — фрагмент с новыми играми.</p>
+<p>{quiz-task} background: | #f1f1ef content: | 💡 **Совет:** при добавлении новых категорий на сайт использование конструкции `&quot;&amp;&amp;&quot;` облегчит их отображение и будет занимать меньше места в коде. {/quiz-task}</p>
+</body>
+</html>

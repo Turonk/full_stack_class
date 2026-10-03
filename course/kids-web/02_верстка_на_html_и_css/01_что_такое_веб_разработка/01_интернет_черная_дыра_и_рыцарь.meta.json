@@ -1,0 +1,18 @@
+{
+  "lesson_id": "68fc7bd5-e239-4d76-9b78-1e46ceadeaba",
+  "title": "Интернет, чёрная дыра и рыцарь",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "7267cf1c-ae83-4e81-95b4-8cacbf27ac92",
+  "topic_name": "Что такое веб-разработка",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/7267cf1c-ae83-4e81-95b4-8cacbf27ac92/lessons/68fc7bd5-e239-4d76-9b78-1e46ceadeaba/",
+  "markdown_chars": 4445,
+  "content_hash": "b5fc515cd9043213",
+  "saved_at": "2026-07-29T15:19:48.453570+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/01_интернет_черная_дыра_и_рыцарь.md",
+    "html": "02_верстка_на_html_и_css/01_что_такое_веб_разработка/01_интернет_черная_дыра_и_рыцарь.html"
+  }
+}

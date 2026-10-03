@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Роуты в Express</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Роуты в Express</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/d040a779-3235-4282-8628-0d68bc8aee16/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/d040a779-3235-4282-8628-0d68bc8aee16/</a></p>
+  <h1>Роуты в Express</h1>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/aski_rout.mp4}</p>
+<p>Начнём с обработки знакомого тебе `GET`-запроса — другие типы рассмотрим чуть позже.</p>
+<h3>Роутинг `GET`-запроса</h3>
+<p>Для обработки `GET`-запроса в экспрессе существует метод `get`, который принимает на вход два аргумента:</p>
+<p>- строку с запросом - колбэк-функцию, предписывающую, что нужно делать, если такой запрос пришёл на сервер</p>
+<p>Лови пример реализации 👇🏻</p>
+<pre><code>app.get(&#x27;/&#x27;, (req, res) =&gt; {
+	// Логика обработки запроса
+});</code></pre>
+<p>Параметры колбэк-функции — объекты запроса и ответа.</p>
+<h3>Объект ответа</h3>
+<p>У объекта ответа есть метод `send`. Параметром ему передают информацию, которую нужно отправить пользователю, например веб-страницу 👇🏻</p>
+<pre><code>app.get(&#x27;/&#x27;, (req, res) =&gt; {
+  res.send(
+		`&lt;html&gt;
+		&lt;body&gt;
+		    &lt;p&gt;Ответ на сигнал из далёкого космоса&lt;/p&gt;
+		&lt;/body&gt;
+		&lt;/html&gt;`
+	);
+});</code></pre>
+<p>Метод `send` может принимать разные данные в качестве аргумента 👇🏻</p>
+<pre><code>res.send(&#x27;Немного текста&#x27;);
+res.send(&#x27;&lt;p&gt;Немного html&lt;/p&gt;&#x27;);
+res.send({ some: &#x27;json&#x27; });</code></pre>
+<p>Кроме отправки ответа, метод автоматически выставит заголовок `Content-Type` в соответствии с аргументом, который ему передали 👇🏻</p>
+<pre><code>res.send(&#x27;Немного текста&#x27;); // Content-Type: text/plain
+res.send(&#x27;&lt;p&gt;Немного html&lt;/p&gt;&#x27;); // Content-Type: text/plain
+res.send({ some: &#x27;json&#x27; }); // Content-Type: application/json</code></pre>
+<p>По умолчанию `send` отправляет ответ со статусом `200`. Его можно изменить методом `status` 👇🏻</p>
+<pre><code>app.get(&#x27;/&#x27;, (req, res) =&gt; {
+  res.status(404);
+  res.send(&#x27;&lt;h1&gt;Страница не найдена&lt;/h1&gt;&#x27;);
+});</code></pre>
+<p>Обрати внимание, что `status` устроен так, что его и `send` можно использовать по цепочке. Обычно разработчики так и делают 👇🏻</p>
+<pre><code>app.get(&#x27;/&#x27;, (req, res) =&gt; {
+  res.status(404).send(&#x27;&lt;h1&gt;Страница не найдена&lt;/h1&gt;&#x27;);
+});</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Со статус-кодами ты можешь познакомиться в [документации](https://developer.mozilla.org/ru/docs/Web/HTTP/Status){target=&quot;_blank&quot;}. Важно присваивать разным ошибкам соответствующие статус-коды. Это нужно для правильной работы любого приложения.</p>
+<p>Для других методов работы объекта ответа рекомендуем заглянуть вот в [эту документацию](http://expressjs.com/ru/api.html#res){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<h3>Объект запроса</h3>
+<p>Запрос содержит информацию о том, что нужно пользователю. Она может быть организована по-разному: например, в `GET`-запросе данные пользователя упакованы в строку, которая хранится в свойстве `query` объекта запроса. Это те самые параметры, которые прикрепляются в `url` запроса. Они часто встречаются на популярных сайтах 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1693_1712855894.png)</p>
+<p>Тебе уже приходилось работать с ними, когда в Pindie запрашивали набор карточек по категории. Вспоминай 👇🏻</p>
+<pre><code>  // Склеиваем строку запроса из url и query параметра 
+  const data = await getData(`${url}?categories.name=${category}`)</code></pre>
+<p>Эти параметры как раз хранятся в `req.query` 👇🏻</p>
+<pre><code>app.get(&#x27;/&#x27;, (req, res) =&gt; {
+  res.send(req.query);
+});</code></pre>
+<h3>Обработка методов в express</h3>
+<p>HTTP-метод запроса определяет, что делать с ресурсом. В REST применяются пять основных методов:</p>
+<p>- `GET` — получает ресурсы - `POST` — создаёт ресурс - `PUT` — целиком заменяет существующий ресурс - `PATCH` — частично изменяет существующий ресурс - `DELETE` — удаляет ресурс</p>
+<p>Реже применяют ещё 2 метода:</p>
+<p>- `HEAD` — позволяет получить только заголовки ответа; похож на `GET`, но у его ответа нет тела - `OPTIONS` — позволяет узнать, какие HTTP-методы поддерживает сервер</p>
+<p>В экспрессе есть методы для обработки любого запроса.</p>
+<p>Они называются так же, как соответствующие HTTP-методы, и могут быть вызваны в приложении, где им в качестве параметров будут переданы эндпоинты и функции-обработчики 👇🏻</p>
+<pre><code>app.get(&#x27;/games&#x27;, getAllGames);
+app.post(&#x27;/games&#x27;, updateGamesArray);
+app.put(&#x27;/games&#x27;, replaceGame);
+app.patch(&#x27;/games&#x27;, updateGameInfo);
+app.delete(&#x27;/games&#x27;, deleteGame);</code></pre>
+<h2>Что такое динамические роуты</h2>
+<p>Раньше в Pindie мы писали статические роуты, они обрабатывали запросы на конкретные адреса: `/`, `/games`, `/users/me`</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ **Динамический роут** — это обработчики шаблона адреса. То есть сразу всех адресов, подходящих под определённое правило. {/quiz-task}</p>
+<p>Чтобы создать динамический роут, в `url` укажи двоеточие и имя свойства, которое может меняться, — похожую механику мы делали с тобой в прошлом модуле в Pindie для страницы с детальным описанием игры 👇🏻</p>
+<pre><code>app.get(&#x27;/games/:id&#x27;, (req, res) =&gt; { 
+	// Этот код обработает все запросы, чей путь начинается с /games/1
+});</code></pre>
+<p>Обрати внимание: значение переменной в адресе не может быть пустым. Вот такой запрос не будет обработан 👇🏻</p>
+<pre><code>http://localhost:3000/games</code></pre>
+<h2>Параметры роута</h2>
+<p>Обработать запрос мало — необходимо получить его параметры, чтобы отдавать пользователю нужные данные. В экспрессе это просто: все параметры запроса становятся свойствами JSON-объекта `req.params`</p>
+<p>Лови код 👇🏻</p>
+<pre><code>app.get(&#x27;/games/:id&#x27;, (req, res) =&gt; {
+  res.send(req.params);
+
+	/* Если отправить запрос на адрес http://localhost:3000/games/123,
+	 внутри объекта req.params окажется JSON-объект:
+	 { &quot;id&quot;: &quot;123&quot; } */
+});</code></pre>
+<p>Формат JSON оказывается тут как никогда кстати. Особенно при обработке адресов со множественной вложенностью. Если бы в описании игры были дополнительные разделы с контентом, то их обрабатывали бы примерно так 👇🏻</p>
+<pre><code>app.get(&#x27;/games/:id/albums/:album/:photo&#x27;, (req, res) =&gt; {
+  const { id, album, photo } = req.params;
+
+	/* При обращении к адресу http://localhost:3000/games/123/albums/333/2
+	 параметры запроса будут записаны в таком виде:
+	 {&quot;id&quot;:&quot;123&quot;,&quot;album&quot;:&quot;333&quot;,&quot;photo&quot;:&quot;2&quot;}
+
+	 Мы записали их в переменные id, album и photo */
+
+  res.send(`Мы на странице игры с id ${id}, смотрим альбом №${album} и фотографию №${photo}`);
+});</code></pre>
+<h2>Как организовать роутинг</h2>
+<p>Мы уже не раз говорили о преимуществах модульного кода, предлагаем логику роутинга тоже разнести по разным файлам. Пусть один отвечает за основную часть сайта, второй — за админку, третий — за мобильное приложение.</p>
+<p>Держи пример того, как разбить код на модули 👇🏻</p>
+<pre><code>// Здесь функциональность точки входа
+const express = require(&#x27;express&#x27;);
+
+const PORT = 3000;
+const app = express();
+
+// Здесь данные
+const games = [
+  { 
+    id: 1,
+	  title: &quot;Crystal Keeper&quot;,
+	  description: &quot;Управляй боевым дроном, чтобы любой ценой защитить кристалл от враждебных космо-слизней.&quot;
+  },
+  { 
+    id: 2,
+    title: &quot;Dangeons&#x27;n&#x27;Caves. Prologue&quot;, 
+    description: &quot;Безымянный герой исследует пещеры и подземелья, чтобы найти больше информации о себе.&quot;
+  },
+];
+
+// Здесь роутинг
+app.get(&#x27;/games/:id&#x27;, (req, res) =&gt; {
+  if (!games[req.params.id]) {
+    res.send(`Такой игры не существует`);
+
+    // Не забудем выйти из функции
+    return;
+  }
+
+  const { title, description } = users[req.params.id];
+  
+  res.send(`Новое издание игры - ${name}, откроет для вас новый мир: ${description}`);
+});
+
+app.listen(PORT, () =&gt; {
+  console.log(`Server is running at PORT http://localhost:${PORT}`);
+});</code></pre>
+<p>Первым делом перенеси данные об играх в отдельный файл — `games.json`. В твоём проекте их будет больше, чем в примере выше, а храниться они будут в формате JSON 👇🏻</p>
+<pre><code>// games.json
+[
+  {
+    &quot;id&quot;: 1,
+    &quot;title&quot;: &quot;Crystal Keeper&quot;,
+    &quot;description&quot;: &quot;Управляй боевым дроном, чтобы любой ценой защитить кристалл от враждебных космо-слизней.&quot;,
+    &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/cristal-keeper/cover.png&quot;,
+    &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/cristal-keeper/game/index.html&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;title&quot;: &quot;Dangeons&#x27;n&#x27;Caves. Prologue&quot;,
+    &quot;description&quot;: &quot;Безымянный герой исследует пещеры и подземелья, чтобы найти больше информации о себе.&quot;,
+    &quot;image&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/dangeons-n-caves-prologue/cover.png&quot;,
+    &quot;link&quot;: &quot;https://code.s3.yandex.net/teens/pindie-games/dangeons-n-caves-prologue/game/index.html&quot;
+  }
+]
+</code></pre>
+<p>Воспользуйся вспомогательными функциями для чтения и записи данных в JSON-файл 👇🏻</p>
+<pre><code>const fs = require(&quot;fs&quot;).promises;
+
+const readData = async url =&gt; {
+  try {
+    const data = await fs.readFile(url, &quot;utf-8&quot;);
+    const json = JSON.parse(data);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const writeData = async (url, data) =&gt; {
+  const json = JSON.stringify(data);
+  await fs.writeFile(url, json);
+};</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ В твоём проекте они должны располагаться отдельно в папках `utils/data` 👇🏻</p>
+<p>[utils.zip](https://code.s3.yandex.net/kids-web/vids/M4/utils.zip){target=&quot;_blank&quot;} {/quiz-task}</p>
+<p>Итак, лови инструкцию, как за два шага из приложения сделать сервер, который будет обрабатывать запросы👇🏻</p>
+<h2>**Шаг 1. Настрой роутеры**</h2>
+<p>Как Аски уже успел сказать, код роутинга лучше хранить в отдельном файле, но для этого сначала допишем его.</p>
+<p>Логика ответа на запросы описана в обработчиках `get`. Мы вызывали `get` как метод самого приложения, то есть метод переменной `app`, но в отдельном модуле с роутингом этой переменной нет. И создать её не получится, так как может быть только одно приложение. Поэтому в экспрессе есть спецметод `Router`, который создаёт объект, идеально подходящий для того, чтобы повесить на него обработчики.</p>
+<p>Создай папку `routes`, а в ней файл `games.js`, в котором и опишешь логику для входящих запросов 👇🏻</p>
+<pre><code>// routes/games.js
+const gamesRouter = require(&quot;express&quot;).Router(); // Создали роутер
+const { readData, writeData } = require(&quot;../utils/data&quot;); // Чтение и запись данных в JSON-файл
+
+// Получим игры из JSON-файла и отправим в ответ на запрос
+const getAllGames = async (req, res) =&gt; {
+  const games = await readData(&quot;./data/games.json&quot;);
+  if (!games) {
+    res.status(400);
+    res.send({
+      status: &quot;error&quot;,
+      message: &quot;Нет игр в базе данных. Добавьте игру.&quot;
+    });
+    return;
+  }
+  req.games = games;
+  res.send(req.games);
+};
+
+const deleteGame = async (req, res) =&gt; {
+	// Получим данные из файла
+  const games = await readData(&quot;./data/games.json&quot;);
+  if (!games) {
+    res.status(400);
+    res.send({
+      status: &quot;error&quot;,
+      message: &quot;Нет игр в базе данных. Добавьте игру.&quot;,
+    });
+    return;
+  }
+  req.games = games;
+  
+  // Прочитаем запрашиваемый id игры из запроса
+	const id = Number(req.params.id);
+	
+	// Найдём игру, которую хотят удалить, в общем массиве с играми по id
+	req.game = req.games.find((item) =&gt; item.id === id);
+	
+	// Найдём индекс удаляемой игры в общем массиве игр
+	const index = req.games.findIndex((item) =&gt; item.id === req.game.id);
+	
+	// Удалим из массива игр игру
+	req.games.splice(index, 1);
+	
+	// Запишем обновлённый массив игр в JSON-файл
+	await writeData(&quot;./data/games.json&quot;, req.games);
+	
+	// Вернём ответ о проделанной операции с данными об играх
+	res.send({
+    games: req.games,
+    updated: req.game
+  });
+}
+
+gamesRouter.get(&quot;/games&quot;, getAllGames)
+gamesRouter.delete(&quot;/games/:id&quot;, deleteGame);
+
+module.exports = gamesRouter;</code></pre>
+<p>А пока создай ещё один небольшой роут для запроса по маршруту `&quot;/&quot;`. В той же папке `routes` добавь `main.js` 👇🏻</p>
+<pre><code>// routes/main.js
+const mainRoute = require(&quot;express&quot;).Router();
+
+mainRoute.get(&quot;/&quot;, (req, res) =&gt; {
+  res.status(200).send(&#x27;&lt;h1&gt;Скоро тут будет интерфейс&lt;/h1&gt;&#x27;);
+});
+
+module.exports = mainRoute;</code></pre>
+<h2>**Шаг 2. Настрой точку входа**</h2>
+<p>Для этого импортируй роутеры в `app.js` и запусти их методом `use`. Так как до этого мы описали, какие методы и `url`-запросы необходимо обрабатывать, достаточно просто передать `mainRoute` и `gamesRouter` аргументами в метод `use` 👇🏻</p>
+<pre><code>// app.js 
+const express = require(&#x27;express&#x27;);
+
+// Импортируем роутеры
+const mainRoute = require(&#x27;./routes/main&#x27;);
+const gamesRouter = require(&#x27;./routes/games&#x27;); 
+
+const PORT = 3000;
+const app = express();
+
+// Запускаем
+app.use(mainRoute, gamesRouter); 
+
+app.listen(PORT, () =&gt; {
+  console.log(`Server is running at PORT http://localhost:${PORT}`);
+})</code></pre>
+</body>
+</html>

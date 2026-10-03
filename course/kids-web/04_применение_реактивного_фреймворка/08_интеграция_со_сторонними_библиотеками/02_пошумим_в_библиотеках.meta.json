@@ -1,0 +1,18 @@
+{
+  "lesson_id": "dedfbe13-ec9d-45dd-92d8-2bd0c5417c3c",
+  "title": "Пошумим в библиотеках?",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "400cce86-70c5-4448-b47d-5bba20048e1c",
+  "topic_name": "Интеграция со сторонними библиотеками",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/400cce86-70c5-4448-b47d-5bba20048e1c/lessons/dedfbe13-ec9d-45dd-92d8-2bd0c5417c3c/",
+  "markdown_chars": 7604,
+  "content_hash": "f7de9637d0b387a8",
+  "saved_at": "2026-07-29T15:23:10.201326+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/08_интеграция_со_сторонними_библиотеками/02_пошумим_в_библиотеках.md",
+    "html": "04_применение_реактивного_фреймворка/08_интеграция_со_сторонними_библиотеками/02_пошумим_в_библиотеках.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a42cf47c-686a-4aa5-a1af-8ae6edf1eb36",
+  "title": "Transform: двигаем, вращаем",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/a42cf47c-686a-4aa5-a1af-8ae6edf1eb36/",
+  "markdown_chars": 3606,
+  "content_hash": "934e6b79fe4d550b",
+  "saved_at": "2026-07-29T15:20:47.981693+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/06_transform_двигаем_вращаем.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/06_transform_двигаем_вращаем.html"
+  }
+}

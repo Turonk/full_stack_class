@@ -1,0 +1,18 @@
+{
+  "lesson_id": "bed25e46-58b2-44e2-a8c9-0ad479ea7c83",
+  "title": "Работа с сервером по SSH",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/bed25e46-58b2-44e2-a8c9-0ad479ea7c83/",
+  "markdown_chars": 7934,
+  "content_hash": "2f89bb87d3a5800e",
+  "saved_at": "2026-07-29T15:24:53.359283+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/16_работа_с_сервером_по_ssh.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/16_работа_с_сервером_по_ssh.html"
+  }
+}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}PulseLab — дом{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">MediaGameHub</p>
+    <h1>Клуб, который вы собрали за год</h1>
+    <p class="muted">Музыка, игра на битах и мерч. Хиты ниже подтягиваются fetch с <code>/api/hits</code>.</p>
+  </div>
+</section>
+<section>
+  <h2>Хиты с API</h2>
+  <div id="api-hits" class="grid"></div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/hits.js') }}" defer></script>
+{% endblock %}

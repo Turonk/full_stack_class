@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Подключение к базе данных из Express</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Подключение к базе данных из Express</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/132b0620-499d-4902-81e1-bcf97549e622/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/132b0620-499d-4902-81e1-bcf97549e622/</a></p>
+  <h1>Подключение к базе данных из Express</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_3_1713460645.jpg)</p>
+<p>Чтобы подружить JS с документами, существуют специальные инструменты — **ODM,** или **Object Document Mapper** (с англ. «сопоставитель объектов и документов»). У каждой БД свой собственный сопоставитель. Например, у MongoDB он называется **Mongoose** и представляет собой мост между двумя мирами — миром документов в базе данных и миром объектов JavaScript.</p>
+<p>В этом уроке ты только установишь и запустишь его, а работу начнёшь уже в следующем.</p>
+<h3>Старт</h3>
+<p>Тебе предстоит подключить базу данных к приложению на Express. Это новый проект, ты начинаешь работу над Pindie. Поэтому потребуется новое приложение с базовыми настройками.</p>
+<p>1. Создай новый проект, это тебе уже знакомо из урока **«Билет на Express»**. Хорошим названием для проекта будет `pindie-backend` 2. Следом создай в Github новый репозиторий под проект и сделай первый пуш туда. Как это сделать, рассказывали в уроке **«Git через терминал»**. 3. Задай базовые настройки: запусти сервер на порту `3000`, добавь `CORS` и `bodyParser`, научи проект отдавать HTML на сервер (уроки **«Раздаём HTML»**, **«CORS»** и **«Миддлвары»**). 4. Тебе также нужен новый фронтенд в папке `/public`. Прикладываем его ниже (скачай архив и положи в проект) 👇🏻</p>
+<p>[public.zip](https://code.s3.yandex.net/kids-web/vids/M4/M4T3/files/public.zip){target=&quot;_blank&quot;}</p>
+<p>Теперь, когда предварительная настройка закончена, можно подключать базу данных.</p>
+<h3>Устанавливаем Mongoose</h3>
+<p>Открой в терминале папку с проектом и запусти команду `npm` 👇🏻</p>
+<pre><code>npm i mongoose</code></pre>
+<p>Теперь сопоставитель можно импортировать как модуль и пользоваться.</p>
+<p>В корне проекта создай папку `database`, а в ней — файл `connect.js`, в который добавь функцию `connectToDatabase` 👇🏻</p>
+<pre><code>const mongoose = require(&#x27;mongoose&#x27;);
+
+const DB_URL = &#x27;mongodb://localhost:27017/pindie&#x27;;
+
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(DB_URL);
+    console.log(&#x27;Успешно подключились к MongoDB&#x27;)
+  }
+  catch (err) {
+    console.log(&#x27;При подключении MongoDB возникла ошибка&#x27;)
+    console.error(err);
+  }
+}
+
+module.exports = connectToDatabase;</code></pre>
+<p>Непосредственное подключение к базе данных осуществляется строкой 👇🏻</p>
+<pre><code>await mongoose.connect(DB_URL);</code></pre>
+<p>Здесь `DB_URL` — адрес базы данных, который состоит из двух частей:</p>
+<p>- `mongodb://localhost:27017` — адрес сервера MongoDB, - `pindie` — имя БД на сервере MongoDB, которую мы будем использовать для записи и чтения данных.</p>
+<p>Далее просто вызови функцию `connectToDatabase` в файле `app.js`, таким образом подключишься к базе данных при старте приложения.</p>
+<p>Вот полный код 👇🏻</p>
+<pre><code>const express = require(&#x27;express&#x27;);
+const bodyParser = require(&#x27;body-parser&#x27;);
+const path = require(&#x27;path&#x27;);
+const usersRouter = require(&#x27;./routes/users&#x27;);
+const gamesRouter = require(&#x27;./routes/games&#x27;);
+const categoriesRouter = require(&#x27;./routes/categories&#x27;);
+
+const connectToDatabase = require(&#x27;./database/connect&#x27;);
+const cors = require(&#x27;./middlewares/cors&#x27;);
+
+const app = express();
+const PORT = 3000;
+
+connectToDatabase();
+
+app.use(
+  cors, 
+  bodyParser.json(),
+  express.static(path.join(__dirname, &#x27;public&#x27;)),
+  usersRouter, 
+  gamesRouter, 
+  categoriesRouter
+);
+
+app.listen(PORT);</code></pre>
+<h3>Запускаем сервер MongoDB</h3>
+<p>Перед тем как запускать Node.js-приложение, которое будет записывать и читать из базы данных `pindie`, нужно сначала запустить сервер MongoDB.</p>
+<p>Сделать это можно следующей командой под тогглом 👀</p>
+<pre><code>mongod --config /usr/local/etc/mongod.conf --fork</code></pre>
+<pre><code>mongod --config /opt/homebrew/etc/mongod.conf --fork</code></pre>
+<pre><code>mongod</code></pre>
+<p>Если первая команда для Windows не сработала, воспользуйся альтернативной 👇🏻</p>
+<pre><code>mongod --port 27017 --dbpath &quot;C:\data\db&quot;</code></pre>
+</body>
+</html>

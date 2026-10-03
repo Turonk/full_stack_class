@@ -1,0 +1,18 @@
+{
+  "lesson_id": "c027e97b-7b77-49cf-bf52-1ae9ad23d907",
+  "title": "Работаем с DOM",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/c027e97b-7b77-49cf-bf52-1ae9ad23d907/",
+  "markdown_chars": 6172,
+  "content_hash": "28bd8d17d6c6efc1",
+  "saved_at": "2026-07-29T15:21:17.350567+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/07_работаем_с_dom.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/07_работаем_с_dom.html"
+  }
+}

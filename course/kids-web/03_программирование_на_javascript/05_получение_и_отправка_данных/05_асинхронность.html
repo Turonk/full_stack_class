@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Асинхронность</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Асинхронность</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/b4924b86-fff2-4ee5-b810-ae726f19b42a/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/b4924b86-fff2-4ee5-b810-ae726f19b42a/</a></p>
+  <h1>Асинхронность</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_24_1703163638.gif)</p>
+<p>Когда ты работаешь с JavaScript, твой код выполняется постепенно — одна команда за другой. Это называется **синхронным** выполнением кода. Браузер не может приступить к следующей команде, пока не выполнится начатая ранее (блокирующая) команда.</p>
+<p>Но, как ты помнишь, серверу нужно время, чтобы получить запрос и отправить ответ. Представь, что на это время блокируется исполнение кода: в таком случае использование сайта было бы малоприятным 🥴</p>
+<p>Чтобы справиться с проблемой блокирующего кода, в JavaScript существуют **промисы** (от английского promise — «обещание»). Это специальная штука для работы с **асинхронным** кодом (то есть для таких команд, результаты которых будут доступны не сразу).</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_601_1703235575.png)</p>
+<p>**Промисы** — результат работы асинхронных функций (примером одной из таких функций является `fetch()`, о которой мы говорили в предыдущем уроке). Посмотрим на нашем примере запроса к серверу. Если мы выведем в консоль функцию `fetch` с запросом к серверу с карточками, то увидим промис👇🏻</p>
+<pre><code>console.log(
+  fetch(&quot;https://api-code.practicum-team.ru/heroes?_where[_or][0][studentEmail]=${studentEmail}&amp;_where[_or][1][studentEmail]=&quot;)
+);</code></pre>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1375_1703163733.png)</p>
+<p>Разберём этот промис внимательнее.</p>
+<p>У всех промисов есть три состояния:</p>
+<p>1. `pending` (состояние в начале операции) 2. `fulfilled` (результат получен) 3. `rejected` (ошибка, и результат не получен)</p>
+<p>У промиса, появившегося после нашего запроса к серверу, состояние `fulfilled` — значит, запрос прошёл и ответ был успешно получен.</p>
+<p>Если с запросом что-то не так и он не выполняется, промис перейдёт в состояние `rejected`. На примере ниже запрос не проходит из-за выключенного интернета: промис не получает результат с сервера и переходит в состояние `rejected` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1376_1_1_1703272398.png)</p>
+<p>Мы подробно опишем, как работать с промисами, на примере функции `fetch`, если захочешь узнать больше, то почитай статью в [Доке](https://doka.guide/js/promise/){target=&quot;_blank&quot;}.</p>
+<p>Для этого нужно воспользоваться особенной функцией для промисов: `then`. Мы уже показывали код с `then` в прошлом уроке, там использовали его для обработки результатов запроса.</p>
+<p>В функции `then` мы описываем, что делать в случае успешного запроса. Результат запроса доступен как аргумент этой функции, обычно для обращения к нему используют название `response`</p>
+<p>Выглядит это так:</p>
+<pre><code>// Делаем запрос к серверу
+fetch(&quot;https://api-code.practicum-team.ru/heroes?_where[_or][0][studentEmail]=${studentEmail}&amp;_where[_or][1][studentEmail]=&quot;)
+	// В then описываем, что делать в случае успешного запроса
+	// В параметре response хранится ответ сервера
+  .then((response) =&gt; {
+    console.log(response);
+    return response;
+  })</code></pre>
+<p>В ответ от сервера приходит `Response` — данные о произошедшем запросе 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1368_1_1703272449.png)</p>
+<p>Чтобы достать из этого сообщения полученные данные, тебе нужно воспользоваться функцией `json()`. Она преобразует ответ в формат JSON, который мы можем использовать на клиенте.</p>
+<p>Получится такая конструкция:</p>
+<pre><code>fetch(&quot;https://api-code.practicum-team.ru/heroes?_where[_or][0][studentEmail]=${studentEmail}&amp;_where[_or][1][studentEmail]=&quot;)
+  .then((response) =&gt; {
+    return response.json();
+  })</code></pre>
+<p>И кстати, ты можешь создавать цепочки из `.then()`, в таком случае в каждом следующем `then` будет доступен результат из прошлого! В примере ниже это работает так:</p>
+<p>- `then` 1: Мы обрабатываем результат запроса к серверу с помощью функции `json()` и возвращаем то, что передал сервер - `then` 2: А теперь мы берём результат первого `then` и выводим его в консоль</p>
+<pre><code>fetch(&quot;https://api-code.practicum-team.ru/heroes?_where[_or][0][studentEmail]=${studentEmail}&amp;_where[_or][1][studentEmail]=&quot;)
+  .then((response) =&gt; {
+		// Получаем запрос и достаём оттуда данные
+    return response.json();
+  })
+	// Выводим полученные в первом then данные в консоль
+	.then((response) =&gt; console.log(response));</code></pre>
+<p>Теперь в консоли мы видим полученные с сервера данные 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1377_2_1703163874.png)</p>
+<p>Данные удалось получить, но никто не застрахован от ошибки. Как раз на случай ошибок есть функция `catch` — с её помощью мы можем предупредить пользователя или описать, в чём проблема (например, вывести информацию об ошибке в консоль).</p>
+<pre><code>fetch(&quot;https://api-code.practicum-team.ru/heroes?_where[_or][0][studentEmail]=${studentEmail}&amp;_where[_or][1][studentEmail]=&quot;)
+  .then((response) =&gt; {
+		// Получаем запрос и достаём оттуда данные
+    return response.json();
+  })
+	// Выводим полученные в первом then данные в консоль
+	.then((response) =&gt; console.log(response));
+	// В catch описываем, что делать в случае ошибки
+	// В параметре e хранится сообщение об ошибке
+	.catch((e) =&gt; console.log(e));</code></pre>
+<p>Осталось совсем чуть-чуть, чтобы решить проблему Аски с несохранением введённых данных при обновлении страницы. Следующий урок о формах поможет привести в форму наш КарП.</p>
+</body>
+</html>

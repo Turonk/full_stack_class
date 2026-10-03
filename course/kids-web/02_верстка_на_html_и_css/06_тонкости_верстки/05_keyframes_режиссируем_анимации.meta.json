@@ -1,0 +1,18 @@
+{
+  "lesson_id": "b8072dcc-17a8-47a8-acbe-f4c7ac7e599f",
+  "title": "Keyframes: режиссируем анимации",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "f9d39de1-18b4-4bb1-9474-afba5e416eab",
+  "topic_name": "Тонкости вёрстки",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/f9d39de1-18b4-4bb1-9474-afba5e416eab/lessons/b8072dcc-17a8-47a8-acbe-f4c7ac7e599f/",
+  "markdown_chars": 7987,
+  "content_hash": "17c6ac1991ce135f",
+  "saved_at": "2026-07-29T15:20:46.697873+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/06_тонкости_верстки/05_keyframes_режиссируем_анимации.md",
+    "html": "02_верстка_на_html_и_css/06_тонкости_верстки/05_keyframes_режиссируем_анимации.html"
+  }
+}

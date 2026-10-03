@@ -1,0 +1,18 @@
+{
+  "lesson_id": "a8393eb8-907f-4c34-92ae-1707c1c5620b",
+  "title": "Шаблонные строки",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/a8393eb8-907f-4c34-92ae-1707c1c5620b/",
+  "markdown_chars": 5928,
+  "content_hash": "9c574bc69bdb7a70",
+  "saved_at": "2026-07-29T15:21:18.844089+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/08_шаблонные_строки.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/08_шаблонные_строки.html"
+  }
+}

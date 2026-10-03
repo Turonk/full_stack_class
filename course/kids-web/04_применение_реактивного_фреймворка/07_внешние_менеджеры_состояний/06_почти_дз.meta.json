@@ -1,0 +1,18 @@
+{
+  "lesson_id": "98267eef-2cd6-4947-8057-796d4396540b",
+  "title": "Почти ДЗ!",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "7fa40fdd-1d01-45f2-8cd5-271295dfecfc",
+  "topic_name": "Внешние менеджеры состояний",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/98267eef-2cd6-4947-8057-796d4396540b/",
+  "markdown_chars": 6655,
+  "content_hash": "9b791da1dc875c38",
+  "saved_at": "2026-07-29T15:23:06.611181+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/06_почти_дз.md",
+    "html": "04_применение_реактивного_фреймворка/07_внешние_менеджеры_состояний/06_почти_дз.html"
+  }
+}

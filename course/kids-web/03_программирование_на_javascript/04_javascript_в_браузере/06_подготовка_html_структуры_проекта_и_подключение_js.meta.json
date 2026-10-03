@@ -1,0 +1,18 @@
+{
+  "lesson_id": "92595f7f-d28f-4e1f-a35f-26af7a9e3191",
+  "title": "Подготовка HTML-структуры проекта и подключение JS",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/92595f7f-d28f-4e1f-a35f-26af7a9e3191/",
+  "markdown_chars": 8838,
+  "content_hash": "9f203ead85c431b5",
+  "saved_at": "2026-07-29T15:21:15.818687+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/06_подготовка_html_структуры_проекта_и_подключение_js.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/06_подготовка_html_структуры_проекта_и_подключение_js.html"
+  }
+}

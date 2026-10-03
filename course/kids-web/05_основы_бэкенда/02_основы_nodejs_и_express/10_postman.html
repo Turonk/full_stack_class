@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Postman</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Postman</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/9ba63240-2a69-4bd7-8c8e-9deef501f46c/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/d034b6b4-f9ec-479f-ab65-1b8b1b769e5d/lessons/9ba63240-2a69-4bd7-8c8e-9deef501f46c/</a></p>
+  <h1>Postman</h1>
+<p>Что правда, то правда — чтобы узнать о запросе (например, о заголовках), придётся лезть во вкладку **Network** в инструментах разработчика. Чтобы отправить `PATCH`-запрос, нужно и вовсе редактировать файл с кодом, сохранять и открывать в браузере.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4932_1711639917.jpg)</p>
+<h3>Инструмент для тестирования API</h3>
+<p>Чтобы отправлять запросы на сервер и получать ответы, есть специальные приложения. Мы расскажем об одном из самых популярных — **Postman.** Скачать и установить его можно по ссылке: [www.getpostman.com/downloads](https://www.getpostman.com/downloads/){target=&quot;_blank&quot;}.</p>
+<p>После установки заходи в прогу, перед тобой появится вот такой экран 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1649_1711639941.png)</p>
+<p>Теперь нажми на плюс в левом верхнем углу. Появится окно для создания запроса. В выпадающем списке слева от адресной строки можно указать тип запроса. Пока оставим `GET` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1650_1711639956.png)</p>
+<p>В адресной строке нужно указать `URL`, куда мы хотим отправить запрос. Протестируем на уже знакомом `https://api-code-2.practicum-team.ru/games`</p>
+<p>Смело вбивай адрес и нажимай **Send** 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1651_1_1711639982.png)</p>
+<p>Бэкенд проекта Pindie вернёт ответ. В нижней панели отобразятся статус ответа, его тело и заголовки. Проверяй 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1652_1711640002.png)</p>
+<h3>Редактирование запроса</h3>
+<p>В Postman можно редактировать тело и заголовки запроса. Для примера попробуй создать такой запрос 👇🏻</p>
+<pre><code>POST https://jsonplaceholder.typicode.com/posts
+
+Content-Type: application/json
+
+{
+  &quot;title&quot;: &quot;Привет, мир!&quot;,
+  &quot;userId&quot;: 42
+}</code></pre>
+<p>Для этого сначала сделай `POST`-запрос с соответствующим `URL` и заголовками 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1653_1711640051.png)</p>
+<p>Перейдём к настройке тела запроса: зайди во вкладку **Body,** затем выбери радиокнопку `raw` и скопируй необходимый `JSON`-объект в текстовую область ниже 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1654_1711640069.png)</p>
+<p>Чтобы сохранить запрос, нажми **Save.** Это полезно, если ты собираешься неоднократно тестировать сервер этим запросом 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1655_1711640087.png)</p>
+<h3>Проектное задание</h3>
+<p>Создай коллекцию для тестирования сервера из проекта этой недели и запиши туда три запроса:</p>
+<p>- Основной к корню проекта `&quot;/&quot;` - К роуту `&quot;/game&quot;` - К роуту `&quot;/vote&quot;`</p>
+<p>Коллекции в Postman позволяют сохранять и обмениваться запросами. Тестируя сервер, тебе не придётся вручную описывать запрос каждый раз, достаточно создать коллекцию и использовать её, то есть осуществить автоматизацию.</p>
+<p>Показываем:</p>
+<p>- В меню слева выбери **Collections** и нажми **+**, чтобы создать новую коллекцию 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1656_1711640207.png)</p>
+<p>- В выпадающем списке выбери пустую коллекцию — `Blank collection` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1658_1711640227.png)</p>
+<p>- В поле, где написано `New Collection`, введи желаемое имя коллекции (например, `week2`) 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1657_1711640267.png)</p>
+<p>- Открой новую вкладку для создания запроса 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1659_1711640290.png)</p>
+<p>- Заполни адрес запроса. Локальный сервер будет запускаться на определённом порту. В качестве примера будем использовать порт `3005`, поэтому основной запрос к проекту будет по адресу `http://localhost:3005/`. Для этого введи адрес запроса и метод `GET`, затем нажми кнопку «Сохранить» — **Save** 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1660_1711640314.png)</p>
+<p>- Выбери коллекцию, куда сохранять запрос 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1661_1711640339.png)</p>
+<p>- Сохрани кликом по активной кнопке **Save** 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1662_1711640372.png)</p>
+<p>- В левом блоке с коллекцией появился первый сохранённый запрос! К нему можно получить доступ, выбрав его из коллекции 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1663_1711640395.png)</p>
+<p>- Аналогичным образом добавь запросы с роутом `/game` и `/vote` 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1664_1711640418.png)</p>
+</body>
+</html>

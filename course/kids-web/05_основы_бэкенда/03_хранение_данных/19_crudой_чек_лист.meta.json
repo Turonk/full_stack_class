@@ -1,0 +1,18 @@
+{
+  "lesson_id": "c6e11221-0102-4f70-8c94-0772e337244a",
+  "title": "CRUDой чек-лист",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "b0783e3e-bba5-418d-9bdb-d5fa877df8f3",
+  "topic_name": "Хранение данных",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/c6e11221-0102-4f70-8c94-0772e337244a/",
+  "markdown_chars": 21225,
+  "content_hash": "1242aa2dd1be4828",
+  "saved_at": "2026-07-29T15:24:30.165018+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/03_хранение_данных/19_crudой_чек_лист.md",
+    "html": "05_основы_бэкенда/03_хранение_данных/19_crudой_чек_лист.html"
+  }
+}

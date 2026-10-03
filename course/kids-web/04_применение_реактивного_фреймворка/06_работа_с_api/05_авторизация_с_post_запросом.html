@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Авторизация с POST-запросом</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Авторизация с POST-запросом</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/31b41017-90e6-482b-a507-206b8cbaf432/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/31b41017-90e6-482b-a507-206b8cbaf432/</a></p>
+  <h1>Авторизация с POST-запросом</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_56_1709049589.jpg)</p>
+<p>При **авторизации** ты отправляешь свои данные на сервер, а в ответ получаешь право совершать какие-то действия на сайте. В случае с Pindie получается, что ты отправляешь на сервер адрес электронной почты и пароль, и если данные верны, то у тебя появляется возможность ставить лайки играм. Это называют **логином в приложение** (от англ. log in — «авторизоваться» или «войти в систему»), и ты постоянно сталкиваешься с этим — например, когда входишь в социальную сеть или при входе в этот курс о разработке. Выход из приложения называют **логаутом** (от англ. log out — «выйти из системы»).</p>
+<p>Авторизация в Pindie будет работать так: при вводе электронной почты и пароля в форму будет отправляться запрос к серверу. Если с данными всё хорошо, отобразится сообщение `Вы авторизовались!` и форма закроется, а кнопка `Войти` в шапке сайта сменится на кнопку `Выйти`. Если данные будут неверными, высветится сообщение об ошибке.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-01-30_в_17.35.16.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<h3>Шаг 1. Создаём функцию `authorize`</h3>
+<p>В прошлом уроке мы работали в файле `app/api/api-utils.js` — открой его.</p>
+<p>В нём нужно создать функцию `authorize`, а в ней написать запрос, отправляющий данные на сервер. Это должна быть асинхронная функция, поэтому добавь слово `async` при её определении (подробно об этом рассказывали в прошлых уроках). Параметры функции — адрес, на который функция должна отправлять данные, и сам объект с данными. Не забудь добавить `try`/`catch`, чтобы в случае ошибки возвращать её как результат работы функции.</p>
+<pre><code>export const authorize = async (url, data) =&gt; {
+	try {
+    /* Код функции авторизации */
+  } catch (error) {
+		/* Указываем, что в случае ошибки надо возвращать ошибку */
+    return error;
+  }
+};</code></pre>
+<h3>Шаг 2. Пишем `POST`-запрос</h3>
+<p>Теперь приступим к самому запросу (подробно о том, как работают запросы к серверу, читай в уроке второго модуля «Как писать запросы к серверу»).</p>
+<p>Диалог. Собака: Вот какие у нас запросы к этому запросу 😁</p>
+<p>Диалог. Собака:</p>
+<p>- Чтобы отправить данные на сервер, надо использовать `POST`-запрос. - Нужно указать, что тип контента, который мы отправляем, — `&quot;application/json&quot;` - В теле запроса будут данные, которые функция `JSON.stringify()` приведёт к строке. - Если код ответа сервера не будет равен `200` (это означает, что с запросом что-то не так), то нужно выдать ошибку. Это можно сделать так: `throw new Error(&quot;Ошибка авторизации&quot;)`. В таком случае функция перейдёт в блок `catch`, откуда мы вернём ошибку авторизации.</p>
+<p>Адрес для отправки запроса: `${BASE_URL}/auth/local`, где `${BASE_URL}` — основной адрес для запросов к Pindie API.</p>
+<pre><code>export const authorize = async (url, data) =&gt; {
+  try {
+		/* fetch-запрос к серверу */
+    const response = await fetch(url, {
+			/* указываем метод POST */
+      method: &quot;POST&quot;,
+			/* 
+				В headers добавляем информацию о передаваемом 
+				в теле запроса типе данных
+			*/
+      headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+			/* 
+				В тело запроса добавляем приведённый к строке 
+				объект с данными пользователя
+			*/
+      body: JSON.stringify(data),
+    });
+		/* 
+			Проверяем, что с ответом сервера всё ок, и, если нет, кидаем ошибку 
+		*/
+    if (response.status !== 200) {
+      throw new Error(&quot;Ошибка авторизации&quot;);
+    }
+		/* Сохраняем в константу result полученные данные */
+    const result = await response.json();
+		/* Возвращаем данные */
+    return result;
+  } catch (error) {
+		/* Если выше произошла ошибка, то возвращаем данные об ошибке */
+    return error;
+  }
+};</code></pre>
+<h3>Шаг 3. Проверяем работу функции</h3>
+<p>Проверь, что функция `authorize` работает.</p>
+<p>По документации тебе нужно передавать объект `data` такого вида: `{ identifier: &quot;&quot;, password: &quot;&quot; }`</p>
+<p>Но пока что мы будем отправлять запросы с заранее заданными значениями. Попробуй это сделать 👇🏻</p>
+<pre><code>useEffect(() =&gt; {
+  authorize(endpoints.auth, {identifier: &#x27;aski@example.com&#x27;, password: &#x27;ilovehtml&#x27;})
+    .then(res =&gt; console.log(res))
+}, [])</code></pre>
+<p>Результат работы функции смотри в DevTools (вкладка Network/Сеть) 👇🏻</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1547_1709049921.png)</p>
+<p>Как видишь, функция `authorize` работает: мы получаем ответ, в котором хранятся данные о пользователе и JWT-токен (о нём в следующем уроке, пока что он тебе не понадобится).</p>
+<p>А вот что будет, если отправлять неверные данные — в той же вкладке Network в DevTools увидим ошибку, как и во вкладке Console/Консоль👇🏻</p>
+<h3>Шаг 4. Добавляем компонент с формой</h3>
+<p>Теперь, когда функция `authorize` готова, можешь добавить компонент с формой для отправки данных.</p>
+<p>В файле `app/components/Header/Header.jsx` уже создана переменная состояния `popupIsOpened`. Там же добавь переменную состояния `isAuthorized` — в зависимости от неё будет отображаться кнопка `Войти`/`Выйти`. Изначальное значение должно быть `false`</p>
+<pre><code>const [isAuthorized, setIsAuthorized] = useState(false);
+const [popupIsOpened, setPopupIsOpened] = useState(false);
+
+const openPopup = () =&gt; {
+  setPopupIsOpened(true);
+};
+const closePopup = () =&gt; {
+  setPopupIsOpened(false);
+};</code></pre>
+<h3>Шаг 5. Передаём в форму функции</h3>
+<p>Теперь тебе нужно передать в форму нужные функции.</p>
+<p>Добавь компоненту `AuthForm` атрибут `close` для функции закрытия попапа и атрибут `setAuth` для функции, устанавливающей состояние переменной `isAuthorized`</p>
+<pre><code>&lt;Overlay isOpened={popupIsOpened} close={closePopup} /&gt;
+&lt;Popup isOpened={popupIsOpened} close={closePopup}&gt;
+  &lt;AuthForm close={closePopup} setAuth={setIsAuthorized}/&gt;
+&lt;/Popup&gt;</code></pre>
+<h3>Шаг 6. Добавляем `props`</h3>
+<p>Открой `AuthForm.jsx` — в этом файле ты и будешь добавлять код, необходимый для авторизации пользователя.</p>
+<p>Сейчас у него нет объекта `props` — добавь его, чтобы иметь доступ к переданным функциям.</p>
+<pre><code>/* Надо добавить props */
+export const AuthForm = (props) =&gt; {
+  return (
+    &lt;form className={Styles[&#x27;form&#x27;]}&gt;
+      {/* Содержание */}
+    &lt;/form&gt;
+  ) 
+};</code></pre>
+<h3>Шаг 7. Добавляем переменные состояния</h3>
+<p>Теперь добавь переменные состояния, в которые будешь записывать данные формы, данные, полученные с сервера после запроса, и сообщение об успешной авторизации или ошибке. Пусть они называются `authData`, `userData` и `message`</p>
+<p>Воспользуйся хуком `useState`, чтобы создать эти переменные. Вот изначальные состояния для каждой из них:</p>
+<p>- у `authData` — объект `{ identifier: &quot;&quot;, password: &quot;&quot; }` - у `userData` — объект `null` - у `message` — объект `{ status: null, text: null }` В `status` мы будем писать, прошёл запрос или нет (`success` — если запрос прошёл, `error` — в случае ошибки), а в `text` — какое сообщение должно показываться пользователю.</p>
+<pre><code>const [authData, setAuthData] = useState({ identifier: &quot;&quot;, password: &quot;&quot; });
+const [userData, setUserData] = useState(null);
+const [message, setMessage] = useState({ status: null, text: null });</code></pre>
+<h3>Шаг 8. Создаём функцию `handleInput`</h3>
+<p>Пропиши функцию, которая будет собирать данные из полей формы и записывать их в стейт `authData`</p>
+<p>Можно написать такую функцию, которая будет подходить для обработки сразу двух полей ввода. У полей ввода есть значения `name` — они будут доступны в событиях при наборе текста (о браузерных событиях рассказывали в уроке второго модуля «Переменная `event`»).</p>
+<p>В React для обработки события ввода текста используется атрибут `onInput`. Вот как это выглядит 👇🏻</p>
+<pre><code>&lt;input
+  onInput={handleInput}
+  className={Styles[&quot;form__field-input&quot;]}
+  name=&quot;identifier&quot;
+  type=&quot;email&quot;
+  placeholder=&quot;hello@world.com&quot;
+/&gt;</code></pre>
+<p>Функция `handleInput` будет обрабатывать это событие. Для начала выведи в консоль объект `event`, значение `name` и значение `value` 👇🏻</p>
+<pre><code>const handleInput = (e) =&gt; {
+  console.log(e)
+  console.log(`${e.target.name}, ${e.target.value}`)
+};</code></pre>
+<p>Ниже показываем, что получится, если ввести в поле `Email` цифру 1, а в поле `Пароль` — цифру 2. В консоли при событии набора текста появляются данные о поле, в которое вводится текст, и его значение. Например, `identifier, 1` значит, что `name` поля равен `identifier`, а значение (`value`) — `1`</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/Запись_экрана_2024-01-30_в_15.31.55.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>По значению `e.target.name` можно находить нужное нам поле в объекте `authData`. Вот как он выглядит изначально: `{ identifier: &quot;&quot;, password: &quot;&quot; }`. Значит, можно записывать новое значение, указывая соответствующий ключ.</p>
+<p>Можно сделать обработчик изменения каждого поля по отдельности, но это неудобно. Поэтому сделаем так, чтобы один обработчик мог подойти каждому полю ввода.</p>
+<p>Пусть при изменении поля объект `authData` копируется, у него меняется нужное значение и эта копия становится новым значением `authData` 👇🏻</p>
+<pre><code>const handleInput = (e) =&gt; {
+	const newAuthData = authData;
+	newAuthData[e.target.name] = e.target.value;
+	setAuthData(newAuthData);
+}</code></pre>
+<p>С помощью спред-синтаксиса `…` мы можем сделать примерно то же самое изящнее и короче: при обновлении стейта повторится имеющийся объект, а затем изменится значение в нужном нам поле. Подробнее о спред-синтаксисе можешь почитать в [Доке](https://doka.guide/js/spread/){target=&quot;_blank&quot;}.</p>
+<p>Вот как в итоге будет выглядеть работающая функция `handleInput` 👇🏻</p>
+<pre><code>const handleInput = (e) =&gt; {
+	/* 
+		В объекте authData по ключу e.target.name находится 
+		изменяемое значение и перезаписывается
+		новым текстом из поля ввода (e.target.value). 
+		Спред ... перед authData нужен, чтобы сохранить
+		данные, не изменившиеся при вводе текста в одном из полей
+	*/
+  setAuthData({ ...authData, [e.target.name]: e.target.value });
+};</code></pre>
+<p>Ты практически у цели!</p>
+<h3>Шаг 9. Добавляем обработчик отправки формы</h3>
+<p>Мы уже рассказывали про работу с формами в уроке второго модуля «Формы». Но в React всё устроено немного иначе. Функция-обработчик события отправки формы в React записывается в атрибут `onSubmit` 👇🏻</p>
+<pre><code>&lt;form onSubmit={handleSubmit} className={Styles[&quot;form&quot;]}&gt;
+	{/* Содержимое формы */}
+&lt;/form&gt;</code></pre>
+<p>Сама функция-обработчик должна:</p>
+<p>- предотвращать стандартное поведение формы - вызывать функцию `authorize` - проверять, что пришёл правильный ответ от сервера (для этого используй функцию `isResponseOk`, которую мы добавили в уроке «`Fetch` на сервере и клиенте») - записывать полученные данные в переменную состояния `userData`</p>
+<p>Также здесь можно вернуться к переданной через `props` функции `setAuth` — она будет менять состояние, в зависимости от которого меняется текст кнопки в шапке сайта. Тут же надо в зависимости от ответа сервера устанавливать либо сообщение об авторизации, либо текст ошибки 👇🏻</p>
+<pre><code>const handleSubmit = async (e) =&gt; {
+	/* Предотвращаем стандартное поведение формы */
+  e.preventDefault();
+	/* Вызываем функцию authorize с данными из формы */
+  const userData = await authorize(endpoints.auth, authData);
+	/* Проверяем ответ сервера с помощью isResponseOk */
+  if (isResponseOk(userData)) {
+		/* Записываем в стейт данные пользователя с сервера */
+    setUserData(userData);
+		/*  */
+    props.setAuth(true);
+		/* Записываем сообщение об авторизации */
+    setMessage({ status: &quot;success&quot;, text: &quot;Вы авторизовались!&quot; });
+  } else {
+		/* Записываем сообщение об ошибке */
+    setMessage({ status: &quot;error&quot;, text: &quot;Неверные почта или пароль&quot; });
+  }
+};</code></pre>
+<h3>Шаг 10. Добавляем сообщение об успехе или ошибке</h3>
+<p>Перед блоком с кнопками (`&lt;div&gt;` с классом `form__actions`) добавь элемент `&lt;p&gt;` с классом `form__message`, который будет выводить текст сообщения об успехе или ошибке авторизации (`message.text`). Он должен появляться, если в переменной состояния `message` есть значение `status`.</p>
+<p>Это можно сделать с помощью условного рендеринга, о котором мы писали в одноимённом уроке текущего модуля.</p>
+<p>В стилях компонента `AuthForm` нужно добавить небольшой отступ от кнопок ниже — иначе он будет прилипать к ним.</p>
+<pre><code>{message.status &amp;&amp; (
+	&lt;p className={Styles[&quot;form__message&quot;]}&gt;{message.text}&lt;/p&gt;
+)}</code></pre>
+<pre><code>.form__message {
+  margin-bottom: 20px;
+}</code></pre>
+<h3>Шаг 11. Проверяем, что всё работает</h3>
+<p>Проверь, что всё ок, введя email `aski@example.com` и пароль `ilovehtml`</p>
+<p>Если тебе высветилось сообщение `Вы авторизовались!` и во вкладке Network инструментов разработчика появились данные о пользователе, то всё работает как надо!</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1550_1709050255.png)</p>
+<p>Неожиданно, но остался ещё один шаг!</p>
+<h3>Шаг 12. Скрываем всплывающее окно</h3>
+<p>Добавь эффект, который будет скрывать всплывающее окно, если пользователь авторизовался.</p>
+<p>Для этого понадобятся хорошо знакомые тебе хук `useEffect` и функция `setTimeout` 👇🏻</p>
+<pre><code>useEffect(() =&gt; {
+  let timer; 
+  if (userData) {
+    timer = setTimeout(() =&gt; {
+			/* В props close лежит функция закрытия попапа */
+      props.close();
+    }, 1000);
+  }
+  return () =&gt; clearTimeout(timer);
+}, [userData]);</code></pre>
+</body>
+</html>

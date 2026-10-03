@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Старый друг JWT</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Старый друг JWT</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/33faad9f-c5ee-4ad6-974e-6377a3d578e2/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/33faad9f-c5ee-4ad6-974e-6377a3d578e2/</a></p>
+  <h1>Старый друг JWT</h1>
+<p>Из объекта запроса функция достаёт почту и пароль юзера. Затем она использует метод модели `users` для поиска пользователя по его данным. Это **кастомный** метод модели, который мы создавали в уроке «Собственные методы моделей Mongoose». Если пользователь с такими реквизитами есть в базе, авторизацию можно считать успешной. Функция отправит на клиент данные юзера и подтвердит авторизацию, установив в ответе статус `200`. В случае если пользователь с такими реквизитами не будет найден, на клиент вернётся статус `401`, означающий ошибку авторизации 👇🏻</p>
+<pre><code>// controllers/auth.js
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findUserByCredentials(email, password)
+    .then((user) =&gt; {
+      res
+        .status(200)
+        .send({ _id: user._id, username: user.username, email: user.email });
+    })
+    .catch(error =&gt; {
+      res.status(401).send({ message: error.message });
+    });
+};</code></pre>
+<p>![](https://pictures.s3.yandex.net/resources/Worn-Ass-Semi-Gloss_26_1714759397.jpg)</p>
+<h2>Создание токена</h2>
+<p>Начнём с создания токена. Для этого потребуется установить специальную библиотеку **JSONWebToken,** используя пакетный менеджер `npm`. Открой терминал внутри проекта и введи команду 👇🏻</p>
+<pre><code>npm install jsonwebtoken</code></pre>
+<p>После этого в контроллер авторизации нужно импортировать экземпляр библиотеки для работы с её методами. В начале файла `controllers/auth.js` добавь строку 👇🏻</p>
+<pre><code>// Другие импорты
+const jwt = require(&quot;jsonwebtoken&quot;);
+
+// Код контроллера</code></pre>
+<p>Теперь следует усовершенствовать саму функцию `login`, чтобы она генерировала токен и отправляла его вместе с данными пользователя на клиент. Для этого добавь ещё один блок `then` перед отправкой ответа 👇🏻</p>
+<pre><code>// Импорты
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findUserByCredentials(email, password)
+    .then((user) =&gt; {
+	    // Здесь будет генерация токена
+    })
+    .then((user) =&gt; {
+      res
+        .status(200)
+        .send({ _id: user._id, username: user.username, email: user.email });
+    })
+    .catch(error =&gt; {
+      res.status(401).send({ message: error.message });
+    });
+};</code></pre>
+<p>У экземпляра библиотеки JSONWebToken переменная `jwt` — это множество методов, которые доступны для использования. Чтобы создать токен, обратимся к методу `sign` и передадим нужные аргументы.</p>
+<p>Метод `sign` принимает два обязательных и один необязательный аргумент:</p>
+<p>- **Данные, которые будут зашифрованы в токене** Обычно в качестве них передают идентификатор пользователя или его почту. Передавать всё сразу не нужно, чтобы не перегружать токен. - **Секретный ключ, которым можно будет расшифровать токен** В качестве секретного ключа указывается обычная строка с каким-то текстом. Благодаря этому ключу можно будет расшифровать данные и проверить токен. - **Другие опции** Полный список опций и за что они отвечают, можно посмотреть на [странице библиотеки](https://www.npmjs.com/package/jsonwebtoken){target=&quot;_blank&quot;} JSONWebToken. Самая интересная опция — `expiresIn` — обозначает время, в течение которого токен остаётся действительным.</p>
+<p>Добавь этот метод в контроллер авторизации 👇🏻</p>
+<pre><code>// Импорты
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findUserByCredentials(email, password)
+    .then((user) =&gt; {
+	    const token = jwt.sign({ _id: user._id }, &quot;some-secret-key&quot;, {
+        expiresIn: 3600
+      });
+    })
+    // Остальной код
+};</code></pre>
+<p>Здесь ты создаёшь переменную `token` для хранения токена и внутри неё обращаешься к экземпляру `jwt`, вызывая метод `sign`</p>
+<p>Первым аргументом укажи данные, которые будут зашифрованы в токене. В твоём случае это объект с единственным полем `_id` 👇🏻</p>
+<pre><code>{ _id: user._id }</code></pre>
+<p>Вторым аргументом укажи строку с секретным ключом. Долго гадать не будем — укажи простую фразу, но, если хочешь, можешь выбрать любой ключ самостоятельно 👇🏻</p>
+<pre><code>&quot;some-secret-key&quot;</code></pre>
+<p>Третьим аргументом передай объект опций, в котором будет параметр, определяющий время жизни токена. Установи ему числовое значение 👇🏻</p>
+<pre><code>{ expiresIn: 3600 } // Время жизни токена — один час, то есть 3600 секунд</code></pre>
+<p>Кроме числовых значений можно использовать и строчные с добавлением букв. Буква означает единицу измерения — миллисекунды, минуты, часы или дни 👇🏻</p>
+<pre><code>expiresIn: &#x27;120ms&#x27; // 120 миллисекунд
+expiresIn: &#x27;15m&#x27; // Пятнадцать минут
+expiresIn: &#x27;2h&#x27; // Два часа
+expiresIn: &#x27;7d&#x27; // Семь дней</code></pre>
+<p>После создания токена его нужно передать следующему блоку `then`, который вернёт ответ на клиент. Для этого из первого `then` верни новый объект с двумя полями: `user` — объектом с данными пользователя, и `token` — строкой, содержащей сам токен. Также потребуется изменить второй блок `then`, чтобы он принимал аргументом объект, который возвращает первый блок `then`. Внутри себя он должен возвращать на клиент не просто данные пользователя, но и его токен 👇🏻</p>
+<pre><code>// Импорты
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findUserByCredentials(email, password)
+    .then((user) =&gt; {
+	    const token = jwt.sign({ _id: user._id }, &quot;some-secret-key&quot;, {
+        expiresIn: 3600
+      });
+      return { user, token };
+    })
+    .then(({ user, token }) =&gt; {
+      res
+        .status(200)
+        .send({
+	        _id: user._id, 
+	        username: user.username, 
+	        email: user.email, 
+	        jwt: token });
+	      })
+    // Остальной код
+};</code></pre>
+<p>Заключительный блок `then` обращается к объекту ответа `res`, указывая ему статус `200` (успешно) и отправляя на клиент данные пользователя: его идентификатор, никнейм, почту и `JWT`-токен.</p>
+<h2>Проверка токена</h2>
+<p>Проверкой достоверности займётся новый миддлвар `checkAuth`. Для этого в папке `middlewares` создай файл `auth.js`. Внутри него также потребуется экземпляр библиотеки JSONWebToken, поэтому сразу импортируй её 👇🏻</p>
+<pre><code>const jwt = require(&quot;jsonwebtoken&quot;);</code></pre>
+<p>Добавь функцию `checkAuth` и передай ей знакомые аргументы: объекты `req`, `res` и метод `next` 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {};</code></pre>
+<p>Миддлвар будет срабатывать на всех запросах, которые требуют, чтобы пользователь был авторизован. Значит, первым делом нужно достать из объекта запроса `JWT`-токен пользователя.</p>
+<p>Работая с API на третьем модуле, мы передавали токен в специальном заголовке `Authorization`. Обратись к нему в функции и получи содержимое всего заголовка 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {
+	const { authorization } = req.headers;
+};</code></pre>
+<p>Затем проведи небольшую проверку: если заголовок авторизации отсутствует или не начинается со слова `Bearer`, верни на клиент ошибку `Необходима авторизация` 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {
+	const { authorization } = req.headers;
+	
+	if (!authorization || !authorization.startsWith(&quot;Bearer &quot;)) {
+    return res.status(401).send({ message: &quot;Необходима авторизация&quot; });
+  }
+};</code></pre>
+<p>Общепринято использовать приставку `Bearer` в заголовке авторизации, но при проверке токена она будет мешать. Обратись к стандартному JS-методу `replace`, чтобы вырезать `Bearer` и пробел после него из заголовка, оставив только токен 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {
+	const { authorization } = req.headers;
+	
+	if (!authorization || !authorization.startsWith(&quot;Bearer &quot;)) {
+    return res.status(401).send({ message: &quot;Необходима авторизация&quot; });
+  }
+  
+  const token = authorization.replace(&quot;Bearer &quot;, &quot;&quot;);
+};</code></pre>
+<p>После извлечения и подготовки токена можно приступить к его верификации — проверке на достоверность. За это отвечает метод `verify` из библиотеки `jsonwebtoken`. Он принимает два аргумента: сам токен и секретный ключ, который поможет его расшифровать 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {
+	const { authorization } = req.headers;
+	
+	if (!authorization || !authorization.startsWith(&quot;Bearer &quot;)) {
+    return res.status(401).send({ message: &quot;Необходима авторизация&quot; });
+  }
+  
+  const token = authorization.replace(&quot;Bearer &quot;, &quot;&quot;);
+  req.user = jwt.verify(token, &quot;some-secret-key&quot;);
+  next();
+};</code></pre>
+<p>Важно указывать секретный ключ, который использовался при генерации токена в функции `login`, иначе расшифровать его не получится.</p>
+<p>Теперь миддлвар проверяет токен и записывает результат в объект запроса. Результат проверки — расшифрованные данные, которые изначально были зашифрованы в токене. В функции `login` при генерации токена мы сказали зашифровать объект с идентификатором пользователя. Он и будет результатом проверки. После чего миддлвар передаст управление над запросом следующему миддлвару, используя метод `next`</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Процесс верификации может завершиться с ошибкой. Она может возникнуть в случае, если токен устарел или при запросе был отправлен совсем не тот токен, который генерировался для этого пользователя. В этом случае тебе нужно будет прекратить запрос и вернуть ошибку `Необходима авторизация` обратно на клиент. {/quiz-task}</p>
+<p>Для обработки ошибки используй `try/catch` 👇🏻</p>
+<pre><code>const checkAuth = (req, res, next) =&gt; {
+  const { authorization } = req.headers;
+
+  if (!authorization || !authorization.startsWith(&quot;Bearer &quot;)) {
+    return res.status(401).send({ message: &quot;Необходима авторизация&quot; });
+  }
+
+  const token = authorization.replace(&quot;Bearer &quot;, &quot;&quot;);
+
+  try {
+    req.user = jwt.verify(token, &quot;some-secret-key&quot;);
+  } catch (err) {
+    return res.status(401).send({ message: &quot;Необходима авторизация&quot; });
+  }
+
+  next();
+};</code></pre>
+<p>Давай закрепим главное:</p>
+<p>- Миддлвар нужен для запросов, которые требуют, чтобы пользователь был авторизован. Это может быть запрос на получение своих данных или запрос на голосование за игру. - Миддлвар извлекает заголовок авторизации из запроса пользователя. Затем он подготавливает содержимое заголовка для проверки, удаляя из него приставку `Bearer` и пробел после неё. - После этого специальный метод `verify` проверяет, действительно ли это токен того пользователя, который отправляет запрос. Также метод проверяет, не просрочился ли токен или его пора бы уже заменить. - Если с токеном всё гуд, миддлвар записывает расшифрованные данные в объект ответа `req`, чтобы с ним могли работать другие миддлвары или контроллер мог отправить его обратно на клиент.</p>
+<h2>Защита маршрутов</h2>
+<p>Пришло время применить созданный миддлвар в проекте! Но перед его использованием не забудь экспортировать функцию `checkAuth` из файла `auth.js`</p>
+<p>Другими словами, использовать `checkAuth` нужно для всех `POST`, `PUT` и `DELETE`-запросов. А как ты помнишь, обработкой маршрутов занимаются роуты.</p>
+<p>Внедри миддлвар в игровой роут в файл `routes/games.js` 👇🏻</p>
+<pre><code>// Другие импорты
+const { checkAuth } = require(&quot;../middlewares/auth.js&quot;);
+
+// Маршрут для создания игры
+gamesRouter.post(
+  &quot;/games&quot;,
+  findAllGames,
+  checkIsGameExists,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  checkAuth,
+  // Другие миддлвары и контроллеры
+);
+
+// Маршрут для обновления игры
+gamesRouter.put(
+  &quot;/games/:id&quot;,
+  findGameById,
+  checkIsVoteRequest,
+  checkIfUsersAreSafe,
+  checkIfCategoriesAvaliable,
+  checkEmptyFields,
+  checkAuth,
+  // Другие миддлвары и контроллеры
+);
+
+// Маршрут для удаления игры
+gamesRouter.delete(
+	&quot;/games/:id&quot;, 
+	checkAuth, 
+	// Другие миддлвары и контроллеры
+);</code></pre>
+<h3>Самостоятельная работа 📝</h3>
+<p>А теперь попробуй самостоятельно добавить миддлвар для `usersRouter` и `categoriesRouter`</p>
+<p>Для этого:</p>
+<p>1. В роуте для работы с пользователями 👇🏻 - Добавь миддлвар для `POST`-роута между миддлварами `checkEmptyNameAndEmailAndPassword` и `hashPassword` - Добавь миддлвар для `PUT`-роута между миддлварами `checkEmptyNameAndEmail` и `updateUser` - Добавь миддлвар для `DELETE`-роута сразу после указания пути маршрута 2. В роуте для работы с категориями игр 👇🏻 - Добавь миддлвар для `POST`-роута между миддлварами `checkEmptyName` и `createCategory` - Добавь миддлвар для `PUT`-роута между миддлварами `checkEmptyName` и `updateCategory` - Добавь миддлвар для `DELETE`-роута сразу после указания пути маршрута</p>
+<pre><code>// routes/users.js
+usersRouter.post(
+  &quot;/users&quot;,
+  findAllUsers,
+  checkIsUserExists,
+  checkEmptyNameAndEmailAndPassword,
+  checkAuth,
+  hashPassword,
+  createUser,
+  sendUserCreated
+);
+usersRouter.put(
+  &quot;/users/:id&quot;,
+  checkEmptyNameAndEmail,
+  checkAuth,
+  updateUser,
+  sendUserUpdated
+);
+usersRouter.delete(
+	&quot;/users/:id&quot;,
+	checkAuth,
+	deleteUser,
+	sendUserDeleted
+);</code></pre>
+<pre><code>// routes/categories.js
+categoriesRouter.post(
+  &quot;/categories&quot;,
+  findAllCategories,
+  checkIsCategoryExists,
+  checkEmptyName,
+  checkAuth,
+  createCategory,
+  sendCategoryCreated
+);
+categoriesRouter.put(
+  &quot;/categories/:id&quot;,
+  checkEmptyName,
+  checkAuth,
+  updateCategory,
+  sendCategoryUpdated
+);
+categoriesRouter.delete(
+  &quot;/categories/:id&quot;,
+  checkAuth,
+  deleteCategory,
+  sendCategoryDeleted
+);</code></pre>
+<h2>Личный маршрут пользователя</h2>
+<p>Этот маршрут будет проверять авторизацию юзера и отправлять его данные обратно на клиент, если она прошла успешно. Миддлвар для проверки авторизации у тебя уже есть, осталось создать контроллер, который вернёт данные в ответе браузеру и настроит сам маршрут.</p>
+<p>Начнём с контроллера. В файле `controllers/users.js` создай новую функцию `sendMe`. Она, как и другие функции в этом контроллере, будет устанавливать тип контента, который придёт на клиент в ответе. А также отправит сам ответ, преобразованный в строку JSON 👇🏻</p>
+<pre><code>const sendMe = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.user));
+};</code></pre>
+<p>В ответе ты отправляешь поле `req.user`, так как именно в него записываются расшифрованные данные в миддлваре `checkAuth`</p>
+<p>Теперь настрой маршрут. В файле `routes/users.js` добавь новый роут, который будет обрабатывать `GET`-запросы по маршруту `/me`. После получения запроса миддлвар `checkAuth` проверит авторизацию, а затем контроллер `sendMe` отправит ответ на клиент 👇🏻</p>
+<pre><code>usersRouter.get(&quot;/me&quot;, checkAuth, sendMe);</code></pre>
+</body>
+</html>

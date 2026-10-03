@@ -1,0 +1,18 @@
+{
+  "lesson_id": "bd138be3-29e2-4d98-a13d-c8ec4d6f2b73",
+  "title": "Схемы и модели",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "b0783e3e-bba5-418d-9bdb-d5fa877df8f3",
+  "topic_name": "Хранение данных",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/bd138be3-29e2-4d98-a13d-c8ec4d6f2b73/",
+  "markdown_chars": 5906,
+  "content_hash": "b79fd62244139ab8",
+  "saved_at": "2026-07-29T15:24:14.016312+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/03_хранение_данных/06_схемы_и_модели.md",
+    "html": "05_основы_бэкенда/03_хранение_данных/06_схемы_и_модели.html"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "11a6aae3-2a34-42e6-a6d2-ef94025f480d",
+  "title": "Классная минутка",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "bf184dd9-9c22-462d-9547-2393853aa823",
+  "topic_name": "Вокруг сертификата",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/bf184dd9-9c22-462d-9547-2393853aa823/lessons/11a6aae3-2a34-42e6-a6d2-ef94025f480d/",
+  "markdown_chars": 18,
+  "content_hash": "8f33950dcbeb46ab",
+  "saved_at": "2026-07-29T15:25:14.225602+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/05_вокруг_сертификата/04_классная_минутка.md",
+    "html": "05_основы_бэкенда/05_вокруг_сертификата/04_классная_минутка.html"
+  }
+}

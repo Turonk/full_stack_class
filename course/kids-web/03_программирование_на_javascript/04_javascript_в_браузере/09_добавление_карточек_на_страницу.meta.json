@@ -1,0 +1,18 @@
+{
+  "lesson_id": "cf1a9ba6-4f3e-46ea-bf82-be9a986ecf77",
+  "title": "Добавление карточек на страницу",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "97d66c22-6695-462d-acd3-ebdef0c0b1fe",
+  "topic_name": "JavaScript в браузере",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/97d66c22-6695-462d-acd3-ebdef0c0b1fe/lessons/cf1a9ba6-4f3e-46ea-bf82-be9a986ecf77/",
+  "markdown_chars": 6385,
+  "content_hash": "118561d780683f1b",
+  "saved_at": "2026-07-29T15:21:20.259667+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/04_javascript_в_браузере/09_добавление_карточек_на_страницу.md",
+    "html": "03_программирование_на_javascript/04_javascript_в_браузере/09_добавление_карточек_на_страницу.html"
+  }
+}

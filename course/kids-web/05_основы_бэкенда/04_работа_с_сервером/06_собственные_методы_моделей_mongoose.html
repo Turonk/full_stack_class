@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Собственные методы моделей Mongoose</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Собственные методы моделей Mongoose</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/dba0fae8-22da-4227-8625-7b3cfd1315ef/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/dba0fae8-22da-4227-8625-7b3cfd1315ef/</a></p>
+  <h1>Собственные методы моделей Mongoose</h1>
+<p>![](https://pictures.s3.yandex.net/resources/Mongoose_1714758989.jpg)</p>
+<p>Сейчас цепочка промисов работает так:</p>
+<p>- Проверяет, есть ли в базе пользователь с указанной почтой. - Если пользователь найден, сверяет хеш его пароля с теми хешами, что были созданы при регистрации пользователя.</p>
+<pre><code>// controllers/auth.js
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findOne({ email })
+    .then(user =&gt; {
+      if (!user) {
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+
+      return bcrypt.compare(password, user.password).then(matched =&gt; {
+        if (!matched) {
+          // Хеши не совпали — отклоняем промис
+          return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+        }
+        // Аутентификация успешна
+        return user; // Теперь user доступен
+      })
+    })
+    .then((user) =&gt; {
+      res
+        .status(200)
+        .send({ _id: user._id, username: user.username, email: user.email });
+    })
+    .catch(error =&gt; {
+      res.status(401).send({ message: error.message });
+    });
+};
+
+// Не забываем экспортировать функцию 
+module.exports = { login };</code></pre>
+<p>Пользоваться снова будем Mongoose. Чтобы добавить собственный метод, запиши его в свойство `statics` нужной схемы 👇🏻</p>
+<pre><code>// models/user.js
+
+const mongoose = require(&quot;mongoose&quot;);
+const bcrypt = require(&quot;bcryptjs&quot;);
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 8
+  }
+});
+
+// Добавим метод findUserByCredentials схеме пользователя,
+// у него будет два параметра: почта и пароль
+userSchema.statics.findUserByCredentials = function (email, password) {
+
+};
+
+module.exports = mongoose.model(&#x27;user&#x27;, userSchema);</code></pre>
+<p>Осталось написать сам код метода. Работать он должен примерно так 👇🏻</p>
+<pre><code>// controllers/auth.js
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users.findUserByCredentials(&#x27;emailExample@yandex.ru&#x27;, &#x27;passwordExample&#x27;)
+    .then(user =&gt; {
+      // Получаем объект пользователя, если почта и пароль подошли
+    })
+    .catch(err =&gt; {
+      // Получаем ошибку, если нет
+    });
+};
+
+module.exports = { login };</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Статические методы в моделях Mongoose предоставляют удобный способ выполнения операций над коллекцией документов, не создавая экземпляр модели. Написание собственных методов позволяет расширить возможности модели, адаптировать код под проект. {/quiz-task}</p>
+<p>За счёт выноса логики поиска пользователя по `email` и `password` в отдельный собственный метод мы разгрузили файл контроллера и создали удобный и простой способ взаимодействия с моделью, который можем переиспользовать во всём проекте.</p>
+<h3>Описываем метод `findUserByCredentials`</h3>
+<p>Чтобы найти пользователя по почте, нам потребуется метод `findOne`, которому следует передать на вход `email`. Метод `findOne` принадлежит модели `users`, поэтому обратись к нему через ключевое слово `this` 👇🏻</p>
+<pre><code>// models/user.js
+
+userSchema.statics.findUserByCredentials = function(email, password) {
+  // Попытаемся найти пользователя по почте
+  return this.findOne({ email }) // this — это модель users
+    .then(user =&gt; {
+      if (!user) {
+        // Не нашёлся — отклоняем промис
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+      
+      // Нашёлся — сравниваем хеши
+      return bcrypt.compare(password, user.password).then(matched =&gt; {
+      if (!matched) {
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+
+      return user; // Теперь user доступен
+    });
+  });
+};
+
+module.exports = mongoose.model(&quot;user&quot;, userSchema);</code></pre>
+<p>Заметь, что функция `findUserByCredentials` не должна быть **стрелочной.** Это сделано, чтобы мы могли использовать `this`</p>
+<p>Одно из ключевых отличий **стрелочных** функций от **традиционных** функций, которые начинаются с ключевого слова `function`, — это взаимодействие с контекстом выполнения функции и ключевым словом `this`</p>
+<p>{quiz-task} background: | #f1f1ef content: | 📚 Ознакомиться со сложной и объёмной темой про `this` более детально можно в этой [статье](https://doka.guide/js/function-context/){target=&quot;_blank&quot;}. {/quiz-task}</p>
+<p>Осталось добавить обработку ошибки, когда хеши не совпадают. Опиши этот код в ещё одном обработчике — `then`</p>
+<p>Сначала разберём, как делать не стоит 👇🏻</p>
+<pre><code>// models/user.js
+
+userSchema.statics.findUserByCredentials = function(email, password) {
+  // Попытаемся найти пользователя по почте
+  return this.findOne({ email }) // this — это модель users
+    .then(user =&gt; {
+      if (!user) {
+        // Не нашёлся — отклоняем промис
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+      
+      // Нашёлся — сравниваем хеши
+      return bcrypt.compare(password, user.password)
+    })
+    .then(matched =&gt; {
+      if (!matched) {
+        // Отклоняем промис
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+
+      return user; // Но переменной user нет в этой области видимости
+    });
+  });
+};
+
+module.exports = mongoose.model(&quot;user&quot;, userSchema);</code></pre>
+<p>Здесь во втором `then` мы обращаемся к объекту `user`, которого нет в блоке кода, так как он остался в предыдущем `then`</p>
+<p>Чтобы решить эту проблему, следует организовать цепочку промисов иначе: добавить обработчик `then` вызову метода `bcrypt.compare` 👇🏻</p>
+<pre><code>// models/user.js
+
+userSchema.statics.findUserByCredentials = function(email, password) {
+  // Попытаемся найти пользователя по почте
+  return this.findOne({ email }) // this — это модель users
+    .then(user =&gt; {
+      if (!user) {
+        // Не нашёлся — отклоняем промис
+        return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+      }
+      
+      // Нашёлся — сравниваем хеши
+      return bcrypt.compare(password, user.password)
+        .then(matched =&gt; {
+          if (!matched) {
+            return Promise.reject(new Error(&quot;Неправильные почта или пароль&quot;));
+          }
+
+          return user; // Теперь user доступен
+      });
+  });
+};
+
+module.exports = mongoose.model(&quot;user&quot;, userSchema);</code></pre>
+<p>Код метода готов! Теперь можешь применить его в обработчике аутентификации 👇🏻</p>
+<pre><code>// controllers/auth.js
+
+const login = (req, res) =&gt; {
+  const { email, password } = req.body;
+
+  users
+    .findUserByCredentials(email, password)
+    .then((user) =&gt; {
+      res
+        .status(200)
+        .send({ _id: user._id, username: user.username, email: user.email });
+    })
+    .catch(error =&gt; {
+      res.status(401).send({ message: error.message });
+    });
+};</code></pre>
+<h3>Описываем метод `findGameByCategory`</h3>
+<p>Да, по аналогии статические методы Mongoose помогают расширить и упростить взаимодействие с данными в MongoDB.</p>
+<p>Для декомпозиции кода вынеси поиск игры по категории в отдельный метод `findGameByCategory` модели `game`. Актуальное состояние файла `game.js` 👇🏻</p>
+<pre><code>// models/game.js
+
+const mongoose = require(&quot;mongoose&quot;);
+const userModel = require(&quot;./user&quot;);
+const categoryModel = require(&quot;./category&quot;);
+
+const gameSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  developer: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  },
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: userModel // Содержит ссылки на связанные с игрой модели пользователей
+    }
+  ],
+  categories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: categoryModel // Содержит ссылки на связанные с игрой модели категорий
+    }
+  ]
+});
+
+// Добавим метод для поиска игр по категории 
+gameSchema.statics.findGameByCategory = function(category) {
+  //...
+}
+
+module.exports = mongoose.model(&quot;game&quot;, gameSchema);</code></pre>
+<p>Чтобы найти игры по категории, тебе потребуется методом `find` сперва обнаружить все записи об играх; потом, используя дополнительный метод `populate`, подгрузить связанные с играми записи о пользователях и категориях. А чтобы выборка игр совпадала с переданной категорией, укажи методу `populate` для категорий опцию `match: { name: category }` 👇🏻</p>
+<pre><code>// models/game.js
+
+gameSchema.statics.findGameByCategory = function(category) {
+  return this.find({}) // Выполним поиск всех игр
+    .populate({
+      path: &quot;categories&quot;,
+      match: { name: category } // Опция поможет сопоставить подходящие игры по выбранной категории 
+    })
+    .populate({
+      path: &quot;users&quot;,
+      select: &quot;-password&quot; // Позволяет получить записи о пользователях за исключением их паролей (они же хранятся в зашифрованном виде)
+    })
+    // ...
+};</code></pre>
+<p>Опция сопоставления `match` не отфильтровывает документы. Если нет файлов, соответствующих совпадению, ты можешь получить документы с пустым массивом категорий. Чтобы наверняка отфильтровать подходящие по категориям игры, в методе `then` отфильтруй массив игр по длине свойства `categories` 👇🏻</p>
+<pre><code>// models/game.js
+
+gameSchema.statics.findGameByCategory = function(category) {
+  return this.find({}) // Выполним поиск всех игр
+    .populate({
+      path: &quot;categories&quot;,
+      match: { name: category } 
+    })
+    .populate({
+      path: &quot;users&quot;,
+      select: &quot;-password&quot;
+    })
+    .then(games =&gt; {
+	    // Отфильтруем по наличию искомой категории 
+      return games.filter(game =&gt; game.categories.length &gt; 0);
+    });
+};</code></pre>
+<p>Функция `findAllGames` в базовом случае должна находить все игры проекта, подгружать к ним записи о категориях и пользователях. Теперь важно учесть пару моментов:</p>
+<p>- **Исключи данные о паролях пользователей** Это приватная информация только для регистрации и аутентификации пользователя на сайте. Сделать это можно, используя опцию `select` в методе `populate` - **Передай категорию игры** Поиск всех игр должен работать с переданным параметром, например категорией. Передав категорию игры в качестве параметра в `url` запроса, мы позволяем серверу прочитать значение параметра (жанра) в объекте запроса по ключу `req.query[&quot;categories.name&quot;]`</p>
+<p>Если жанр игры передан параметром `req.query[&quot;categories.name&quot;]`, воспользуйся статическим методом для поиска игр по категории 👇🏻</p>
+<pre><code>// middlewares/games.js
+
+const findAllGames = async (req, res, next) =&gt; {
+  // Поиск всех игр в проекте по заданной категории
+  if(req.query[&quot;categories.name&quot;]) { 
+    req.gamesArray = await games.findGameByCategory(req.query[&quot;categories.name&quot;]);
+    next();
+    return;
+  }
+  // Поиск всех игр в проекте
+  req.gamesArray = await games
+    .find({})
+    .populate(&quot;categories&quot;)
+    .populate({
+      path: &quot;users&quot;,
+      select: &quot;-password&quot; // Исключим данные о паролях пользователей
+    })
+  next();
+};
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "lesson_id": "46294a48-0ad7-4094-b163-e71ffa937817",
+  "title": "Функция filter()",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/46294a48-0ad7-4094-b163-e71ffa937817/",
+  "markdown_chars": 3779,
+  "content_hash": "0df2419ff7141645",
+  "saved_at": "2026-07-29T15:21:54.054810+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/15_функция_filter.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/15_функция_filter.html"
+  }
+}

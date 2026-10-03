@@ -1,0 +1,18 @@
+{
+  "lesson_id": "0baa08b9-9663-40e1-bac2-ab7a6e75d6df",
+  "title": "Fetch на сервере и клиенте",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "bc79c275-9228-450f-a1d7-3eab285e7058",
+  "topic_name": "Работа с API",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/0baa08b9-9663-40e1-bac2-ab7a6e75d6df/",
+  "markdown_chars": 6448,
+  "content_hash": "4532c7e495f31601",
+  "saved_at": "2026-07-29T15:22:51.590449+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/06_работа_с_api/03_fetch_на_сервере_и_клиенте.md",
+    "html": "04_применение_реактивного_фреймворка/06_работа_с_api/03_fetch_на_сервере_и_клиенте.html"
+  }
+}

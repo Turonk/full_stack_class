@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Внешние стейт-машины. Zustand</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Внешние стейт-машины. Zustand</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/d8edeb84-8b53-46c4-b537-11b6162471bc/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/7fa40fdd-1d01-45f2-8cd5-271295dfecfc/lessons/d8edeb84-8b53-46c4-b537-11b6162471bc/</a></p>
+  <h1>Внешние стейт-машины. Zustand</h1>
+<p>Да! Поэтому разработчики придумали библиотеки для хранения глобальных состояний и управления ими.</p>
+<p>Эти библиотеки называют **менеджерами состояния** (или **стейт-менеджерами**, или **стейт-машинами**). Они позволяют описывать состояние в отдельном файле и обходиться без лишних контекстов-обёрток.</p>
+<p>Первой библиотекой для управления состояниями был **[Redux](https://redux.js.org/){target=&quot;_blank&quot;}**. У этой библиотеки сравнительно сложный синтаксис, и для её применения нужно будет хорошенько попотеть и исписать не один десяток строчек кода. Но не будем скрывать: она всё ещё часто используется во многих крупных проектах. В документации Redux даже есть [раздел](https://redux.js.org/introduction/getting-started#should-you-use-redux){target=&quot;_blank&quot;}, в котором предлагается взвесить все за и против перед юзанием этого стейт-менеджера.</p>
+<p>Со временем стали появляться и другие библиотеки для хранения состояний, с помощью которых пытались упростить работу с глобальным стейтом.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/IMG_4721_2_1709559261.jpg)</p>
+<h3>Подготовка к работе с Zustand</h3>
+<p>В этом уроке мы будем использовать для Pindie сравнительно простую библиотеку [**Zustand**](https://docs.pmnd.rs/zustand/getting-started/introduction){target=&quot;_blank&quot;} (с немецкого — «состояние»). Это внешняя библиотека, поэтому её надо установить в проект с помощью `npm` (про `npm` мы подробнее рассказывали в уроке «Фреймворки и магазин разработчиков NPM»). Для этого введи команду `npm install zustand` в консоли, в той папке, где хранится код Pindie.</p>
+<p>Например, если Pindie лежит в папке `pindie`, тебе нужно ввести следующие две команды: 👇🏻</p>
+<pre><code>cd pindie #Выбираем папку, где лежит код проекта
+npm install zustand #Устанавливаем Zustand</code></pre>
+<p>Ты можешь проверить, установилась ли библиотека, открыв файл `package.json`. Если в `dependencies` появилась запись `&quot;zustand&quot;: &quot;^4.5.0&quot;`, всё в порядке и Zustand готов к использованию.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1565_1709559300.png)</p>
+<h3>Хранилище состояний</h3>
+<p>В Zustand хранилище состояний (это хранилище иногда называют **стор**, с английского store — «хранилище») работает как реакт-хук (о хуках в React мы рассказывали в уроке «Хуки и особенные события»).</p>
+<p>Сегодня мы научимся переносить в хранилище данные, которые на прошлом уроке записывали в контекст приложения в файле `App.jsx`</p>
+<p>**Шаг 1. Создание хранилища**</p>
+<p>В случае с Pindie создай папку `/app/store` и в ней отдельный файл `app-store.js`. Для создания хука-хранилища (назовём его `useStore`) используй функцию `create` библиотеки Zustand. Её нужно импортировать из библиотеки Zustand и записать в константу `useStore`, которую экспортируешь из файла. Используй для этого ключевые слова `import` и `export` (мы говорили о них подробно в уроке «Модули и ключевые слова `export` и `import`»).</p>
+<pre><code>import { create } from &#x27;zustand&#x27;;
+
+export const useStore = create();</code></pre>
+<p>Функция `create` принимает как аргумент функцию такого вида: `(set) =&gt; ({})`. Она возвращает объект, в котором хранятся данные о состояниях и функции для обновления этих состояний. Параметр `set` — функция, которая используется для обновления стейта.</p>
+<p>**Шаг 2. Наполнение хранилища**</p>
+<p>Перед тем как наполнить твоё хранилище для Pindie, давай разберём, как это работает, на простом примере. Хранилище, в котором есть значение счётчика `counter`, изначально равное нулю, выглядит так 👇🏻</p>
+<pre><code>export const useStore = create((set) =&gt; ({
+  /* Изначальное значение */
+  counter: 0
+})); </code></pre>
+<p>Теперь, чтобы показывать значение счётчика, достаточно вызвать хук `useStore` в нужном компоненте 👇🏻</p>
+<pre><code>import { useStore } from &quot;@/app/store/app-store&quot;;
+
+function Counter = () =&gt; {
+  const store = useStore();
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{store.counter}&lt;/p&gt;
+    &lt;div&gt;
+  )
+}</code></pre>
+<p>Но как изменять это значение? Если пытаться перезаписать значение из хранилища в том же компоненте, где мы используем счётчик, ничего не получится 👇🏻</p>
+<pre><code>import { useStore } from &quot;@/app/store/app-store&quot;;
+
+function WrongCounter = () =&gt; {
+  const store = useStore();
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{store.counter}&lt;/p&gt;
+      {/* Нажатие на эту кнопку не будет менять значение store.counter */}
+      &lt;button onClick={() =&gt; {store.counter = store.counter + 1}}&gt;
+        +1
+      &lt;/button&gt;
+    &lt;div&gt;
+  )
+}</code></pre>
+<p>Для записи нового состояния хранилища как раз и нужна функция `set`. Добавь в хранилище функцию `increment`, которая будет увеличивать значение на один 👇🏻</p>
+<pre><code>export const useStore = create((set) =&gt; ({
+    /* Изначальное значение */
+    counter: 0,
+    /* Параметр state в функции set — нынешнее состояние хранилища */
+    increment: () =&gt; set((state) =&gt; ({ counter: state.counter + 1 })),
+})); </code></pre>
+<p>А вот как использовать функцию `increment` в компоненте `Counter` 👇🏻</p>
+<pre><code>import { useStore } from &quot;@/app/store/app-store&quot;;
+
+function Counter = () =&gt; {
+  const store = useStore();
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{store.counter}&lt;/p&gt;
+      {/* Нажатие на эту кнопку будет менять значение store.counter */}
+      &lt;button onClick={store.increment}&gt;
+        +1
+      &lt;/button&gt;
+    &lt;div&gt;
+  )
+}</code></pre>
+<h3>Наполнение Pindie</h3>
+<p>Вернёмся к Pindie и хранилищу, которое создали ранее в файле `app/store/app-store.js`</p>
+<p>Добавь в хранилище три изначальных состояния:</p>
+<p>- `isAuth` (авторизовался ли пользователь): `false` - `user` (данные пользователя): `null` - `token` (`JWT`-токен пользователя): `null`</p>
+<pre><code>import { create } from &#x27;zustand&#x27;;
+
+export const useStore = create((set) =&gt; ({
+  isAuth: false,
+  user: null,
+  token: null,
+}));</code></pre>
+<p>Теперь в хранилище нужно добавить функцию `login`, которая будет обновлять состояние приложения после авторизации пользователя. Эта функция принимает параметры `user` и `token`. Состояние `isAuth` должно меняться на `true`. Значение `user` будет записываться в состояние `user`, а значение `token` — в `token`</p>
+<p>А ещё нужно записать переданный токен в `localStorage` — для этого воспользуйся функцией `setJWT` из файла `&#x27;../api/api-utils&#x27;` (о работе с `JWT`-токенами мы говорили в уроке «Запросы с JWT-токеном и его хранение»).</p>
+<pre><code>import { create } from &#x27;zustand&#x27;;
+import { setJWT } from &#x27;../api/api-utils&#x27;;
+
+export const useStore = create((set) =&gt; ({
+  isAuth: false,
+  user: null,
+  token: null,
+  login: (user, token) =&gt; {
+    /* С помощью функции set устанавливаем новое состояние хранилища */
+    set({ isAuth: true, user, token });
+    /* Записываем полученный токен */
+    setJWT(token);
+  },
+}));</code></pre>
+<p>Да, в результате вызова функции `logout` все состояния должны сбрасываться к изначальному, а `JWT`-токен — удаляться.</p>
+<pre><code>import { create } from &#x27;zustand&#x27;;
+import { setJWT, removeJWT } from &#x27;../api/api-utils&#x27;;
+
+export const useStore = create((set) =&gt; ({
+  isAuth: false,
+  user: null,
+  token: null,
+  login: (user, token) =&gt; {
+    /* С помощью функции set устанавливаем новое состояние хранилища */
+    set({ isAuth: true, user, token });
+    /* Записываем полученный токен */
+    setJWT(token);
+  },
+  logout: () =&gt; {
+    /* Возвращаем изначальные состояния */
+    set({ isAuth: false, user: null, token: null });
+    /* Удаляем токен */
+    removeJWT();
+  },
+}));</code></pre>
+<p>Отлично! Стор почти готов — осталось только добавить функцию `checkAuth`, которая будет проверять, что пользователь авторизован. В прошлом уроке мы уже писали подобную функцию в файле `App.jsx` — теперь она будет обновлять состояния в хранилище после проверки `JWT`-токена у пользователя или удалять их, если токен не найден 👇🏻</p>
+<pre><code>import { create } from &#x27;zustand&#x27;;
+import { getJWT, setJWT, removeJWT, getMe } from &#x27;../api/api-utils&#x27;;
+import { endpoints } from &#x27;../api/config&#x27;;
+
+export const useStore = create((set) =&gt; ({
+  isAuth: false,
+  user: null,
+  token: null,
+  login: (user, token) =&gt; {
+    /* С помощью функции set устанавливаем новое состояние хранилища */
+    set({ isAuth: true, user, token });
+    /* Записываем полученный токен */
+    setJWT(token);
+  },
+  logout: () =&gt; {
+    /* Возвращаем изначальные состояния */
+    set({ isAuth: false, user: null, token: null });
+    /* Удаляем токен */
+    removeJWT();
+  },
+  checkAuth: async () =&gt; {
+    const jwt = getJWT();
+    if (jwt) {
+      const user = await getMe(endpoints.me, jwt);
+      if (user) {
+        /* Сохраняем полученные данные и токен */
+        set({ isAuth: true, user, token: jwt });
+        setJWT(jwt);
+      } else {
+        /* Возвращаем изначальные состояния и удаляем токен */
+        set({ isAuth: false, user: null, token: null });
+        removeJWT();
+      }
+    } else {
+      set({ isAuth: false, user: null, token: null });
+    }
+  },
+}));</code></pre>
+<p>Да, Аски, из файла `App.jsx` теперь можно удалять все переменные состояния и обёртку-контекст. Оставить в нём следует только эффект для проверки: авторизован пользователь или нет. Для этого воспользуйся записанной в хранилище функцией `checkAuth`</p>
+<pre><code>&#x27;use client&#x27;;
+
+import { Header } from &#x27;./components/Header/Header&#x27;;
+import { Footer } from &#x27;./components/Footer/Footer&#x27;;
+
+import { useEffect } from &#x27;react&#x27;;
+
+import { useStore } from &#x27;./store/app-store&#x27;;
+
+export const App = (props) =&gt; {
+  /* Используем хук-хранилище */
+  const store = useStore();
+
+  useEffect(() =&gt; {
+  /* 
+    Проверяем, авторизован ли пользователь, 
+    функцией checkAuth из хранилища 
+  */
+    store.checkAuth();
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      {props.children}
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  ) 
+};</code></pre>
+<p>Во всех файлах, где в `authContext` записывался контекст, запись `const authContext = useContext(AuthContext)` нужно заменить на `const authContext = useStore()`. Тогда вместо объекта с данными из контекста в переменной `authContext` будут доступны значения из хранилища и функции для их изменения. Так что, если сохранить те же названия состояний и функций, всё должно заработать автоматически при использовании хранилища состояний.</p>
+<p>Лови! Раньше в шапке сайта мы писали функцию для логаута `handleLogout`, получая `authContext` из контекста 👇🏻</p>
+<pre><code>import { useContext } from &quot;react&quot;;
+import { AuthContext } from &quot;@/app/context/app-context&quot;;
+
+export const Header = () =&gt; {
+  // Сохраняем в authContext контекст
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () =&gt; {
+    authContext.logout(); // Используем метод logout из контекста
+  };
+
+  return (
+    &lt;header className={Styles[&quot;header&quot;]}&gt;
+      {/* JSX-код компонента */}
+    &lt;/header&gt;
+  );
+}</code></pre>
+<p>Теперь, если функция `logout` сохранила своё название, она продолжает быть доступна и при использовании хранилища 👇🏻</p>
+<pre><code>import { useStore } from &quot;@/app/store/app-store&quot;;
+
+export const Header = () =&gt; {
+  // Сохраняем в authContext хук-хранилище
+  const authContext = useStore();
+
+  const handleLogout = () =&gt; {
+    authContext.logout(); // Используем метод logout из хранилища
+  };
+
+  return (
+    &lt;header className={Styles[&quot;header&quot;]}&gt;
+    {/* JSX-код компонента */}
+    &lt;/header&gt;
+  );
+};</code></pre>
+</body>
+</html>

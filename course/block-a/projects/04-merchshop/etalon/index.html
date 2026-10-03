@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MerchShop · PulseLab</title>
+  <link rel="stylesheet" href="../02-musichub/etalon/styles.css">
+  <link rel="stylesheet" href="shop.css">
+  <script src="shop.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <p class="logo">PulseLab</p>
+    <nav>
+      <a href="../02-musichub/etalon/index.html">Музыка</a>
+      <a href="../03-pulsebeat/etalon/index.html">Игра</a>
+      <a href="./index.html" aria-current="page">Магазин</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Мерч клуба</h1>
+    <p id="catalog-status" role="status">Загружаем каталог…</p>
+    <p>
+      <label for="filter">Поиск</label>
+      <input id="filter" type="search">
+    </p>
+    <div id="catalog" class="grid"></div>
+    <section>
+      <h2>Корзина</h2>
+      <div id="cart"></div>
+      <p>Сумма: <span id="sum">0</span> ₽</p>
+      <button type="button" id="clear">Очистить</button>
+    </section>
+    <section>
+      <h2>Оформить</h2>
+      <form id="order">
+        <p>
+          <label for="name">Имя</label>
+          <input id="name" name="name" required>
+          <span class="error" id="name-error"></span>
+        </p>
+        <p>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+          <span class="error" id="email-error"></span>
+        </p>
+        <button class="btn" type="submit">Отправить</button>
+        <p id="order-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

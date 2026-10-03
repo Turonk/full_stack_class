@@ -1,0 +1,62 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0b0f1a;
+  color: #f4f1ea;
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, .logo { font-family: Syne, sans-serif; }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: #101628;
+}
+
+.logo {
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffc857;
+}
+
+nav { display: flex; gap: 18px; }
+nav a { color: #9aa3b8; text-decoration: none; }
+nav a:hover, nav a:focus-visible, nav a.is-current { color: #ffc857; }
+
+.hero { padding: 48px 24px; max-width: 720px; }
+h1 { margin: 0 0 12px; font-size: 2.4rem; line-height: 1.15; }
+.tagline { margin: 0 0 28px; color: #9aa3b8; }
+.btn {
+  display: inline-block; background: #7c5cff; color: #fff;
+  padding: 12px 22px; border-radius: 999px; text-decoration: none; font-weight: 600;
+}
+
+.card {
+  width: 280px;
+  margin: 0 24px 32px;
+  padding: 16px;
+  border: 1px solid #2a3348;
+  border-radius: 20px;
+  background: #141a2a;
+}
+
+.cover-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+h2 { margin: 0 0 4px; font-size: 1.25rem; }
+.muted, .club { color: #9aa3b8; }
+.club { padding: 0 24px 40px; }

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>C — create</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>C — create</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/807001ca-e081-4e15-9047-bd28f0f72038/">https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/b0783e3e-bba5-418d-9bdb-d5fa877df8f3/lessons/807001ca-e081-4e15-9047-bd28f0f72038/</a></p>
+  <h1>C — create</h1>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/M4T3/2024-04-05_22-12-36.mp4|controls:true|autoplay:0|pip:false|controlsList:nodownload}</p>
+<p>{video:https://code.s3.yandex.net/kids-web/vids/M4/M4T3/Create.mp4}</p>
+<h2>Создание документов</h2>
+<p>Метод `create` — это способ добавления новой записи в коллекцию MongoDB. Он принимает объект с данными, которые нужно сохранить в БД. Давай рассмотрим, как он работает на практике, чтобы к концу урока создать функцию добавления игры.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ В твоём проекте уже есть заготовки для работы с играми по маршруту `/games`: сам роут, миддлвар для выполнения промежуточных действий и обработчик маршрута, то есть контроллер. Обрати внимание на миддлвар — файл `games.js`, который можно найти в директории `middlewares`. Внутри него создана функция `findAllGames`, использующая метод `find` для поиска всех игр в коллекции `games` твоей базы данных. {/quiz-task}</p>
+<p>Метод `create` работает схожим образом, поэтому для него создай асинхронную функцию `createGame` 👇🏻</p>
+<pre><code>const createGame = async (req, res, next) =&gt; {
+  console.log(&quot;POST /games&quot;);
+};</code></pre>
+<p>Она принимает три важных аргумента: объект запроса `req`, объект ответа `res`, а также специальный метод `next()` для запуска следующего по списку миддлвара.</p>
+<p>На стороне клиента, когда пользователь заполнит данные об игре в форму и нажмёт на кнопку `Добавить игру`, интерфейс отправит запрос на сервер. В его тело `req.body` будут переданы данные игры, которые ввели через форму.</p>
+<p>То есть тебе нужно передать их в метод `create`, чтобы именно они записались в базу данных. Для этого обратись к модели `games` и вызови метод `create`, передав аргументом тело запроса 👇🏻</p>
+<pre><code>const createGame = async (req, res, next) =&gt; {
+  console.log(&quot;POST /games&quot;);
+  games.create(req.body)
+};</code></pre>
+<p>Да, но не стоит забывать про обработку ошибок. Метод `create` всегда возвращает **промис,** а значит, вместе с ним нужно использовать конструкцию `try…catch` или обработчики `then` и `catch` 👇🏻</p>
+<pre><code>const createGame = async (req, res, next) =&gt; {
+  console.log(&quot;POST /games&quot;);
+  try {
+    console.log(req.body);
+    req.game = await games.create(req.body);
+    next();
+  } catch (error) {
+  	res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка создания игры&quot; }));
+  }
+};</code></pre>
+<p>Используй ключевое слово `await` перед вызовом метода `create`, а перед добавлением игры в базу данных выведи в консоль тело запроса. Результат запиши в объект `req` поля `game` и используй `next()`. Это позволит передать запрос следующему миддлвару — ему станут доступны данные из `req.game`</p>
+<p>В блоке `catch` обратись к объекту ответа `res`, установи `400`-й статус ошибки и передай соответствующее сообщение.</p>
+<h3>Самостоятельная работа 📝</h3>
+<p>1. Создай функцию `createCategory` в миддлваре `categories.js` 👇🏻</p>
+<p>a. Передай в качестве аргументов `req`, `res` и `next`</p>
+<p>b. Используй `try…catch` для обработки ошибок</p>
+<p>c. Запиши в `req.category` результат работы метода `create`</p>
+<p>d. В качестве текста ошибки выведи `Error creating category`</p>
+<p>2. Создай функцию `createUser` в миддлваре `users.js` 👇🏻</p>
+<p>a. Передай в качестве аргументов `req`, `res` и `next`</p>
+<p>b. Используй `try…catch` для обработки ошибок</p>
+<p>c. Запиши в `req.user` результат работы метода `create`</p>
+<p>d. В качестве текста ошибки выведи `Error creating category`</p>
+<pre><code>// middlewares/categories.js
+const createCategory = async (req, res, next) =&gt; {
+  console.log(&quot;POST /categories&quot;);
+  try {
+	  console.log(req.body);
+    req.category = await categories.create(req.body);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка создания категории&quot; }));
+  }
+};</code></pre>
+<pre><code>// middlewares/users.js
+const createUser = async (req, res, next) =&gt; {
+  console.log(&quot;POST /users&quot;);
+  try {
+    console.log(req.body);
+    req.user = await users.create(req.body);
+    next();
+  } catch (error) {
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+		res.status(400).send(JSON.stringify({ message: &quot;Ошибка создания пользователя&quot; }));
+  }
+};</code></pre>
+<h2>Добавление контроллеров</h2>
+<p>Мы не просто так использовали метод `next()` в миддлварах. Следующий, кто примется за работу с запросом, будет сам контроллер. Сейчас попробуем с тобой описать один из них для запроса на создание игры.</p>
+<p>Для этого перейди в файл `games.js` в папке `controllers`. Теперь добавь стрелочную функцию `sendGameCreated`, которая аргументами будет принимать объект запроса `req` и объект ответа `res` 👇🏻</p>
+<pre><code>const sendGameCreated = (req, res) =&gt; {}</code></pre>
+<p>Основная задача контроллера — вернуть ответ клиенту. Для этого функция должна установить заголовки с типом контента и закрыть запрос, отправив данные игры, которую до этого миддлвар добавил в базу данных 👇🏻</p>
+<pre><code>const sendGameCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.game));
+};</code></pre>
+<p>Обращаясь к методу `setHeader`, установи уже знакомый заголовок `Content-Type`. В качестве значения укажи `application/json`, сообщая клиенту, что ответ придёт в формате JSON.</p>
+<p>В миддлваре `createGame` результат создания игры мы поместили в объект запроса `req` в поле `game`. Именно данные этого поля нам и нужно передать в ответе, чтобы на клиенте отобразилась созданная игра и пользователь понял: операция прошла успешно. Преобразуй `req.game` в строку формата JSON и отправь её в ответ.</p>
+<h3>Самостоятельная работа📝</h3>
+<p>1. Создай функцию `sendCategoryCreated` в контроллере `categories.js` 👇🏻</p>
+<p>a. Передай в качестве аргументов `req` и `res`</p>
+<p>b. Установи заголовок с типом контента в ответе со значением `application/json`</p>
+<p>c. Заверши запрос, передав в ответе `req.category`, преобразованный в строку JSON</p>
+<p>2. Создай функцию `sendUserCreated` в контроллере `users.js` 👇🏻</p>
+<p>a. Передай в качестве аргументов `req` и `res`</p>
+<p>b. Установи заголовок с типом контента в ответе со значением `application/json`</p>
+<p>c. Заверши запрос, передав в ответе `req.user`, преобразованный в строку JSON</p>
+<pre><code>// controllers/categories.js
+const sendCategoryCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.category));
+};</code></pre>
+<pre><code>// controllers/users.js
+const sendUserCreated = (req, res) =&gt; {
+  res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
+  res.end(JSON.stringify(req.user));
+};</code></pre>
+<h2>Работа с роутами</h2>
+<p>Роуты позволяют принимать запросы на определённые маршруты и задавать последовательность функций, каждая из которых должна обработать запрос перед тем, как сервер вернёт ответ обратно клиенту.</p>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ Метод `create` отвечает за создание какого-либо документа в БД, а это значит, что он должен принимать данные, чтобы уметь обращаться к базе и просить её создать из них новый документ в нужной коллекции. Чтобы отправлять данные, используется метод `POST`, с которым мы тебя уже знакомили. {/quiz-task}</p>
+<p>Начнём с игровых! Перейди в файл `games.js` папки `routes` и создай новый роут, который будет принимать `POST`-запросы по маршруту `/games` 👇🏻</p>
+<pre><code>gamesRouter.post(&quot;/games&quot;);</code></pre>
+<p>Первым аргументом контроллер принимает маршрут, а остальными можно передать функции, которые будут обрабатывать запрос по нему. Здесь тебе и пригодятся созданные ранее миддлвары и контроллеры. Импортируй функции `createGame` и `sendGameCreated`</p>
+<p>В следующих уроках мы доработаем наш игровой миддлвар, чтобы он проверял запрос от клиента и помогал обрабатывать возможные ошибки. Так, если игра уже есть в коллекции, она не будет создаваться заново, дублируя одни и те же документы 👇🏻</p>
+<pre><code>gamesRouter.post(&quot;/games&quot;, findAllGames);</code></pre>
+<p>Теперь передай контроль над запросом функции `createGame`, которая добавит игру в БД. Последним работать с запросом будет контроллер `sendGameCreated`, завершающий его отправкой ответа на сторону клиента 👇🏻</p>
+<pre><code>gamesRouter.post(&quot;/games&quot;, findAllGames, createGame, sendGameCreated);</code></pre>
+<h3>Самостоятельная работа📝</h3>
+<p>1. Создай новый роут для обработки `POST`-запроса в роуте `categories.js` 👇🏻</p>
+<p>a. Первым аргументом передай маршрут `/categories`</p>
+<p>b. Затем передай управление функции `findAllCategories`</p>
+<p>c. После её работы в бой должен вступать миддлвар `createCategory`</p>
+<p>d. В завершение отправкой ответа займётся контроллер `sendCategoryCreated`</p>
+<p>2. Создай новый роут для обработки `POST`-запроса в роуте `users.js` 👇🏻</p>
+<p>a. Первым аргументом передай маршрут `/users`</p>
+<p>b. Затем передай управление функции `findAllUsers`</p>
+<p>c. После её работы в бой должен вступать миддлвар `createUser`</p>
+<p>d. В завершение отправкой ответа займётся контроллер `sendUserCreated`</p>
+<pre><code>// routes/categories.js
+categoriesRouter.post(
+	&quot;/categories&quot;, 
+	findAllCategories, 
+	createCategory, 
+	sendCategoryCreated
+);</code></pre>
+<pre><code>// routes/users.js
+usersRouter.post(
+  &quot;/users&quot;,
+  findAllUsers,
+  createUser,
+  sendUserCreated
+);</code></pre>
+</body>
+</html>

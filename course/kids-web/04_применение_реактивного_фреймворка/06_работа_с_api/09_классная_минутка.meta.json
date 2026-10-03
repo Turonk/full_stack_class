@@ -1,0 +1,18 @@
+{
+  "lesson_id": "ee2e215f-0bb7-428d-ae5f-5971c06c4383",
+  "title": "Классная минутка",
+  "course_id": "232ea8d5-ae43-4072-aa39-ade914d25935",
+  "course_name": "Применение реактивного фреймворка",
+  "topic_id": "bc79c275-9228-450f-a1d7-3eab285e7058",
+  "topic_name": "Работа с API",
+  "sprint_id": 190124,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/bc79c275-9228-450f-a1d7-3eab285e7058/lessons/ee2e215f-0bb7-428d-ae5f-5971c06c4383/",
+  "markdown_chars": 18,
+  "content_hash": "8f33950dcbeb46ab",
+  "saved_at": "2026-07-29T15:22:58.535980+00:00",
+  "paths": {
+    "md": "04_применение_реактивного_фреймворка/06_работа_с_api/09_классная_минутка.md",
+    "html": "04_применение_реактивного_фреймворка/06_работа_с_api/09_классная_минутка.html"
+  }
+}

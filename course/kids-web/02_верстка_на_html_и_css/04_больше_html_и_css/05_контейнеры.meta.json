@@ -1,0 +1,18 @@
+{
+  "lesson_id": "87c77be5-bf7d-4478-be66-eed8969beb8b",
+  "title": "Контейнеры",
+  "course_id": "dff9140f-4a32-45e9-9e61-e7f3e971dcae",
+  "course_name": "Вёрстка на HTML и CSS",
+  "topic_id": "fffbb60d-2661-440d-902f-210b147c01b1",
+  "topic_name": "Больше HTML и CSS",
+  "sprint_id": 195810,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/dff9140f-4a32-45e9-9e61-e7f3e971dcae/sprints/195810/topics/fffbb60d-2661-440d-902f-210b147c01b1/lessons/87c77be5-bf7d-4478-be66-eed8969beb8b/",
+  "markdown_chars": 3983,
+  "content_hash": "897c5151d760a809",
+  "saved_at": "2026-07-29T15:20:23.329703+00:00",
+  "paths": {
+    "md": "02_верстка_на_html_и_css/04_больше_html_и_css/05_контейнеры.md",
+    "html": "02_верстка_на_html_и_css/04_больше_html_и_css/05_контейнеры.html"
+  }
+}

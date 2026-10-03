@@ -1,0 +1,17 @@
+/* extra form bits for Flask pages */
+textarea {
+  width: 100%;
+  max-width: 480px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #2a3348;
+  background: #0f1524;
+  color: var(--text);
+  font: inherit;
+}
+.flash {
+  list-style: none;
+  padding: 12px 20px;
+  color: #2ee6a6;
+}
+main { padding: 0 0 24px; }

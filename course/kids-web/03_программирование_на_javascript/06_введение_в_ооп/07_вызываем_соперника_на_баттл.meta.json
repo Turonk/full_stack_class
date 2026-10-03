@@ -1,0 +1,18 @@
+{
+  "lesson_id": "04cfa818-6f6b-4634-a493-af0bae269766",
+  "title": "Вызываем соперника на баттл",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "b85795a7-a31a-45ba-8f17-4c8acaef928e",
+  "topic_name": "Введение в ООП",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/04cfa818-6f6b-4634-a493-af0bae269766/",
+  "markdown_chars": 9045,
+  "content_hash": "500b9a099ce18be6",
+  "saved_at": "2026-07-29T15:21:42.015073+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/06_введение_в_ооп/07_вызываем_соперника_на_баттл.md",
+    "html": "03_программирование_на_javascript/06_введение_в_ооп/07_вызываем_соперника_на_баттл.html"
+  }
+}

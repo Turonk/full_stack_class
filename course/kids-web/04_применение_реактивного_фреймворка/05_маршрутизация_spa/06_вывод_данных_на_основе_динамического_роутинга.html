@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Вывод данных на основе динамического роутинга</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Вывод данных на основе динамического роутинга</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/5213f665-be8f-4552-96bf-a766d1d8ef5f/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/dc689bfe-1408-47f0-a390-91a5bb1735be/lessons/5213f665-be8f-4552-96bf-a766d1d8ef5f/</a></p>
+  <h1>Вывод данных на основе динамического роутинга</h1>
+<h2>Работа над Pindie</h2>
+<p>Вот как сейчас устроена работа с данными в Pindie:</p>
+<p>1. На главной странице есть карточки с играми. Этот список формируется на основе данных из `data.js` 2. У каждой карточки есть значение `id` — значит, можно сделать так, чтобы при нажатии на карточку открывалась отдельная страница об этой игре. Для этого используем динамический роут, о котором говорили в прошлом уроке. 3. Мы сможем передавать `id` нужной карточки на страницу, где будем вызывать функцию для поиска данных об игре в файле `data.js`</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1524_2_1708349033.png)</p>
+<p>**Шаг 1**</p>
+<p>Открой файл `app/data/data-utils.js`, где мы записываем вспомогательные функции для работы с данными (этот файл мы создали в уроке «Единый источник данных. Поток данных»).</p>
+<p>**Шаг 2**</p>
+<p>В этом файле напиши функцию для поиска данных об игре по `id` — `getGameById`. Эта функция должна с помощью метода `find` находить в `data` нужную игру.</p>
+<pre><code>export const getGameById = (id) =&gt; {
+  return data.find((game) =&gt; game.id === Number(id));
+}</code></pre>
+<p>{quiz-task} background: | #f1f1ef content: | ❗ О методе `find` мы подробно говорили в уроке «Единый источник данных. Поток данных». Он позволяет найти в списке нужный элемент, если переданная функция проверки условия возвращает `true`. Мы переводим параметр `id` в число, потому что `id` игр — число, а значением `props.params.id` (параметр динамического роута) получаем строку. {/quiz-task}</p>
+<p>**Шаг 3**</p>
+<p>Теперь добавь вёрстку страницы игры. Мы снова подготовили её для тебя заранее, вот [ссылка](https://github.com/Yandex-Practicum/pindie-prebuild-components/tree/main/GameDetailPage){target=&quot;_blank&quot;}.</p>
+<p>Открой файл `/app/games/[id]/page.js`, который мы создали в прошлом уроке, и вставь разметку на страницу, а ещё скопируй целиком CSS-модуль и положи рядом.</p>
+<p>Это страница со вписанными заранее данными, а нам нужно отображать данные об игре на основе параметра динамического роута. Ниже опишем, что для этого нужно сделать.</p>
+<p>**Шаг 4**</p>
+<p>Получить данные об игре ты можешь, используя функцию `getGameById`. Импортируй её и запиши данные игры в константу `game` в начале файла.</p>
+<p>Вот что тебе нужно заменить в разметке, чтобы всё работало как надо:</p>
+<p>- Атрибут `src` у элемента `&lt;iframe&gt;` — должен быть `game.link` - Заголовок — `game.title` - Описание — `game.description` - Автор — `game.developer` - Количество голосов за игру — `game.users.length` - Атрибут кнопки голосования — `onClick={() =&gt; {}}` (обработка нажатия на кнопку — задача со звёздочкой в домашнем задании)</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1526_1_1708349211.png)</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1527_2_1708349248.png)</p>
+<p>Это правда.</p>
+<p>Дело в том, что нужная игра не находится в списке по `id` и константе `game` задаётся значение `undefined`. Нужно уметь отлавливать такие моменты.</p>
+<p>Мы можем сделать проверку, при которой на странице появится сообщение об отсутствии игры с таким `id`, если константа `game` не содержит информации об игре. Сделать это поможет условный рендеринг, о котором мы рассказывали в одноимённом уроке.</p>
+<p>Вот что у тебя должно получиться 👇🏻</p>
+<pre><code>{
+	game ? (
+		&lt;&gt;
+		  &lt;section className={Styles[&#x27;game&#x27;]}&gt;
+		    &lt;iframe className={Styles[&#x27;game__iframe&#x27;]} src={game.link}&gt;&lt;/iframe&gt;
+		  &lt;/section&gt;
+		  &lt;section className={Styles[&#x27;about&#x27;]}&gt;
+		    &lt;h2 className={Styles[&#x27;about__title&#x27;]}&gt;{game.title}&lt;/h2&gt;
+		    &lt;div className={Styles[&#x27;about__content&#x27;]}&gt;
+		      &lt;p className={Styles[&quot;about__description&quot;]}&gt;{game.description}&lt;/p&gt;
+		      &lt;div className={Styles[&quot;about__author&quot;]}&gt;
+		        &lt;p&gt;Автор: &lt;span className={Styles[&quot;about__accent&quot;]}&gt;{game.developer}&lt;/span&gt;&lt;/p&gt;
+		      &lt;/div&gt;
+		    &lt;/div&gt;
+		    &lt;div className={Styles[&quot;about__vote&quot;]}&gt;
+		      &lt;p className={Styles[&quot;about__vote-amount&quot;]}&gt;За игру уже проголосовали: &lt;span className={Styles[&quot;about__accent&quot;]}&gt;{game.users.length}&lt;/span&gt;&lt;/p&gt;
+		      &lt;button onClick={() =&gt; {}} className={`button ${Styles[&quot;about__vote-button&quot;]}`}&gt;Голосовать&lt;/button&gt;
+		    &lt;/div&gt;
+		  &lt;/section&gt;
+		&lt;/&gt;
+	) : (
+		&lt;section className={Styles[&#x27;game&#x27;]}&gt;
+			&lt;p&gt;Такой игры не существует 😢&lt;/p&gt;
+		&lt;/section&gt;
+	)
+}</code></pre>
+<p>Для начала можешь просто добавить текст `Такой игры не существует`, а сверстать свой компонент `Не найдено` для страницы с несуществующей игрой — задача со звёздочкой для тебя.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1528_1708349285.png)</p>
+</body>
+</html>

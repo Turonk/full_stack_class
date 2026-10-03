@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Слоёный Pindie — состояние проекта и Virtual Dom</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Слоёный Pindie — состояние проекта и Virtual Dom</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/0e11ea21-ac27-4882-aaf4-1e426af22a2b/">https://practicum.yandex.ru/learn/kids-web/courses/232ea8d5-ae43-4072-aa39-ade914d25935/sprints/190124/topics/b0c0d850-4469-4132-bd4f-a89e666eea81/lessons/0e11ea21-ac27-4882-aaf4-1e426af22a2b/</a></p>
+  <h1>Слоёный Pindie — состояние проекта и Virtual Dom</h1>
+<p>Скорее тебе пригодится чёрная водолазка, как у стильных архитекторов, ведь то, как приложение организовано, называют **архитектурой приложения**.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Worn-Ass-Semi-Gloss_31_1707295542.jpg)</p>
+<p>Давай посмотрим, на какие части можно поделить Pindie.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1476_1707295579.png)</p>
+<p>Первые два слоя — про данные и их преобразование. Подробно мы обсуждали их в прошлом уроке.</p>
+<p>Затем — слои, которые мы уже изучали в уроке про React, Babel и React DOM на прошлой неделе:</p>
+<p>1. Используя React, пишем разметку в JSX. 2. Babel переводит JSX-разметку в понятный браузеру JavaScript. 3. React DOM отрисовывает получившуюся HTML-разметку.</p>
+<p>Наконец, HTML-разметка встраивается в DOM (подробно о нём говорили во втором модуле).</p>
+<p>Такая архитектура приложения выглядит массивно, но зато компонентный подход и JSX позволяют  писать код быстрее. Но это не всё, что даёт React.</p>
+<p>На самом деле React ещё и делает сайт эффективнее.</p>
+<p>Если работать с DOM напрямую, то обновление элементов может занимать достаточно много времени. Иногда мы можем менять DOM не самым простым для браузера способом.</p>
+<p>Например, у нас есть такая разметка 👇🏻</p>
+<pre><code>&lt;section class=&quot;section&quot;&gt;
+	&lt;p class=&quot;hello&quot;&gt;Привет!&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+<p>Мы хотим добавить вместо `&lt;p&gt;` с классом `hello` другой элемент `&lt;p&gt;` с помощью JavaScript.</p>
+<p>Можно удалить этот элемент и вставить на его место новый. На чистом JS это будет выглядеть так 👇🏻</p>
+<pre><code>// Находим контейнер, где хранится элемент
+const section = document.querySelector(&quot;.section&quot;);
+// Находим старый элемент
+const oldElement = document.querySelector(&quot;.hello&quot;);
+// Создаём новый элемент
+const newElement = document.createElement(&quot;p&quot;);
+// Задаём новому элементу нужное содержание и класс
+newElement.textContent = &quot;Новый текст!&quot;;
+newElement.classList.add(&quot;hello&quot;);
+// Удаляем старый элемент
+oldElement.remove();
+// Добавляем новый элемент в контейнер
+section.append(newElement);</code></pre>
+<p>Но вообще-то эффективнее использовать такой способ 👇🏻</p>
+<pre><code>// Находим элемент
+const oldElement = document.querySelector(&quot;.hello&quot;);
+// Меняем содержание
+oldElement.textContent = &quot;Новый текст!&quot;</code></pre>
+<p>Да, можно каждый раз искать наиболее быстрый способ изменить DOM. Но чем больше операций с DOM нужно выполнить, тем больше времени будет занимать поиск лучшего решения. Да и операции с DOM в твоих работах становятся всё сложнее и их становится всё больше. Представь, что тебе надо учитывать эффективность обновления DOM каждый раз, когда ты скрываешь элементы в зависимости от условий или передаёшь компонентам `props`</p>
+<p>React решает проблему обновления DOM, добавляя ещё один слой в архитектуру нашего приложения — копию реального DOM. Этот слой называют **Virtual DOM**.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1474_1_1707295696.png)</p>
+<p>Изменения, которые должны произойти с сайтом, сначала вносятся в Virtual DOM. Virtual DOM не отрисовывается на сайте, а используется для вычислений: React сравнивает Virtual DOM с DOM сайта и находит элементы, которые должны измениться. Затем React рассчитывает наиболее эффективный и быстрый способ обновления DOM и использует его. В итоге тебе не приходится думать о том, как лучше всего взаимодействовать с DOM.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Frame_1477_1_1707295725.png)</p>
+<p>Если представить, что DOM — дом, то Virtual DOM — чертёж этого дома.</p>
+<p>В случае, если нам нужно добавить стену в уже построенный дом, мы можем на чертеже определить самый лучший вариант, как это сделать, и только потом приняться за работу в настоящем доме.</p>
+<p>Так же и с DOM-деревом при использовании React: сначала собирается чертёж, описывающий, что и как нужно сделать, а затем происходит обновление.</p>
+<p>Соответственно, если у нас будет такой компонент...</p>
+<pre><code>export const HelloReact = (props) =&gt; {
+	return (
+		&lt;section className=&quot;section&quot;&gt;
+			{props.type === &quot;hello&quot; ? &lt;p className=&quot;hello&quot;&gt;Привет!&lt;/p&gt; : &lt;p className=&quot;hey&quot;&gt;Хей!&lt;/p&gt;}
+		&lt;/section&gt;
+	)
+}</code></pre>
+<p>…React при изменении `props.type` сделает следующее:</p>
+<p>- внесёт обновления в Virtual DOM - сравнит Virtual DOM с настоящим DOM - найдёт достаточно быстрый способ обновить DOM - внесёт изменения в DOM</p>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Интерфейс состояния</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Интерфейс состояния</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/3d98448b-508c-492b-a2f0-3297616399fb/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/180b5a42-c2f8-477c-9b7c-de81164bb657/lessons/3d98448b-508c-492b-a2f0-3297616399fb/</a></p>
+  <h1>Интерфейс состояния</h1>
+<p>![](https://pictures.s3.yandex.net:443/resources/Untitled_Artwork_598_1703265160.png)</p>
+<p>В общем-то, да!</p>
+<p>Представь, наш бедный Аски заполнил форму и нажимает «Отправить», но ничего не происходит: ни стили, ни текст кнопки не меняются.</p>
+<p>В этом случае вместо одного запроса к серверу отправятся 100500.</p>
+<p>Проблемы налицо.</p>
+<p>Во-первых, такое неочевидное поведение сайта очень раздражает обычного пользователя (не только Аски), ведь он не может понять, в каком состоянии отправленные им данные: они отправляются, или получены на сервере, или всё сломалось и данные просто пропали?</p>
+<p>Во-вторых, у серверов ограниченные ресурсы и желательно не отправлять им слишком много запросов, чтобы не вызвать неполадки в работе.</p>
+<p>В этом уроке мы расскажем, как можно избежать ситуации, когда пользователь будет без остановки кликать на «Отправить», перегружая сервер.</p>
+<p>К настоящему моменту мы уже сделали так, что при отправке формы данные уходят на наш сервер.</p>
+<pre><code>// Получение элементов формы
+const form = document.forms.addHero; // Получаем форму
+const titleInput = form.elements.title; // Получаем поле с именем
+const descriptionInput = form.elements.description; // Получаем поле с описанием
+const strInput = form.elements.str; // Получаем поле с уровнем силы
+const agiInput = form.elements.agi; // Получаем поле с уровнем ловкости
+const hpInput = form.elements.hp; // Получаем поле с уровнем здоровья
+const intInput = form.elements.int; // Получаем поле с уровнем интеллекта
+
+// Вешаем на форму обработчик события submit
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Создаём объект с новым персонажем и записываем данные
+	let newHero = {
+		title: titleInput.value,
+	  description: descriptionInput.value,
+	  str: strInput.value,
+	  agi: agiInput.value,
+	  hp: hpInput.value,
+	  int: intInput.value,
+	};
+	// Формируем JSON-строку из объекта
+	let newHeroJSON = JSON.stringify(newHero);
+	
+	// Отправляем запрос на сервер с новым персонажем
+	// Используем API нашего сервера 
+	fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+		method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+	  body: newHeroJSON, // Тело запроса в JSON-формате
+	  headers: {
+		  // Добавляем необходимые заголовки
+		  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+		},
+	})
+		.then((response) =&gt; response.json())
+		// Cмотрим ответ сервера на наш запрос
+	  .then((data) =&gt; console.log(data))
+		// Cбрасываем все поля
+		form.reset();
+});</code></pre>
+<p>Теперь надо сделать так, чтобы во время загрузки данных кнопка «Добавить героя» становилась неактивной. Для этого у кнопок существует атрибут `disabled` (если он указан, то нажатие на кнопку не вызывает никакого действия). Добавим это в самое начало нашего обработчика событий, прямо после `evt.preventDefault()`:</p>
+<pre><code>let addHeroButton = document.querySelector(&quot;#addHero&quot;);
+
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Отключаем кнопку &quot;Добавить героя&quot;
+	addHeroButton.disabled = true;
+	/* Остальной код слушателя события submit */
+	}
+)</code></pre>
+<p>Но нам нужно сделать и так, чтобы кнопка снова была активна после получения ответа от сервера. Для этого нужно добавить блок `finally` в цепочку после `fetch`</p>
+<p>`finally` — ещё одна функция промисов, похожая на `then` и `catch`, но выполнится она независимо от того, в какой статус перейдёт промис после нашего запроса. То есть, и если запрос будет успешным (`fulfilled`), и если запрос будет неудачным (`rejected`), блок кода `finally` исполнится. Если подзабылось, как работают промисы и что это за `then` и `catch`, — вернись ещё раз к уроку про асинхронность.</p>
+<pre><code>let addHeroButton = document.querySelector(&quot;#addHero&quot;);
+
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Отключаем кнопку &quot;Добавить героя&quot;
+	addHeroButton.disabled = true;
+
+	/* Код слушателя события submit (кроме отправки данных) */
+
+	// Отправляем запрос на сервер с новым персонажем
+	// Используем API нашего сервера 
+	fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+		method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+	  body: newHeroJSON, // Тело запроса в JSON-формате
+	  headers: {
+		  // Добавляем необходимые заголовки
+		  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+		},
+	})
+	.then((response) =&gt; response.json())
+	// Cмотрим ответ сервера на наш запрос
+	.then((data) =&gt; {
+		console.log(data);
+		// Cбрасываем все поля
+		form.reset();
+	})
+	.finally(() =&gt; {
+		addHeroButton.disabled = false;
+	})
+	}
+)</code></pre>
+<p>Для того чтобы стилизовать выключенные кнопки, в CSS можно использовать псевдокласс `disabled` (в первом модуле уже рассказывали о псевдоклассах). Вот как это будет выглядеть:</p>
+<pre><code>.button:disabled {
+	opacity: 0.6;
+}</code></pre>
+<p>Итак, теперь на кнопку нельзя будет нажимать бесконечное количество раз, пока запрос пользователя обрабатывается, — это хорошо.</p>
+<p>Можем добавить к этому и замену текста кнопки на что-нибудь показывающее пользователю, что отправка в процессе. Простой пример: сделаем так, чтобы на время загрузки текст кнопки менялся на «Отправляем данные...». Не забудь, как и в случае с текстом кнопки, вернуть всё к изначальному состоянию.</p>
+<p>Пропишем это в том же блоке `finally`, с которым работали до этого.</p>
+<pre><code>let addHeroButton = document.querySelector(&quot;#addHero&quot;);
+
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Отключаем кнопку &quot;Добавить героя&quot;
+	addHeroButton.disabled = true;
+	addHeroButton.textContent = &quot;Отправляем данные...&quot;;
+
+	/* Код слушателя события submit (кроме отправки данных) */
+
+	// Отправляем запрос на сервер с новым персонажем
+	// Используем API нашего сервера 
+	fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+		method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+	  body: newHeroJSON, // Тело запроса в JSON-формате
+	  headers: {
+		  // Добавляем необходимые заголовки
+		  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+		},
+	})
+	.then((response) =&gt; response.json())
+	// Cмотрим ответ сервера на наш запрос
+	.then((data) =&gt; {
+		console.log(data);
+		// Cбрасываем все поля
+		form.reset();
+	})
+	.finally(() =&gt; {
+		addHeroButton.disabled = false;
+		addHeroButton.textContent = &quot;Отправить&quot;;
+	})
+	}
+)</code></pre>
+<p>Ещё нам стоит добавить обработку ошибок, чтобы пользователь видел: что-то пошло не так.</p>
+<p>Для примера сделаем простейший вариант: пользователю будет показываться, что произошла ошибка (без уточнения, что именно случилось).</p>
+<p>Для этого нам понадобится добавить ещё один элемент — текстовый блок чуть ниже поля ввода формы. Дадим ему id `errorText`</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;/&gt;
+        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;
+        &lt;title&gt;КарП&lt;/title&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;
+        &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;
+        &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;h1 class=&quot;page-heading&quot;&gt;КарП&lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/header&gt;
+        &lt;main class=&quot;container&quot;&gt;
+            &lt;section class=&quot;form-wrapper&quot;&gt;
+                &lt;form name=&quot;addHero&quot; class=&quot;form&quot;&gt;
+                    &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required placeholder=&quot;Имя героя&quot;/&gt;
+                    &lt;input class=&quot;form-input&quot; type=&quot;text&quot; name=&quot;description&quot; id=&quot;description&quot; required placeholder=&quot;Описание&quot;/&gt;
+                    &lt;div class=&quot;form-parameters&quot;&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;str&quot; id=&quot;str&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Сила&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;agi&quot; id=&quot;agi&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Ловкость&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;hp&quot; id=&quot;hp&quot; min=&quot;1&quot; max=&quot;100&quot; placeholder=&quot;Очки жизни&quot; /&gt;
+                        &lt;input class=&quot;form-input parameter-input&quot; type=&quot;number&quot; name=&quot;int&quot; id=&quot;int&quot; min=&quot;1&quot; max=&quot;99&quot; placeholder=&quot;Интеллект&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;button class=&quot;form-button&quot; id=&quot;addHero&quot;&gt;Добавить героя&lt;/button&gt;
+		                &lt;p id=&quot;errorText&quot;&gt;&lt;/p&gt;
+								&lt;/form&gt;
+            &lt;/section&gt;
+            &lt;section class=&quot;cards&quot; id=&quot;cards-container&quot;&gt;&lt;/section&gt;
+        &lt;/main&gt;
+        &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Найдём добавленный элемент с помощью `querySelector`. А затем добавим в цепочку обработки запроса `catch` — на случай, если не получается отправить данные.</p>
+<p>При этом в начале каждого отправления данных можно сбрасывать текст ошибки, чтобы у пользователя была возможность попробовать отправить что-то ещё раз.</p>
+<pre><code>let addHeroButton = document.querySelector(&quot;#addHero&quot;);
+let errorText = document.querySelector(&quot;#errorText&quot;);
+
+form.addEventListener(&#x27;submit&#x27;, function (evt) {
+  // Отменяем стандартное поведение
+  evt.preventDefault();
+	// Отключаем кнопку &quot;Добавить героя&quot;
+	addHeroButton.disabled = true;
+	addHeroButton.textContent = &quot;Отправляем данные...&quot;;
+
+	/* Код слушателя события submit (кроме отправки данных) */
+
+	// Отправляем запрос на сервер с новым персонажем
+	// Используем API нашего сервера 
+	fetch(&quot;https://api-code.practicum-team.ru/heroes&quot;, {
+		method: &quot;POST&quot;, // POST нужен для сохранения и записи данных
+	  body: newHeroJSON, // Тело запроса в JSON-формате
+	  headers: {
+		  // Добавляем необходимые заголовки
+		  &quot;Content-type&quot;: &quot;application/json; charset=UTF-8&quot;,
+		},
+	})
+	.then((response) =&gt; response.json())
+	// Смотрим ответ сервера на наш запрос
+	.then((data) =&gt; {
+		console.log(data);
+		// Сбрасываем все поля
+		form.reset();
+	})
+	.catch((e) =&gt; {
+		errorText.textContent = &quot;Произошла ошибка&quot;
+	})
+	.finally(() =&gt; {
+		addHeroButton.disabled = false;
+		addHeroButton.textContent = &quot;Отправить&quot;;
+	})
+	}
+)</code></pre>
+</body>
+</html>

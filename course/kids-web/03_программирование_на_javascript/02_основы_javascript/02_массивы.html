@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Массивы</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Массивы</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/a58f4def-7a91-4ad6-938d-4ef32345242b/lessons/a9ab1048-101f-447d-8ee8-1e176259741d/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/a58f4def-7a91-4ad6-938d-4ef32345242b/lessons/a9ab1048-101f-447d-8ee8-1e176259741d/</a></p>
+  <h1>Массивы</h1>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_20.mp4}</p>
+<p>Ты уже знаешь про такие типы данных, как строка, числовой и логический типы, но что если Аски решит сохранить не одну Собаку в переменную, а всю коробку щенят?</p>
+<p>Такая коллекция однотипных элементов, чисел, строк (в нашем случае животных) и других типов данных называется **Array** (c английского «множество, массив»).</p>
+<p>С удовольствием!</p>
+<p>Допустим, нам нужно перечислить самые популярные имена собак, чтобы назвать всех в коробке. Если записывать каждую кличку в отдельную переменную, получится громоздко:</p>
+<pre><code>let dog1 = &quot;Полкан&quot;;
+let dog2 = &quot;Бим&quot;;
+let dog3 = &quot;Бобик&quot;;
+let dog4 = &quot;Дружок&quot;;
+let dog5...</code></pre>
+<p>Так работать с большим количеством переменных неудобно. Пока ищешь определённое имя, разбираясь в названиях и их соответствии, можно потерять что-нибудь важное.</p>
+<p>Массив решает эту проблему:</p>
+<pre><code>let dogs = [&quot;Полкан&quot;, &quot;Бим&quot;, &quot;Бобик&quot;, &quot;Дружок&quot;, &quot;Шарик&quot;, &quot;Пират&quot;, &quot;Барбос&quot;, &quot;Мухтар&quot;, &quot;Рекс&quot;, &quot;Джек&quot;, &quot;Тоби&quot;];</code></pre>
+<p>Попробуй самостоятельно тоже (в комментариях песочницы, как обычно, подсказки) 👇🏻</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/02-base-js/04-arrays/make-array-with-cat-names/pre/?tab=script.js|minWidth:400px|minHeight:600px}</p>
+<p>**Основные фишки массива:**</p>
+<p>- Массив создаётся с помощью квадратных скобок `[]`, значения внутри скобок перечисляются через запятую:</p>
+<pre><code>let blackHole = []; // пустой массив
+let names = [&quot;Аски&quot;, &quot;Цэ-Эс-Эсочка&quot;, &quot;Ящерка&quot;, &quot;Собака&quot;] // массив имен
+let numbers = [2, 4, 15, 36, 45, 87] // массив чисел</code></pre>
+<p>- В массиве можно хранить любые, даже не схожие друг с другом значения, в том числе и другие массивы:</p>
+<pre><code>let array = [&quot;Аски&quot;, 23, true, [&quot;Собака&quot;, &quot;Ящерка&quot;], &quot;😇&quot;]; </code></pre>
+<p>Но чаще его используют именно для однотипных данных. В коде, как и во всём остальном, порядок очень упрощает жизнь. Представь, как неудобно искать тарелку в кухонном шкафу, если там лежит не только посуда, но и коньки, документы, детские игрушки и всё в таком духе.</p>
+<p>- У массива есть длина, она показывает общее число элементов. Чтобы её узнать, достаточно к массиву через точку `.` дописать слово —  `length` (с английского  «длина»):</p>
+<pre><code>let names = [&quot;Аски&quot;, &quot;Цэ-Эс-Эсочка&quot;, &quot;Ящерка&quot;, &quot;Собака&quot;];
+array.length // 4 - длина массива names, так как в нём четыре элемента.</code></pre>
+<p>- Обращаясь к массиву с указанием номера элемента в квадратных скобках, можно получить значение этого элемента, но нужно помнить, что отсчёт начинается с 0:</p>
+<pre><code>let names = [&quot;Аски&quot;, &quot;Цэ-Эс-Эсочка&quot;, &quot;Ящерка&quot;, &quot;Собака&quot;];
+names[0] // &quot;Аски&quot; - элемент массива №0
+names[1] // &quot;Цэ-Эс-Эсочка&quot; - элемент массива №1
+names[3] // &quot;Собака&quot; - элемент массива №3</code></pre>
+<p>В следующих уроках.</p>
+<p>А пока поздравляем, теперь ты знаешь как работать с массивами.</p>
+<p>Давай проверим усвоенное!</p>
+<p>Выполни задание из комментариев в песочнице.</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/02-base-js/04-arrays/change-array-item/pre/|minWidth:400px|minHeight:600px}</p>
+</body>
+</html>

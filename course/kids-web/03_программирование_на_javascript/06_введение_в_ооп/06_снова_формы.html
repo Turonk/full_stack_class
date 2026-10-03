@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Снова формы</title>
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 1rem; overflow: auto; }
+    code { font-family: Consolas, monospace; }
+    .meta { color: #555; font-size: 0.9rem; margin-bottom: 2rem; }
+    a { color: #0b57d0; }
+  </style>
+</head>
+<body>
+  <h1>Снова формы</h1>
+  <p class="meta"><a href="https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/d1b2e48d-2445-4dfb-8171-5110ded7564f/">https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/b85795a7-a31a-45ba-8f17-4c8acaef928e/lessons/d1b2e48d-2445-4dfb-8171-5110ded7564f/</a></p>
+  <h1>Снова формы</h1>
+<p>Всё так! Осталось обработать данные от пользователя и отобразить их в карточке персонажа.</p>
+<p>{video:https://code.s3.yandex.net/kids-web/Untitled_Artwork_25.mp4}</p>
+<h2>Обработка данных пользователя</h2>
+<h3>Шаг 1. Собираем информацию о характеристиках, которые ввёл пользователь</h3>
+<p>К этому моменту мы уже создали анонимную функцию. Сейчас в её теле начнём описывать логику обработки данных. Получим имя персонажа из тега `&lt;input&gt;` с `id=&quot;name&quot;` и запишем в переменную `heroName`</p>
+<p>После этого зададим условие: если поле с именем персонажа не пустое, продолжим создавать персонажа. Если в поле с именем персонажа не был введен ни один символ, что соответствует пустой строке `&quot;&quot;`, то выведем предупреждающее сообщение:</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+       // Cоздаём объект персонажа
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+}</code></pre>
+<p>Далее соберём информацию из тегов `&lt;input&gt;` о характеристиках, которые ввёл пользователь:</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+        const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+        const heroLevel = document.getElementById(&quot;level&quot;).value;
+        const heroStats = {};
+        const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+        const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+
+}</code></pre>
+<h3>Шаг 2. Решаем проблему с числами</h3>
+<p>На этом этапе сталкиваемся с маленькой проблемой. До этого нам надо было просто отображать в карточках значения силы или ловкости, не думая, в каком виде это значение к нам пришло. А теперь мы планируем вычитать и складывать эти числа, чтобы вычислять победителя. А для математических операций тип данных важен — иначе возможны ошибки при расчётах.</p>
+<p>Что данные о числах, которые приходят через формы или от сервера, лучше переводить в числовой тип данных.</p>
+<p>Наглядный пример: если бы на кассе супермаркета вдруг начали складывать цены, которые записаны в виде строк в памяти программы, то при покупке чипсов за `&quot;80&quot;` рублей и напитка за `&quot;150&quot;` рублей результат сложения цен получился бы `&quot;80150&quot;` рублей.</p>
+<p>Именно! Рассказываем, как избежать подобного в проекте.</p>
+<p>Чтобы привести что-то к числу, в JS существует функция `Number()`👇🏻</p>
+<pre><code>Number(&quot;80&quot;) // Приводит к числу 80
+console.log(Number(&quot;80&quot;) + Number(&quot;150&quot;)) // Выведет число 230</code></pre>
+<p>Если тебе любопытно, то есть разные способы приводить к другим типам данных, подробнее читай в [Доке](https://doka.guide/js/typecasting/){target=&quot;_blank&quot;}, а мы продолжим работать над проектом.</p>
+<p>Добавляя характеристики силы, интеллекта и ловкости в объект `heroStats`, их нужно конвертировать в число 👇🏻</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+	const heroName = document.getElementById(&quot;name&quot;).value;
+  if (heroName !== &quot;&quot;) {
+	  const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+    const heroLevel = document.getElementById(&quot;level&quot;).value;
+    const heroStats = {};
+    const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+    const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+    heroStats.str = Number(document.getElementById(&quot;strength&quot;).value)
+    heroStats.int = Number(document.getElementById(&quot;intelligence&quot;).value)
+    heroStats.agi = Number(document.getElementById(&quot;agility&quot;).value);
+  } else {
+	  alert(&quot;Добавьте герою имя!&quot;)
+  }
+}</code></pre>
+<h3>Шаг 3. Устанавливаем запрет на супермощных персонажей</h3>
+<p>В прошлом уроке мы создали два объекта, `gameParameters` и `gameClasses`, чтобы сделать игру более честной. Пришла пора их применить.</p>
+<p>План такой: если пользователь ввёл значение более высокое, чем установлено в правиле, то запишем персонажу максимально допустимое значение. Это число хранится в объекте `gameParameters` как значение `MAX_STAT`👇🏻</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+        const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+        const heroLevel = document.getElementById(&quot;level&quot;).value;
+        const heroStats = {};
+        const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+        const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+
+        // Если введённое значение параметра больше максимального, устанавливаем максимальное
+        heroStats.str = Number(document.getElementById(&quot;strength&quot;).value);
+        if (heroStats.str &gt; gameParameters.MAX_STAT) {
+            heroStats.str = gameParameters.MAX_STAT
+        }
+        heroStats.int = Number(document.getElementById(&quot;intelligence&quot;).value);
+        if (heroStats.int &gt; gameParameters.MAX_STAT) {
+            heroStats.int = gameParameters.MAX_STAT
+        }
+        heroStats.agi = Number(document.getElementById(&quot;agility&quot;).value);
+        if (heroStats.agi &gt; gameParameters.MAX_STAT) {
+            heroStats.agi = gameParameters.MAX_STAT
+        }
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+
+}</code></pre>
+<p>Теперь ограничим классы персонажей только магом и рыцарем. Получив значение выбранного класса `Mage` или `Knight`, нужно создать соответствующий экземпляр класса персонажа, передать ему характеристики и сохранить в переменную `playerHero`. Для этого используем условие👇🏻</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+        const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+        const heroLevel = document.getElementById(&quot;level&quot;).value;
+        const heroStats = {};
+
+        // Если введённое значение параметра больше максимального, устанавливаем максимальное
+        heroStats.str = Number(document.getElementById(&quot;strength&quot;).value);
+        if (heroStats.str &gt; gameParameters.MAX_STAT) {
+            heroStats.str = gameParameters.MAX_STAT
+        }
+        heroStats.int = Number(document.getElementById(&quot;intelligence&quot;).value);
+        if (heroStats.int &gt; gameParameters.MAX_STAT) {
+            heroStats.int = gameParameters.MAX_STAT
+        }
+        heroStats.agi = Number(document.getElementById(&quot;agility&quot;).value);
+        if (heroStats.agi &gt; gameParameters.MAX_STAT) {
+            heroStats.agi = gameParameters.MAX_STAT
+        }
+
+        const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+        const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+
+        if (heroClass === &quot;Mage&quot;) {
+            playerHero = new Mage(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else if (heroClass === &quot;Knight&quot;) {
+            playerHero = new Knight(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else {
+            console.error(&quot;Упс! Произошла какая-то ошибка!&quot;)
+            return;
+        }
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+
+}</code></pre>
+<h3>Шаг 4. Выводим персонажа на экран. Описываем функцию `displayPlayerHero()`</h3>
+<p>После создания класса персонажа с характеристиками останется его только отрисовать. С этим тебе поможет функция `displayPlayerHero()`👇🏻</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+        const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+        const heroLevel = document.getElementById(&quot;level&quot;).value;
+        const heroStats = {};
+
+        // Если введённое значение параметра больше максимального, устанавливаем максимальное
+        heroStats.str = Number(document.getElementById(&quot;strength&quot;).value);
+        if (heroStats.str &gt; gameParameters.MAX_STAT) {
+            heroStats.str = gameParameters.MAX_STAT
+        }
+        heroStats.int = Number(document.getElementById(&quot;intelligence&quot;).value);
+        if (heroStats.int &gt; gameParameters.MAX_STAT) {
+            heroStats.int = gameParameters.MAX_STAT
+        }
+        heroStats.agi = Number(document.getElementById(&quot;agility&quot;).value);
+        if (heroStats.agi &gt; gameParameters.MAX_STAT) {
+            heroStats.agi = gameParameters.MAX_STAT
+        }
+
+        const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+        const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+
+        if (heroClass === &quot;Mage&quot;) {
+            playerHero = new Mage(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else if (heroClass === &quot;Knight&quot;) {
+            playerHero = new Knight(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else {
+            console.error(&quot;Упс! Произошла какая-то ошибка!&quot;)
+            return;
+        }
+
+        displayPlayerHero(playerHero);
+
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+
+}</code></pre>
+<p>Ура! Вёрстка для персонажа готова, необходимо только правильно вставить данные.</p>
+<p>![](https://pictures.s3.yandex.net:443/resources/Snimok_ekrana_2024-01-11_v_8.55.23_PM_1704995730.png)</p>
+<p>Что мы имеем: в функцию аргументом передаётся экземпляр класса персонажа, в нём хранятся характеристики персонажа и метод для отображения данных карточки. Давай просто вставим каждый параметр в соответствующий HTML-тег и вызовем метод класса 👇🏻</p>
+<pre><code>// Выводим героя игрока на экран
+function displayPlayerHero(hero) {
+    document.getElementById(&quot;playerHeroClass&quot;).innerHTML = gameClasses[hero.constructor.name];
+    document.getElementById(&quot;playerHeroName&quot;).innerHTML = hero.name;
+    document.getElementById(&quot;playerHeroLevel&quot;).innerHTML = hero.level;
+    document.getElementById(&quot;playerHeroHp&quot;).innerHTML = hero.healthPoints;
+    document.getElementById(&quot;playerHeroStrength&quot;).innerHTML = hero.stats.str;
+    document.getElementById(&quot;playerHeroIntelligence&quot;).innerHTML = hero.stats.int;
+    document.getElementById(&quot;playerHeroAgility&quot;).innerHTML = hero.stats.agi;
+
+    hero.displayHero();
+}</code></pre>
+<p>Чтобы не запутаться, можешь вывести в консоль приходящий аргумент функции `console.log(hero)` — так ты наглядно поймёшь, где в объекте `hero` лежат необходимые свойства.</p>
+<h3>Шаг 5. Снимаем блок с кнопок</h3>
+<p>Когда персонаж создан, по логике игры можно вызывать на баттл соперника с сервера и использовать дополнительные способности. Чтобы пользователь мог это сделать, надо разблокировать кнопки для дальнейшего взаимодействия: `getEnemyButton` и `doSkillButton` 👇🏻</p>
+<pre><code>// Получаем информацию о герое игрока
+sendToBattleButton.onclick = () =&gt; {
+
+    const heroName = document.getElementById(&quot;name&quot;).value;
+    if (heroName !== &quot;&quot;) {
+        const heroClass = document.querySelector(&#x27;input[name=&quot;class&quot;]:checked&#x27;).value;
+        const heroLevel = document.getElementById(&quot;level&quot;).value;
+        const heroStats = {};
+
+        // Если введённое значение параметра больше максимального, устанавливаем максимальное
+        heroStats.str = Number(document.getElementById(&quot;strength&quot;).value);
+        if (heroStats.str &gt; gameParameters.MAX_STAT) {
+            heroStats.str = gameParameters.MAX_STAT
+        }
+        heroStats.int = Number(document.getElementById(&quot;intelligence&quot;).value);
+        if (heroStats.int &gt; gameParameters.MAX_STAT) {
+            heroStats.int = gameParameters.MAX_STAT
+        }
+        heroStats.agi = Number(document.getElementById(&quot;agility&quot;).value);
+        if (heroStats.agi &gt; gameParameters.MAX_STAT) {
+            heroStats.agi = gameParameters.MAX_STAT
+        }
+
+        const additionalAbility = document.querySelector(&#x27;input[name=&quot;additionalAbility&quot;]:checked&#x27;).value;
+        const additionalStat = document.getElementById(&quot;additionalStat&quot;).value;
+
+        if (heroClass === &quot;Mage&quot;) {
+            playerHero = new Mage(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else if (heroClass === &quot;Knight&quot;) {
+            playerHero = new Knight(heroName, heroLevel, 100, heroStats, additionalAbility, additionalStat);
+        } else {
+            console.error(&quot;Упс! Произошла какая-то ошибка!&quot;)
+            return;
+        }
+
+        displayPlayerHero(playerHero);
+				
+				// Снимаем блок с кнопок для дальнейшего взаимодействия 
+        getEnemyButton.removeAttribute(&quot;disabled&quot;);
+        doSkillButton.removeAttribute(&quot;disabled&quot;)
+    } else {
+        alert(&quot;Добавьте герою имя!&quot;)
+    }
+
+}</code></pre>
+<p>Такой результат у тебя должен получиться:</p>
+<p>{iframe:https://sandbox-teens.practicum-team.ru/tasks/02-js/05-oop/0506-render-player-hero/example-01/pre/|minWidth:400px|minHeight:600px}</p>
+<p>Действительно, проделана большая работа, ты молодец!</p>
+<p>Не переживай, Цэ-эс-эсочка, в следующем уроке найдём ему на наших серверах достойного соперника.</p>
+</body>
+</html>

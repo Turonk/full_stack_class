@@ -1,0 +1,18 @@
+{
+  "lesson_id": "ced1efe9-388f-4b82-b7cd-206b64cb192b",
+  "title": "DOM и функции для поиска HTML-элементов",
+  "course_id": "7e351741-074a-49f2-8f27-60c0bd0ab45e",
+  "course_name": "Программирование на JavaScript",
+  "topic_id": "1fd7dbf3-5170-4eeb-9ddd-bc18d8df06b4",
+  "topic_name": "Функции в JavaScript",
+  "sprint_id": 190123,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/7e351741-074a-49f2-8f27-60c0bd0ab45e/sprints/190123/topics/1fd7dbf3-5170-4eeb-9ddd-bc18d8df06b4/lessons/ced1efe9-388f-4b82-b7cd-206b64cb192b/",
+  "markdown_chars": 3770,
+  "content_hash": "e84e92b92ffda3eb",
+  "saved_at": "2026-07-29T15:21:05.373650+00:00",
+  "paths": {
+    "md": "03_программирование_на_javascript/03_функции_в_javascript/02_dom_и_функции_для_поиска_html_элементов.md",
+    "html": "03_программирование_на_javascript/03_функции_в_javascript/02_dom_и_функции_для_поиска_html_элементов.html"
+  }
+}

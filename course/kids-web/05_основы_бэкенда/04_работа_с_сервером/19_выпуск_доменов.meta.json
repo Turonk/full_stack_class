@@ -1,0 +1,18 @@
+{
+  "lesson_id": "898d9ba0-88ae-42f2-9be1-a89b36608c75",
+  "title": "Выпуск доменов",
+  "course_id": "fca180a1-4dc7-4494-818a-9536e5cf7aeb",
+  "course_name": "Основы бэкенда",
+  "topic_id": "53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1",
+  "topic_name": "Работа с сервером",
+  "sprint_id": 190125,
+  "lesson_type": "web",
+  "source_url": "https://practicum.yandex.ru/learn/kids-web/courses/fca180a1-4dc7-4494-818a-9536e5cf7aeb/sprints/190125/topics/53bf9e76-ef5e-415d-9751-d5a9e2c2d7f1/lessons/898d9ba0-88ae-42f2-9be1-a89b36608c75/",
+  "markdown_chars": 2571,
+  "content_hash": "5b42cc503421c486",
+  "saved_at": "2026-07-29T15:24:56.916274+00:00",
+  "paths": {
+    "md": "05_основы_бэкенда/04_работа_с_сервером/19_выпуск_доменов.md",
+    "html": "05_основы_бэкенда/04_работа_с_сервером/19_выпуск_доменов.html"
+  }
+}
