@@ -11,4 +11,15 @@
 | A05 | [README](A05-cards-hover/README.md) | demo/ | 3 трека |
 | A06 | [README](A06-showcase-pulse-fm/README.md) | demo ≤5 мин | Demo Day |
 
-A07–A34: пока классические `teacher.md` + starter/etalon; миграция по [`LESSON-PACKET-STANDARD`](../../teacher/LESSON-PACKET-STANDARD.md). Критерии спринтов — [`CURRICULUM-GATES`](../../teacher/CURRICULUM-GATES.md).
+Спринт 2 (A07–A12) переведён на **гибридные пакеты**: единый читаемый `teacher/lecture.md` (сценарий, реплики, код, стартер и эталон в одном файле) + короткие `runbook.md` / `checks.md` / `slides.md`.
+
+| Код | Hub | Артефакт |
+| --- | --- | --- |
+| A07 | [README](A07-css-cascade-vars/README.md) | тема MusicHub через `:root` |
+| A08 | [README](A08-flex-header-player/README.md) | sticky-плеер, flex-панель |
+| A09 | [README](A09-grid-mobile-first/README.md) | каталог 1→2→3 колонки |
+| A10 | [README](A10-typography-visual/README.md) | шрифты, шкала rem, контраст |
+| A11 | [README](A11-css-animations/README.md) | пульс + reduced-motion |
+| A12 | [README](A12-showcase-musichub/README.md) | Showcase MusicHub |
+
+A13–A34: пока классические `teacher.md` + starter/etalon; миграция по [`LESSON-PACKET-STANDARD`](../../teacher/LESSON-PACKET-STANDARD.md). Критерии спринтов — [`CURRICULUM-GATES`](../../teacher/CURRICULUM-GATES.md).

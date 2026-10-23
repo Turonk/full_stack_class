@@ -1,1 +1,7 @@
-Эталон урока A07-css-cascade-vars: см. также спринт `block-a/projects/` и teacher.md.
+# Эталон урока A07 · Каскад и переменные
+
+- Полный сценарий, стартер и эталон урока: [../teacher/lecture.md](../teacher/lecture.md) (§8 «Делаешь сам»).
+- Эталон темы спринта: [styles.css](./styles.css) в этой папке.
+- Полный эталон MusicHub (сетка, плеер, motion — добавятся в A08–A11): [`../../../projects/02-musichub/etalon/`](../../../projects/02-musichub/etalon/).
+
+Проверка эталона: все цвета через `var()`, hex живёт только в `:root`; смена `--accent` перекрашивает весь экран одной строкой.

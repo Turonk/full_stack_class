@@ -24,14 +24,16 @@
 
 Критерии: [`../teacher/CURRICULUM-GATES.md`](../teacher/CURRICULUM-GATES.md).
 
-| Код | Ядро | Зачем подростку |
-| --- | --- | --- |
-| A07 | Cascade + CSS variables | Один источник цвета темы |
-| A08 | Flex-плеер | Панель как у настоящего плеера |
-| A09 | Grid **и** mobile-first; position только sticky/absolute точечно | Витрина без четырёх моделей position за раз |
-| A10 | Типографика каталога | Читаемость > «красивый шрифт» |
-| A11 | keyframes + reduced-motion | Вау без укачивания |
-| A12 | Showcase MusicHub | Демо 360 и 1200 |
+| Код | Ядро | Зачем подростку | Hub |
+| --- | --- | --- | --- |
+| A07 | Cascade + CSS variables | Один источник цвета темы | [README](lessons/A07-css-cascade-vars/README.md) |
+| A08 | Flex-плеер, position sticky | Панель-HUD как у настоящего плеера | [README](lessons/A08-flex-header-player/README.md) |
+| A09 | Grid **и** mobile-first; position только sticky/absolute точечно | Витрина без четырёх моделей position за раз | [README](lessons/A09-grid-mobile-first/README.md) |
+| A10 | Типографика каталога | Читаемость > «красивый шрифт» | [README](lessons/A10-typography-visual/README.md) |
+| A11 | keyframes + reduced-motion | Вау без укачивания | [README](lessons/A11-css-animations/README.md) |
+| A12 | Showcase MusicHub | Демо 360 и 1200 | [README](lessons/A12-showcase-musichub/README.md) |
+
+Спринт 2 переведён на гибридные пакеты: единый `teacher/lecture.md` (сценарий + код + стартер/эталон) + короткие runbook/checks/slides — как Спринт 1, но всё для чтения в одном файле.
 
 ## Спринт 3 · Мост Python → JS
 

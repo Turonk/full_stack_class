@@ -1,0 +1,21 @@
+/* A07 · СТАРТЕР: ХАОС ЦВЕТОВ — лечить через :root
+   Найди глазами все места, где повторяется #7C5CFF. Посчитай вслух.
+   Задача: объявить :root и заменить КАЖДЫЙ hex на var(…).
+   Сценарий урока: ../teacher/lecture.md */
+
+body { background: #0B0F1A; color: #F4F1EA; font-family: "IBM Plex Sans", sans-serif; }
+.top { background: #141A2A; padding: 16px; }
+.logo { color: #7C5CFF; font-weight: 700; }
+.nav-link { color: #F4F1EA; }
+.nav-link:hover { color: #7C5CFF; }
+.hero h1 { color: #7C5CFF; }
+
+/* TODO: box-sizing первой строкой:
+   *, *::before, *::after { box-sizing: border-box; } */
+
+/* TODO: объявить :root — --bg, --bg-elev, --text, --muted, --accent */
+
+/* TODO: заменить КАЖДЫЙ hex выше на var(…) */
+
+/* TODO: .card — фон var(--bg-elev), padding 20px, radius 16px, margin-bottom 16px */
+/* TODO: .muted — color: var(--muted), font-size: 0.9rem */

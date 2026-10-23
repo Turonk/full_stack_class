@@ -13,5 +13,6 @@
 | Solution | [solution/](./solution/) | учитель |
 | Deep notes | [teacher/deep-notes.md](./teacher/deep-notes.md) | дома |
 
-**Артефакт:** витрина из трёх треков. **Концепт:** `:hover`/`:focus-visible` + `transition` + `flex-wrap`.
+**Артефакт:** витрина из трёх треков.
 
+**Результат:** карточка поднимается от мыши; при Tab поднимается вся карточка (фокус на ссылке внутри); на 360px страница не уезжает вбок; `transition` ~0,2 с только на `transform` и `box-shadow`.
