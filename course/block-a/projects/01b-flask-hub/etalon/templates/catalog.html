@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Pulse FM · Полный каталог{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Полный каталог эфира</h1>
+  <p class="tagline">Все карточки рендерятся единым циклом Jinja из списка словарей в Python.</p>
+</section>
+
+<section>
+  <div class="row">
+    {% for item in items %}
+      <article class="card">
+        <img class="cover-img" src="{{ url_for('static', filename='img/' ~ item.img) }}" alt="{{ item.title }}">
+        <h3>{{ item.title }}</h3>
+        <p class="muted">{{ item.subtitle }} · {{ item.meta }}</p>
+        <a class="card-link" href="{{ url_for('item_page', item_id=item.id) }}">Подробнее →</a>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

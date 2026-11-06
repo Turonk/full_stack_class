@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-box">
+  <h1>Предложить трек в эфир</h1>
+  <form method="post" action="{{ url_for('suggest') }}">
+    <div class="field">
+      <label for="title">Название трека *</label>
+      <input type="text" id="title" name="title" placeholder="Например: Neon Wave" required>
+    </div>
+    <div class="field">
+      <label for="subtitle">Исполнитель</label>
+      <input type="text" id="subtitle" name="subtitle" placeholder="Например: Nova Park">
+    </div>
+    <div class="field">
+      <label for="meta">Длительность</label>
+      <input type="text" id="meta" name="meta" placeholder="Например: 3:15">
+    </div>
+    <div class="field">
+      <label for="blurb">Описание</label>
+      <textarea id="blurb" name="blurb" rows="3" placeholder="Пара слов о треке..."></textarea>
+    </div>
+    <button type="submit" class="btn">Отправить в каталог</button>
+  </form>
+</section>
+{% endblock %}

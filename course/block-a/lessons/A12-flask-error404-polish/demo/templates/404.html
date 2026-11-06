@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>404 · Страница не найдена</h1>
+  <p class="muted">Сервер работает отлично, но запрошенного адреса не существует.</p>
+  <a class="btn" href="{{ url_for('home') }}">Вернуться на главную</a>
+</section>
+{% endblock %}

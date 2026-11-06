@@ -1,0 +1,14 @@
+body { background: #0b0f1a; color: #f4f1ea; font-family: sans-serif; padding: 24px; margin: 0; }
+.top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a3348; padding-bottom: 16px; margin-bottom: 24px; }
+.logo { color: #ffc857; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+nav a { color: #9aa3b8; text-decoration: none; margin-left: 16px; }
+nav a:hover { color: #ffc857; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.card { background: #141a2a; border: 1px solid #2a3348; padding: 16px; border-radius: 12px; min-width: 220px; }
+.muted { color: #9aa3b8; }
+.form-box { max-width: 500px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; margin-bottom: 6px; font-weight: bold; }
+.field input, .field textarea { width: 100%; padding: 10px; border-radius: 8px; background: #141a2a; border: 1px solid #2a3348; color: #f4f1ea; box-sizing: border-box; font-family: inherit; font-size: 1rem; }
+.btn { background: #7c5cff; color: #fff; padding: 10px 22px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; }
+.flash { background: rgba(46, 230, 166, 0.15); border: 1px solid #2ee6a6; color: #2ee6a6; padding: 12px 18px; border-radius: 10px; margin-bottom: 18px; font-weight: bold; }

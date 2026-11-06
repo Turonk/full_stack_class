@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>PulseDeck Stand · Каталог</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <h1>Стенд преподавателя · Цикл Jinja</h1>
+  <div class="row">
+    {% for item in items %}
+      <article class="card">
+        <h3>{{ item.title }}</h3>
+        <p class="muted">{{ item.subtitle }}</p>
+        {% if item.meta %}
+          <p>{{ item.meta }}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</body>
+</html>

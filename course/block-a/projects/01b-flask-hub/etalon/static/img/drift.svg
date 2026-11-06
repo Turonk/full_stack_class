@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <rect width="400" height="400" rx="20" fill="#0A192F"/>
+  <polygon points="200,110 280,240 120,240" fill="#172A45" stroke="#64FFDA" stroke-width="4"/>
+  <circle cx="200" cy="190" r="30" fill="#64FFDA" opacity="0.4"/>
+  <text x="200" y="320" font-family="sans-serif" font-weight="bold" font-size="22" fill="#F4F1EA" text-anchor="middle">CYBER DRIFT</text>
+</svg>

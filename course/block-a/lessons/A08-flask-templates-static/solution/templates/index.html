@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Pulse FM · Server</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="top">
+    <p class="logo">Pulse FM</p>
+  </header>
+  <main class="hero">
+    <h1>Радио на сервере Flask</h1>
+    <p class="tagline">Шаблон index.html отрендерен сервером, стили и обложка подгружены через static.</p>
+    <img class="cover-img" src="{{ url_for('static', filename='img/cover.svg') }}" alt="Обложка трека">
+  </main>
+</body>
+</html>

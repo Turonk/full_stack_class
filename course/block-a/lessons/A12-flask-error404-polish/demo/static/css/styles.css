@@ -1,0 +1,5 @@
+body { background: #0b0f1a; color: #f4f1ea; font-family: sans-serif; margin: 0; padding: 24px; }
+.top { border-bottom: 1px solid #2a3348; padding-bottom: 16px; margin-bottom: 24px; }
+.logo { color: #2ee6a6; text-decoration: none; font-weight: bold; }
+.muted { color: #9aa3b8; }
+.btn { background: #7c5cff; color: #fff; padding: 10px 20px; border-radius: 20px; text-decoration: none; display: inline-block; font-weight: bold; }

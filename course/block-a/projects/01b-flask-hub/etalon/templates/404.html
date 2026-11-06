@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}404 · Страница не найдена{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>404 · Адрес не найден</h1>
+  <p class="tagline">Сервер работает штатно, но по этому URL нет зарегистрированного маршрута или карточки.</p>
+  <a class="btn" href="{{ url_for('home') }}">Вернуться на главную</a>
+</section>
+{% endblock %}

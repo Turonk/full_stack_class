@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Pulse FM</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="{{ url_for('home') }}">Pulse FM</a>
+    <nav>
+      <a href="{{ url_for('home') }}">Главная</a>
+      <a href="{{ url_for('suggest') }}">Предложить трек</a>
+    </nav>
+  </header>
+
+  <!-- ТВОЯ ЗАДАЧА: добавь блок get_flashed_messages() -->
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

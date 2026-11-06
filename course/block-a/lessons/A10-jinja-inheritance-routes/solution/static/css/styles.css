@@ -1,0 +1,11 @@
+body { background: #0b0f1a; color: #f4f1ea; font-family: sans-serif; padding: 24px; margin: 0; }
+.top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a3348; padding-bottom: 16px; margin-bottom: 24px; }
+.logo { color: #ffc857; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+nav a { color: #9aa3b8; text-decoration: none; margin-left: 16px; }
+nav a:hover { color: #ffc857; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.card { background: #141a2a; border: 1px solid #2a3348; padding: 16px; border-radius: 12px; min-width: 220px; }
+.muted { color: #9aa3b8; }
+.card-link { color: #ffc857; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 8px; }
+.item-view { max-width: 600px; }
+.blurb { font-size: 1.1rem; line-height: 1.6; color: #cdd5e6; }

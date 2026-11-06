@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>Pulse FM · Главная</h1>
+  <a class="btn" href="{{ url_for('suggest') }}">Предложить свой трек</a>
+</section>
+<div class="row">
+  {% for item in items %}
+    <article class="card">
+      <h3>{{ item.title }}</h3>
+      <p class="muted">{{ item.subtitle }} · {{ item.meta }}</p>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}

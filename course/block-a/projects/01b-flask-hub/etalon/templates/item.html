@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} · Pulse FM{% endblock %}
+
+{% block content %}
+<section class="item-view">
+  <img class="cover-img" src="{{ url_for('static', filename='img/' ~ item.img) }}" alt="{{ item.title }}">
+  <h1>{{ item.title }}</h1>
+  <p class="muted">{{ item.subtitle }} · {{ item.meta }}</p>
+  <p class="blurb">{{ item.blurb }}</p>
+  <a class="btn" href="{{ url_for('catalog') }}">← Назад в каталог</a>
+</section>
+{% endblock %}

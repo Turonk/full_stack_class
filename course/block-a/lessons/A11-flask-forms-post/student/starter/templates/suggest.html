@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="form-box">
+  <h1>Предложить трек в эфир</h1>
+  <!-- ТВОЯ ЗАДАЧА: настрой форму с method="post" action="{{ url_for('suggest') }}" -->
+  <form method="post" action="{{ url_for('suggest') }}">
+    <div class="field">
+      <label for="title">Название трека *</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <button type="submit" class="btn">Отправить</button>
+  </form>
+</section>
+{% endblock %}

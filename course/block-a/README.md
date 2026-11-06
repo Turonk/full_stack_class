@@ -6,11 +6,15 @@
 
 | Спринт | Уроки | Продукт | Эталон |
 | --- | --- | --- | --- |
-| 1 стенд | A01–A05 | PulseDeck, только проектор | `projects/00-pulsedeck/` |
-| 1 ученик | A01–A06 | Pulse FM к родителям | `projects/01-pulse-fm/` |
-| 2 | A07–A12 | MusicHub адаптив + motion | `projects/02-musichub/` |
-| 3 | A13–A18 | PulseBeat | `projects/03-pulsebeat/` |
-| 4 | A19–A24 | MerchShop | `projects/04-merchshop/` |
-| 5–6 | A25–A34 | Flask-финал | `projects/05-flask-final/` |
+| 1 | A01–A06 | Pulse FM, статический сайт | `projects/01-pulse-fm/` |
+| 2 | уроки 7–13 | Свой сайт на Flask: шаблоны, данные, POST | `projects/01b-flask-hub/` |
+| 3 | A14–A19 | Интерфейс поверх серверных страниц | `projects/02-musichub/` |
+| 4 | A20–A25 | JavaScript в браузере | `projects/03-pulsebeat/` |
+| 5 | A26–A31 | `fetch` и JSON между браузером и Flask | `projects/05-flask-final/` |
+| 6 | A32–A34 | Защита года | `projects/05-flask-final/` |
 
-Спринт 1 пересобран: CSS и box model с A01. Старые «голые HTML на 6 недель» не используем.
+Спринт 1 пройден: CSS и box model с A01.
+
+Спринт 2 для этой группы — серверный. Урок 7 уже собран: [клиент и сервер](lessons/A06b-flask-client-server/README.md). Уроки 8–13 описаны паспортами в `lessons/A08`–`A13`. Замыкающий проект: [PROJECT.md](projects/01b-flask-hub/PROJECT.md).
+
+Пакеты каскада, grid и анимаций (`A07`–`A12`) не удалены: их очередь — спринт 3, уже на страницах Flask. Старый вход во Flask на A25 этим спринтом заменён.

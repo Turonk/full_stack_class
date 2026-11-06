@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="item-view">
+  <h1>{{ item.title }}</h1>
+  <p class="muted">{{ item.subtitle }} · {{ item.meta }}</p>
+  <p class="blurb">{{ item.blurb }}</p>
+  <a class="card-link" href="{{ url_for('home') }}">← Назад к каталогу</a>
+</section>
+{% endblock %}

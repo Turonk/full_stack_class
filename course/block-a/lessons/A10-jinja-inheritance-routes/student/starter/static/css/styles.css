@@ -1,0 +1,7 @@
+body { background: #0b0f1a; color: #f4f1ea; font-family: sans-serif; padding: 24px; margin: 0; }
+.top { display: flex; justify-content: space-between; border-bottom: 1px solid #2a3348; padding-bottom: 16px; margin-bottom: 24px; }
+.logo { color: #ffc857; font-weight: bold; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.card { background: #141a2a; border: 1px solid #2a3348; padding: 16px; border-radius: 12px; min-width: 220px; }
+.muted { color: #9aa3b8; }
+.card-link { color: #ffc857; text-decoration: none; font-weight: bold; }

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>404 · Адрес не найден</h1>
+  <p class="muted">Сервер работает штатно, но по этой ссылке нет страницы или карточки.</p>
+  <a class="btn" href="{{ url_for('home') }}">Вернуться на главную</a>
+</section>
+{% endblock %}

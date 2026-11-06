@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- ТВОЯ ЗАДАЧА: оформи красивую страницу 404 с кнопкой Домой -->
+<section class="hero">
+  <h1>404 · Страница не найдена</h1>
+  <a class="btn" href="{{ url_for('home') }}">На главную</a>
+</section>
+{% endblock %}

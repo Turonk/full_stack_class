@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Pulse FM 2.0{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="{{ url_for('home') }}">Pulse FM</a>
+    <nav>
+      <a href="{{ url_for('home') }}">Главная</a>
+      <a href="{{ url_for('catalog') }}">Каталог</a>
+      <a href="{{ url_for('suggest') }}">Предложить трек</a>
+      <a href="{{ url_for('about') }}">Об авторе</a>
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for message in messages %}
+          <p class="flash">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>Pulse FM 2.0 · Серверный проект на Flask · Учебный сезон 2026</p>
+  </footer>
+</body>
+</html>

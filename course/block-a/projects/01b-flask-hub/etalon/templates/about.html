@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Об авторе · Pulse FM{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>О проекте Pulse FM</h1>
+  <p class="tagline">Авторское радио, собранное во 2-м спринте курса веб-разработки.</p>
+  <p class="blurb">
+    Раньше этот сайт был статическим набором HTML-файлов на диске. Теперь это живое веб-приложение:
+    маршруты обрабатывает Flask, данные отдаются из структур Python, а новые записи можно отправлять через форму.
+  </p>
+  <a class="btn" href="{{ url_for('catalog') }}">Перейти к трекам</a>
+</section>
+{% endblock %}

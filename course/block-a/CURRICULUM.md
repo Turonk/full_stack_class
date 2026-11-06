@@ -1,13 +1,15 @@
 # Блок A · детальный учебный план
 
-34 урока × 120 мин. Продукт года: MediaGameHub v1 на Flask-шаблонах.
+34 урока × 120 мин. Продукт года: MediaGameHub v1. Во втором спринте каждый ученик переводит свой сайт из спринта 1 на Flask.
 
-## Спринт 1 · два контура
+Тайминг: [`../teacher/RHYTHM.md`](../teacher/RHYTHM.md). Пакет урока: `README.md` → runbook / slides / demo / student / checks.
 
-- **PulseDeck** — стенд лектора: теория, схемы, пример вместе. Папка `projects/00-pulsedeck/`.
-- **Pulse FM** — проект ученика к родителям на A06. Не копировать тексты лаунчера.
+Старые папки `A07`–`A12` (CSS) и `A25`–`A30` (ранний Flask) на диске не удалены. Порядок преподавания — таблицы ниже. Уроки 8–13 пока в виде паспортов: полный пакет со слайдами собирается отдельно.
 
-Тайминг (teacher-first): см. [`../teacher/RHYTHM.md`](../teacher/RHYTHM.md). Пакет урока: hub `README.md` → runbook / slides / demo / student / checks. Sprint 1 пакеты готовы.
+## Спринт 1 · A01–A06 · витрина Pulse FM
+
+- **PulseDeck** — стенд лектора. Папка `projects/00-pulsedeck/`.
+- **Pulse FM** — проект ученика к A06. Не копировать тексты стенда.
 
 | Код | Хук для зала | Ядро | Must-have к концу | Hub |
 | --- | --- | --- | --- | --- |
@@ -18,62 +20,65 @@
 | A05 | Карточка «подпрыгивает» | wrap, hover, focus, transition | 3 карточки + отклик | [README](lessons/A05-cards-hover/README.md) |
 | A06 | Родители в зале | Showcase ≤6 мин × ученик | Чек-лист Pulse FM | [README](lessons/A06-showcase-pulse-fm/README.md) |
 
-Аналогии спринта: HTML = скелет, CSS = скин, браузер = движок.
+## Спринт 2 · A07–A13 · Flask, свой сайт как серверное приложение
 
-## Спринт 2 · MusicHub · cascade → player → grid+mobile
+Замыкающий проект: [Pulse FM / авторский хаб 2.0](projects/01b-flask-hub/PROJECT.md).
 
-Критерии: [`../teacher/CURRICULUM-GATES.md`](../teacher/CURRICULUM-GATES.md).
+Один концепт на урок. Урок 7 уже собран пакетом. Уроки 8–13 — паспорта к сборке пакетов.
 
-| Код | Ядро | Зачем подростку | Hub |
-| --- | --- | --- | --- |
-| A07 | Cascade + CSS variables | Один источник цвета темы | [README](lessons/A07-css-cascade-vars/README.md) |
-| A08 | Flex-плеер, position sticky | Панель-HUD как у настоящего плеера | [README](lessons/A08-flex-header-player/README.md) |
-| A09 | Grid **и** mobile-first; position только sticky/absolute точечно | Витрина без четырёх моделей position за раз | [README](lessons/A09-grid-mobile-first/README.md) |
-| A10 | Типографика каталога | Читаемость > «красивый шрифт» | [README](lessons/A10-typography-visual/README.md) |
-| A11 | keyframes + reduced-motion | Вау без укачивания | [README](lessons/A11-css-animations/README.md) |
-| A12 | Showcase MusicHub | Демо 360 и 1200 | [README](lessons/A12-showcase-musichub/README.md) |
+| Урок | Код | Ядро | Must-have к концу | План |
+| --- | --- | --- | --- | --- |
+| 7 | A06b | Клиент, сервер, URL, `GET`, маршрут, обработчик, тело ответа | `/`, `/radio`, свой `/about` из Python | [пакет](lessons/A06b-flask-client-server/README.md) |
+| 8 | A08 | `templates/`, `render_template`, `static/`, `url_for` | Свой сайт спринта 1 открывается с `127.0.0.1:5000` со своими CSS и картинками | [паспорт](lessons/A08-flask-templates-static/PLAN.md) |
+| 9 | A09 | Список словарей в Python, `{{ }}`, `{% for %}` | Каталог карточек рисуется одним циклом, данные не скопированы в HTML | [паспорт](lessons/A09-jinja-data-loops/PLAN.md) |
+| 10 | A10 | `base.html`, `{% extends %}`, `/item/<item_id>` | Общая шапка и переход с каталога на карточку | [паспорт](lessons/A10-jinja-inheritance-routes/PLAN.md) |
+| 11 | A11 | `POST`, `request.form`, redirect, `flash` | Форма `/suggest` добавляет карточку в каталог | [паспорт](lessons/A11-flask-forms-post/PLAN.md) |
+| 12 | A12 | `@app.errorhandler(404)`, пустые поля, чек-лист защиты | Свой `404.html`, пустая форма не портит список | [паспорт](lessons/A12-flask-error404-polish/PLAN.md) |
+| 13 | A13 | Showcase ≤6 мин × ученик | Питч: страницы, `ITEMS`, живой POST, 404 | [паспорт](lessons/A13-showcase-flask-hub/PLAN.md) |
 
-Спринт 2 переведён на гибридные пакеты: единый `teacher/lecture.md` (сценарий + код + стартер/эталон) + короткие runbook/checks/slides — как Спринт 1, но всё для чтения в одном файле.
+Пакеты CSS `A07`–`A12` в этом спринте не ведём. Старые Flask-уроки `A25`–`A30` этим спринтом закрыты: клиент-серверная лекция уже прочитана на уроке 7.
 
-## Спринт 3 · Мост Python → JS
+## Спринт 3 · A14–A19 · интерфейс поверх работающего Flask
 
-Правило: таблица Python→JS, не два дня синтаксиса. Быстрее DOM (A15) и события (A16).
+Темы бывшего CSS-спринта. Верстаем уже серверные страницы, не отдельный статический MusicHub. Исходные пакеты остаются в старых папках.
 
-| Код | Мост | Продукт |
+| Код | Ядро | Откуда материал |
 | --- | --- | --- |
-| A13 | REPL → Console, `===` vs `==` | Счёт в консоли |
-| A14 | list/dict/def кратко | Данные пэдов |
-| A15 | «сцена игры» = DOM | Счёт на экране |
-| A16 | обработчик как callback | Вспышка пэда |
-| A17 | игровой цикл упрощённо | Раунд ~30с |
-| A18 | Showcase PulseBeat | Живая игра |
+| A14 | Каскад и CSS-переменные: одна тема на все шаблоны | [A07](lessons/A07-css-cascade-vars/README.md) |
+| A15 | Липкая панель плеера | [A08](lessons/A08-flex-header-player/README.md) |
+| A16 | Grid и mobile-first каталога | [A09](lessons/A09-grid-mobile-first/README.md) |
+| A17 | Типографика карточки | [A10](lessons/A10-typography-visual/README.md) |
+| A18 | Анимация и `prefers-reduced-motion` | [A11](lessons/A11-css-animations/README.md) |
+| A19 | Showcase интерфейса на 360 и 1200 | [A12](lessons/A12-showcase-musichub/README.md) |
 
-## Спринт 4 · Данные и магазин
+## Спринт 4 · A20–A25 · JavaScript в браузере
 
-Порядок: формы → state+render+storage → корзина → fetch (после Live Server) → glue → showcase.
-
-| Код | Ядро |
-| --- | --- |
-| A19 | Валидация форм на клиенте |
-| A20 | JSON + localStorage + один `render()` |
-| A21 | Состояние корзины |
-| A22 | fetch = «сходи на склад» |
-| A23 | Склейка навигации магазина |
-| A24 | Showcase покупки |
-
-## Спринт 5 · Flask
-
-Session и любой «логин» — **учебные**. Вслух: «это не банк».
+Мост с Python короткий: таблица соответствий, не два дня синтаксиса. Продукт — интерактив на уже серверной странице: плеер или короткий раунд.
 
 | Код | Ядро |
 | --- | --- |
-| A25 | Браузер — клиент, Flask — официант с меню-роутами |
-| A26 | Несколько страниц = несколько функций |
-| A27 | Jinja = f-string на стероидах + наследование |
-| A28 | static — шкаф с css/js, url_for — не забыть путь |
-| A29 | POST не светит пароль в URL |
-| A30 | HTML для людей, JSON для скриптов |
+| A20 | Консоль браузера, `===`, функция |
+| A21 | Массив и объект как список карточек |
+| A22 | DOM: найти карточку и изменить текст |
+| A23 | Событие клика как обработчик |
+| A24 | Короткий сценарий: play/pause или раунд на время |
+| A25 | Showcase интерактива |
 
-## Спринт 6 · Защита
+## Спринт 5 · A26–A31 · браузер говорит с Flask без перезагрузки
 
-A31 склейка · A32 404 и README · A33 репетиция · A34 защита перед залом.
+`session` и любой «логин» — учебные. Вслух: «это не банк». HTML по-прежнему для человека, JSON — для скрипта.
+
+| Код | Ядро |
+| --- | --- |
+| A26 | `JSON.stringify` / `JSON.parse`, один `localStorage` |
+| A27 | Состояние списка в браузере и один `render()` |
+| A28 | `jsonify`: `/api/items` отдаёт тот же список, что и шаблон |
+| A29 | `fetch` читает `/api/items` |
+| A30 | Форма в браузере отправляет JSON, страница не собирается заново целиком |
+| A31 | Showcase клиент-серверной связки |
+
+## Спринт 6 · A32–A34 · защита года
+
+A32 склейка маршрутов, API и интерфейса · A33 репетиция · A34 защита перед залом.
+
+Годовой эталон по-прежнему [projects/05-flask-final](projects/05-flask-final/etalon/README.md). Спринт 2 до него не дотягивает JSON API и игру: это спринт 5.
